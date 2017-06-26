@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 195835055520216584}
   m_Layer: 0
   m_Name: SlimeObject
-  m_TagString: TeamB
+  m_TagString: Team_BLUE
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

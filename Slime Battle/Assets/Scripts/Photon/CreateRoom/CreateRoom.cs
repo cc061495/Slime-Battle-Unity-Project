@@ -32,6 +32,4 @@ public class CreateRoom : Photon.MonoBehaviour {
 	private void OnCreatedRoom(){
 		Debug.Log ("Room created successfully."); 
 	}
-
-
 }

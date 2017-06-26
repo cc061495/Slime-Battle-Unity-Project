@@ -16,40 +16,36 @@ public class Node : MonoBehaviour
 
     private Renderer rend;
     private Color startColor;
-    SpawnManager manager;
+    SpawnManager spawnManager;
+    GameManager gameManager;
 
     // Use this for initialization
-    void Start()
-    {
+    void Start(){
         rend = GetComponent<Renderer>();
         startColor = rend.material.color;
-        manager = SpawnManager.instance;
+        spawnManager = SpawnManager.Instance;
+        gameManager = GameManager.Instance;
     }
-
-    void OnMouseEnter()
-    {
-        if (PlayerStats.currentState == PlayerStats.State.idle)
+    //when player touch on the moblie screen
+    void OnMouseEnter(){
+        if(slime == null)
             rend.material.color = selectColor;
 
-        if (!GameManager.Instance.battleIsStart && PlayerStats.currentState == PlayerStats.State.building)
-        {
+        if (gameManager.currentState == GameManager.State.building){
 
-            if (slime != null || !manager.CanSpawn)
+            if (slime != null || !spawnManager.CanSpawn)
                 return;
 
-            SpawnSlime(manager.GetSlimeToSpawn());
+            SpawnSlime(spawnManager.GetSlimeToSpawn());
         }
     }
-
-    void OnMouseExit()
-    {
-        if (PlayerStats.currentState == PlayerStats.State.idle)
+    //when player exit the mobile screen
+    void OnMouseExit(){
+        if (slime == null)
             rend.material.color = startColor;
-
     }
 
-    void SpawnSlime(SlimeBlueprint blueprint)
-    {
+    void SpawnSlime(SlimeBlueprint blueprint){
         //Check Player Cost > slime money -> can build
         if (blueprint.team != team_node)
             return;
@@ -57,8 +53,7 @@ public class Node : MonoBehaviour
         int size = blueprint.size;
         Vector3 offset = blueprint.spawnPosOffset;
 
-        switch (size)
-        {
+        switch (size){
             case 1:
                 GameObject _slime = (GameObject)Instantiate(blueprint.slimePrefab, GetBuildPos(offset), Quaternion.identity);
                 slime = _slime;
@@ -76,16 +71,13 @@ public class Node : MonoBehaviour
         //Building effect
     }
 
-    void Spawn_Size_2x2_Slime(SlimeBlueprint blueprint, int size, Vector3 offset)
-    {
+    void Spawn_Size_2x2_Slime(SlimeBlueprint blueprint, int size, Vector3 offset){
         float radius = 1f;
         int numOfNode = 0;
 
         Collider[] colliders = Physics.OverlapSphere(transform.position + offset, radius);
-        foreach (Collider col in colliders)
-        {
-            if (col.gameObject.tag == "node")
-            {
+        foreach (Collider col in colliders){
+            if (col.gameObject.tag == "node"){
                 Node e = col.gameObject.GetComponent<Node>();
                 if (e.slime != null)
                     return;
@@ -94,13 +86,10 @@ public class Node : MonoBehaviour
             }
         }
 
-        if (numOfNode == size)
-        {
+        if (numOfNode == size){
             GameObject _slime = (GameObject)Instantiate(blueprint.slimePrefab, GetBuildPos(offset), Quaternion.identity);
-            foreach (Collider col in colliders)
-            {
-                if (col.gameObject.tag == "node")
-                {
+            foreach (Collider col in colliders){
+                if (col.gameObject.tag == "node"){
                     Node e = col.gameObject.GetComponent<Node>();
                     e.slime = _slime;
                     e.slimeblueprint = blueprint;
@@ -110,8 +99,7 @@ public class Node : MonoBehaviour
         }
     }
 
-    Color GetTeamColor()
-    {
+    Color GetTeamColor(){
         if (team_node == 1)
             return teamA_Color;
         else if (team_node == 2)
@@ -120,13 +108,11 @@ public class Node : MonoBehaviour
         return Color.clear;
     }
 
-    public Vector3 GetBuildPos(Vector3 offset)
-    {
+    public Vector3 GetBuildPos(Vector3 offset){
         return transform.position + offset;
     }
 
-    public void ResetNode()
-    {
+    public void ResetNode(){
         rend.material.color = startColor;
         slime = null; //reset all the slime
     }

@@ -3,10 +3,10 @@ using UnityEngine.UI;
 
 public class SpawnManager : MonoBehaviour {
 
-	public static SpawnManager instance;
+	public static SpawnManager Instance;
 
 	void Awake(){
-		instance = this;
+		Instance = this;
 	}
 
 	private SlimeBlueprint slimeToSpawn;
@@ -16,7 +16,6 @@ public class SpawnManager : MonoBehaviour {
 
 	public void SelectSlimeToSpawn(SlimeBlueprint slime){
 		slimeToSpawn = slime;
-		PlayerStats.currentState = PlayerStats.State.building;
 	}
 
 	public SlimeBlueprint GetSlimeToSpawn(){

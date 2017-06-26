@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 195748495169591422}
   m_Layer: 0
   m_Name: SlimeObject
-  m_TagString: TeamA
+  m_TagString: Team_RED
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -7,26 +7,26 @@ public class PlayerShop : MonoBehaviour {
 	public SlimeBlueprint bigSlimeA;
 	public SlimeBlueprint rangerA;
 
-	SpawnManager manager;
+	SpawnManager spawnManager;
 
 	// Use this for initialization
 	void Start () {
-		manager = SpawnManager.instance;
+		spawnManager = SpawnManager.Instance;
 	}
 	
 	public void SelectSlimeA(){
-		manager.SelectSlimeToSpawn (slimeA);
+		spawnManager.SelectSlimeToSpawn (slimeA);
 	}
 
 	public void SelectSlimeB(){
-		manager.SelectSlimeToSpawn (slimeB);
+		spawnManager.SelectSlimeToSpawn (slimeB);
 	}
 
 	public void SelectBigSlimeA(){
-		manager.SelectSlimeToSpawn (bigSlimeA);
+		spawnManager.SelectSlimeToSpawn (bigSlimeA);
 	}
 
 	public void SelectRangerA(){
-		manager.SelectSlimeToSpawn (rangerA);
+		spawnManager.SelectSlimeToSpawn (rangerA);
 	}
 }

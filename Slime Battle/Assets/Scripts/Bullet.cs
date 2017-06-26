@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
-public class Bullet : MonoBehaviour
-{
+public class Bullet : MonoBehaviour{
 
     private Transform target;
     private float attackDamage;
@@ -9,16 +8,13 @@ public class Bullet : MonoBehaviour
     private float bulletSpeed = 20f;
     public GameObject impactEffect;
 
-    public void Seek(Transform _target, float _attackDamage)
-    {
+    public void Seek(Transform _target, float _attackDamage){
         target = _target;
         attackDamage = _attackDamage;
     }
     // Update is called once per frame
-    void Update()
-    {
-        if (target == null)
-        {
+    void Update(){
+        if (target == null){
             Destroy(gameObject);
             return;
         }
@@ -26,8 +22,7 @@ public class Bullet : MonoBehaviour
         Vector3 dir = target.position - transform.position;
         float distanceThisFrame = bulletSpeed * Time.deltaTime;
 
-        if (dir.magnitude <= distanceThisFrame)
-        {
+        if (dir.magnitude <= distanceThisFrame){
             HitTarget();
             return;
         }
@@ -35,8 +30,7 @@ public class Bullet : MonoBehaviour
         transform.Translate(dir.normalized * distanceThisFrame, Space.World);
     }
 
-    void HitTarget()
-    {
+    void HitTarget(){
         GameObject effectIns = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
         Destroy(effectIns, 1f);
         Destroy(gameObject);

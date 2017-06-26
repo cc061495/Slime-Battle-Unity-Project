@@ -4,9 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - TeamA
-  - TeamB
   - node
+  - Team_RED
+  - Team_BLUE
   layers:
   - Default
   - TransparentFX

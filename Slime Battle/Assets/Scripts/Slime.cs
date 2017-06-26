@@ -33,7 +33,6 @@ public class Slime : MonoBehaviour{
 	private Vector3 nextPos;
 	private float myColRadius;
 	private float tarColRadius;
-	private bool dead = false;
 
 	void Awake(){
 		myColRadius = GetComponent<CapsuleCollider> ().radius;
@@ -44,33 +43,20 @@ public class Slime : MonoBehaviour{
 		health = startHealth;
 	}
 
-	void Start(){
-		//health bar position
-		UpdateHealthBarPos();
-	}
-
 	// Update is called once per frame
 	void Update(){
-		bool isStart = GameManager.Instance.battleIsStart;
-		bool isEnd = GameManager.Instance.battleIsEnd;
+		UpdateHealthBarPos();	//health bar position
 
-		if (isStart) {	//Pressed the "Start" Button, start to run
-			UpdateHealthBarPos();	//health bar position
-
+		if (GameManager.Instance.currentState == GameManager.State.battle_start) {	//Pressed the "Start" Button, start to run
 			if (health <= 0) {
 				Destroy (transform.parent.gameObject);
-				dead = true;
-			}
-
-			if (isEnd) {
-				agent.Stop ();
 				return;
 			}
 
-			if (target == null)
+			if (target == null){
 				UpdateTarget ();
-
-			if (target != null) {
+			}
+			else{
 				LookToTarget ();
 				tarColRadius = target.GetComponent<CapsuleCollider> ().radius;
 				float range = myColRadius + tarColRadius + attackRange;
@@ -82,14 +68,13 @@ public class Slime : MonoBehaviour{
 					nextPos = transform.position;
 					Attack ();
 				}
-				if(!dead)
-					agent.SetDestination (nextPos);
+				agent.SetDestination (nextPos);
 			}
 		}
 	}
 
 	void UpdateTarget(){
-		GameObject[] enemies = (gameObject.tag == "TeamA") ? (GameManager.Instance.teamB) : (GameManager.Instance.teamA);
+		GameObject[] enemies = (gameObject.tag == "Team_RED") ? (GameManager.Instance.team_blue) : (GameManager.Instance.team_red);
 
 		if (enemies.Length > 0) {
 			float shortestDistance = Mathf.Infinity;
@@ -118,7 +103,8 @@ public class Slime : MonoBehaviour{
 	}
 
 	void UpdateHealthBarPos(){
-		healthBarPos.position = new Vector3 (transform.position.x, transform.position.y + 2f, transform.position.z + 1f);
+		if(transform.hasChanged)
+			healthBarPos.position = new Vector3 (transform.position.x, transform.position.y + 2f, transform.position.z + 1f);
 	}
 
 	void Attack(){
@@ -145,5 +131,9 @@ public class Slime : MonoBehaviour{
 		Bullet bullet = bulletGO.GetComponent<Bullet> ();
 		if (bullet != null)
 			bullet.Seek (target, attackDamage);
+	}
+
+	public void stopMoving(){
+		agent.Stop();
 	}
 }
