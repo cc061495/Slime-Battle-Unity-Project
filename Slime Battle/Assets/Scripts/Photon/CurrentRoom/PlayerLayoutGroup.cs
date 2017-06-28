@@ -118,7 +118,7 @@ public class PlayerLayoutGroup : Photon.MonoBehaviour{
     public void OnClickStartSync(){
         if (PhotonNetwork.isMasterClient){
             //Master Client Start Match Button
-            if (PhotonNetwork.room.PlayerCount == 2 && isRoomReady){
+            if (PhotonNetwork.room.PlayerCount > 0){    //PhotonNetwork.room.PlayerCount == 2 && isRoomReady
                 //Lock the room and load the level
                 PhotonNetwork.room.IsOpen = false;
                 PhotonNetwork.room.IsVisible = false;
@@ -152,7 +152,7 @@ public class PlayerLayoutGroup : Photon.MonoBehaviour{
             roomMatchText.text = "Start Match"; //Start Match Text
                                                 //Reset Match button Color
             roomMatchBtn.GetComponent<Image>().color = Color.white;
-            roomMatchBtn.interactable = (isRoomReady) ? true : false;
+            //roomMatchBtn.interactable = (isRoomReady) ? true : false;
         }
     }
 

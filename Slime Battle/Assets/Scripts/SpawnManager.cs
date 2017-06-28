@@ -1,24 +1,24 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine; 
+using UnityEngine.UI; 
 
-public class SpawnManager : MonoBehaviour {
+public class SpawnManager:MonoBehaviour {
 
-	public static SpawnManager Instance;
+	public static SpawnManager Instance; 
 
-	void Awake(){
-		Instance = this;
+	void Awake() {
+		Instance = this; 
 	}
 
-	private SlimeBlueprint slimeToSpawn;
+	private SlimeBlueprint slimeToSpawn; 
 
 
-	public bool CanSpawn{ get { return slimeToSpawn != null; } }
+	public bool CanSpawn {get {return slimeToSpawn != null; }}
 
-	public void SelectSlimeToSpawn(SlimeBlueprint slime){
-		slimeToSpawn = slime;
+	public void SelectSlimeToSpawn(SlimeBlueprint slime) {
+		slimeToSpawn = slime; 
 	}
 
-	public SlimeBlueprint GetSlimeToSpawn(){
-		return slimeToSpawn;
+	public SlimeBlueprint GetSlimeToSpawn() {
+		return slimeToSpawn; 
 	}
 }

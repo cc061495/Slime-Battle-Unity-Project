@@ -8,106 +8,107 @@ public class Slime : MonoBehaviour{
 	public Transform target;
 	public Transform firePoint;
 	public RectTransform healthBarPos;
-	 
-	[Header("Slime Status")]
-	public float startHealth;
-	public float attackDamage;
-	[Tooltip("How fast the slime attack in one second")]
-	public float attackSpeed;
-	public float movemonetSpeed;
-	public float attackRange;
+	
+	[Header("Slime Propeties")]
+	public float startHealth;		//Slime's health
+	public float attackDamage;		//Slime's attack damage
+	public float attackSpeed;		//Attack count per second
+	public float movemonetSpeed;	//Slime's movement speed
+	public float actionRange;		//Slime's action range
 	[Space]
-	[Header("Attack Mode")]
+	[Header("Slime Attack Mode")]
 	public bool meleeAttack;
 	[Space]
 	public bool rangedAttack;
 	public GameObject rangedWeaponPrefab;
 	[Space]
-	[Header("Unity Stuff")]
+	[Header("Slime Health Bar")]
 	public Image healthBar;
 
-	public float health;
+	public float currentHealth;
 	private float turnSpeed = 3f;
 	private float countDown = 0f;
 	private NavMeshAgent agent;
 	private Vector3 nextPos;
 	private float myColRadius;
 	private float tarColRadius;
+    private bool dead = false;
+    private GameManager gm;
 
-	void Awake(){
-		myColRadius = GetComponent<CapsuleCollider> ().radius;
-		agent = GetComponent<NavMeshAgent> ();
+    void Start(){
+		//Slime confing
+        myColRadius = GetComponent<CapsuleCollider> ().radius;
+		currentHealth = startHealth;
+		healthBarPos.position = new Vector3 (transform.position.x, transform.position.y + 2f, transform.position.z + 1f);
+		//PathFinding config
+        agent = GetComponent<NavMeshAgent> ();
 		agent.speed = movemonetSpeed;
 		agent.acceleration = movemonetSpeed;
-		agent.stoppingDistance = attackRange;
-		health = startHealth;
-	}
+        agent.stoppingDistance = actionRange + myColRadius;
+
+        gm = GameManager.Instance;
+        JoinTeamList();
+    }
 
 	// Update is called once per frame
 	void Update(){
-		UpdateHealthBarPos();	//health bar position
+		UpdateHealthBarPos();   //health bar position
 
-		if (GameManager.Instance.currentState == GameManager.State.battle_start) {	//Pressed the "Start" Button, start to run
-			if (health <= 0) {
-				Destroy (transform.parent.gameObject);
-				return;
-			}
+        if (gm.currentState == GameManager.State.battle_start) {  //when the battle starts, start to execute
+            if (currentHealth <= 0){
+                Destroy(transform.parent.gameObject);
+                RemoveFromTeamList();
+                dead = true;
+            }
 
-			if (target == null){
-				UpdateTarget ();
-			}
-			else{
+            if (target == null)
+                UpdateTarget();
+
+            if (target != null){
 				LookToTarget ();
 				tarColRadius = target.GetComponent<CapsuleCollider> ().radius;
-				float range = myColRadius + tarColRadius + attackRange;
+				float range = myColRadius + tarColRadius + actionRange;
 				float dist = Vector3.Distance (transform.position, target.position);
-
-				if (dist > range) {
-					nextPos = target.position;
+                if (dist > range && target.transform.hasChanged) {
+					nextPos = target.position;		//set new target pos
 				} else {
-					nextPos = transform.position;
-					Attack ();
+					nextPos = transform.position;	//Stay on the ground
+					Action ();						//Action to the target
 				}
-				agent.SetDestination (nextPos);
-			}
+				if(!dead)
+                	agent.SetDestination(nextPos);
+            }
 		}
 	}
 
 	void UpdateTarget(){
-		GameObject[] enemies = (gameObject.tag == "Team_RED") ? (GameManager.Instance.team_blue) : (GameManager.Instance.team_red);
+		List<GameObject> enemies = (gameObject.tag == "Team_RED") ? (gm.team_blue) : (gm.team_red);
 
-		if (enemies.Length > 0) {
+		if (enemies.Count > 0) {
 			float shortestDistance = Mathf.Infinity;
 			GameObject nearestEnemy = null;
 
 			foreach (GameObject enemy in enemies) {
-				if (enemy != null) {
-					float distanceToEnemy = Vector3.Distance (transform.position, enemy.transform.position);
-					if (distanceToEnemy < shortestDistance) {
-						shortestDistance = distanceToEnemy;
-						nearestEnemy = enemy;
-					}
+				float distanceToEnemy = Vector3.Distance (transform.position, enemy.transform.position);
+				if (distanceToEnemy < shortestDistance) {
+					shortestDistance = distanceToEnemy;
+					nearestEnemy = enemy;
 				}
 			}
-			target = (nearestEnemy != null) ? (nearestEnemy.transform) : (null);
-		}
-	}
+            target = nearestEnemy.transform;
+        }
+		else
+            target = null;
+    }
 		
 	void LookToTarget(){
 		Vector3 dir = target.position - transform.position;
-		if (dir != Vector3.zero) {
-			Quaternion lookRotation = Quaternion.LookRotation (dir);
-			Vector3 rotation = Quaternion.Lerp (transform.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
-			transform.rotation = Quaternion.Euler (0f, rotation.y, 0f);
-		}
+		Quaternion lookRotation = Quaternion.LookRotation (dir);
+		Vector3 rotation = Quaternion.Lerp (transform.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
+		transform.rotation = Quaternion.Euler (0f, rotation.y, 0f);
 	}
 
-	void UpdateHealthBarPos(){
-		if(transform.hasChanged)
-			healthBarPos.position = new Vector3 (transform.position.x, transform.position.y + 2f, transform.position.z + 1f);
-	}
-
-	void Attack(){
+	void Action(){
 		if (countDown <= 0f) {
 			if (meleeAttack)
 				MeleeAttack ();
@@ -122,8 +123,8 @@ public class Slime : MonoBehaviour{
 		
 	void MeleeAttack(){
 		Slime e = target.GetComponent<Slime> ();
-		e.health -= attackDamage;
-		e.healthBar.fillAmount = e.health / e.startHealth;
+		e.currentHealth -= attackDamage;
+		e.healthBar.fillAmount = e.currentHealth / e.startHealth;
 	}
 
 	void RangedAttack(){
@@ -133,7 +134,30 @@ public class Slime : MonoBehaviour{
 			bullet.Seek (target, attackDamage);
 	}
 
+	void UpdateHealthBarPos(){
+		if(transform.hasChanged)
+			healthBarPos.position = new Vector3 (transform.position.x, transform.position.y + 2f, transform.position.z + 1f);
+	}
+
+	void JoinTeamList(){
+        if(gameObject.tag == "Team_RED")
+            gm.team_red.Add(gameObject);
+		else
+            gm.team_blue.Add(gameObject);
+	}
+
+	void RemoveFromTeamList(){
+		if(gameObject.tag == "Team_RED")
+            gm.team_red.Remove(gameObject);
+		else
+            gm.team_blue.Remove(gameObject);
+		 
+		if ((gm.team_red.Count == 0 || gm.team_blue.Count == 0)){
+            gm.StartCoroutine(gm.BattleEnd(gm.team_red, gm.team_blue));
+        }
+	}
+
 	public void stopMoving(){
-		agent.Stop();
+        agent.Stop();
 	}
 }

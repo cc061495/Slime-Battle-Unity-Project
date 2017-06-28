@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine;
 
-public class Node : MonoBehaviour
+public class Node : Photon.MonoBehaviour
 {
     public Color selectColor;
     public Color availableColor;
@@ -55,7 +55,7 @@ public class Node : MonoBehaviour
 
         switch (size){
             case 1:
-                GameObject _slime = (GameObject)Instantiate(blueprint.slimePrefab, GetBuildPos(offset), Quaternion.identity);
+                GameObject _slime = PhotonNetwork.Instantiate(blueprint.slimePrefab.name, GetBuildPos(offset), Quaternion.identity, 0);
                 slime = _slime;
                 slimeblueprint = blueprint;
                 rend.material.color = GetTeamColor();
@@ -87,7 +87,7 @@ public class Node : MonoBehaviour
         }
 
         if (numOfNode == size){
-            GameObject _slime = (GameObject)Instantiate(blueprint.slimePrefab, GetBuildPos(offset), Quaternion.identity);
+            GameObject _slime = PhotonNetwork.Instantiate(blueprint.slimePrefab.name, GetBuildPos(offset), Quaternion.identity, 0);
             foreach (Collider col in colliders){
                 if (col.gameObject.tag == "node"){
                     Node e = col.gameObject.GetComponent<Node>();

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,68 +10,61 @@ public class GameManager : MonoBehaviour
     void Awake(){
         Instance = this;
     }
-    const int totalRoundGame = 5;
+    const int totalRoundGame = 100;
     public enum State{idle, building, battle_start, battle_end, game_end};
     public State currentState;
     public int roundOfGame, team_red_score, team_blue_score;
     public Text gameDisplayText;
     public GameObject gameDisplayPanel;
-    public GameObject[] team_red, team_blue;
+    public List<GameObject> team_red = new List<GameObject>();
+    public List<GameObject> team_blue = new List<GameObject>();
+    //public GameObject[] team_red, team_blue;
    
 
     public void GameStart(){
         currentState = State.idle;  //set game state = idle
-        Debug.Log("Game will be started in 3 second!");
+        Debug.Log("Game will be started in 1 second!");
         DisplayGamePanel();
         roundOfGame++;
 
-        Invoke("StateChangeToBuilding", 3f);
+        Invoke("StateChangeToBuilding", 1f);
     }
 
     void Start(){
+        Application.targetFrameRate = 30;
         GameStart();
     }
+
 
     void StateChangeToBuilding(){
         currentState = State.building;  //set game state = building
         Debug.Log("It's time to build up your team!");
         DisplayGamePanel();
 
-        Invoke("StateChangeToBattle", 10f);
+        Invoke("StateChangeToBattle", 15f);
     }
 
     void StateChangeToBattle(){
         currentState = State.battle_start;    //set game state = battle_start
         Debug.Log("BATTLE IS STARTED!");
         DisplayGamePanel();
-        
-        InvokeRepeating("UpdateTwoTeam", 0f, 0.1f);
 
         GameObject[] nodes = GameObject.FindGameObjectsWithTag("node");
         foreach (GameObject node in nodes)
             node.GetComponent<Node>().ResetNode();
     }
 
-    void UpdateTwoTeam(){
-        team_red = GameObject.FindGameObjectsWithTag("Team_RED");
-        team_blue = GameObject.FindGameObjectsWithTag("Team_BLUE");
-
-        if ((team_red.Length == 0 || team_blue.Length == 0)){
-            CancelInvoke("UpdateTwoTeam");
-            BattleEnd(team_red, team_blue);
-        }
-    }
-
-    void BattleEnd(GameObject[] red, GameObject[] blue){
+    public IEnumerator BattleEnd(List<GameObject> red, List<GameObject> blue){
+        yield return new WaitForSeconds(0.5f);  //Delay 0.5s
         currentState = State.battle_end;    //set game state = battle_end
         Debug.Log("battle is ended.");
         
-        if (blue.Length > 0){
+        if (blue.Count > 0){
             gameDisplayText.text = "Team Blue won!";
             team_blue_score++;
             StartCoroutine(ClearAllSlime(blue));
         }
-        else if (red.Length > 0){
+        else if (red.Count > 0){
             gameDisplayText.text = "Team Red won!";
             team_red_score++;
             StartCoroutine(ClearAllSlime(red));
@@ -86,7 +80,7 @@ public class GameManager : MonoBehaviour
             Invoke("GameEnd", 5f);
     }
 
-    IEnumerator ClearAllSlime(GameObject[] team){
+    IEnumerator ClearAllSlime(List<GameObject> team){
         foreach (GameObject slime in team)
             slime.GetComponent<Slime>().stopMoving();
 
@@ -94,6 +88,8 @@ public class GameManager : MonoBehaviour
 
         foreach (GameObject slime in team)
             Destroy(slime.transform.parent.gameObject);
+
+        team.Clear();
     }
 
     void GameEnd(){
@@ -128,7 +124,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
         gameDisplayPanel.SetActive(true);
-        Invoke("FadeGameDisplayPanel", 2.5f);
+        Invoke("FadeGameDisplayPanel", 1f);
     }
 
     void FadeGameDisplayPanel(){
@@ -142,5 +138,4 @@ public class GameManager : MonoBehaviour
         PhotonNetwork.LoadLevel("GameLobby");
         PhotonNetwork.LeaveRoom();
     }
-
 }

@@ -36,7 +36,7 @@ public class Bullet : MonoBehaviour{
         Destroy(gameObject);
 
         Slime e = target.GetComponent<Slime>();
-        e.health -= attackDamage;
-        e.healthBar.fillAmount = e.health / e.startHealth;
+        e.currentHealth -= attackDamage;
+        e.healthBar.fillAmount = e.currentHealth / e.startHealth;
     }
 }

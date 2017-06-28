@@ -301,12 +301,12 @@ MonoBehaviour:
   attackDamage: 2
   attackSpeed: 3
   movemonetSpeed: 6
-  attackRange: 1
+  actionRange: 1.5
   meleeAttack: 1
   rangedAttack: 0
   rangedWeaponPrefab: {fileID: 0}
   healthBar: {fileID: 114570866973511942}
-  health: 0
+  currentHealth: 0
 --- !u!114 &114570866973511942
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -388,11 +388,11 @@ NavMeshAgent:
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 1
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
 --- !u!222 &222157931163721624
 CanvasRenderer:
