@@ -16,7 +16,7 @@ public class PlayerNetwork : MonoBehaviour {
 		//fix the fps = 30 in game
 		Application.targetFrameRate = 30;	
 		//setting the default player name(Player#12)
-		PlayerName = "Player#" + Random.Range (1, 1000);
+		PlayerName = "Player#" + Random.Range (100, 1000);
 		SceneManager.sceneLoaded += OnSceneFinishedLoading;
 	}
 
@@ -48,7 +48,12 @@ public class PlayerNetwork : MonoBehaviour {
 		numOfPlayersInGame++;
 		if (numOfPlayersInGame == PhotonNetwork.playerList.Length) {
 			Debug.Log ("All players in Game now!");
-			GameManager.Instance.GameStart ();
+			photonView.RPC ("RPC_GameStart", PhotonTargets.All);
 		}
+	}
+
+	[PunRPC]
+	private void RPC_GameStart(){
+		GameManager.Instance.GameStart();
 	}
 }

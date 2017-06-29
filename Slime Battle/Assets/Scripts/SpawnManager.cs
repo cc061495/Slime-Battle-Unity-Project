@@ -21,4 +21,8 @@ public class SpawnManager:MonoBehaviour {
 	public SlimeBlueprint GetSlimeToSpawn() {
 		return slimeToSpawn; 
 	}
+
+	public void ClearSlimeToSpawn(){
+		slimeToSpawn = null;
+	}
 }

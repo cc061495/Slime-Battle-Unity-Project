@@ -4,8 +4,10 @@ public class PlayerShop:MonoBehaviour {
 
 	public SlimeBlueprint slimeA; 
 	public SlimeBlueprint slimeB; 
-	public SlimeBlueprint bigSlimeA; 
+	public SlimeBlueprint bigSlimeA;
+	public SlimeBlueprint bigSlimeB; 
 	public SlimeBlueprint rangerA; 
+	public SlimeBlueprint rangerB;
 
 	SpawnManager spawnManager; 
 
@@ -26,7 +28,15 @@ public class PlayerShop:MonoBehaviour {
 		spawnManager.SelectSlimeToSpawn (bigSlimeA); 
 	}
 
+	public void SelectBigSlimeB() {
+		spawnManager.SelectSlimeToSpawn (bigSlimeB); 
+	}
+
 	public void SelectRangerA() {
 		spawnManager.SelectSlimeToSpawn (rangerA); 
+	}
+
+	public void SelectRangerB() {
+		spawnManager.SelectSlimeToSpawn (rangerB); 
 	}
 }

@@ -44,4 +44,19 @@ MonoBehaviour:
   - test
   - RPC_LoadGameOthers
   - RPC_LoadedGameScene
+  - RPC_StartGame
+  - DisplayeCall
+  - RPC_DisplayeCall
+  - RPC_DisplayCall
+  - RPC_GameStart
+  - CallDisplay
+  - ShowShop
+  - DisplayCall
+  - blueTeamFinish
+  - redTeamFinish
+  - RPC_BlueTeamFinish
+  - RPC_RedTeamFinish
+  - RPC_ResetTeamFinish
+  - startNextGame
+  - RPC_startNextGame
   DisableAutoOpenWizard: 1

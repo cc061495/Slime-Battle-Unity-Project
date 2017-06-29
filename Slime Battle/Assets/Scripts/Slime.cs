@@ -39,7 +39,6 @@ public class Slime : MonoBehaviour{
 		//Slime confing
         myColRadius = GetComponent<CapsuleCollider> ().radius;
 		currentHealth = startHealth;
-		healthBarPos.position = new Vector3 (transform.position.x, transform.position.y + 2f, transform.position.z + 1f);
 		//PathFinding config
         agent = GetComponent<NavMeshAgent> ();
 		agent.speed = movemonetSpeed;
@@ -47,6 +46,7 @@ public class Slime : MonoBehaviour{
         agent.stoppingDistance = actionRange + myColRadius;
 
         gm = GameManager.Instance;
+
         JoinTeamList();
     }
 
@@ -135,8 +135,15 @@ public class Slime : MonoBehaviour{
 	}
 
 	void UpdateHealthBarPos(){
-		if(transform.hasChanged)
-			healthBarPos.position = new Vector3 (transform.position.x, transform.position.y + 2f, transform.position.z + 1f);
+		if(healthBarPos.hasChanged){
+			if(PhotonNetwork.isMasterClient){
+				healthBarPos.position = new Vector3 (transform.position.x, transform.position.y + 2f, transform.position.z + 1f);
+			}
+			else{
+				healthBarPos.position = new Vector3 (transform.position.x, transform.position.y + 2f, transform.position.z - 1f);
+				healthBarPos.rotation = Quaternion.Euler(90f, 0f, 0f);
+			}
+		}
 	}
 
 	void JoinTeamList(){
@@ -151,11 +158,9 @@ public class Slime : MonoBehaviour{
             gm.team_red.Remove(gameObject);
 		else
             gm.team_blue.Remove(gameObject);
-		 
-		if ((gm.team_red.Count == 0 || gm.team_blue.Count == 0)){
-            gm.StartCoroutine(gm.BattleEnd(gm.team_red, gm.team_blue));
-        }
-	}
+
+        gm.CheckAnyEmptyTeam();
+    }
 
 	public void stopMoving(){
         agent.Stop();
