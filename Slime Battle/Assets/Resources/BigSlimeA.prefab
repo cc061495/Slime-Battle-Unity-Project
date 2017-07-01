@@ -54,8 +54,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4034113383807216}
-  - component: {fileID: 114624646231182012}
-  - component: {fileID: 114130945958186244}
+  - component: {fileID: 114088975106509150}
   m_Layer: 0
   m_Name: BigSlimeA
   m_TagString: Untagged
@@ -110,7 +109,11 @@ GameObject:
   - component: {fileID: 23911195179607824}
   - component: {fileID: 136175801549983472}
   - component: {fileID: 114940167979047692}
+  - component: {fileID: 114570778713458630}
+  - component: {fileID: 114833546456567284}
   - component: {fileID: 195133558868118774}
+  - component: {fileID: 114864290352363146}
+  - component: {fileID: 114395856207065888}
   m_Layer: 0
   m_Name: SlimeObject
   m_TagString: Team_RED
@@ -248,17 +251,32 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114130945958186244
+--- !u!114 &114088975106509150
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1381592558439382}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa6c5aa7627f24de281cd8560c749a37, type: 3}
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!114 &114217168753469776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -313,6 +331,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114395856207065888
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1984434656836980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa6c5aa7627f24de281cd8560c749a37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114415893746263794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -350,12 +379,41 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &114624646231182012
+--- !u!114 &114570778713458630
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1381592558439382}
+  m_GameObject: {fileID: 1984434656836980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ca2df12009bc444f9ed82080765ad46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 0
+  healthBar: {fileID: 114367910315992450}
+  healthBarPos: {fileID: 224733372832138756}
+--- !u!114 &114833546456567284
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1984434656836980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 246b2a59e23ac4285984af4d6187e6e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeAttack: 1
+  rangedAttack: 0
+  firePoint: {fileID: 0}
+  rangedWeaponPrefab: {fileID: 0}
+--- !u!114 &114864290352363146
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1984434656836980}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
@@ -365,12 +423,12 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 3
+  synchronization: 1
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 114130945958186244}
+  - {fileID: 114395856207065888}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -388,18 +446,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  firePoint: {fileID: 0}
-  healthBarPos: {fileID: 224733372832138756}
   startHealth: 100
   attackDamage: 5
   attackSpeed: 3
   movemonetSpeed: 3
   actionRange: 1.5
-  meleeAttack: 1
-  rangedAttack: 0
-  rangedWeaponPrefab: {fileID: 0}
-  healthBar: {fileID: 114367910315992450}
-  currentHealth: 0
 --- !u!136 &136175801549983472
 CapsuleCollider:
   m_ObjectHideFlags: 1

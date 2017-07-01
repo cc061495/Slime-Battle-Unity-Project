@@ -59,4 +59,9 @@ MonoBehaviour:
   - RPC_ResetTeamFinish
   - startNextGame
   - RPC_startNextGame
+  - RPC_TakeDamage
+  - RPC_Die
+  - RPC_UpdateHealth
+  - Die
+  - TakeDamage
   DisableAutoOpenWizard: 1

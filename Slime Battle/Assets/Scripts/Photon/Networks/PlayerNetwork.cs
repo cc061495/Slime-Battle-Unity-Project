@@ -6,26 +6,34 @@ public class PlayerNetwork : MonoBehaviour {
 	public static PlayerNetwork Instance;
 	//PlayerName can get from other scripts, but cant set from others
 	public string PlayerName { get ; private set;}
-	private PhotonView photonView;
 	private int numOfPlayersInGame = 0;
+	PhotonView photonView;
 
 	// Use this for initialization
 	private void Awake () {
 		Instance = this;
-		photonView = GetComponent<PhotonView> ();
+		photonView = GetComponent<PhotonView>();
 		//fix the fps = 30 in game
-		Application.targetFrameRate = 30;	
+		Application.targetFrameRate = 30;
 		//setting the default player name(Player#12)
 		PlayerName = "Player#" + Random.Range (100, 1000);
-		SceneManager.sceneLoaded += OnSceneFinishedLoading;
+		SceneManager.sceneLoaded += OnSceneLoaded;
 	}
 
-	private void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode){
+	void OnDestroy(){
+		SceneManager.sceneLoaded -= OnSceneLoaded;
+	}
+
+	private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
 		if (scene.name == "Main") {
-			if (PhotonNetwork.isMasterClient)
+			if (PhotonNetwork.isMasterClient){
+				Debug.Log("Master loaded the scene");
 				MasterLoadedGame ();
-			else
+			}
+			else{
+				Debug.Log("Client loaded the scene");
 				NonMasterLoadedGame ();
+			}
 		}
 	}
 
@@ -46,8 +54,10 @@ public class PlayerNetwork : MonoBehaviour {
 	[PunRPC]
 	private void RPC_LoadedGameScene(){
 		numOfPlayersInGame++;
-		if (numOfPlayersInGame == PhotonNetwork.playerList.Length) {
+		Debug.Log(numOfPlayersInGame);
+		if (numOfPlayersInGame == PhotonNetwork.room.PlayerCount) {
 			Debug.Log ("All players in Game now!");
+			//numOfPlayersInGame = 2;		//reset to 0, when all the players in game.
 			photonView.RPC ("RPC_GameStart", PhotonTargets.All);
 		}
 	}

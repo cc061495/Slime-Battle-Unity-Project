@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class GameManager : Photon.MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
@@ -18,7 +18,7 @@ public class GameManager : Photon.MonoBehaviour
     public GameObject gameDisplayPanel, teamRedSlimeShop, teamBlueSlimeShop;
     public List<GameObject> team_red = new List<GameObject>();
     public List<GameObject> team_blue = new List<GameObject>();
-    private bool isRedFinish, isBlueFinish, isBattleEnd;
+    private bool isRedFinish, isBlueFinish;
 
     void Update(){
         DebugText.text = "Round: " + currentRound + " / " + totalRoundGame + "\n";
@@ -32,7 +32,7 @@ public class GameManager : Photon.MonoBehaviour
         
         StartCoroutine(DisplayGamePanel());
         
-        Invoke("GameReady", 2f);
+        Invoke("GameReady", 1.5f);
     }
 
     void GameReady(){
@@ -72,25 +72,25 @@ public class GameManager : Photon.MonoBehaviour
     }
 
     public void CheckAnyEmptyTeam(){
-        if ((team_red.Count == 0 || team_blue.Count == 0) && !isBattleEnd){
-            isBattleEnd = true;
-            Invoke("BattleEnd", 2f);
+        if ((team_red.Count == 0 || team_blue.Count == 0) && currentState == State.battle_start){
+            BattleEnd();
+            //Invoke("BattleEnd", 2f);
         }
     }
     /* Battle End State */
     void BattleEnd(){
         currentState = State.battle_end;    //set game state = battle_end
-        isBattleEnd = false;
         Debug.Log("battle is ended.");
 
         if(PhotonNetwork.isMasterClient)
-            photonView.RPC ("RPC_RedTeamFinish", PhotonTargets.All);
+            GetComponent<PhotonView>().RPC ("RPC_RedTeamFinish", PhotonTargets.All);
         else
-            photonView.RPC ("RPC_BlueTeamFinish", PhotonTargets.All);
+            GetComponent<PhotonView>().RPC ("RPC_BlueTeamFinish", PhotonTargets.All);
         
         StartCoroutine(CheckTeamFinish());
     }
     IEnumerator CheckTeamFinish(){
+        yield return new WaitForSeconds(1f);
         while(!isRedFinish || !isBlueFinish){
             if(!isRedFinish)
                 Debug.Log("Red Not Ready");
@@ -98,15 +98,15 @@ public class GameManager : Photon.MonoBehaviour
                 Debug.Log("Blue Not Ready");
             yield return null;
         }
-        yield return new WaitForSeconds(1f);
+        //yield return new WaitForSeconds(1f);
         StartCoroutine(DisplayGamePanel());
         isRedFinish = false;
         isBlueFinish = false;
 
         if(currentRound < totalRoundGame)
-            Invoke("GameReady", 7f);
+            Invoke("GameReady", 6f);
         else
-            Invoke("GameEnd", 7f);
+            Invoke("GameEnd", 6f);
     }
     [PunRPC]
     private void RPC_RedTeamFinish(){
@@ -133,7 +133,7 @@ public class GameManager : Photon.MonoBehaviour
         foreach (GameObject slime in team)
             slime.GetComponent<Slime>().stopMoving();
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         foreach (GameObject slime in team)
             Destroy(slime.transform.parent.gameObject);
 

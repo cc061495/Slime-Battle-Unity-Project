@@ -70,6 +70,9 @@ public class PlayerLayoutGroup : Photon.MonoBehaviour{
 
     //called by photon when a player leaves the room.
     private void OnPhotonPlayerDisconnected(PhotonPlayer photonPlayer){
+        if (isRoomReady)
+            photonView.RPC("toggleIsRoomReady", PhotonTargets.All);
+
         PlayerLeftRoom(photonPlayer);
     }
 

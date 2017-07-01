@@ -76,7 +76,11 @@ GameObject:
   - component: {fileID: 23243902739132372}
   - component: {fileID: 136443787623702050}
   - component: {fileID: 114248853591873572}
+  - component: {fileID: 114570344951179282}
+  - component: {fileID: 114489394018698200}
   - component: {fileID: 195835055520216584}
+  - component: {fileID: 114689225023040090}
+  - component: {fileID: 114394482873952414}
   m_Layer: 0
   m_Name: SlimeObject
   m_TagString: Team_BLUE
@@ -109,8 +113,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4392758064232926}
-  - component: {fileID: 114776885170059802}
-  - component: {fileID: 114144561334533896}
+  - component: {fileID: 114553141030371198}
   m_Layer: 0
   m_Name: SlimeB
   m_TagString: Untagged
@@ -269,17 +272,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &114144561334533896
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1852135362091858}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa6c5aa7627f24de281cd8560c749a37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114190818304087844
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -308,18 +300,77 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  firePoint: {fileID: 0}
-  healthBarPos: {fileID: 224174279130061688}
   startHealth: 20
   attackDamage: 2
   attackSpeed: 3
   movemonetSpeed: 6
   actionRange: 1
+--- !u!114 &114394482873952414
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1419146802736696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa6c5aa7627f24de281cd8560c749a37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114489394018698200
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1419146802736696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 246b2a59e23ac4285984af4d6187e6e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   meleeAttack: 1
   rangedAttack: 0
+  firePoint: {fileID: 0}
   rangedWeaponPrefab: {fileID: 0}
-  healthBar: {fileID: 114570866973511942}
+--- !u!114 &114553141030371198
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1852135362091858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
+--- !u!114 &114570344951179282
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1419146802736696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ca2df12009bc444f9ed82080765ad46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   currentHealth: 0
+  healthBar: {fileID: 114570866973511942}
+  healthBarPos: {fileID: 224174279130061688}
 --- !u!114 &114570866973511942
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -347,12 +398,12 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114776885170059802
+--- !u!114 &114689225023040090
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1852135362091858}
+  m_GameObject: {fileID: 1419146802736696}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
@@ -362,12 +413,12 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 3
+  synchronization: 1
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 114144561334533896}
+  - {fileID: 114394482873952414}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1

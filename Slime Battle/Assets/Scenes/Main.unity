@@ -3626,21 +3626,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slimeA:
-    slimePrefab: {fileID: 1107804881901608, guid: 38cef953006bc4137b7332df28c46bb3,
+    slimePrefab: {fileID: 1107804881901608, guid: 903ebea1718054ab2b4cb00051aa86fe,
       type: 2}
     cost: 0
     size: 1
     team: 1
     spawnPosOffset: {x: 0, y: 1.5, z: 0}
   slimeB:
-    slimePrefab: {fileID: 1852135362091858, guid: 2cfca59df0caa4501992d7ecd59bf83e,
+    slimePrefab: {fileID: 1852135362091858, guid: 07fe8698f10ae431796790adfcbce625,
       type: 2}
     cost: 0
     size: 1
     team: 2
     spawnPosOffset: {x: 0, y: 1.5, z: 0}
   bigSlimeA:
-    slimePrefab: {fileID: 1381592558439382, guid: eb7b19f2839bc4c3e85948c424ea2f6f,
+    slimePrefab: {fileID: 1381592558439382, guid: c77469063637f4b959afca82f15e94a8,
       type: 2}
     cost: 0
     size: 4
@@ -3654,7 +3654,7 @@ MonoBehaviour:
     team: 2
     spawnPosOffset: {x: 1.5, y: 0, z: -1.5}
   rangerA:
-    slimePrefab: {fileID: 1181253662298686, guid: 66fff5646ae3c45d3a1be421a21aa301,
+    slimePrefab: {fileID: 1181253662298686, guid: 3124e8a1203074ef483a7a30f957266d,
       type: 2}
     cost: 0
     size: 1
@@ -5776,21 +5776,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slimeA:
-    slimePrefab: {fileID: 1107804881901608, guid: 38cef953006bc4137b7332df28c46bb3,
+    slimePrefab: {fileID: 1107804881901608, guid: 903ebea1718054ab2b4cb00051aa86fe,
       type: 2}
     cost: 0
     size: 1
     team: 1
     spawnPosOffset: {x: 0, y: 1.5, z: 0}
   slimeB:
-    slimePrefab: {fileID: 1852135362091858, guid: 2cfca59df0caa4501992d7ecd59bf83e,
+    slimePrefab: {fileID: 1852135362091858, guid: 07fe8698f10ae431796790adfcbce625,
       type: 2}
     cost: 0
     size: 1
     team: 2
     spawnPosOffset: {x: 0, y: 1.5, z: 0}
   bigSlimeA:
-    slimePrefab: {fileID: 1381592558439382, guid: eb7b19f2839bc4c3e85948c424ea2f6f,
+    slimePrefab: {fileID: 1381592558439382, guid: c77469063637f4b959afca82f15e94a8,
       type: 2}
     cost: 0
     size: 4
@@ -5804,7 +5804,7 @@ MonoBehaviour:
     team: 2
     spawnPosOffset: {x: 1.5, y: 0, z: -1.5}
   rangerA:
-    slimePrefab: {fileID: 1181253662298686, guid: 66fff5646ae3c45d3a1be421a21aa301,
+    slimePrefab: {fileID: 1181253662298686, guid: 3124e8a1203074ef483a7a30f957266d,
       type: 2}
     cost: 0
     size: 1
