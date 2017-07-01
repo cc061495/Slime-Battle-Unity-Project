@@ -33,13 +33,10 @@ public class SlimeHealth : MonoBehaviour {
 	}
 	
 	public void TakeDamage(float attackDamage){
-		if(PhotonNetwork.isMasterClient){
+		if(PhotonNetwork.isMasterClient && currentHealth > 0){
 			currentHealth -= attackDamage;
 			healthBar.fillAmount = currentHealth / startHealth;
-			/*
-			if(currentHealth <= 0)
-				GetComponent<Slime>().Die();
-			*/
+
 			PhotonView pv = GetComponent<PhotonView>();
 			if(pv != null)
 				pv.RPC("RPC_UpdateHealth", PhotonTargets.Others, currentHealth, healthBar.fillAmount);
@@ -47,14 +44,15 @@ public class SlimeHealth : MonoBehaviour {
 	}
 
 	[PunRPC]
-	private void RPC_UpdateHealth(float m_CurrentHealth, float m_fillAmout){
+	private void RPC_UpdateHealth(float master_CurrentHealth, float master_fillAmout){
 		PhotonView pv = GetComponent<PhotonView>();
 		if(pv != null){
-			currentHealth = m_CurrentHealth;
-			healthBar.fillAmount = m_fillAmout;
+			currentHealth = master_CurrentHealth;
+			healthBar.fillAmount = master_fillAmout;
 
-			if(currentHealth <= 0)
+			if(currentHealth <= 0){
 				pv.RPC("RPC_Die", PhotonTargets.All);
+			}
 		}
 	}
 }

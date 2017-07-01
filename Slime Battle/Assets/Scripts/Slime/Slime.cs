@@ -19,7 +19,7 @@ public class Slime : MonoBehaviour{
 	private Vector3 nextPos;
 	private float myColRadius;
 	private float tarColRadius;
-    private bool dead = false;
+    public bool dead = false;
     private GameManager gm;
 
     void Start(){
@@ -107,9 +107,10 @@ public class Slime : MonoBehaviour{
 
 	[PunRPC]
 	public void RPC_Die(){
+		dead = true;
 		RemoveFromTeamList();
-        dead = true;
-		PhotonView pv = GetComponent<PhotonView>();
+		
+		PhotonView pv = transform.parent.GetComponent<PhotonView>();
 		if(pv == null)
 			return;
 
@@ -117,9 +118,11 @@ public class Slime : MonoBehaviour{
 			Destroy(transform.parent.gameObject);
 		}
 		else{
-			if(pv.isMine)
-				PhotonNetwork.Destroy(transform.parent.gameObject);
+			if(pv.isMine){
+				PhotonNetwork.Destroy(pv);
+			}
 		}
+		
 	}
 
 	public void stopMoving(){

@@ -9,15 +9,12 @@ public class SlimeNetwork : MonoBehaviour {
 	private Quaternion realRotation = Quaternion.identity;
 	private bool gotFirstUpdate = false;
 	PhotonView photonView;
-	//SlimeHealth slimeHealth;
-	//private float health;
 
 	void Awake () {
-		PhotonNetwork.sendRate = 20;
-		PhotonNetwork.sendRateOnSerialize = 10;	
+		PhotonNetwork.sendRate = 60;	//default(20)
+		PhotonNetwork.sendRateOnSerialize = 20;		//default(10)
 
 		photonView = GetComponent<PhotonView>();
-		//slimeHealth = GetComponent<SlimeHealth>();
 	}
 	
 	void Update () {
@@ -26,8 +23,7 @@ public class SlimeNetwork : MonoBehaviour {
 			//slimeHealth.currentHealth = health;
 		}else{
 			transform.position = Vector3.Lerp(transform.position, realPosition, 0.25f);
-			transform.rotation = Quaternion.RotateTowards(transform.rotation, realRotation, 500 * Time.deltaTime);
-			//health = slimeHealth.currentHealth;
+			transform.rotation = Quaternion.RotateTowards(transform.rotation, realRotation, 3 * Time.deltaTime);
 		}
 	}
 
@@ -36,14 +32,12 @@ public class SlimeNetwork : MonoBehaviour {
 			// This is OUR player, we need to send our actual position to the network.
 			stream.SendNext(transform.position);
 			stream.SendNext(transform.rotation);
-			//stream.SendNext(health);
 		}
 		else{
 			// This is someone else's player, we need to receive their position
 			// as of a few millisecond, and update our version of that player.
 			realPosition = (Vector3) stream.ReceiveNext();
 			realRotation = (Quaternion) stream.ReceiveNext();
-			//health = (float)stream.ReceiveNext();
 
 			// Right now, "realPosition" holds the other person's position at the LAST frame.
 			// Instead of simply updating "realPosition" and continuning to lerp,
