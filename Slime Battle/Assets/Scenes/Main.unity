@@ -146,7 +146,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -260,7 +260,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -308,8 +308,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 239, y: -40}
-  m_SizeDelta: {x: 156, y: 80}
+  m_AnchoredPosition: {x: 239, y: -45}
+  m_SizeDelta: {x: 156, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &39391728
 MonoBehaviour:
@@ -351,7 +351,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 650477403}
-        m_MethodName: SelectBigSlimeB
+        m_MethodName: SelectGiant
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -450,7 +450,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -617,7 +617,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -685,7 +685,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -749,7 +749,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -883,7 +883,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -1028,7 +1028,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -1176,7 +1176,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -1336,7 +1336,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -1400,7 +1400,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -1464,7 +1464,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -1537,7 +1537,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -1601,7 +1601,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -1669,7 +1669,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -1713,8 +1713,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 78, y: -40}
-  m_SizeDelta: {x: 156, y: 80}
+  m_AnchoredPosition: {x: 78, y: -45}
+  m_SizeDelta: {x: 156, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &326035029
 MonoBehaviour:
@@ -1756,7 +1756,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 975248148}
-        m_MethodName: SelectSlimeA
+        m_MethodName: SelectSlime
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1855,7 +1855,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -1919,7 +1919,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -1987,7 +1987,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -2055,7 +2055,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -2205,7 +2205,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -2269,7 +2269,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -2396,8 +2396,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -40}
-  m_SizeDelta: {x: 156, y: 80}
+  m_AnchoredPosition: {x: 400, y: -45}
+  m_SizeDelta: {x: 156, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &419402922
 MonoBehaviour:
@@ -2439,7 +2439,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 975248148}
-        m_MethodName: SelectRangerA
+        m_MethodName: SelectRanger
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2538,7 +2538,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -2606,7 +2606,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -2828,7 +2828,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -2896,7 +2896,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -2960,7 +2960,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -3028,7 +3028,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -3096,7 +3096,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -3160,7 +3160,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -3228,7 +3228,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -3373,7 +3373,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -3422,8 +3422,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -40}
-  m_SizeDelta: {x: 156, y: 80}
+  m_AnchoredPosition: {x: 400, y: -45}
+  m_SizeDelta: {x: 156, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &611270428
 MonoBehaviour:
@@ -3465,7 +3465,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 650477403}
-        m_MethodName: SelectRangerB
+        m_MethodName: SelectRanger
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3564,7 +3564,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -3611,8 +3611,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 1, y: 45}
-  m_SizeDelta: {x: 478, y: 80}
+  m_AnchoredPosition: {x: 1, y: 50}
+  m_SizeDelta: {x: 478, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &650477403
 MonoBehaviour:
@@ -3625,47 +3625,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f733158bd0d74d00a29b2d2b12c9e1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slimeA:
-    slimePrefab: {fileID: 1107804881901608, guid: 903ebea1718054ab2b4cb00051aa86fe,
-      type: 2}
-    cost: 0
-    size: 1
-    team: 1
-    spawnPosOffset: {x: 0, y: 1.5, z: 0}
-  slimeB:
+  slime:
     slimePrefab: {fileID: 1852135362091858, guid: 07fe8698f10ae431796790adfcbce625,
       type: 2}
     cost: 0
     size: 1
-    team: 2
+    team: BLUE
     spawnPosOffset: {x: 0, y: 1.5, z: 0}
-  bigSlimeA:
-    slimePrefab: {fileID: 1381592558439382, guid: c77469063637f4b959afca82f15e94a8,
-      type: 2}
-    cost: 0
-    size: 4
-    team: 1
-    spawnPosOffset: {x: 1.5, y: -0, z: -1.5}
-  bigSlimeB:
+  giant:
     slimePrefab: {fileID: 1381592558439382, guid: f205b102d9c3c42f78a072c0cd2661f2,
       type: 2}
     cost: 0
     size: 4
-    team: 2
+    team: BLUE
     spawnPosOffset: {x: 1.5, y: 0, z: -1.5}
-  rangerA:
-    slimePrefab: {fileID: 1181253662298686, guid: 3124e8a1203074ef483a7a30f957266d,
-      type: 2}
-    cost: 0
-    size: 1
-    team: 1
-    spawnPosOffset: {x: 0, y: 1.5, z: 0}
-  rangerB:
+  ranger:
     slimePrefab: {fileID: 1181253662298686, guid: ad8a69c0746b442e586aa082f821b1d5,
       type: 2}
     cost: 0
     size: 1
-    team: 2
+    team: BLUE
     spawnPosOffset: {x: 0, y: 1.5, z: 0}
 --- !u!114 &650477404
 MonoBehaviour:
@@ -3776,7 +3755,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -3844,7 +3823,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -3908,7 +3887,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -4073,7 +4052,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -4137,7 +4116,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -4201,7 +4180,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -4265,7 +4244,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -4333,7 +4312,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -4397,7 +4376,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -4465,7 +4444,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -4533,7 +4512,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -4682,7 +4661,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -4776,7 +4755,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -4844,7 +4823,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -4948,7 +4927,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -4992,8 +4971,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 239, y: -40}
-  m_SizeDelta: {x: 156, y: 80}
+  m_AnchoredPosition: {x: 239, y: -45}
+  m_SizeDelta: {x: 156, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &884608161
 MonoBehaviour:
@@ -5035,7 +5014,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 975248148}
-        m_MethodName: SelectBigSlimeA
+        m_MethodName: SelectGiant
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5134,7 +5113,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -5333,7 +5312,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -5381,8 +5360,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 78, y: -40}
-  m_SizeDelta: {x: 156, y: 80}
+  m_AnchoredPosition: {x: 78, y: -45}
+  m_SizeDelta: {x: 156, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &917966963
 MonoBehaviour:
@@ -5424,7 +5403,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 650477403}
-        m_MethodName: SelectSlimeB
+        m_MethodName: SelectSlime
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5523,7 +5502,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -5591,7 +5570,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -5655,7 +5634,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -5706,8 +5685,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 1, y: 45}
-  m_SizeDelta: {x: 478, y: 80}
+  m_AnchoredPosition: {x: 1, y: 50}
+  m_SizeDelta: {x: 478, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &975248145
 MonoBehaviour:
@@ -5775,47 +5754,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f733158bd0d74d00a29b2d2b12c9e1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slimeA:
+  slime:
     slimePrefab: {fileID: 1107804881901608, guid: 903ebea1718054ab2b4cb00051aa86fe,
       type: 2}
     cost: 0
     size: 1
-    team: 1
+    team: RED
     spawnPosOffset: {x: 0, y: 1.5, z: 0}
-  slimeB:
-    slimePrefab: {fileID: 1852135362091858, guid: 07fe8698f10ae431796790adfcbce625,
-      type: 2}
-    cost: 0
-    size: 1
-    team: 2
-    spawnPosOffset: {x: 0, y: 1.5, z: 0}
-  bigSlimeA:
+  giant:
     slimePrefab: {fileID: 1381592558439382, guid: c77469063637f4b959afca82f15e94a8,
       type: 2}
     cost: 0
     size: 4
-    team: 1
-    spawnPosOffset: {x: 1.5, y: -0, z: -1.5}
-  bigSlimeB:
-    slimePrefab: {fileID: 1381592558439382, guid: f205b102d9c3c42f78a072c0cd2661f2,
-      type: 2}
-    cost: 0
-    size: 4
-    team: 2
+    team: RED
     spawnPosOffset: {x: 1.5, y: 0, z: -1.5}
-  rangerA:
+  ranger:
     slimePrefab: {fileID: 1181253662298686, guid: 3124e8a1203074ef483a7a30f957266d,
       type: 2}
     cost: 0
     size: 1
-    team: 1
-    spawnPosOffset: {x: 0, y: 1.5, z: 0}
-  rangerB:
-    slimePrefab: {fileID: 1181253662298686, guid: ad8a69c0746b442e586aa082f821b1d5,
-      type: 2}
-    cost: 0
-    size: 1
-    team: 2
+    team: RED
     spawnPosOffset: {x: 0, y: 1.5, z: 0}
 --- !u!1001 &1012854968
 Prefab:
@@ -5871,7 +5829,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -5935,7 +5893,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -6049,7 +6007,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     - target: {fileID: 1307533530101704, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_IsActive
@@ -6154,7 +6112,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -6222,7 +6180,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -6290,7 +6248,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -6400,7 +6358,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -6468,7 +6426,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -6636,7 +6594,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -6700,7 +6658,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -6768,7 +6726,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -6832,7 +6790,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -6896,7 +6854,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -6964,7 +6922,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -7028,7 +6986,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -7096,7 +7054,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -7164,7 +7122,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -7232,7 +7190,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -7296,7 +7254,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -7364,7 +7322,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -7428,7 +7386,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -7496,7 +7454,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -7560,7 +7518,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -7678,7 +7636,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -7747,7 +7705,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -7811,7 +7769,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -7953,7 +7911,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -8017,7 +7975,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -8081,7 +8039,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -8219,7 +8177,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -8287,7 +8245,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -8351,7 +8309,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -8415,7 +8373,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -8479,7 +8437,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -8543,7 +8501,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -8607,7 +8565,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -8675,7 +8633,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -8743,7 +8701,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -8811,7 +8769,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -8879,7 +8837,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -8947,7 +8905,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -9011,7 +8969,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -9079,7 +9037,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -9143,7 +9101,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -9360,7 +9318,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -9428,7 +9386,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -9667,7 +9625,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -9736,7 +9694,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -9804,7 +9762,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -9942,7 +9900,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -10010,7 +9968,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -10078,7 +10036,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -10146,7 +10104,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -10210,7 +10168,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -10278,7 +10236,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
@@ -10342,7 +10300,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -10410,7 +10368,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -10478,7 +10436,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -10698,7 +10656,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 2
+      value: BLUE
       objectReference: {fileID: 0}
     - target: {fileID: 4518537782391836, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -10840,7 +10798,7 @@ Prefab:
     - target: {fileID: 114072012368199524, guid: 5a0a7148498184d9fbaf1b07307204cd,
         type: 2}
       propertyPath: team_node
-      value: 1
+      value: RED
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a0a7148498184d9fbaf1b07307204cd, type: 2}

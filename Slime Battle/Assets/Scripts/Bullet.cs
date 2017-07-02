@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour{
 
     void HitTarget(){
         GameObject effectIns = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
-        Destroy(effectIns, 1f);
+        Destroy(effectIns, 0.5f);
         Destroy(gameObject);
 
         SlimeHealth h = target.GetComponent<SlimeHealth>();

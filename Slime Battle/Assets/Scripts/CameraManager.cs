@@ -12,7 +12,7 @@ public class CameraManager : MonoBehaviour {
         }
         else{
 			transform.position = new Vector3(1.5f, 40f, 20f);
-			transform.rotation = Quaternion.Euler(110f, 0f, 180f);
+			transform.rotation = Quaternion.Euler(70f, 180f, 0f);
 		}
     }
 }

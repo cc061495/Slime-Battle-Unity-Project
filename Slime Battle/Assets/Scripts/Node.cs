@@ -12,7 +12,7 @@ public class Node : Photon.MonoBehaviour
 
     public GameObject slime;
     public SlimeBlueprint slimeblueprint;
-    public int team_node;
+    public string team_node;
 
     private Renderer rend;
     private Color startColor;
@@ -55,7 +55,8 @@ public class Node : Photon.MonoBehaviour
 
         switch (size){
             case 1:
-                GameObject _slime = PhotonNetwork.Instantiate(blueprint.slimePrefab.name, GetBuildPos(offset), transform.rotation, 0);
+                GameObject _slime = PhotonNetwork.Instantiate(blueprint.slimePrefab.name, GetBuildPos(offset), Quaternion.identity, 0);
+                _slime.transform.FindChild("SlimeObject").rotation = transform.rotation;
                 slime = _slime;
                 slimeblueprint = blueprint;
                 rend.material.color = GetTeamColor();
@@ -87,7 +88,8 @@ public class Node : Photon.MonoBehaviour
         }
 
         if (numOfNode == size){
-            GameObject _slime = PhotonNetwork.Instantiate(blueprint.slimePrefab.name, GetBuildPos(offset), transform.rotation, 0);
+            GameObject _slime = PhotonNetwork.Instantiate(blueprint.slimePrefab.name, GetBuildPos(offset), Quaternion.identity, 0);
+            _slime.transform.FindChild("SlimeObject").rotation = transform.rotation;
             foreach (Collider col in colliders){
                 if (col.gameObject.tag == "node"){
                     Node e = col.gameObject.GetComponent<Node>();
@@ -100,9 +102,9 @@ public class Node : Photon.MonoBehaviour
     }
 
     Color GetTeamColor(){
-        if (team_node == 1)
+        if (team_node == "RED")
             return teamA_Color;
-        else if (team_node == 2)
+        else if (team_node == "BLUE")
             return teamB_Color;
 
         return Color.clear;

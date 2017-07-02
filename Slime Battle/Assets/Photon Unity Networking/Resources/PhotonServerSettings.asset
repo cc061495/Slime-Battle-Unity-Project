@@ -64,4 +64,8 @@ MonoBehaviour:
   - RPC_UpdateHealth
   - Die
   - TakeDamage
+  - SetBlueTeam
+  - SetRedTeam
+  - Appear
+  - Hide
   DisableAutoOpenWizard: 1

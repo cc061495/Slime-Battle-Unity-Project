@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using UnityEngine.AI;
 
 public class Slime : MonoBehaviour{
-	public Transform target;
 	
 	[Header("Slime Propeties")]
 	public float startHealth;		//Slime's health
@@ -14,12 +13,11 @@ public class Slime : MonoBehaviour{
 	public float movemonetSpeed;	//Slime's movement speed
 	public float actionRange;		//Slime's action range
 
-	private float turnSpeed = 3f;
-	private NavMeshAgent agent;
-	private Vector3 nextPos;
+	private Transform target;
 	private float myColRadius;
-	private float tarColRadius;
-    public bool dead = false;
+	private float turnSpeed = 3f;
+    private bool dead = false;
+	private NavMeshAgent agent;
     private GameManager gm;
 
     void Start(){
@@ -38,18 +36,16 @@ public class Slime : MonoBehaviour{
 
 	// Update is called once per frame
 	void Update(){
-		GetComponent<SlimeHealth>().UpdateHealthBarPos();   //health bar position
-
         if (gm.currentState == GameManager.State.battle_start) {  //when the battle starts, start to execute
-
-            if (target == null)
+			if (target == null)
                 UpdateTarget();
 
             if (target != null){
 				LookToTarget ();
-				tarColRadius = target.GetComponent<CapsuleCollider> ().radius;
+				float tarColRadius = target.GetComponent<CapsuleCollider> ().radius;
 				float range = myColRadius + tarColRadius + actionRange;
 				float dist = Vector3.Distance (transform.position, target.position);
+				Vector3 nextPos;
                 if (dist > range && target.transform.hasChanged) {
 					nextPos = target.position;		//set new target pos
 				} else {
@@ -70,10 +66,12 @@ public class Slime : MonoBehaviour{
 			GameObject nearestEnemy = null;
 
 			foreach (GameObject enemy in enemies) {
-				float distanceToEnemy = Vector3.Distance (transform.position, enemy.transform.position);
-				if (distanceToEnemy < shortestDistance) {
-					shortestDistance = distanceToEnemy;
-					nearestEnemy = enemy;
+				if(enemy != null){
+					float distanceToEnemy = Vector3.Distance (transform.position, enemy.transform.position);
+					if (distanceToEnemy < shortestDistance) {
+						shortestDistance = distanceToEnemy;
+						nearestEnemy = enemy;
+					}
 				}
 			}
             target = nearestEnemy.transform;
@@ -105,27 +103,12 @@ public class Slime : MonoBehaviour{
         gm.CheckAnyEmptyTeam();
     }
 
-	[PunRPC]
-	public void RPC_Die(){
+	public void SlimeDead(){
 		dead = true;
 		RemoveFromTeamList();
-		
-		PhotonView pv = transform.parent.GetComponent<PhotonView>();
-		if(pv == null)
-			return;
-
-		if(pv.instantiationId == 0){
-			Destroy(transform.parent.gameObject);
-		}
-		else{
-			if(pv.isMine){
-				PhotonNetwork.Destroy(pv);
-			}
-		}
-		
 	}
 
-	public void stopMoving(){
+	public void StopMoving(){
         agent.Stop();
 	}
 }

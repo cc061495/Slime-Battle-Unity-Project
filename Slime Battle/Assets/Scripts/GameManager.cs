@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ClearAllSlime(List<GameObject> team){
         foreach (GameObject slime in team)
-            slime.GetComponent<Slime>().stopMoving();
+            slime.GetComponent<Slime>().StopMoving();
 
         yield return new WaitForSeconds(2f);
         foreach (GameObject slime in team)
