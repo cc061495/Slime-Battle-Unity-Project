@@ -68,4 +68,6 @@ MonoBehaviour:
   - SetRedTeam
   - Appear
   - Hide
+  - RPC_UpdateFillAmount
+  - display
   DisableAutoOpenWizard: 1

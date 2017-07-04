@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SlimeHealth : MonoBehaviour {
+public class SlimeHealth : Photon.MonoBehaviour {
 
 	public float currentHealth;
 	private float startHealth;
@@ -43,38 +43,27 @@ public class SlimeHealth : MonoBehaviour {
 		//currentHealth must be larger than 0 HP(important) !!!
 		if(PhotonNetwork.isMasterClient && currentHealth > 0){
 			currentHealth -= attackDamage;
-			healthBar.fillAmount = currentHealth / startHealth;
-
-			PhotonView pv = GetComponent<PhotonView>();
-			if(pv != null)
-				pv.RPC("RPC_UpdateHealth", PhotonTargets.Others, currentHealth, healthBar.fillAmount);
+			photonView.RPC("RPC_UpdateHealth", PhotonTargets.Others, currentHealth);
 		}
 	}
 
 	[PunRPC]
-	private void RPC_UpdateHealth(float master_CurrentHealth, float master_fillAmout){
-		PhotonView pv = GetComponent<PhotonView>();
-		if(pv != null){
-			currentHealth = master_CurrentHealth;
-			healthBar.fillAmount = master_fillAmout;
+	private void RPC_UpdateHealth(float master_CurrentHealth){
+		currentHealth = master_CurrentHealth;
+		photonView.RPC("RPC_UpdateFillAmount", PhotonTargets.All);
+		if(currentHealth <= 0)
+			photonView.RPC("RPC_Die", PhotonTargets.All);
+	}
 
-			if(currentHealth <= 0)
-				pv.RPC("RPC_Die", PhotonTargets.All);
-		}
+	[PunRPC]
+	private void RPC_UpdateFillAmount(){
+		healthBar.fillAmount = currentHealth / startHealth;
 	}
 
 	[PunRPC]
 	public void RPC_Die(){
 		GetComponent<Slime>().SlimeDead();
-		
-		PhotonView pv = transform.parent.GetComponent<PhotonView>();
-		if(pv != null){
-			if(pv.instantiationId == 0)
-				Destroy(transform.parent.gameObject);	//Destroy the gameobject which is not in the network
-			else{
-				if(pv.isMine)
-					PhotonNetwork.Destroy(pv);	//Destroy your owner PhotonNetwork gameobject
-			}
-		}
+		if(photonView.isMine)
+			PhotonNetwork.Destroy(transform.parent.gameObject);
 	}
 }

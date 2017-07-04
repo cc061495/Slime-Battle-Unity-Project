@@ -23,7 +23,7 @@ public class SlimeNetwork : MonoBehaviour {
 			//slimeHealth.currentHealth = health;
 		}else{
 			transform.position = Vector3.Lerp(transform.position, realPosition, 0.25f);
-			transform.rotation = Quaternion.RotateTowards(transform.rotation, realRotation, 3 * Time.deltaTime);
+			transform.rotation = Quaternion.RotateTowards(transform.rotation, realRotation, 500 * Time.deltaTime);
 		}
 	}
 

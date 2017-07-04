@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.AI;
+using System.Linq;
 
-public class Slime : MonoBehaviour{
+public class Slime : Photon.MonoBehaviour{
 	
 	[Header("Slime Propeties")]
 	public float startHealth;		//Slime's health
@@ -14,11 +13,11 @@ public class Slime : MonoBehaviour{
 	public float actionRange;		//Slime's action range
 
 	private Transform target;
-	private float myColRadius;
+	private float myColRadius, tarColRadius, range;
 	private float turnSpeed = 3f;
-    private bool dead = false;
 	private NavMeshAgent agent;
     private GameManager gm;
+	List<Transform> enemies;
 
     void Start(){
 		//Slime confing
@@ -30,57 +29,57 @@ public class Slime : MonoBehaviour{
         agent.stoppingDistance = actionRange + myColRadius;
 
         gm = GameManager.Instance;
-
+		//Define enemy
+		enemies = (transform.tag == "Team_RED") ? (gm.team_blue) : (gm.team_red);
         JoinTeamList();
     }
 
 	// Update is called once per frame
 	void Update(){
         if (gm.currentState == GameManager.State.battle_start) {  //when the battle starts, start to execute
-			if (target == null)
-                UpdateTarget();
+			
+			if (target == null){
+                target = UpdateTarget();
+				agent.SetDestination(target.position);
+			}
 
             if (target != null){
-				LookToTarget ();
-				float tarColRadius = target.GetComponent<CapsuleCollider> ().radius;
-				float range = myColRadius + tarColRadius + actionRange;
-				float dist = Vector3.Distance (transform.position, target.position);
-				Vector3 nextPos;
-                if (dist > range && target.transform.hasChanged) {
-					nextPos = target.position;		//set new target pos
-				} else {
-					nextPos = transform.position;	//Stay on the ground
+				LookAtTarget();
+				float dist = Vector3.Distance(transform.position, target.position);	//must use Vector3.Distance()
+                if (dist > range && agent.destination != target.position) {
+					agent.destination = target.position;	//set new target pos
+				} 
+				else {
+					if(agent.destination != transform.position)
+						agent.destination = transform.position;
 					GetComponent<SlimeAction>().Action (target, attackSpeed, attackDamage);	//Action to the target
 				}
-				if(!dead)
-                	agent.SetDestination(nextPos);
             }
 		}
 	}
 
-	void UpdateTarget(){
-		List<GameObject> enemies = (gameObject.tag == "Team_RED") ? (gm.team_blue) : (gm.team_red);
+	Transform UpdateTarget(){
+		target = enemies.OrderBy(o => (o.transform.position - transform.position).sqrMagnitude).FirstOrDefault();
+		tarColRadius = target.GetComponent<CapsuleCollider> ().radius;
+		range = myColRadius + tarColRadius + actionRange;
+		return target;
+		// Transform nearestEnemy = null;
+		// if (enemies.Count > 0) {
+		// 	float shortestDistance = Mathf.Infinity;
+		// 	foreach (Transform enemy in enemies) {
+		// 		if(enemy != null){
+		// 			float distanceToEnemy = (transform.position - enemy.transform.position).sqrMagnitude;
+		// 			if (distanceToEnemy < shortestDistance) {
+		// 				shortestDistance = distanceToEnemy;
+		// 				nearestEnemy = enemy;
+		// 			}
+		// 		}
+		// 	}
+		// }
+		//return nearestEnemy;
+    }	
 
-		if (enemies.Count > 0) {
-			float shortestDistance = Mathf.Infinity;
-			GameObject nearestEnemy = null;
-
-			foreach (GameObject enemy in enemies) {
-				if(enemy != null){
-					float distanceToEnemy = Vector3.Distance (transform.position, enemy.transform.position);
-					if (distanceToEnemy < shortestDistance) {
-						shortestDistance = distanceToEnemy;
-						nearestEnemy = enemy;
-					}
-				}
-			}
-            target = nearestEnemy.transform;
-        }
-		else
-            target = null;
-    }
-		
-	void LookToTarget(){
+	void LookAtTarget(){
 		Vector3 dir = target.position - transform.position;
 		Quaternion lookRotation = Quaternion.LookRotation (dir);
 		Vector3 rotation = Quaternion.Lerp (transform.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
@@ -88,27 +87,27 @@ public class Slime : MonoBehaviour{
 	}
 
 	void JoinTeamList(){
-        if(gameObject.tag == "Team_RED")
-            gm.team_red.Add(gameObject);
+        if(transform.tag == "Team_RED")
+            gm.team_red.Add(transform);
 		else
-            gm.team_blue.Add(gameObject);
+            gm.team_blue.Add(transform);
 	}
 
 	void RemoveFromTeamList(){
-		if(gameObject.tag == "Team_RED")
-            gm.team_red.Remove(gameObject);
+		if(transform.tag == "Team_RED")
+            gm.team_red.Remove(transform);
 		else
-            gm.team_blue.Remove(gameObject);
+            gm.team_blue.Remove(transform);
 
         gm.CheckAnyEmptyTeam();
     }
 
 	public void SlimeDead(){
-		dead = true;
+		StopMoving();
 		RemoveFromTeamList();
 	}
 
 	public void StopMoving(){
-        agent.Stop();
+		agent.destination = transform.position;
 	}
 }

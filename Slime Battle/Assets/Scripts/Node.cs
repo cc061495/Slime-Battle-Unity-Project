@@ -31,7 +31,7 @@ public class Node : Photon.MonoBehaviour
         if(slime == null)
             rend.material.color = selectColor;
 
-        if (gameManager.currentState == GameManager.State.building){
+        if (gameManager.currentState == GameManager.State.build_start){
 
             if (slime != null || !spawnManager.CanSpawn)
                 return;
