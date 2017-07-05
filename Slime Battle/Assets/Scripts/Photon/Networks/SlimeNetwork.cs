@@ -16,14 +16,14 @@ public class SlimeNetwork : MonoBehaviour {
 
 		photonView = GetComponent<PhotonView>();
 	}
-	
-	void Update () {
+	// FixedUpdate is called once per physics loop
+	// Do all MOVEMENT and other physics stuff here
+	void FixedUpdate () {
 		if(photonView.isMine){
 			// Do nothing - slime.cs is moving us
-			//slimeHealth.currentHealth = health;
 		}else{
-			transform.position = Vector3.Lerp(transform.position, realPosition, 0.25f);
-			transform.rotation = Quaternion.RotateTowards(transform.rotation, realRotation, 500 * Time.deltaTime);
+			transform.position = Vector3.Lerp(transform.position, realPosition, 5f * Time.deltaTime);
+			transform.rotation = Quaternion.Lerp(transform.rotation, realRotation, 5f * Time.deltaTime);
 		}
 	}
 

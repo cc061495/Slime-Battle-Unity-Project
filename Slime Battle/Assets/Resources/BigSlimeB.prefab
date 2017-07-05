@@ -445,11 +445,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b865a0e9c98e74cdeaeb7e6ebf4884c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHealth: 100
+  startHealth: 150
   attackDamage: 5
   attackSpeed: 3
   movemonetSpeed: 3
-  actionRange: 1.5
+  actionRange: 2
 --- !u!136 &136175801549983472
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -482,7 +482,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 1
   m_WalkableMask: 1
-  m_ObstacleAvoidanceType: 1
+  m_ObstacleAvoidanceType: 4
 --- !u!222 &222177385426304062
 CanvasRenderer:
   m_ObjectHideFlags: 1

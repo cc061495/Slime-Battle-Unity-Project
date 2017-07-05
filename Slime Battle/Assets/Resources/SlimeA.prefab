@@ -89,13 +89,12 @@ GameObject:
   - component: {fileID: 4487554232600360}
   - component: {fileID: 33397729658207180}
   - component: {fileID: 23920439039935164}
-  - component: {fileID: 136471293353399706}
   - component: {fileID: 114415911498803418}
   - component: {fileID: 114901435865571026}
   - component: {fileID: 114374263457920260}
-  - component: {fileID: 195748495169591422}
   - component: {fileID: 114258933813192650}
   - component: {fileID: 114967129910921032}
+  - component: {fileID: 195899523563293338}
   m_Layer: 0
   m_Name: SlimeObject
   m_TagString: Team_RED
@@ -356,7 +355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b865a0e9c98e74cdeaeb7e6ebf4884c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHealth: 20
+  startHealth: 30
   attackDamage: 2
   attackSpeed: 3
   movemonetSpeed: 6
@@ -450,20 +449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa6c5aa7627f24de281cd8560c749a37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!136 &136471293353399706
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1914059566999026}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!195 &195748495169591422
+--- !u!195 &195899523563293338
 NavMeshAgent:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -482,7 +468,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 1
   m_WalkableMask: 1
-  m_ObstacleAvoidanceType: 1
+  m_ObstacleAvoidanceType: 4
 --- !u!222 &222088282673230252
 CanvasRenderer:
   m_ObjectHideFlags: 1

@@ -173,12 +173,16 @@ public class GameManager : Photon.MonoBehaviour
                 break;
             case State.battle_end:
                 if (team_blue.Count > 0){
+                    gameDisplayText.color = Color.blue;
                     gameDisplayText.text = "Team Blue\nwon!";
+                    gameDisplayText.color = Color.white;
                     team_blue_score++;
                     StartCoroutine(ClearAllSlime(team_blue));
                 }
                 else if (team_red.Count > 0){
+                    gameDisplayText.color = Color.red;
                     gameDisplayText.text = "Team Red\nwon!";
+                    gameDisplayText.color = Color.white;
                     team_red_score++;
                     StartCoroutine(ClearAllSlime(team_red));
                 }
@@ -196,10 +200,14 @@ public class GameManager : Photon.MonoBehaviour
                 gameDisplayText.text = "Game End!";
                 gameDisplayPanel.SetActive(true);
                 if(team_red_score > team_blue_score){
+                    gameDisplayText.color = Color.red;
                     gameDisplayText.text = "-Winner-\nTeam Red";
+                    gameDisplayText.color = Color.white;
                 }
                 else if(team_red_score < team_blue_score){
+                    gameDisplayText.color = Color.blue;
                     gameDisplayText.text = "-Winner-\nTeam Blue";
+                    gameDisplayText.color = Color.white;
                 }
                 else{
                     gameDisplayText.text = "Draw!!!";
@@ -225,9 +233,9 @@ public class GameManager : Photon.MonoBehaviour
 
     void LeaveTheRoom(){
         //gameDisplayPanel.SetActive(false);
-        PhotonNetwork.Destroy(GameObject.Find("DDOL"));
-        PhotonNetwork.LoadLevel("GameLobby");
+        Destroy(GameObject.Find("DDOL"));
         PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LoadLevel("GameLobby");
     }
 
     void ShowShop(){

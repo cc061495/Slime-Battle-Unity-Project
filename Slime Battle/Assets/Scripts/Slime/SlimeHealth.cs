@@ -37,31 +37,29 @@ public class SlimeHealth : Photon.MonoBehaviour {
 				healthBarPos.position = new Vector3 (transform.position.x+0f, transform.position.y+2f, transform.position.z-1f);
 		}
 	}
-	
+
 	public void TakeDamage(float attackDamage){
-		//Only master client take damage when hp > 0
+		//Only Master client deal with attack damage
 		//currentHealth must be larger than 0 HP(important) !!!
 		if(PhotonNetwork.isMasterClient && currentHealth > 0){
 			currentHealth -= attackDamage;
-			photonView.RPC("RPC_UpdateHealth", PhotonTargets.Others, currentHealth);
+			healthBar.fillAmount = currentHealth / startHealth;
+			//Update the others client health and health bar
+			photonView.RPC("RPC_UpdateHealth", PhotonTargets.Others, currentHealth, healthBar.fillAmount);
 		}
 	}
 
 	[PunRPC]
-	private void RPC_UpdateHealth(float master_CurrentHealth){
+	private void RPC_UpdateHealth(float master_CurrentHealth, float master_fillAmount){
 		currentHealth = master_CurrentHealth;
-		photonView.RPC("RPC_UpdateFillAmount", PhotonTargets.All);
+		healthBar.fillAmount = master_fillAmount;
+		//Sync the dead, after update all clients'slime health
 		if(currentHealth <= 0)
-			photonView.RPC("RPC_Die", PhotonTargets.All);
+			photonView.RPC("RPC_SlimeDie", PhotonTargets.All);
 	}
 
 	[PunRPC]
-	private void RPC_UpdateFillAmount(){
-		healthBar.fillAmount = currentHealth / startHealth;
-	}
-
-	[PunRPC]
-	public void RPC_Die(){
+	private void RPC_SlimeDie(){
 		GetComponent<Slime>().SlimeDead();
 		if(photonView.isMine)
 			PhotonNetwork.Destroy(transform.parent.gameObject);

@@ -70,4 +70,7 @@ MonoBehaviour:
   - Hide
   - RPC_UpdateFillAmount
   - display
+  - RPC_SlimeDie
+  - Spawn
+  - RPC_Spawn
   DisableAutoOpenWizard: 1

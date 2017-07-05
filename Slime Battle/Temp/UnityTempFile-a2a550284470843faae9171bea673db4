@@ -1,0 +1,256 @@
+-debug
+-target:library
+-nowarn:0169
+-langversion:4
+-out:'Temp/Assembly-CSharp.dll'
+-optimize
+-r:'/Applications/Unity/PlaybackEngines/AndroidPlayer/Variations/mono/Managed/UnityEngine.dll'
+-r:'Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll'
+-r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/Standalone/UnityEngine.UI.dll'
+-r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/Standalone/UnityEngine.Networking.dll'
+-r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/PlaymodeTestsRunner/UnityEngine.PlaymodeTestsRunner.dll'
+-r:'Assets/Plugins/Photon3Unity3D.dll'
+-r:'Assets/AstarPathfindingProject/Plugins/DotNetZip/Pathfinding.Ionic.Zip.Reduced.dll'
+-define:UNITY_5_3_OR_NEWER
+-define:UNITY_5_4_OR_NEWER
+-define:UNITY_5_5_OR_NEWER
+-define:UNITY_5_5_4
+-define:UNITY_5_5
+-define:UNITY_5
+-define:ENABLE_AUDIO
+-define:ENABLE_CACHING
+-define:ENABLE_CLOTH
+-define:ENABLE_GENERICS
+-define:ENABLE_MICROPHONE
+-define:ENABLE_MULTIPLE_DISPLAYS
+-define:ENABLE_PHYSICS
+-define:ENABLE_SPRITERENDERER_FLIPPING
+-define:ENABLE_SPRITES
+-define:ENABLE_TERRAIN
+-define:ENABLE_RAKNET
+-define:ENABLE_UNET
+-define:ENABLE_LZMA
+-define:ENABLE_UNITYEVENTS
+-define:ENABLE_WEBCAM
+-define:ENABLE_WWW
+-define:ENABLE_CLOUD_SERVICES_COLLAB
+-define:ENABLE_CLOUD_SERVICES_ADS
+-define:ENABLE_CLOUD_HUB
+-define:ENABLE_CLOUD_PROJECT_ID
+-define:ENABLE_CLOUD_SERVICES_UNET
+-define:ENABLE_CLOUD_SERVICES_BUILD
+-define:ENABLE_CLOUD_LICENSE
+-define:ENABLE_EDITOR_METRICS
+-define:ENABLE_EDITOR_METRICS_CACHING
+-define:INCLUDE_DYNAMIC_GI
+-define:INCLUDE_GI
+-define:PLATFORM_SUPPORTS_MONO
+-define:INCLUDE_PUBNUB
+-define:ENABLE_PLAYMODE_TESTS_RUNNER
+-define:ENABLE_SCRIPTING_NEW_CSHARP_COMPILER
+-define:UNITY_ANDROID
+-define:ENABLE_SUBSTANCE
+-define:UNITY_ANDROID_API
+-define:ENABLE_EGL
+-define:ENABLE_NETWORK
+-define:ENABLE_RUNTIME_GI
+-define:ENABLE_CRUNCH_TEXTURE_COMPRESSION
+-define:ENABLE_UNITYWEBREQUEST
+-define:ENABLE_CLOUD_SERVICES
+-define:ENABLE_CLOUD_SERVICES_ANALYTICS
+-define:ENABLE_CLOUD_SERVICES_PURCHASING
+-define:ENABLE_CLOUD_SERVICES_CRASH_REPORTING
+-define:PLATFORM_SUPPORTS_ADS_ID
+-define:UNITY_CAN_SHOW_SPLASH_SCREEN
+-define:ENABLE_VIDEO
+-define:ENABLE_VR
+-define:ENABLE_UNITYADS_RUNTIME
+-define:UNITY_UNITYADS_API
+-define:ENABLE_MONO
+'Assets/AstarPathfindingProject/Core/AI/AIBase.cs'
+'Assets/AstarPathfindingProject/Core/AI/AILerp.cs'
+'Assets/AstarPathfindingProject/Core/AI/AIPath.cs'
+'Assets/AstarPathfindingProject/Core/AI/NavmeshController.cs'
+'Assets/AstarPathfindingProject/Core/AI/Seeker.cs'
+'Assets/AstarPathfindingProject/Core/AI/TurnBasedAI.cs'
+'Assets/AstarPathfindingProject/Core/AstarData.cs'
+'Assets/AstarPathfindingProject/Core/AstarMath.cs'
+'Assets/AstarPathfindingProject/Core/AstarPath.cs'
+'Assets/AstarPathfindingProject/Core/GraphUpdateScene.cs'
+'Assets/AstarPathfindingProject/Core/GraphUpdateShape.cs'
+'Assets/AstarPathfindingProject/Core/Misc/AnimationLink.cs'
+'Assets/AstarPathfindingProject/Core/Misc/ArrayPool.cs'
+'Assets/AstarPathfindingProject/Core/Misc/AstarDebugger.cs'
+'Assets/AstarPathfindingProject/Core/Misc/AstarEnumFlagAttr.cs'
+'Assets/AstarPathfindingProject/Core/Misc/BinaryHeap.cs'
+'Assets/AstarPathfindingProject/Core/Misc/Draw.cs'
+'Assets/AstarPathfindingProject/Core/Misc/EditorResourceHelper.cs'
+'Assets/AstarPathfindingProject/Core/Misc/GraphEditorBase.cs'
+'Assets/AstarPathfindingProject/Core/Misc/GraphModifier.cs'
+'Assets/AstarPathfindingProject/Core/Misc/GraphUpdateProcessor.cs'
+'Assets/AstarPathfindingProject/Core/Misc/Int3.cs'
+'Assets/AstarPathfindingProject/Core/Misc/ListPool.cs'
+'Assets/AstarPathfindingProject/Core/Misc/MovementUtilities.cs'
+'Assets/AstarPathfindingProject/Core/Misc/NodeLink.cs'
+'Assets/AstarPathfindingProject/Core/Misc/NodeLink2.cs'
+'Assets/AstarPathfindingProject/Core/Misc/NodeLink3.cs'
+'Assets/AstarPathfindingProject/Core/Misc/ObjectPool.cs'
+'Assets/AstarPathfindingProject/Core/Misc/PathInterpolator.cs'
+'Assets/AstarPathfindingProject/Core/Misc/PathPool.cs'
+'Assets/AstarPathfindingProject/Core/Misc/PathProcessor.cs'
+'Assets/AstarPathfindingProject/Core/Misc/PathReturnQueue.cs'
+'Assets/AstarPathfindingProject/Core/Misc/StackPool.cs'
+'Assets/AstarPathfindingProject/Core/Misc/ThreadControlQueue.cs'
+'Assets/AstarPathfindingProject/Core/Misc/WindowsStoreCompatibility.cs'
+'Assets/AstarPathfindingProject/Core/Misc/WorkItemProcessor.cs'
+'Assets/AstarPathfindingProject/Core/Nodes/GraphNode.cs'
+'Assets/AstarPathfindingProject/Core/Path.cs'
+'Assets/AstarPathfindingProject/Core/PathHandler.cs'
+'Assets/AstarPathfindingProject/Core/Serialization/JsonConverters.cs'
+'Assets/AstarPathfindingProject/Core/Serialization/JsonSerializer.cs'
+'Assets/AstarPathfindingProject/Core/Serialization/SimpleJsonReplacement.cs'
+'Assets/AstarPathfindingProject/Core/Serialization/SimpleZipReplacement.cs'
+'Assets/AstarPathfindingProject/Core/Serialization/TinyJson.cs'
+'Assets/AstarPathfindingProject/Core/VersionedMonoBehaviour.cs'
+'Assets/AstarPathfindingProject/Core/astarclasses.cs'
+'Assets/AstarPathfindingProject/Generators/Base.cs'
+'Assets/AstarPathfindingProject/Generators/GridGenerator.cs'
+'Assets/AstarPathfindingProject/Generators/NavMeshGenerator.cs'
+'Assets/AstarPathfindingProject/Generators/NavmeshBase.cs'
+'Assets/AstarPathfindingProject/Generators/NodeClasses/GridNode.cs'
+'Assets/AstarPathfindingProject/Generators/NodeClasses/GridNodeBase.cs'
+'Assets/AstarPathfindingProject/Generators/NodeClasses/PointNode.cs'
+'Assets/AstarPathfindingProject/Generators/NodeClasses/TriangleMeshNode.cs'
+'Assets/AstarPathfindingProject/Generators/PointGenerator.cs'
+'Assets/AstarPathfindingProject/Generators/QuadtreeGraph.cs'
+'Assets/AstarPathfindingProject/Generators/Utilities/BBTree.cs'
+'Assets/AstarPathfindingProject/Generators/Utilities/EuclideanEmbedding.cs'
+'Assets/AstarPathfindingProject/Generators/Utilities/GraphTransform.cs'
+'Assets/AstarPathfindingProject/Generators/Utilities/GridLookup.cs'
+'Assets/AstarPathfindingProject/Generators/Utilities/NavMeshRenderer.cs'
+'Assets/AstarPathfindingProject/Generators/Utilities/NavmeshTile.cs'
+'Assets/AstarPathfindingProject/Generators/Utilities/ObjImporter.cs'
+'Assets/AstarPathfindingProject/Generators/Utilities/PointKDTree.cs'
+'Assets/AstarPathfindingProject/Legacy/LegacyAIPath.cs'
+'Assets/AstarPathfindingProject/Modifiers/AlternativePath.cs'
+'Assets/AstarPathfindingProject/Modifiers/FunnelModifier.cs'
+'Assets/AstarPathfindingProject/Modifiers/Modifiers.cs'
+'Assets/AstarPathfindingProject/Modifiers/RaycastModifier.cs'
+'Assets/AstarPathfindingProject/Modifiers/SimpleSmoothModifier.cs'
+'Assets/AstarPathfindingProject/Modifiers/StartEndModifier.cs'
+'Assets/AstarPathfindingProject/Navmesh/RelevantGraphSurface.cs'
+'Assets/AstarPathfindingProject/Pathfinders/ABPath.cs'
+'Assets/AstarPathfindingProject/TurnBased/BlockManager.cs'
+'Assets/AstarPathfindingProject/TurnBased/SingleNodeBlocker.cs'
+'Assets/AstarPathfindingProject/Utilities/AstarChecksum.cs'
+'Assets/AstarPathfindingProject/Utilities/AstarMemory.cs'
+'Assets/AstarPathfindingProject/Utilities/AstarProfiler.cs'
+'Assets/AstarPathfindingProject/Utilities/DotNetReplacements.cs'
+'Assets/AstarPathfindingProject/Utilities/Funnel.cs'
+'Assets/AstarPathfindingProject/Utilities/GraphGizmoHelper.cs'
+'Assets/AstarPathfindingProject/Utilities/GraphUpdateUtilities.cs'
+'Assets/AstarPathfindingProject/Utilities/LockFreeStack.cs'
+'Assets/AstarPathfindingProject/Utilities/PathUtilities.cs'
+'Assets/AstarPathfindingProject/Utilities/ProfileHelper.cs'
+'Assets/AstarPathfindingProject/Utilities/RetainedGizmos.cs'
+'Assets/AstarPathfindingProject/Utilities/UnityReferenceHelper.cs'
+'Assets/AstarPathfindingProject/changelog.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/CustomTypes.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/Enums.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/Extensions.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/FriendInfo.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/GizmoType.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/LoadbalancingPeer.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/NetworkingPeer.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/PhotonClasses.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/PhotonHandler.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/PhotonLagSimulationGui.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/PhotonNetwork.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/PhotonPlayer.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/PhotonStatsGui.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/PhotonStreamQueue.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/PhotonView.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/PingCloudRegions.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/RPC.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/Room.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/RoomInfo.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/ServerSettings.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/SocketUdp.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/SocketWebTcp.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/Views/PhotonAnimatorView.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/Views/PhotonRigidbody2DView.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/Views/PhotonRigidbodyView.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/Views/PhotonTransformView.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/Views/PhotonTransformViewPositionControl.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/Views/PhotonTransformViewPositionModel.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/Views/PhotonTransformViewRotationControl.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/Views/PhotonTransformViewRotationModel.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/Views/PhotonTransformViewScaleControl.cs'
+'Assets/Photon Unity Networking/Plugins/PhotonNetwork/Views/PhotonTransformViewScaleModel.cs'
+'Assets/Photon Unity Networking/UtilityScripts/ConnectAndJoinRandom.cs'
+'Assets/Photon Unity Networking/UtilityScripts/CullArea.cs'
+'Assets/Photon Unity Networking/UtilityScripts/InRoomChat.cs'
+'Assets/Photon Unity Networking/UtilityScripts/InputToEvent.cs'
+'Assets/Photon Unity Networking/UtilityScripts/ManualPhotonViewAllocator.cs'
+'Assets/Photon Unity Networking/UtilityScripts/MoveByKeys.cs'
+'Assets/Photon Unity Networking/UtilityScripts/NetworkCullingHandler.cs'
+'Assets/Photon Unity Networking/UtilityScripts/OnClickDestroy.cs'
+'Assets/Photon Unity Networking/UtilityScripts/OnClickInstantiate.cs'
+'Assets/Photon Unity Networking/UtilityScripts/OnClickLoadSomething.cs'
+'Assets/Photon Unity Networking/UtilityScripts/OnJoinedInstantiate.cs'
+'Assets/Photon Unity Networking/UtilityScripts/OnStartDelete.cs'
+'Assets/Photon Unity Networking/UtilityScripts/PhotonPlayer/PlayerRoomIndexing.cs'
+'Assets/Photon Unity Networking/UtilityScripts/PickupItem.cs'
+'Assets/Photon Unity Networking/UtilityScripts/PickupItemSimple.cs'
+'Assets/Photon Unity Networking/UtilityScripts/PickupItemSyncer.cs'
+'Assets/Photon Unity Networking/UtilityScripts/PointedAtGameObjectInfo.cs'
+'Assets/Photon Unity Networking/UtilityScripts/PunPlayerScores.cs'
+'Assets/Photon Unity Networking/UtilityScripts/PunTeams.cs'
+'Assets/Photon Unity Networking/UtilityScripts/PunTurnManager.cs'
+'Assets/Photon Unity Networking/UtilityScripts/QuitOnEscapeOrBack.cs'
+'Assets/Photon Unity Networking/UtilityScripts/ShowStatusWhenConnecting.cs'
+'Assets/Photon Unity Networking/UtilityScripts/SmoothSyncMovement.cs'
+'Assets/Photon Unity Networking/UtilityScripts/SupportLogger.cs'
+'Assets/Photon Unity Networking/UtilityScripts/TimeKeeper.cs'
+'Assets/Photon Unity Networking/UtilityScripts/UI/ButtonInsideScrollList.cs'
+'Assets/Photon Unity Networking/UtilityScripts/UI/TextButtonTransition.cs'
+'Assets/Photon Unity Networking/UtilityScripts/UI/TextToggleIsOnTransition.cs'
+'Assets/PhotonChatApi/ChatChannel.cs'
+'Assets/PhotonChatApi/ChatClient.cs'
+'Assets/PhotonChatApi/ChatDisconnectCause.cs'
+'Assets/PhotonChatApi/ChatEventCode.cs'
+'Assets/PhotonChatApi/ChatOperationCode.cs'
+'Assets/PhotonChatApi/ChatParameterCode.cs'
+'Assets/PhotonChatApi/ChatPeer.cs'
+'Assets/PhotonChatApi/ChatState.cs'
+'Assets/PhotonChatApi/ChatUserStatus.cs'
+'Assets/PhotonChatApi/IChatClientListener.cs'
+'Assets/Scripts/Bullet.cs'
+'Assets/Scripts/CameraManager.cs'
+'Assets/Scripts/GameManager.cs'
+'Assets/Scripts/Node.cs'
+'Assets/Scripts/Photon/CreateRoom/CreateRoom.cs'
+'Assets/Scripts/Photon/CurrentRoom/CurrentRoomCanvas.cs'
+'Assets/Scripts/Photon/CurrentRoom/PlayerLayoutGroup.cs'
+'Assets/Scripts/Photon/CurrentRoom/PlayerListing.cs'
+'Assets/Scripts/Photon/Generic/DDOL.cs'
+'Assets/Scripts/Photon/Lobby/LobbyCanvas.cs'
+'Assets/Scripts/Photon/Lobby/RoomLayoutGroup.cs'
+'Assets/Scripts/Photon/Lobby/RoomListing.cs'
+'Assets/Scripts/Photon/MainCanvasManager.cs'
+'Assets/Scripts/Photon/Networks/LobbyNetwork.cs'
+'Assets/Scripts/Photon/Networks/PlayerNetwork.cs'
+'Assets/Scripts/Photon/Networks/SlimeNetwork.cs'
+'Assets/Scripts/PlayerShop.cs'
+'Assets/Scripts/PlayerStats.cs'
+'Assets/Scripts/Slime/Slime.cs'
+'Assets/Scripts/Slime/SlimeAction.cs'
+'Assets/Scripts/Slime/SlimeHealth.cs'
+'Assets/Scripts/SlimeBlueprint.cs'
+'Assets/Scripts/SpawnManager.cs'
+-r:'/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/System.Runtime.Serialization.dll'
+-r:'/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/System.Xml.Linq.dll'
+-r:'/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/UnityScript.dll'
+-r:'/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/UnityScript.Lang.dll'
+-r:'/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/Boo.Lang.dll'
+-sdk:unity

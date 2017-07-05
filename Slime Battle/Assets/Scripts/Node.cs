@@ -116,7 +116,7 @@ public class Node : Photon.MonoBehaviour
 
     public void ResetNode(){
         rend.material.color = startColor;
-        slime = null; //reset all the slime
+        slime = null;   //reset all the slime
     }
 
     /*Testing Touch on mobile (still not working)

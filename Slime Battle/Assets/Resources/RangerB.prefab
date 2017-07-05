@@ -122,7 +122,6 @@ GameObject:
   - component: {fileID: 4670422630247250}
   - component: {fileID: 33255389583754926}
   - component: {fileID: 23701865699860258}
-  - component: {fileID: 136895429173268932}
   - component: {fileID: 114969485377337064}
   - component: {fileID: 114231871591161970}
   - component: {fileID: 114610004204482074}
@@ -475,24 +474,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b865a0e9c98e74cdeaeb7e6ebf4884c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHealth: 15
+  startHealth: 12
   attackDamage: 2
-  attackSpeed: 1.5
+  attackSpeed: 1
   movemonetSpeed: 6
-  actionRange: 10
---- !u!136 &136895429173268932
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1973236862843374}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  actionRange: 9
 --- !u!195 &195910789552299112
 NavMeshAgent:
   m_ObjectHideFlags: 1
@@ -512,7 +498,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 1
   m_WalkableMask: 1
-  m_ObstacleAvoidanceType: 1
+  m_ObstacleAvoidanceType: 4
 --- !u!222 &222822012354556196
 CanvasRenderer:
   m_ObjectHideFlags: 1

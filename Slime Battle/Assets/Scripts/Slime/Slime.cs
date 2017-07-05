@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Linq;
@@ -11,22 +12,20 @@ public class Slime : Photon.MonoBehaviour{
 	public float attackSpeed;		//Attack count per second
 	public float movemonetSpeed;	//Slime's movement speed
 	public float actionRange;		//Slime's action range
-
 	private Transform target;
-	private float myColRadius, tarColRadius, range;
+	private float range, dist;
 	private float turnSpeed = 3f;
 	private NavMeshAgent agent;
     private GameManager gm;
+	private bool pathUpdate, move;
 	List<Transform> enemies;
 
     void Start(){
-		//Slime confing
-        myColRadius = GetComponent<CapsuleCollider> ().radius;
 		//PathFinding config
         agent = GetComponent<NavMeshAgent> ();
 		agent.speed = movemonetSpeed;
 		agent.acceleration = movemonetSpeed;
-        agent.stoppingDistance = actionRange + myColRadius;
+		agent.angularSpeed = 1f;
 
         gm = GameManager.Instance;
 		//Define enemy
@@ -37,31 +36,39 @@ public class Slime : Photon.MonoBehaviour{
 	// Update is called once per frame
 	void Update(){
         if (gm.currentState == GameManager.State.battle_start) {  //when the battle starts, start to execute
-			
+
 			if (target == null){
                 target = UpdateTarget();
-				agent.SetDestination(target.position);
+				if(!pathUpdate){
+					pathUpdate = true;
+					InvokeRepeating("updatePath", 0f, 0.5f);
+				}
 			}
 
             if (target != null){
 				LookAtTarget();
-				float dist = Vector3.Distance(transform.position, target.position);	//must use Vector3.Distance()
-                if (dist > range && agent.destination != target.position) {
-					agent.destination = target.position;	//set new target pos
-				} 
-				else {
-					if(agent.destination != transform.position)
-						agent.destination = transform.position;
+                if((target.position - transform.position).sqrMagnitude < Mathf.Pow(range, 2)){
+					if(!move){
+						move = true;
+						agent.destination = transform.position;		//stand on the current position
+					}
 					GetComponent<SlimeAction>().Action (target, attackSpeed, attackDamage);	//Action to the target
 				}
             }
 		}
 	}
 
+	void updatePath(){
+		if(target != null && (target.position - transform.position).sqrMagnitude > Mathf.Pow(range, 2)){
+			move = false;
+			agent.destination = target.position;	//finding new target position
+		}
+	}
+
 	Transform UpdateTarget(){
 		target = enemies.OrderBy(o => (o.transform.position - transform.position).sqrMagnitude).FirstOrDefault();
-		tarColRadius = target.GetComponent<CapsuleCollider> ().radius;
-		range = myColRadius + tarColRadius + actionRange;
+		range = agent.radius + target.GetComponent<Slime>().agent.radius + actionRange;
+		agent.stoppingDistance = range;
 		return target;
 		// Transform nearestEnemy = null;
 		// if (enemies.Count > 0) {
@@ -108,6 +115,7 @@ public class Slime : Photon.MonoBehaviour{
 	}
 
 	public void StopMoving(){
+		CancelInvoke("UpdatePath");
 		agent.destination = transform.position;
 	}
 }
