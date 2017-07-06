@@ -8,6 +8,7 @@ public class SlimeHealth : Photon.MonoBehaviour {
 
 	public float currentHealth;
 	private float startHealth;
+	private Transform model;
 
 	[Header("Slime Health Bar")]
 	[SerializeField]
@@ -17,6 +18,8 @@ public class SlimeHealth : Photon.MonoBehaviour {
 
 	void Start(){
 		currentHealth = GetComponent<Slime> ().startHealth;
+		model = GetComponent<Slime>().model;
+
 		startHealth = currentHealth;
 
 		if(!PhotonNetwork.isMasterClient){
@@ -32,9 +35,9 @@ public class SlimeHealth : Photon.MonoBehaviour {
 	public void UpdateHealthBarPos(){
 		if(healthBarPos.hasChanged){
 			if(PhotonNetwork.isMasterClient)
-				healthBarPos.position = new Vector3 (transform.position.x+0f, transform.position.y+2f, transform.position.z+1f);
+				healthBarPos.position = new Vector3 (model.position.x+0f, model.position.y+2f, model.position.z+1f);
 			else
-				healthBarPos.position = new Vector3 (transform.position.x+0f, transform.position.y+2f, transform.position.z-1f);
+				healthBarPos.position = new Vector3 (model.position.x+0f, model.position.y+2f, model.position.z-1f);
 		}
 	}
 
@@ -62,6 +65,6 @@ public class SlimeHealth : Photon.MonoBehaviour {
 	private void RPC_SlimeDie(){
 		GetComponent<Slime>().SlimeDead();
 		if(photonView.isMine)
-			PhotonNetwork.Destroy(transform.parent.gameObject);
+			PhotonNetwork.Destroy(gameObject);
 	}
 }

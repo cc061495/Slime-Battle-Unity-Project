@@ -12,23 +12,30 @@ public class Slime : Photon.MonoBehaviour{
 	public float attackSpeed;		//Attack count per second
 	public float movemonetSpeed;	//Slime's movement speed
 	public float actionRange;		//Slime's action range
+	[Space]
+	public Transform proxy;
+	public Transform model;
+
 	private Transform target;
 	private float range, dist;
 	private float turnSpeed = 3f;
 	private NavMeshAgent agent;
+	private NavMeshObstacle obstacle;
     private GameManager gm;
 	private bool pathUpdate, move;
 	List<Transform> enemies;
 
     void Start(){
 		//PathFinding config
-        agent = GetComponent<NavMeshAgent> ();
+        agent = proxy.GetComponent<NavMeshAgent>();
+		obstacle = proxy.GetComponent<NavMeshObstacle>();
+		
 		agent.speed = movemonetSpeed;
-		agent.acceleration = movemonetSpeed;
-		agent.angularSpeed = 1f;
-
+		agent.acceleration = 9999f;
+		agent.angularSpeed = 0f;
+		
         gm = GameManager.Instance;
-		//Define enemy
+		//Define enemy team
 		enemies = (transform.tag == "Team_RED") ? (gm.team_blue) : (gm.team_red);
         JoinTeamList();
     }
@@ -37,38 +44,47 @@ public class Slime : Photon.MonoBehaviour{
 	void Update(){
         if (gm.currentState == GameManager.State.battle_start) {  //when the battle starts, start to execute
 
-			if (target == null){
-                target = UpdateTarget();
-				if(!pathUpdate){
-					pathUpdate = true;
-					InvokeRepeating("updatePath", 0f, 0.5f);
-				}
-			}
+			if (target == null)		//find the target first, if target = null
+                target = FindNearestTarget();
 
-            if (target != null){
-				LookAtTarget();
-                if((target.position - transform.position).sqrMagnitude < Mathf.Pow(range, 2)){
-					if(!move){
-						move = true;
-						agent.destination = transform.position;		//stand on the current position
-					}
+            if (target != null){	//found target
+                if((target.position - proxy.position).sqrMagnitude < Mathf.Pow(actionRange, 2)){
+					agent.enabled = false;
+					obstacle.enabled = true;
 					GetComponent<SlimeAction>().Action (target, attackSpeed, attackDamage);	//Action to the target
+				}
+				else{
+					obstacle.enabled = false;
+					agent.enabled = true;
+					if(!pathUpdate){
+						pathUpdate = true;
+						InvokeRepeating("UpdatePath", 0f, 0.5f);
+					}
 				}
             }
 		}
 	}
 
-	void updatePath(){
-		if(target != null && (target.position - transform.position).sqrMagnitude > Mathf.Pow(range, 2)){
-			move = false;
+	void FixedUpdate(){
+		if(target != null){
+			Vector3 dir = target.position - proxy.position;
+			Quaternion lookRotation = Quaternion.LookRotation (dir);
+			Vector3 rotation = Quaternion.Lerp (model.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
+			model.rotation = Quaternion.Euler (0f, rotation.y, 0f);
+			//how fast that the model follow the proxy
+			model.position = Vector3.Lerp(model.position, proxy.position, Time.deltaTime * 5);
+		}
+	}
+
+	void UpdatePath(){
+		if(target != null && agent.enabled){
+			Debug.Log("finding the path");
 			agent.destination = target.position;	//finding new target position
 		}
 	}
 
-	Transform UpdateTarget(){
-		target = enemies.OrderBy(o => (o.transform.position - transform.position).sqrMagnitude).FirstOrDefault();
-		range = agent.radius + target.GetComponent<Slime>().agent.radius + actionRange;
-		agent.stoppingDistance = range;
+	Transform FindNearestTarget(){
+		target = enemies.OrderBy(o => (o.transform.position - proxy.position).sqrMagnitude).FirstOrDefault();
 		return target;
 		// Transform nearestEnemy = null;
 		// if (enemies.Count > 0) {
@@ -84,27 +100,20 @@ public class Slime : Photon.MonoBehaviour{
 		// 	}
 		// }
 		//return nearestEnemy;
-    }	
-
-	void LookAtTarget(){
-		Vector3 dir = target.position - transform.position;
-		Quaternion lookRotation = Quaternion.LookRotation (dir);
-		Vector3 rotation = Quaternion.Lerp (transform.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
-		transform.rotation = Quaternion.Euler (0f, rotation.y, 0f);
-	}
+    }
 
 	void JoinTeamList(){
         if(transform.tag == "Team_RED")
-            gm.team_red.Add(transform);
+            gm.team_red.Add(proxy);
 		else
-            gm.team_blue.Add(transform);
+            gm.team_blue.Add(proxy);
 	}
 
 	void RemoveFromTeamList(){
 		if(transform.tag == "Team_RED")
-            gm.team_red.Remove(transform);
+            gm.team_red.Remove(proxy);
 		else
-            gm.team_blue.Remove(transform);
+            gm.team_blue.Remove(proxy);
 
         gm.CheckAnyEmptyTeam();
     }
@@ -116,6 +125,6 @@ public class Slime : Photon.MonoBehaviour{
 
 	public void StopMoving(){
 		CancelInvoke("UpdatePath");
-		agent.destination = transform.position;
+		agent.enabled = false;
 	}
 }

@@ -30,7 +30,7 @@ public class SlimeAction : MonoBehaviour {
 	}
 		
 	void MeleeAttack(Transform target, float attackDamage){
-		SlimeHealth h = target.GetComponent<SlimeHealth>();
+		SlimeHealth h = target.parent.GetComponent<SlimeHealth>();
 		h.TakeDamage(attackDamage);
 		/* 
 		PhotonView pv = target.GetComponent<PhotonView>();

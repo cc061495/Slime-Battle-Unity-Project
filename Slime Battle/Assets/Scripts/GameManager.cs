@@ -125,7 +125,7 @@ public class GameManager : Photon.MonoBehaviour
 
     IEnumerator ClearAllSlime(List<Transform> team){
         foreach (Transform slime in team)
-            slime.GetComponent<Slime>().StopMoving();
+            slime.parent.GetComponent<Slime>().StopMoving();
 
         yield return new WaitForSeconds(2f);
         foreach (Transform slime in team)

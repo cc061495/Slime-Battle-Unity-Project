@@ -35,7 +35,7 @@ public class Bullet : MonoBehaviour{
         Destroy(effectIns, 0.5f);
         Destroy(gameObject);
 
-        SlimeHealth h = target.GetComponent<SlimeHealth>();
+        SlimeHealth h = target.parent.GetComponent<SlimeHealth>();
 		h.TakeDamage(attackDamage);
     }
 }
