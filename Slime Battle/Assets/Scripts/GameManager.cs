@@ -54,7 +54,7 @@ public class GameManager : Photon.MonoBehaviour
     void BuildStart(){
         currentState = State.build_start;  //set game state = building
         Debug.Log("Build Start!");
-        ShowShop();
+        ShopDisplay(true);
         StartCoroutine(DisplayGamePanel());
 
         Invoke("BuildEnd", 15f);
@@ -64,7 +64,7 @@ public class GameManager : Photon.MonoBehaviour
         currentState = State.build_end;
         Debug.Log("Build End!");
         GetComponent<CameraManager>().CamMove_Battle();
-        CloseShop();
+        ShopDisplay(false);
         StartCoroutine(DisplayGamePanel());
 
         Invoke("BattleStart", 4f);
@@ -124,9 +124,6 @@ public class GameManager : Photon.MonoBehaviour
     }
 
     IEnumerator ClearAllSlime(List<Transform> team){
-        foreach (Transform slime in team)
-            slime.parent.GetComponent<Slime>().StopMoving();
-
         yield return new WaitForSeconds(2f);
         foreach (Transform slime in team)
             Destroy(slime.parent.gameObject);
@@ -238,18 +235,11 @@ public class GameManager : Photon.MonoBehaviour
         PhotonNetwork.LoadLevel("GameLobby");
     }
 
-    void ShowShop(){
+    void ShopDisplay(bool shopDisplay){
         if(PhotonNetwork.isMasterClient)
-            teamRedSlimeShop.SetActive(true);
+            teamRedSlimeShop.SetActive(shopDisplay);
         else
-            teamBlueSlimeShop.SetActive(true);
-    }
-
-    void CloseShop(){
-        if(PhotonNetwork.isMasterClient)
-            teamRedSlimeShop.SetActive(false);
-        else
-            teamBlueSlimeShop.SetActive(false);
+            teamBlueSlimeShop.SetActive(shopDisplay);
     }
 
     [PunRPC]

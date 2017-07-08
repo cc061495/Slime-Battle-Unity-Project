@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4328959742722532}
   - component: {fileID: 33084010080951242}
+  - component: {fileID: 65224782128028498}
   - component: {fileID: 23452601258808380}
-  - component: {fileID: 65025372702856484}
   m_Layer: 8
   m_Name: Void Tile
   m_TagString: Untagged
@@ -80,7 +80,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1484264624231802}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65025372702856484
+--- !u!65 &65224782128028498
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

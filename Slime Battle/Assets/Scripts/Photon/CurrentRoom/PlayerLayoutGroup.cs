@@ -10,19 +10,6 @@ public class PlayerLayoutGroup : Photon.MonoBehaviour{
         private GameObject PlayerListingPrefab{
             get { return _playerListingPrefab; }
         }
-
-        [SerializeField]
-        private Text _roomState;
-        private Text roomState{
-            get { return _roomState; }
-        }
-
-        [SerializeField]
-        private Button _roomStateBtn;
-        private Button roomStateBtn{
-            get { return _roomStateBtn; }
-        }
-
         [SerializeField]
         private Text _roomMatchText;
         private Text roomMatchText{
@@ -100,16 +87,6 @@ public class PlayerLayoutGroup : Photon.MonoBehaviour{
             PlayerListings.RemoveAt(index);
         }
     }
-    //Lock the room
-    public void OnClickRoomState(){
-        if (!PhotonNetwork.isMasterClient)
-            return;
-
-        PhotonNetwork.room.IsOpen = !PhotonNetwork.room.IsOpen;
-        PhotonNetwork.room.IsVisible = PhotonNetwork.room.IsOpen;
-
-        photonView.RPC("roomStateUpdate", PhotonTargets.All);
-    }
     //Leave the room
     public void OnClickLeaveRoom(){
         if (isRoomReady)
@@ -139,29 +116,20 @@ public class PlayerLayoutGroup : Photon.MonoBehaviour{
     }
 
     void UpdateButtonsLayout(){
-        roomState.text = (PhotonNetwork.room.IsOpen) ? "Unlock" : "Locked";
-
         if (!PhotonNetwork.isMasterClient){
             //Server Client
-            roomStateBtn.interactable = false;  //No Lock function
             roomMatchText.text = "Ready";       //Ready Text
             roomMatchBtn.interactable = true;   //Active Ready button
-                                                //Set the Ready button color
+            //Set the Ready button color
             roomMatchBtn.GetComponent<Image>().color = (isRoomReady) ? Color.green : Color.white;
         }
         else{
             //Server Master Client
-            roomStateBtn.interactable = true;   //Lock function
-            roomMatchText.text = "Start Match"; //Start Match Text
-                                                //Reset Match button Color
-            roomMatchBtn.GetComponent<Image>().color = Color.white;
+            roomMatchText.text = "Start\nMatch"; //Start Match Text
             roomMatchBtn.interactable = (isRoomReady) ? true : false;
+            //Reset Match button Color
+            roomMatchBtn.GetComponent<Image>().color = Color.white;
         }
-    }
-
-    [PunRPC]
-    void roomStateUpdate(){
-        roomState.text = (PhotonNetwork.room.IsOpen) ? "Unlock" : "Locked";
     }
 
     [PunRPC]

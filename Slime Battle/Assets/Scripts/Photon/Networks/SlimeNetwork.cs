@@ -5,19 +5,18 @@ using UnityEngine;
 
 public class SlimeNetwork : MonoBehaviour {
 
+	private Transform model;
 	private Vector3 realPosition = Vector3.zero;
 	private Quaternion realRotation = Quaternion.identity;
 	private bool gotFirstUpdate = false;
-	private Transform proxy, model;
 	PhotonView photonView;
 
 	void Awake () {
-		PhotonNetwork.sendRate = 60;	//default(20)
-		PhotonNetwork.sendRateOnSerialize = 20;		//default(10)
+		model = GetComponent<Slime>().model;
+		PhotonNetwork.sendRate = 20;	//default(20)
+		PhotonNetwork.sendRateOnSerialize = 10;		//default(10)
 
 		photonView = GetComponent<PhotonView>();
-		proxy = GetComponent<Slime>().proxy;
-		model = GetComponent<Slime>().model;
 	}
 	// FixedUpdate is called once per physics loop
 	// Do all MOVEMENT and other physics stuff here
@@ -25,7 +24,7 @@ public class SlimeNetwork : MonoBehaviour {
 		if(photonView.isMine){
 			// Do nothing - slime.cs is moving us
 		}else{
-			proxy.position = Vector3.Lerp(proxy.position, realPosition, 5f * Time.deltaTime);
+			model.position = Vector3.Lerp(model.position, realPosition, 5f * Time.deltaTime);
 			model.rotation = Quaternion.Lerp(model.rotation, realRotation, 5f * Time.deltaTime);
 		}
 	}
@@ -33,7 +32,7 @@ public class SlimeNetwork : MonoBehaviour {
 	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
 		if(stream.isWriting){
 			// This is OUR player, we need to send our actual position to the network.
-			stream.SendNext(proxy.position);
+			stream.SendNext(model.position);
 			stream.SendNext(model.rotation);
 		}
 		else{
@@ -47,7 +46,7 @@ public class SlimeNetwork : MonoBehaviour {
 			// We MAY want to set our transform.position to immediately to this old "realPosition"
 			// and then update realPosition
 			if(!gotFirstUpdate){
-				proxy.position = realPosition;
+				model.position = realPosition;
 				model.rotation = realRotation;
 				gotFirstUpdate = true;
 			}

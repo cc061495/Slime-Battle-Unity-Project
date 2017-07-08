@@ -56,7 +56,7 @@ public class Node : Photon.MonoBehaviour
         switch (size){
             case 1:
                 GameObject _slime = PhotonNetwork.Instantiate(blueprint.slimePrefab.name, GetBuildPos(offset), Quaternion.identity, 0);
-                _slime.GetComponent<Slime>().model.rotation = transform.rotation;
+                _slime.transform.FindChild("SlimeObject").rotation = transform.rotation;
                 slime = _slime;
                 slimeblueprint = blueprint;
                 rend.material.color = GetTeamColor();
@@ -76,7 +76,7 @@ public class Node : Photon.MonoBehaviour
         float radius = 1f;
         int numOfNode = 0;
 
-        Collider[] colliders = Physics.OverlapSphere(transform.position + offset, radius);
+        Collider[] colliders = Physics.OverlapSphere(transform.position + new Vector3(1.5f,0,-1.5f), radius);
         foreach (Collider col in colliders){
             if (col.gameObject.tag == "node"){
                 Node e = col.gameObject.GetComponent<Node>();
@@ -89,7 +89,7 @@ public class Node : Photon.MonoBehaviour
 
         if (numOfNode == size){
             GameObject _slime = PhotonNetwork.Instantiate(blueprint.slimePrefab.name, GetBuildPos(offset), Quaternion.identity, 0);
-            _slime.GetComponent<Slime>().model.rotation = transform.rotation;
+            _slime.transform.FindChild("SlimeObject").rotation = transform.rotation;
             foreach (Collider col in colliders){
                 if (col.gameObject.tag == "node"){
                     Node e = col.gameObject.GetComponent<Node>();
