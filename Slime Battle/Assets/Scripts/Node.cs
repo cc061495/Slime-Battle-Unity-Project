@@ -47,16 +47,16 @@ public class Node : Photon.MonoBehaviour
 
     void SpawnSlime(SlimeBlueprint blueprint){
         //Check Player Cost > slime money -> can build
-        if (blueprint.team != team_node)
+        if (blueprint.getTeam() != team_node)
             return;
 
-        int size = blueprint.size;
-        Vector3 offset = blueprint.spawnPosOffset;
+        int size = blueprint.getSize();
+        Vector3 offset = blueprint.getOffset();
 
         switch (size){
             case 1:
-                GameObject _slime = PhotonNetwork.Instantiate(blueprint.slimePrefab.name, GetBuildPos(offset), Quaternion.identity, 0);
-                _slime.transform.FindChild("SlimeObject").rotation = transform.rotation;
+                GameObject _slime = PhotonNetwork.Instantiate(blueprint.getPrefabName(), GetBuildPos(offset), Quaternion.identity, 0);
+                _slime.GetComponent<Slime>().model.rotation = transform.rotation;
                 slime = _slime;
                 slimeblueprint = blueprint;
                 rend.material.color = GetTeamColor();
@@ -88,8 +88,8 @@ public class Node : Photon.MonoBehaviour
         }
 
         if (numOfNode == size){
-            GameObject _slime = PhotonNetwork.Instantiate(blueprint.slimePrefab.name, GetBuildPos(offset), Quaternion.identity, 0);
-            _slime.transform.FindChild("SlimeObject").rotation = transform.rotation;
+            GameObject _slime = PhotonNetwork.Instantiate(blueprint.getPrefabName(), GetBuildPos(offset), Quaternion.identity, 0);
+            _slime.GetComponent<Slime>().model.rotation = transform.rotation;
             foreach (Collider col in colliders){
                 if (col.gameObject.tag == "node"){
                     Node e = col.gameObject.GetComponent<Node>();

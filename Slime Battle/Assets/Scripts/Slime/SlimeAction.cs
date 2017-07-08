@@ -5,23 +5,21 @@ using UnityEngine;
 
 public class SlimeAction : MonoBehaviour {
 
-	[Header("Slime Attack Mode")]
-	public bool meleeAttack;
-	[Space]
-	public bool rangedAttack;
 	[SerializeField]
 	private Transform firePoint;
 	[SerializeField]
 	private GameObject rangedWeaponPrefab;
 
 	private float coolDown = 0f;
+	private SlimeClass slime;
 
 	public void Action(Transform target, float attackSpeed, float attackDamage){
+		slime = GetComponent<Slime>().s;
 		if (coolDown <= 0f) {
-			if (meleeAttack){
+			if (slime.isMeleeAttack()){
 				MeleeAttack (target, attackDamage);
 			}
-			else if (rangedAttack)
+			else if (slime.isRangedAttack())
 				RangedAttack (target, attackDamage);
 
 			coolDown = 1f / attackSpeed;

@@ -1199,27 +1199,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f733158bd0d74d00a29b2d2b12c9e1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slime:
-    slimePrefab: {fileID: 1107804881901608, guid: 903ebea1718054ab2b4cb00051aa86fe,
-      type: 2}
-    cost: 0
-    size: 1
-    team: RED
-    spawnPosOffset: {x: 0, y: 1.5, z: 0}
-  giant:
-    slimePrefab: {fileID: 1597623680475062, guid: 5af9b7608f7a945fb9ba84fbcd1d029c,
-      type: 2}
-    cost: 0
-    size: 4
-    team: RED
-    spawnPosOffset: {x: 1.5, y: 2.5, z: -1.5}
-  ranger:
-    slimePrefab: {fileID: 1539508114879990, guid: 3124e8a1203074ef483a7a30f957266d,
-      type: 2}
-    cost: 0
-    size: 1
-    team: RED
-    spawnPosOffset: {x: 0, y: 1.5, z: 0}
+  team: RED
+  _slime: {fileID: 1107804881901608, guid: 903ebea1718054ab2b4cb00051aa86fe, type: 2}
+  _giant: {fileID: 1597623680475062, guid: 5af9b7608f7a945fb9ba84fbcd1d029c, type: 2}
+  _ranger: {fileID: 1539508114879990, guid: 3124e8a1203074ef483a7a30f957266d, type: 2}
 --- !u!114 &164218327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6824,27 +6807,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f733158bd0d74d00a29b2d2b12c9e1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slime:
-    slimePrefab: {fileID: 1657785362013334, guid: 07fe8698f10ae431796790adfcbce625,
-      type: 2}
-    cost: 0
-    size: 1
-    team: BLUE
-    spawnPosOffset: {x: 0, y: 1.5, z: 0}
-  giant:
-    slimePrefab: {fileID: 1808515493412978, guid: eab0a0d96244a4c6a96c6aab313302ac,
-      type: 2}
-    cost: 0
-    size: 4
-    team: BLUE
-    spawnPosOffset: {x: 1.5, y: 2.5, z: -1.5}
-  ranger:
-    slimePrefab: {fileID: 1285319791248710, guid: ad8a69c0746b442e586aa082f821b1d5,
-      type: 2}
-    cost: 0
-    size: 1
-    team: BLUE
-    spawnPosOffset: {x: 0, y: 1.5, z: 0}
+  team: BLUE
+  _slime: {fileID: 1657785362013334, guid: 07fe8698f10ae431796790adfcbce625, type: 2}
+  _giant: {fileID: 1808515493412978, guid: eab0a0d96244a4c6a96c6aab313302ac, type: 2}
+  _ranger: {fileID: 1285319791248710, guid: ad8a69c0746b442e586aa082f821b1d5, type: 2}
 --- !u!114 &895086057
 MonoBehaviour:
   m_ObjectHideFlags: 0

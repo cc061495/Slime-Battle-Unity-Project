@@ -18,7 +18,7 @@ public class SlimeHealth : Photon.MonoBehaviour {
 
 	void Start(){
 		model = GetComponent<Slime>().model;
-		currentHealth = GetComponent<Slime> ().startHealth;
+		currentHealth = GetComponent<Slime> ().s.getStartHealth();
 		startHealth = currentHealth;
 		UpdateHealthBarPos();
 
@@ -50,9 +50,9 @@ public class SlimeHealth : Photon.MonoBehaviour {
 	private void UpdateHealthBarPos(){
 		if(healthBarPos.hasChanged){
 			if(PhotonNetwork.isMasterClient)
-				healthBarPos.position = new Vector3 (model.position.x+0f, model.position.y+2f, model.position.z+1f);
+				healthBarPos.position = new Vector3 (model.position.x, model.position.y+2f, model.position.z+1f);
 			else
-				healthBarPos.position = new Vector3 (model.position.x+0f, model.position.y+2f, model.position.z-1f);
+				healthBarPos.position = new Vector3 (model.position.x, model.position.y+2f, model.position.z-1f);
 		}
 	}
 

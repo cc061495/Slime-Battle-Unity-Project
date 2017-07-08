@@ -125,9 +125,10 @@ public class GameManager : Photon.MonoBehaviour
 
     IEnumerator ClearAllSlime(List<Transform> team){
         yield return new WaitForSeconds(2f);
-        foreach (Transform slime in team)
-            Destroy(slime.parent.gameObject);
-
+        foreach (Transform slime in team){
+            if(slime.parent.gameObject.GetComponent<PhotonView>().isMine)
+                PhotonNetwork.Destroy(slime.parent.gameObject);
+        }
         team.Clear();
     }
 
@@ -170,16 +171,14 @@ public class GameManager : Photon.MonoBehaviour
                 break;
             case State.battle_end:
                 if (team_blue.Count > 0){
-                    gameDisplayText.color = Color.blue;
+                    gameDisplayText.color = Color.cyan;
                     gameDisplayText.text = "Team Blue\nwon!";
-                    gameDisplayText.color = Color.white;
                     team_blue_score++;
                     StartCoroutine(ClearAllSlime(team_blue));
                 }
                 else if (team_red.Count > 0){
                     gameDisplayText.color = Color.red;
                     gameDisplayText.text = "Team Red\nwon!";
-                    gameDisplayText.color = Color.white;
                     team_red_score++;
                     StartCoroutine(ClearAllSlime(team_red));
                 }
@@ -190,6 +189,7 @@ public class GameManager : Photon.MonoBehaviour
                 }
                 gameDisplayPanel.SetActive(true);
                 yield return new WaitForSeconds(2f);
+                gameDisplayText.color = Color.white;
                 gameDisplayText.text = " RED | BLUE \n" + team_red_score + " : " + team_blue_score;
                 yield return new WaitForSeconds(2f);
                 break;
@@ -199,17 +199,16 @@ public class GameManager : Photon.MonoBehaviour
                 if(team_red_score > team_blue_score){
                     gameDisplayText.color = Color.red;
                     gameDisplayText.text = "-Winner-\nTeam Red";
-                    gameDisplayText.color = Color.white;
                 }
                 else if(team_red_score < team_blue_score){
-                    gameDisplayText.color = Color.blue;
+                    gameDisplayText.color = Color.cyan;
                     gameDisplayText.text = "-Winner-\nTeam Blue";
-                    gameDisplayText.color = Color.white;
                 }
                 else{
                     gameDisplayText.text = "Draw!!!";
                 }
                 yield return new WaitForSeconds(1f);
+                gameDisplayText.color = Color.white;
                 gameDisplayText.text = "Good Game~";
                 yield return new WaitForSeconds(1f);
                 break;

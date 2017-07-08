@@ -307,13 +307,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b865a0e9c98e74cdeaeb7e6ebf4884c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHealth: 32
-  attackDamage: 2
-  attackSpeed: 2
-  movemonetSpeed: 5
-  actionRange: 1
-  scaleRadius: 0.5
   model: {fileID: 4494447229286618}
+  slimeName: Slime
 --- !u!114 &114268298984442230
 MonoBehaviour:
   m_ObjectHideFlags: 1

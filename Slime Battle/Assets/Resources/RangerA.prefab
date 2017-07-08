@@ -417,13 +417,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b865a0e9c98e74cdeaeb7e6ebf4884c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHealth: 12
-  attackDamage: 2
-  attackSpeed: 1
-  movemonetSpeed: 5
-  actionRange: 9
-  scaleRadius: 0.5
   model: {fileID: 4823567219394692}
+  slimeName: Ranger
 --- !u!114 &114878676688400212
 MonoBehaviour:
   m_ObjectHideFlags: 1

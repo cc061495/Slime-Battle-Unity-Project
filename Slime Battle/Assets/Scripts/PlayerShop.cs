@@ -2,15 +2,18 @@
 
 public class PlayerShop:MonoBehaviour {
 
-	public SlimeBlueprint slime;
-	public SlimeBlueprint giant;
-	public SlimeBlueprint ranger;
+	public string team;
+	public GameObject _slime, _giant, _ranger;
+	private SlimeBlueprint slime, giant, ranger;
 
 	SpawnManager spawnManager; 
 
 	// Use this for initialization
 	void Start () {
-		spawnManager = SpawnManager.Instance; 
+		spawnManager = SpawnManager.Instance;
+		slime = new SlimeBlueprint("Slime", team, _slime);
+		giant = new SlimeBlueprint("Giant", team, _giant);
+		ranger = new SlimeBlueprint("Ranger", team, _ranger);
 	}
 	
 	public void SelectSlime() {

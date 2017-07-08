@@ -345,13 +345,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b865a0e9c98e74cdeaeb7e6ebf4884c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHealth: 160
-  attackDamage: 5
-  attackSpeed: 2
-  movemonetSpeed: 3.5
-  actionRange: 1
-  scaleRadius: 1
   model: {fileID: 4127756345726616}
+  slimeName: Giant
 --- !u!114 &114640853241049286
 MonoBehaviour:
   m_ObjectHideFlags: 1
