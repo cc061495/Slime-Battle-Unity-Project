@@ -40,7 +40,7 @@ public class SlimeBlueprint{
 		if(size == 1)
 			spawnPosOffset = new Vector3(0,1.5f,0);
 		else if(size == 4)
-			spawnPosOffset = new Vector3(1.5f,2.5f,-1.5f);
+			spawnPosOffset = new Vector3(0,2.5f,0);
 	}
 
 	private void setCost(int _cost){

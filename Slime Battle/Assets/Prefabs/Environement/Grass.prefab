@@ -19,9 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4518537782391836}
-  - component: {fileID: 33360135318909124}
   - component: {fileID: 65412576077834040}
-  - component: {fileID: 23183707102341724}
   - component: {fileID: 114072012368199524}
   m_Layer: 8
   m_Name: Grass
@@ -43,44 +41,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23183707102341724
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1307533530101704}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 2100000, guid: 3406a456dcc774a3aa5502d4bb81c792, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
---- !u!33 &33360135318909124
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1307533530101704}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!65 &65412576077834040
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -104,15 +64,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e04def83d64644fda0ba24e224351a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectColor: {r: 0.045172874, g: 0.18382353, b: 0.033791088, a: 0}
-  availableColor: {r: 0, g: 0, b: 0, a: 0}
-  teamA_Color: {r: 0.53676474, g: 0.08682958, b: 0.08682958, a: 0}
-  teamB_Color: {r: 0.15224913, g: 0.23756117, b: 0.64705884, a: 0}
   slime: {fileID: 0}
-  slimeblueprint:
-    slimePrefab: {fileID: 0}
-    cost: 0
-    size: 0
-    team: 0
-    spawnPosOffset: {x: 0, y: 0, z: 0}
   team_node: 0
+  tile: {fileID: 1587847103860392, guid: 157eefd7d14c746d7bde48c04a7ef450, type: 2}

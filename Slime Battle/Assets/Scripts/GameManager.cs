@@ -57,7 +57,7 @@ public class GameManager : Photon.MonoBehaviour
         ShopDisplay(true);
         StartCoroutine(DisplayGamePanel());
 
-        Invoke("BuildEnd", 15f);
+        Invoke("BuildEnd", 30f);
     }
     /* Build End State */
     void BuildEnd(){
@@ -66,6 +66,10 @@ public class GameManager : Photon.MonoBehaviour
         GetComponent<CameraManager>().CamMove_Battle();
         ShopDisplay(false);
         StartCoroutine(DisplayGamePanel());
+
+        GameObject[] nodes = GameObject.FindGameObjectsWithTag("node");
+        foreach (GameObject node in nodes)
+            node.GetComponent<Node>().ResetNode();
 
         Invoke("BattleStart", 4f);
     }
@@ -79,9 +83,6 @@ public class GameManager : Photon.MonoBehaviour
         CheckAnyEmptyTeam();    //check any empty team when battle started
 
         SpawnManager.Instance.ClearSlimeToSpawn();
-        GameObject[] nodes = GameObject.FindGameObjectsWithTag("node");
-        foreach (GameObject node in nodes)
-            node.GetComponent<Node>().ResetNode();
     }
 
     public void CheckAnyEmptyTeam(){
