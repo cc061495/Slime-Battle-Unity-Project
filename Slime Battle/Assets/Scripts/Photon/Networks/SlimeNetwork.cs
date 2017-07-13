@@ -12,9 +12,9 @@ public class SlimeNetwork : MonoBehaviour {
 	PhotonView photonView;
 
 	void Awake () {
-		model = GetComponent<Slime>().model;
-		PhotonNetwork.sendRate = 20;	//default(20)
-		PhotonNetwork.sendRateOnSerialize = 10;		//default(10)
+		model = GetComponent<Slime>().GetModel();
+		PhotonNetwork.sendRate = 20;	//default(20) //(60)
+		PhotonNetwork.sendRateOnSerialize = 10;		//default(10) //(30)
 
 		photonView = GetComponent<PhotonView>();
 	}

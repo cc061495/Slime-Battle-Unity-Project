@@ -13,16 +13,15 @@ public class SlimeAction : MonoBehaviour {
 	private float coolDown = 0f;
 	private SlimeClass slime;
 
-	public void Action(Transform target, float attackSpeed, float attackDamage){
-		slime = GetComponent<Slime>().s;
+	public void Action(Transform target, SlimeClass slime){
 		if (coolDown <= 0f) {
 			if (slime.isMeleeAttack()){
-				MeleeAttack (target, attackDamage);
+				MeleeAttack (target, slime.getAttackDamage());
 			}
 			else if (slime.isRangedAttack())
-				RangedAttack (target, attackDamage);
+				RangedAttack (target, slime.getAttackDamage());
 
-			coolDown = 1f / attackSpeed;
+			coolDown = 1f / slime.getAttackSpeed();
 		}
 		coolDown -= Time.deltaTime;
 	}

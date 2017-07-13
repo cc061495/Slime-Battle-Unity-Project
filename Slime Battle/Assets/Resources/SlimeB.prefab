@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 114166289527992358}
   - component: {fileID: 114023423280396046}
   - component: {fileID: 114905014404234032}
+  - component: {fileID: 114716889060768648}
   m_Layer: 0
   m_Name: SlimeB
   m_TagString: Team_BLUE
@@ -352,6 +353,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114716889060768648
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1657785362013334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ebd35e67ffb438f8624097dc22019b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114762612294802014
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 114732832615993266}
   - component: {fileID: 114163660125038250}
   - component: {fileID: 114428411695743776}
+  - component: {fileID: 114655544886990424}
   m_Layer: 0
   m_Name: RangerB
   m_TagString: Team_BLUE
@@ -350,8 +351,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 246b2a59e23ac4285984af4d6187e6e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meleeAttack: 0
-  rangedAttack: 1
   firePoint: {fileID: 4253640154260890}
   rangedWeaponPrefab: {fileID: 1913246470140862, guid: 22cff032ebf594eda99f770b646cfc1e,
     type: 2}
@@ -409,6 +408,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114655544886990424
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1285319791248710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ebd35e67ffb438f8624097dc22019b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114732832615993266
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -433,8 +443,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b865a0e9c98e74cdeaeb7e6ebf4884c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 4673274358399474}
   slimeName: Ranger
+  model: {fileID: 4673274358399474}
 --- !u!195 &195156719481398132
 NavMeshAgent:
   m_ObjectHideFlags: 1

@@ -73,4 +73,6 @@ MonoBehaviour:
   - RPC_SlimeDie
   - Spawn
   - RPC_Spawn
+  - RPC_setBlueReady
+  - RPC_setRedReady
   DisableAutoOpenWizard: 1

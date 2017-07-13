@@ -1,6 +1,4 @@
 ﻿/* Copyright (c) cc061495 */
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,9 +14,9 @@ public class SlimeHealth : Photon.MonoBehaviour {
 	[SerializeField]
 	private RectTransform healthBarPos;
 
-	void Start(){
-		model = GetComponent<Slime>().model;
-		currentHealth = GetComponent<Slime> ().s.getStartHealth();
+	public void SetUpSlimeHealth(){
+		model = GetComponent<Slime>().GetModel();
+		currentHealth = GetComponent<Slime>().GetSlimeClass().getStartHealth();
 		startHealth = currentHealth;
 		UpdateHealthBarPos();
 
@@ -48,7 +46,7 @@ public class SlimeHealth : Photon.MonoBehaviour {
 	}
 
 	private void UpdateHealthBarPos(){
-		if(healthBarPos.hasChanged){
+		if(healthBarPos.hasChanged && model != null){
 			if(PhotonNetwork.isMasterClient)
 				healthBarPos.position = new Vector3 (model.position.x, model.position.y+2f, model.position.z+1f);
 			else

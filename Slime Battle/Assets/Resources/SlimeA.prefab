@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 114131719547122452}
   - component: {fileID: 114607182787072204}
   - component: {fileID: 114245539473206882}
+  - component: {fileID: 114799974262379534}
   - component: {fileID: 114084432897900884}
   - component: {fileID: 114088185433747362}
   m_Layer: 0
@@ -355,6 +356,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 0}
   rangedWeaponPrefab: {fileID: 0}
+--- !u!114 &114799974262379534
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1107804881901608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ebd35e67ffb438f8624097dc22019b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114876718257708038
 MonoBehaviour:
   m_ObjectHideFlags: 1

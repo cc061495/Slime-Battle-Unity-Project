@@ -33,6 +33,12 @@ public class GameManager : Photon.MonoBehaviour
         mFPS = 1.0f / mDeltaTime;
         DebugText.text += string.Format("{0:0.0} ms ({1:0.} fps)", msec, mFPS);
     }
+    void Start(){
+        if(!PhotonNetwork.connected){
+            //Start single mode
+            Debug.Log("HELLO");
+        }
+    }
     /* Game Start State */
     public void GameStart(){
         currentState = State.idle;  //set game state = idle
@@ -54,13 +60,12 @@ public class GameManager : Photon.MonoBehaviour
     void BuildStart(){
         currentState = State.build_start;  //set game state = building
         Debug.Log("Build Start!");
+        TimerManager.Instance.setBuildingTime();
         ShopDisplay(true);
         StartCoroutine(DisplayGamePanel());
-
-        Invoke("BuildEnd", 30f);
     }
     /* Build End State */
-    void BuildEnd(){
+    public void BuildEnd(){
         currentState = State.build_end;
         Debug.Log("Build End!");
         GetComponent<CameraManager>().CamMove_Battle();
@@ -127,7 +132,7 @@ public class GameManager : Photon.MonoBehaviour
     IEnumerator ClearAllSlime(List<Transform> team){
         yield return new WaitForSeconds(2f);
         foreach (Transform slime in team){
-            if(slime.parent.gameObject.GetComponent<PhotonView>().isMine)
+            if(slime.parent.GetComponent<PhotonView>().isMine)
                 PhotonNetwork.Destroy(slime.parent.gameObject);
         }
         team.Clear();

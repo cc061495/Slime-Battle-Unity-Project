@@ -77,6 +77,7 @@ GameObject:
   - component: {fileID: 114370751705148162}
   - component: {fileID: 114023423853420116}
   - component: {fileID: 114603917924777708}
+  - component: {fileID: 114631986250221792}
   m_Layer: 0
   m_Name: GiantB
   m_TagString: Team_BLUE
@@ -345,8 +346,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b865a0e9c98e74cdeaeb7e6ebf4884c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 4127756345726616}
   slimeName: Giant
+  model: {fileID: 4127756345726616}
+--- !u!114 &114631986250221792
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1808515493412978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ebd35e67ffb438f8624097dc22019b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114640853241049286
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -358,8 +370,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 246b2a59e23ac4285984af4d6187e6e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meleeAttack: 1
-  rangedAttack: 0
   firePoint: {fileID: 0}
   rangedWeaponPrefab: {fileID: 0}
 --- !u!114 &114739544326536852

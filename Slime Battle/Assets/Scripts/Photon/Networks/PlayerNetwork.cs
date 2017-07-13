@@ -13,7 +13,7 @@ public class PlayerNetwork : MonoBehaviour {
 	private void Awake () {
 		Instance = this;
 		photonView = GetComponent<PhotonView>();
-		//fix the fps = 30 in game
+
 		Application.targetFrameRate = 30;
 		//setting the default player name(Player#12)
 		PlayerName = "Player#" + Random.Range (100, 1000);
