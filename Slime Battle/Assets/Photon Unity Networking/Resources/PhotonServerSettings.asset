@@ -75,4 +75,10 @@ MonoBehaviour:
   - RPC_Spawn
   - RPC_setBlueReady
   - RPC_setRedReady
+  - RPC_Shoot
+  - RPC_Action
+  - RPC_UpdateTarget
+  - RangedAttack
+  - RPC_GetTarget
+  - RPC_SetTarget
   DisableAutoOpenWizard: 1

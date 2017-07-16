@@ -13,26 +13,37 @@ public class SlimeHealth : Photon.MonoBehaviour {
 	private Image healthBar;
 	[SerializeField]
 	private RectTransform healthBarPos;
+	private bool updateDisplay;
 
 	public void SetUpSlimeHealth(){
 		model = GetComponent<Slime>().GetModel();
 		currentHealth = GetComponent<Slime>().GetSlimeClass().getStartHealth();
 		startHealth = currentHealth;
 		UpdateHealthBarPos();
+		if(!photonView.isMine)
+		 	DisplaySlime(false);
 
-		if(!PhotonNetwork.isMasterClient)
+		if(!PhotonNetwork.isMasterClient){
 			ChangeHealthBarPos();
 
-		if(!photonView.isMine)
-			DisplaySlime(false);
+			if(photonView.isMine)
+				Invoke("TransferOwner", 0.5f);
+		}
+	}
+
+	void TransferOwner(){
+		GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.masterClient);
 	}
 
 	void FixedUpdate(){
 		//health bar position
 		UpdateHealthBarPos();
 		//show the model and health when state = end_build
-		if(GameManager.Instance.currentState == GameManager.State.build_end && !model.gameObject.activeSelf)
+		if(GameManager.Instance.currentState == GameManager.State.build_end && !updateDisplay){
+			updateDisplay = true;
 			DisplaySlime(true);
+			GetComponent<SlimeNetwork>().enabled = true;
+		}
 	}
 
 	private void DisplaySlime(bool display){
@@ -57,7 +68,7 @@ public class SlimeHealth : Photon.MonoBehaviour {
 	public void TakeDamage(float attackDamage){
 		//Only Master client deal with attack damage
 		//currentHealth must be larger than 0 HP(important) !!!
-		if(PhotonNetwork.isMasterClient && currentHealth > 0){
+		if(photonView.isMine && currentHealth > 0){
 			currentHealth -= attackDamage;
 			healthBar.fillAmount = currentHealth / startHealth;
 			//Update the others client health and health bar
@@ -76,7 +87,7 @@ public class SlimeHealth : Photon.MonoBehaviour {
 
 	[PunRPC]
 	private void RPC_SlimeDie(){
-		GetComponent<Slime>().SlimeDead();
+		GetComponent<Slime>().RemoveFromTeamList();
 		if(photonView.isMine)
 			PhotonNetwork.Destroy(gameObject);
 	}

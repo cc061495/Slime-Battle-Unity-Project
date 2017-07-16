@@ -34,8 +34,10 @@ public class Bullet : MonoBehaviour{
         GameObject effectIns = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
         Destroy(effectIns, 0.5f);
         Destroy(gameObject);
-
-        SlimeHealth h = target.parent.GetComponent<SlimeHealth>();
-		h.TakeDamage(attackDamage);
+        
+        if(PhotonNetwork.isMasterClient){
+            SlimeHealth h = target.parent.GetComponent<SlimeHealth>();
+		    h.TakeDamage(attackDamage);
+        }
     }
 }

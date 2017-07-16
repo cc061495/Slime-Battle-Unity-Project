@@ -4,7 +4,7 @@ using UnityEngine.AI;
 using UnityEngine;
 using System.Linq;
 
-public class SlimeMovement : MonoBehaviour {
+public class SlimeMovement : Photon.MonoBehaviour {
 
 	private Transform target;
 	private NavMeshAgent agent;
@@ -12,7 +12,6 @@ public class SlimeMovement : MonoBehaviour {
 
 	private float range;
 	private bool pathUpdate, move;
-
 
 	SlimeClass slimeClass;
 	GameManager gm;
@@ -29,14 +28,12 @@ public class SlimeMovement : MonoBehaviour {
 		agent.speed = slimeClass.getMovementSpeed();
 		agent.acceleration = slimeClass.getMovementSpeed();
 		agent.stoppingDistance = slimeClass.getActionRange();
-		//agent.angularSpeed = 0f;
-
 	}
 	
 	void Update () {
-		if (gm.currentState == GameManager.State.battle_start) {  //when the battle starts, start to execute
+		if (gm.currentState == GameManager.State.battle_start && photonView.isMine) {  //when the battle starts, start to execute
 			if (target == null){
-                UpdateTarget();		//find new target if target = null
+                photonView.RPC("RPC_UpdateTarget", PhotonTargets.All);		//find new target if target = null
 				if(!pathUpdate){
 					pathUpdate = true;
 					InvokeRepeating("UpdatePath", 0f, 0.5f);
@@ -46,16 +43,14 @@ public class SlimeMovement : MonoBehaviour {
             if (target != null){
                 if((target.position - model.position).sqrMagnitude <= Mathf.Pow(range, 2)){
 					LookAtTarget();
-					GetComponent<SlimeAction>().Action (target, slimeClass);	//Action to the target
+					GetComponent<SlimeAction>().Action(slimeClass);		//Action to the target
 					if(move){
-						Debug.Log("angularSpeed = 0");
 						move = false;
 						agent.angularSpeed = 0f;
 						agent.destination = model.position;		//stand on the current position
 					}
 				}
 				else if(!move){
-					Debug.Log("angularSpeed = 120");
 					move = true;
 					agent.angularSpeed = 120f;
 				}
@@ -65,7 +60,6 @@ public class SlimeMovement : MonoBehaviour {
 
 	void UpdatePath(){
 		if(target != null && move){
-			Debug.Log("move to the target");
 			agent.destination = target.position;	//finding new target position
 		}
 	}	
@@ -77,9 +71,14 @@ public class SlimeMovement : MonoBehaviour {
 		model.rotation = Quaternion.Euler (0f, rotation.y, 0f);
 	}
 
-	void UpdateTarget(){
+	[PunRPC]
+	private void RPC_UpdateTarget(){
 		List<Transform> enemies = GetComponent<Slime>().GetEmenies();
 		target = enemies.OrderBy(o => (o.transform.position - model.position).sqrMagnitude).FirstOrDefault();
 		range = slimeClass.getScaleRadius() + slimeClass.getActionRange() + target.parent.GetComponent<Slime>().GetSlimeClass().getScaleRadius();
     }
+
+	public Transform GetTarget(){
+		return target;
+	}
 }

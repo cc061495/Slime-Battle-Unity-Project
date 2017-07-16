@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlimeAction : MonoBehaviour {
+public class SlimeAction : Photon.MonoBehaviour {
 
 	[SerializeField]
 	private Transform firePoint;
@@ -11,22 +11,31 @@ public class SlimeAction : MonoBehaviour {
 	private GameObject rangedWeaponPrefab;
 
 	private float coolDown = 0f;
-	private SlimeClass slime;
+	private Transform target;
 
-	public void Action(Transform target, SlimeClass slime){
+	public void Action(SlimeClass slime){
+		photonView.RPC("RPC_SetTarget", PhotonTargets.All);
+		float attackDamage = slime.getAttackDamage();
+
 		if (coolDown <= 0f) {
 			if (slime.isMeleeAttack()){
-				MeleeAttack (target, slime.getAttackDamage());
+				MeleeAttack (attackDamage);
 			}
-			else if (slime.isRangedAttack())
-				RangedAttack (target, slime.getAttackDamage());
+			else if (slime.isRangedAttack()){
+				photonView.RPC("RangedAttack",PhotonTargets.All, attackDamage);
+			}
 
 			coolDown = 1f / slime.getAttackSpeed();
 		}
 		coolDown -= Time.deltaTime;
 	}
+
+	[PunRPC]
+	private void RPC_SetTarget(){
+		target = GetComponent<SlimeMovement>().GetTarget();
+	}
 		
-	void MeleeAttack(Transform target, float attackDamage){
+	void MeleeAttack(float attackDamage){
 		SlimeHealth h = target.parent.GetComponent<SlimeHealth>();
 		h.TakeDamage(attackDamage);
 		/* 
@@ -37,9 +46,10 @@ public class SlimeAction : MonoBehaviour {
 		*/
 	}
 
-	void RangedAttack(Transform target, float attackDamage){
+	[PunRPC]
+	private void RangedAttack(float attackDamage){
 		GameObject bulletGO = (GameObject)Instantiate (rangedWeaponPrefab, firePoint.position, firePoint.rotation);
-		Bullet bullet = bulletGO.GetComponent<Bullet> ();
+		Bullet bullet = bulletGO.GetComponent<Bullet>();
 		if (bullet != null)
 			bullet.Seek (target, attackDamage);
 	}

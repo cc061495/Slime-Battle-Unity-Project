@@ -9,7 +9,7 @@ public class Slime : Photon.MonoBehaviour{
 	[Header("Slime model")]
 	[SerializeField]
 	private Transform model;
-	
+
 	private SlimeClass slimeClass;
     private GameManager gm;
 	List<Transform> enemies;
@@ -34,7 +34,7 @@ public class Slime : Photon.MonoBehaviour{
             gm.team_blue.Add(model);
 	}
 
-	void RemoveFromTeamList(){
+	public void RemoveFromTeamList(){
 		if(transform.tag == "Team_RED")
             gm.team_red.Remove(model);
 		else
@@ -42,11 +42,6 @@ public class Slime : Photon.MonoBehaviour{
 
         gm.CheckAnyEmptyTeam();
     }
-
-	public void SlimeDead(){
-		CancelInvoke("UpdatePath");
-		RemoveFromTeamList();
-	}
 
 	public List<Transform> GetEmenies(){
 		return enemies;

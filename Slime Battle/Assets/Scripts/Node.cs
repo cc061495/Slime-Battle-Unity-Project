@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine;
 
-public class Node : Photon.MonoBehaviour
+public class Node : MonoBehaviour
 {
     // public Color selectColor;
     // public Color availableColor;
@@ -53,7 +53,7 @@ public class Node : Photon.MonoBehaviour
         switch (size){
             case 1:
                 _slime = PhotonNetwork.Instantiate(blueprint.getPrefabName(), GetBuildPos(offset), Quaternion.identity, 0);
-                _slime.GetComponent<Slime>().GetModel().rotation = transform.rotation;
+                //_slime.GetComponent<Slime>().GetModel().rotation = transform.rotation;
                 _tile = Instantiate(tile, transform.position + new Vector3(0, 0.51f, 0), Quaternion.identity);
                 slime = _slime;
                 slimeblueprint = blueprint;
@@ -76,7 +76,7 @@ public class Node : Photon.MonoBehaviour
 
         if(buildOffset != Vector3.zero){
             _slime = PhotonNetwork.Instantiate(blueprint.getPrefabName(), GetBuildPos(buildOffset + offset), Quaternion.identity, 0);
-            _slime.GetComponent<Slime>().GetModel().rotation = transform.rotation;
+            //_slime.GetComponent<Slime>().GetModel().rotation = transform.rotation;
             _tile = Instantiate(tile, transform.position + new Vector3(0, 0.51f, 0) + buildOffset, Quaternion.identity);
             _tile.transform.localScale = new Vector3(0.6f,1,0.6f);
 
