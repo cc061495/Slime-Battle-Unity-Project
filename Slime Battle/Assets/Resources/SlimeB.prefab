@@ -112,6 +112,7 @@ GameObject:
   - component: {fileID: 195255128137136808}
   - component: {fileID: 33568368028843214}
   - component: {fileID: 23165039931554082}
+  - component: {fileID: 136557922147304128}
   m_Layer: 0
   m_Name: SlimeObject
   m_TagString: Untagged
@@ -364,6 +365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ebd35e67ffb438f8624097dc22019b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!114 &114762612294802014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -415,6 +417,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa6c5aa7627f24de281cd8560c749a37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &136557922147304128
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1962482882582108}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &195255128137136808
 NavMeshAgent:
   m_ObjectHideFlags: 1

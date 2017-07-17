@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 33397729658207180}
   - component: {fileID: 23920439039935164}
   - component: {fileID: 195899523563293338}
+  - component: {fileID: 136136045612295922}
   m_Layer: 0
   m_Name: SlimeObject
   m_TagString: Untagged
@@ -174,7 +175,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 7627ad96c6df24cda90b69cd6cac1eea, type: 2}
+  - {fileID: 2100000, guid: e07d70370441a4cdea753d6f73e7ae6b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -367,6 +368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ebd35e67ffb438f8624097dc22019b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!114 &114876718257708038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -415,6 +417,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!136 &136136045612295922
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1914059566999026}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &195899523563293338
 NavMeshAgent:
   m_ObjectHideFlags: 1

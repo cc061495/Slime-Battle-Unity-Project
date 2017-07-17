@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 33814167136330548}
   - component: {fileID: 23511468768450886}
   - component: {fileID: 195020280411355690}
+  - component: {fileID: 136259732324579232}
   m_Layer: 0
   m_Name: SlimeObject
   m_TagString: Untagged
@@ -277,6 +278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ebd35e67ffb438f8624097dc22019b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!114 &114233232085776254
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -445,6 +447,19 @@ MonoBehaviour:
   firePoint: {fileID: 4755039262262106}
   rangedWeaponPrefab: {fileID: 1913246470140862, guid: 22cff032ebf594eda99f770b646cfc1e,
     type: 2}
+--- !u!136 &136259732324579232
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1878954975938456}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &195020280411355690
 NavMeshAgent:
   m_ObjectHideFlags: 1

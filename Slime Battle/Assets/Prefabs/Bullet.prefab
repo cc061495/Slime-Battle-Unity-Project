@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4261885580455502}
   - component: {fileID: 33259558679235706}
-  - component: {fileID: 135984856702240190}
   - component: {fileID: 23009592437408954}
   - component: {fileID: 114261852169635262}
   m_Layer: 0
@@ -94,15 +93,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   impactEffect: {fileID: 1413146443013988, guid: 83ac7c77cd7154b4ea953e31f890139e,
     type: 2}
---- !u!135 &135984856702240190
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1913246470140862}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}

@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     public List<Transform> team_blue = new List<Transform>();
     public List<Transform> team_red_attacker = new List<Transform>();
     public List<Transform> team_blue_attacker = new List<Transform>();
+    public List<Transform> team_red_healer = new List<Transform>();
+    public List<Transform> team_blue_healer = new List<Transform>();
     private bool isRedFinish, isBlueFinish;
 
     private float mDeltaTime = 0.0f;
@@ -66,6 +68,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Build Start!");
         TimerManager.Instance.setBuildingTime();
         ShopDisplay(true);
+        PlayerStats.Instance.PlayerInfoPanelDisplay(true);
         StartCoroutine(DisplayGamePanel());
     }
     /* Build End State */
@@ -74,6 +77,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Build End!");
         GetComponent<CameraManager>().CamMove_Battle();
         ShopDisplay(false);
+        PlayerStats.Instance.PlayerInfoPanelDisplay(false);
         StartCoroutine(DisplayGamePanel());
 
         GameObject[] nodes = GameObject.FindGameObjectsWithTag("node");
@@ -122,8 +126,10 @@ public class GameManager : MonoBehaviour
         isRedFinish = false;
         isBlueFinish = false;
 
-        if(currentRound < totalRoundGame)
+        if(currentRound < totalRoundGame){
+            PlayerStats.Instance.NewRoundCostUpdate();
             Invoke("GameReady", 5f);
+        }
         else
             Invoke("GameEnd", 5f);
     }
@@ -133,7 +139,7 @@ public class GameManager : MonoBehaviour
         Invoke("LeaveTheRoom", 3f);
     }
 
-    IEnumerator ClearAllSlime(List<Transform> team, List<Transform> attackerTeam){
+    IEnumerator ClearAllSlime(List<Transform> team, List<Transform> attackerTeam, List<Transform> healerTeam){
         yield return new WaitForSeconds(2f);
         if(PhotonNetwork.isMasterClient)
             PhotonNetwork.DestroyAll();
@@ -143,6 +149,7 @@ public class GameManager : MonoBehaviour
         // }
         team.Clear();
         attackerTeam.Clear();
+        healerTeam.Clear();
     }
 
     IEnumerator DisplayGamePanel(){
@@ -187,13 +194,13 @@ public class GameManager : MonoBehaviour
                     gameDisplayText.color = Color.cyan;
                     gameDisplayText.text = "Team Blue\nwon!";
                     team_blue_score++;
-                    StartCoroutine(ClearAllSlime(team_blue, team_blue_attacker));
+                    StartCoroutine(ClearAllSlime(team_blue, team_blue_attacker, team_blue_healer));
                 }
                 else if (team_red.Count > 0){
                     gameDisplayText.color = Color.red;
                     gameDisplayText.text = "Team Red\nwon!";
                     team_red_score++;
-                    StartCoroutine(ClearAllSlime(team_red, team_red_attacker));
+                    StartCoroutine(ClearAllSlime(team_red, team_red_attacker, team_red_healer));
                 }
                 else{
                     team_red_score++;
@@ -273,6 +280,13 @@ public class GameManager : MonoBehaviour
             return team_red_attacker;
         else
             return team_blue_attacker;
+    }
+
+    public List<Transform> GetMyHealerTeam(Transform slime){
+        if(slime.tag == "Team_RED")
+            return team_red_healer;
+        else
+            return team_blue_healer;
     }
 
     [PunRPC]

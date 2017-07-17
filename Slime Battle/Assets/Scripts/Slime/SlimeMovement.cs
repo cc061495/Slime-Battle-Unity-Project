@@ -66,6 +66,10 @@ public class SlimeMovement : MonoBehaviour {
 		}
 	}	
 
+	public void StopUpdatePath(){
+		CancelInvoke("UpdatePath");
+	}
+
 	void LookAtTarget(){
 		Vector3 dir = target.position - model.position;
 		Quaternion lookRotation = Quaternion.LookRotation (dir);
@@ -79,23 +83,24 @@ public class SlimeMovement : MonoBehaviour {
 
 	[PunRPC]
 	private void RPC_UpdateTarget(){
-		if(slimeClass.isMeleeAttack() || slimeClass.isRangedAttack()){
+		if(slimeClass.isMeleeAttack() || slimeClass.isRangedAttack() || slimeClass.isAreaEffectDamage()){
 			List<Transform> enemies = GameManager.Instance.GetEnemies(transform);
 			target = enemies.OrderBy(o => (o.position - model.position).sqrMagnitude).FirstOrDefault();
 		}
 		else if(slimeClass.isHealing()){
 			List<Transform> myTeam = GameManager.Instance.GetMyTeam(transform);
 			List<Transform> myAttackerTeam = GameManager.Instance.GetMyAttackerTeam(transform);
-			List<Transform> myHealerTeam = new List<Transform>();
+			List<Transform> myHealerTeam = new List<Transform>(GameManager.Instance.GetMyHealerTeam(transform));
+			myHealerTeam.Remove(model);
+
 			bool findLowestHealth = false;
 
 			foreach(Transform slime in myTeam){
 				if(slime.parent != transform){
-					if(slime.parent.GetComponent<SlimeHealth>().getCurrentHealth() != slime.parent.GetComponent<SlimeHealth>().getStartHealth())
+					if(slime.parent.GetComponent<SlimeHealth>().getCurrentHealth() != slime.parent.GetComponent<SlimeHealth>().getStartHealth()){
 						findLowestHealth = true;
-
-					if(slime.parent.GetComponent<Slime>().slimeName == "Healer")
-						myHealerTeam.Add(slime);
+						break;
+					}
 				}
 			}
 

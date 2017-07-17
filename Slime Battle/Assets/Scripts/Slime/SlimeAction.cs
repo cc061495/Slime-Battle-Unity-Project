@@ -20,24 +20,26 @@ public class SlimeAction : MonoBehaviour {
 
 	public void Action(SlimeClass slime){
 		photonView.RPC("RPC_SetTarget", PhotonTargets.All);
-		float attackDamage = slime.getAttackDamage();
 
 		if (coolDown <= 0f) {
 			if (slime.isMeleeAttack()){
-				MeleeAttack (attackDamage);
+				MeleeAttack (slime.getAttackDamage());
 			}
 			else if (slime.isRangedAttack()){
-				photonView.RPC("RangedAttack",PhotonTargets.All, attackDamage);
+				photonView.RPC("RangedAttack",PhotonTargets.All, slime.getAttackDamage());
 			}
 			else if(slime.isHealing()){
 				SlimeHealth tarParentHealth = target.parent.GetComponent<SlimeHealth>();
 				if(tarParentHealth.getCurrentHealth() >= tarParentHealth.getStartHealth())
 					GetComponent<SlimeMovement>().UpdateTarget();
 				else
-					Healing (attackDamage);
+					Healing (slime.getHealingPoint());
+			}
+			else if(slime.isAreaEffectDamage()){
+				AreaAttack(slime.getAttackDamage(), slime.getAreaEffectRadius());
 			}
 
-			coolDown = 1f / slime.getAttackSpeed();
+			coolDown = 1f / slime.getActionSpeed();
 		}
 		coolDown -= Time.deltaTime;
 	}
@@ -50,12 +52,20 @@ public class SlimeAction : MonoBehaviour {
 	void MeleeAttack(float attackDamage){
 		SlimeHealth h = target.parent.GetComponent<SlimeHealth>();
 		h.TakeDamage(attackDamage);
-		/* 
-		PhotonView pv = target.GetComponent<PhotonView>();
+	}
 
-		if(pv != null && target != null)
-			target.GetComponent<PhotonView>().RPC("RPC_TakeDamage", PhotonTargets.All, attackDamage);
-		*/
+	void AreaAttack(float attackDamage, float effectAreaRadius){
+		Collider[] slimes = Physics.OverlapSphere(target.position, effectAreaRadius);
+		foreach (Collider slime in slimes){
+			if(slime.transform.parent.tag == target.parent.tag){
+				SlimeHealth h = slime.transform.parent.GetComponent<SlimeHealth>();
+
+				float distanceFromSphereCentre = (slime.transform.position - target.position).sqrMagnitude;
+				float range = Mathf.Pow(effectAreaRadius + target.GetComponent<CapsuleCollider>().radius, 2);
+				float areaDamage = ((range - distanceFromSphereCentre) / range) * attackDamage;
+				h.TakeDamage(areaDamage);
+			}
+		}
 	}
 
 	[PunRPC]
@@ -66,8 +76,8 @@ public class SlimeAction : MonoBehaviour {
 			bullet.Seek (target, attackDamage);
 	}
 
-	void Healing(float attackDamage){
+	private void Healing(float healingPoint){
 		SlimeHealth h = target.parent.GetComponent<SlimeHealth>();
-		h.TakeHealing(attackDamage);
+		h.TakeHealing(healingPoint);
 	}
 }

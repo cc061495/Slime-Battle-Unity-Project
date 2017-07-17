@@ -43,8 +43,15 @@ public class Node : MonoBehaviour
     }
 
     void SpawnSlime(SlimeBlueprint blueprint){
-        //Check Player Cost > slime money -> can build
         if (blueprint.getTeam() != team_node)
+            return;
+
+        //Check Player Cost > slime money -> can build
+        if(PlayerStats.playerCost >= blueprint.getCost()){
+            PlayerStats.playerCost -= blueprint.getCost();
+            PlayerStats.Instance.UpdatePlayerCostText();
+        }
+        else
             return;
 
         int size = blueprint.getSize();

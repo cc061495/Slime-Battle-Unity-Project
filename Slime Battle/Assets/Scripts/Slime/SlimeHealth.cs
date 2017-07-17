@@ -14,7 +14,7 @@ public class SlimeHealth : Photon.MonoBehaviour {
 	[SerializeField]
 	private RectTransform healthBarPos;
 	private bool updateDisplay;
-	
+
 	public void SetUpSlimeHealth(){
 		model = GetComponent<Slime>().GetModel();
 		startHealth = GetComponent<Slime>().GetSlimeClass().getStartHealth();
@@ -102,7 +102,9 @@ public class SlimeHealth : Photon.MonoBehaviour {
 
 	[PunRPC]
 	private void RPC_SlimeDie(){
+		GetComponent<SlimeMovement>().StopUpdatePath();
 		GetComponent<Slime>().RemoveFromTeamList();
+
 		if(photonView.isMine)
 			PhotonNetwork.Destroy(gameObject);
 	}
