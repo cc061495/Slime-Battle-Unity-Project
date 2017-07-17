@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlimeAction : Photon.MonoBehaviour {
+public class SlimeAction : MonoBehaviour {
 
 	[SerializeField]
 	private Transform firePoint;
@@ -12,6 +12,11 @@ public class SlimeAction : Photon.MonoBehaviour {
 
 	private float coolDown = 0f;
 	private Transform target;
+	PhotonView photonView;
+
+	void Start(){
+		photonView = GetComponent<PhotonView>();
+	}
 
 	public void Action(SlimeClass slime){
 		photonView.RPC("RPC_SetTarget", PhotonTargets.All);
@@ -23,6 +28,13 @@ public class SlimeAction : Photon.MonoBehaviour {
 			}
 			else if (slime.isRangedAttack()){
 				photonView.RPC("RangedAttack",PhotonTargets.All, attackDamage);
+			}
+			else if(slime.isHealing()){
+				SlimeHealth tarParentHealth = target.parent.GetComponent<SlimeHealth>();
+				if(tarParentHealth.getCurrentHealth() >= tarParentHealth.getStartHealth())
+					GetComponent<SlimeMovement>().UpdateTarget();
+				else
+					Healing (attackDamage);
 			}
 
 			coolDown = 1f / slime.getAttackSpeed();
@@ -52,5 +64,10 @@ public class SlimeAction : Photon.MonoBehaviour {
 		Bullet bullet = bulletGO.GetComponent<Bullet>();
 		if (bullet != null)
 			bullet.Seek (target, attackDamage);
+	}
+
+	void Healing(float attackDamage){
+		SlimeHealth h = target.parent.GetComponent<SlimeHealth>();
+		h.TakeHealing(attackDamage);
 	}
 }

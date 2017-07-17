@@ -11,7 +11,7 @@ public class SlimeClass{
 	private float actionRange;		//Slime's action range
 	private float scaleRadius;		//Slime's scale radius
 	private float turnSpeed = 3f;
-	private bool meleeAttack = false, rangedAttack = false;
+	private bool meleeAttack = false, rangedAttack = false, healing = false;
 
 	public SlimeClass(string slimeName){
 		switch (slimeName){
@@ -32,7 +32,7 @@ public class SlimeClass{
 				setAttackDamage	( 5 );
 				setAttackSpeed	( 2 );
 				setMovementSpeed( 3.5f );
-				setActionRange	( 1 );
+				setActionRange	( 1.5f );
 				setScaleRadius	( 1 );
 
 				SetMeleeAttack	( true );
@@ -47,6 +47,17 @@ public class SlimeClass{
 				setScaleRadius	( 0.5f );
 
 				SetRangedAttack	( true );
+				break;
+
+			case "Healer":
+				setStartHealth	( 10 );
+				setAttackDamage	( 0.5f );
+				setAttackSpeed	( 8 );
+				setMovementSpeed( 5 );
+				setActionRange	( 6 );
+				setScaleRadius	( 0.5f );
+
+				SetHealing		( true );
 				break;
 
 			default:
@@ -122,11 +133,19 @@ public class SlimeClass{
 		rangedAttack = ranged;
 	}
 
+	private void SetHealing(bool heal){
+		healing = heal;
+	}
+
 	public bool isMeleeAttack(){
 		return meleeAttack;
 	}
 
 	public bool isRangedAttack(){
 		return rangedAttack;
+	}
+
+	public bool isHealing(){
+		return healing;
 	}
 }

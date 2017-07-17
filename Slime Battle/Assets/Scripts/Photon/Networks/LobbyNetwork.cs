@@ -27,4 +27,8 @@ public class LobbyNetwork : MonoBehaviour
         if (!PhotonNetwork.inRoom)
             MainCanvasManager.Instance.lobbyCanvas.transform.SetAsLastSibling();
     }
+    //called after disconnecting from the Photon server
+    private void OnDisconnectedFromPhoton(){
+        PhotonNetwork.Reconnect();
+    }
 }

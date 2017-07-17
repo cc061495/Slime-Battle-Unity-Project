@@ -4,8 +4,8 @@ using UnityEngine.AI;
 using UnityEngine;
 using System.Linq;
 
-public class SlimeMovement : Photon.MonoBehaviour {
-
+public class SlimeMovement : MonoBehaviour {
+	[SerializeField]
 	private Transform target;
 	private NavMeshAgent agent;
 	private Transform model;
@@ -13,11 +13,13 @@ public class SlimeMovement : Photon.MonoBehaviour {
 	private float range;
 	private bool pathUpdate, move;
 
+	PhotonView photonView;
 	SlimeClass slimeClass;
 	GameManager gm;
 
 	void Start(){
 		gm = GameManager.Instance;
+		photonView = GetComponent<PhotonView>();
 	}
 
 	public void SetUpNavMeshAgent () {
@@ -33,7 +35,7 @@ public class SlimeMovement : Photon.MonoBehaviour {
 	void Update () {
 		if (gm.currentState == GameManager.State.battle_start && photonView.isMine) {  //when the battle starts, start to execute
 			if (target == null){
-                photonView.RPC("RPC_UpdateTarget", PhotonTargets.All);		//find new target if target = null
+                	UpdateTarget();		//find new target if target = null
 				if(!pathUpdate){
 					pathUpdate = true;
 					InvokeRepeating("UpdatePath", 0f, 0.5f);
@@ -59,7 +61,7 @@ public class SlimeMovement : Photon.MonoBehaviour {
 	}
 
 	void UpdatePath(){
-		if(target != null && move){
+		if(target != null && move && agent != null){
 			agent.destination = target.position;	//finding new target position
 		}
 	}	
@@ -71,14 +73,50 @@ public class SlimeMovement : Photon.MonoBehaviour {
 		model.rotation = Quaternion.Euler (0f, rotation.y, 0f);
 	}
 
+	public void UpdateTarget(){
+		photonView.RPC("RPC_UpdateTarget", PhotonTargets.All);
+	}
+
 	[PunRPC]
 	private void RPC_UpdateTarget(){
-		List<Transform> enemies = GetComponent<Slime>().GetEmenies();
-		target = enemies.OrderBy(o => (o.transform.position - model.position).sqrMagnitude).FirstOrDefault();
-		range = slimeClass.getScaleRadius() + slimeClass.getActionRange() + target.parent.GetComponent<Slime>().GetSlimeClass().getScaleRadius();
+		if(slimeClass.isMeleeAttack() || slimeClass.isRangedAttack()){
+			List<Transform> enemies = GameManager.Instance.GetEnemies(transform);
+			target = enemies.OrderBy(o => (o.position - model.position).sqrMagnitude).FirstOrDefault();
+		}
+		else if(slimeClass.isHealing()){
+			List<Transform> myTeam = GameManager.Instance.GetMyTeam(transform);
+			List<Transform> myAttackerTeam = GameManager.Instance.GetMyAttackerTeam(transform);
+			List<Transform> myHealerTeam = new List<Transform>();
+			bool findLowestHealth = false;
+
+			foreach(Transform slime in myTeam){
+				if(slime.parent != transform){
+					if(slime.parent.GetComponent<SlimeHealth>().getCurrentHealth() != slime.parent.GetComponent<SlimeHealth>().getStartHealth())
+						findLowestHealth = true;
+
+					if(slime.parent.GetComponent<Slime>().slimeName == "Healer")
+						myHealerTeam.Add(slime);
+				}
+			}
+
+			if(myAttackerTeam.Count > 0)
+				findHealTarget(findLowestHealth, myAttackerTeam);
+			else if(myHealerTeam.Count > 0)
+				findHealTarget(findLowestHealth, myHealerTeam);
+		}
+
+		if(target != null)
+			range = slimeClass.getScaleRadius() + slimeClass.getActionRange() + target.parent.GetComponent<Slime>().GetSlimeClass().getScaleRadius();
     }
 
 	public Transform GetTarget(){
 		return target;
+	}
+
+	private void findHealTarget(bool lowHealth, List<Transform> healTargets){
+		if(lowHealth)
+			target = healTargets.OrderBy(o => (o.parent.GetComponent<SlimeHealth>().getCurrentHealth() / o.parent.GetComponent<SlimeHealth>().getStartHealth())).FirstOrDefault();
+		else
+			target = healTargets.OrderBy(o => (o.position - model.position).sqrMagnitude).FirstOrDefault();
 	}
 }

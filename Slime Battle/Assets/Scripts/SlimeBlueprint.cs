@@ -30,6 +30,11 @@ public class SlimeBlueprint{
 				setCost	( 1 );
 				setSize	( 1 );
 				break;
+
+			case "Healer":
+				setCost	( 1 );
+				setSize	( 1 );
+				break;
 				
 			default:
 				setCost	( 1 );

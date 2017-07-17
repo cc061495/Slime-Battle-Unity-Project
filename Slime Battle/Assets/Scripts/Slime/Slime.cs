@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Slime : Photon.MonoBehaviour{
+public class Slime : MonoBehaviour{
 
 	[Header("Name")]
 	public string slimeName;
@@ -12,7 +12,6 @@ public class Slime : Photon.MonoBehaviour{
 
 	private SlimeClass slimeClass;
     private GameManager gm;
-	List<Transform> enemies;
 
 	void Start(){
 		gm = GameManager.Instance;
@@ -23,29 +22,35 @@ public class Slime : Photon.MonoBehaviour{
 		GetComponent<SlimeHealth>().SetUpSlimeHealth();
 		//Join team list
 		JoinTeamList();
-		//Define enemies
-		enemies = (transform.tag == "Team_RED") ? (gm.team_blue) : (gm.team_red);
 	}
 
 	void JoinTeamList(){
-        if(transform.tag == "Team_RED")
+        if(transform.tag == "Team_RED"){
             gm.team_red.Add(model);
-		else
+			if(slimeName != "Healer")
+				gm.team_red_attacker.Add(model);
+		}
+		else{
             gm.team_blue.Add(model);
+			if(slimeName != "Healer")
+				gm.team_blue_attacker.Add(model);
+		}
 	}
 
 	public void RemoveFromTeamList(){
-		if(transform.tag == "Team_RED")
+		if(transform.tag == "Team_RED"){
             gm.team_red.Remove(model);
-		else
+			if(slimeName != "Healer")
+				gm.team_red_attacker.Remove(model);
+		}
+		else{
             gm.team_blue.Remove(model);
+			if(slimeName != "Healer")
+				gm.team_blue_attacker.Remove(model);
+		}
 
         gm.CheckAnyEmptyTeam();
     }
-
-	public List<Transform> GetEmenies(){
-		return enemies;
-	}
 
 	public Transform GetModel(){
 		return model;

@@ -14,11 +14,11 @@ public class SlimeHealth : Photon.MonoBehaviour {
 	[SerializeField]
 	private RectTransform healthBarPos;
 	private bool updateDisplay;
-
+	
 	public void SetUpSlimeHealth(){
 		model = GetComponent<Slime>().GetModel();
-		currentHealth = GetComponent<Slime>().GetSlimeClass().getStartHealth();
-		startHealth = currentHealth;
+		startHealth = GetComponent<Slime>().GetSlimeClass().getStartHealth();
+		currentHealth = startHealth;
 		UpdateHealthBarPos();
 		if(!photonView.isMine)
 		 	DisplaySlime(false);
@@ -76,6 +76,21 @@ public class SlimeHealth : Photon.MonoBehaviour {
 		}
 	}
 
+	public void TakeHealing(float heal){
+		//Only Master client deal with attack damage
+		//currentHealth must be larger than 0 HP(important) !!!
+		if(photonView.isMine && currentHealth > 0 && currentHealth < startHealth){
+			currentHealth += heal;
+			if(currentHealth >= startHealth){
+				currentHealth = startHealth;
+			}
+				
+			healthBar.fillAmount = currentHealth / startHealth;
+			//Update the others client health and health bar
+			photonView.RPC("RPC_UpdateHealth", PhotonTargets.Others, currentHealth, healthBar.fillAmount);
+		}
+	}
+
 	[PunRPC]
 	private void RPC_UpdateHealth(float master_CurrentHealth, float master_fillAmount){
 		currentHealth = master_CurrentHealth;
@@ -90,5 +105,13 @@ public class SlimeHealth : Photon.MonoBehaviour {
 		GetComponent<Slime>().RemoveFromTeamList();
 		if(photonView.isMine)
 			PhotonNetwork.Destroy(gameObject);
+	}
+
+	public float getCurrentHealth(){
+		return currentHealth;
+	}
+
+	public float getStartHealth(){
+		return startHealth;
 	}
 }

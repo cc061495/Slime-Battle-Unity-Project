@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class GameManager : Photon.MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
@@ -18,10 +18,13 @@ public class GameManager : Photon.MonoBehaviour
     public GameObject gameDisplayPanel, teamRedSlimeShop, teamBlueSlimeShop;
     public List<Transform> team_red = new List<Transform>();
     public List<Transform> team_blue = new List<Transform>();
+    public List<Transform> team_red_attacker = new List<Transform>();
+    public List<Transform> team_blue_attacker = new List<Transform>();
     private bool isRedFinish, isBlueFinish;
 
     private float mDeltaTime = 0.0f;
     private float mFPS = 0.0f;
+    PhotonView photonView;
 
     void Update(){
         DebugText.text = "Round: " + currentRound + " / " + totalRoundGame + "\n";
@@ -34,6 +37,7 @@ public class GameManager : Photon.MonoBehaviour
         DebugText.text += string.Format("{0:0.0} ms ({1:0.} fps)", msec, mFPS);
     }
     void Start(){
+        photonView = GetComponent<PhotonView>();
         if(!PhotonNetwork.connected){
             //Start single mode
             Debug.Log("HELLO");
@@ -129,13 +133,16 @@ public class GameManager : Photon.MonoBehaviour
         Invoke("LeaveTheRoom", 3f);
     }
 
-    IEnumerator ClearAllSlime(List<Transform> team){
+    IEnumerator ClearAllSlime(List<Transform> team, List<Transform> attackerTeam){
         yield return new WaitForSeconds(2f);
-        foreach (Transform slime in team){
-            if(slime.parent.GetComponent<PhotonView>().isMine)
-                PhotonNetwork.Destroy(slime.parent.gameObject);
-        }
+        if(PhotonNetwork.isMasterClient)
+            PhotonNetwork.DestroyAll();
+        // foreach (Transform slime in team){
+        //     if(slime.parent.GetComponent<PhotonView>().isMine)
+        //         PhotonNetwork.Destroy(slime.parent.gameObject);
+        // }
         team.Clear();
+        attackerTeam.Clear();
     }
 
     IEnumerator DisplayGamePanel(){
@@ -180,13 +187,13 @@ public class GameManager : Photon.MonoBehaviour
                     gameDisplayText.color = Color.cyan;
                     gameDisplayText.text = "Team Blue\nwon!";
                     team_blue_score++;
-                    StartCoroutine(ClearAllSlime(team_blue));
+                    StartCoroutine(ClearAllSlime(team_blue, team_blue_attacker));
                 }
                 else if (team_red.Count > 0){
                     gameDisplayText.color = Color.red;
                     gameDisplayText.text = "Team Red\nwon!";
                     team_red_score++;
-                    StartCoroutine(ClearAllSlime(team_red));
+                    StartCoroutine(ClearAllSlime(team_red, team_red_attacker));
                 }
                 else{
                     team_red_score++;
@@ -233,18 +240,39 @@ public class GameManager : Photon.MonoBehaviour
         Invoke("LeaveTheRoom", 3f);
     }
 
-    void LeaveTheRoom(){
+    private void LeaveTheRoom(){
         //gameDisplayPanel.SetActive(false);
         Destroy(GameObject.Find("DDOL"));
         PhotonNetwork.LeaveRoom();
         PhotonNetwork.LoadLevel("GameLobby");
     }
 
-    void ShopDisplay(bool shopDisplay){
+    private void ShopDisplay(bool shopDisplay){
         if(PhotonNetwork.isMasterClient)
             teamRedSlimeShop.SetActive(shopDisplay);
         else
             teamBlueSlimeShop.SetActive(shopDisplay);
+    }
+
+    public List<Transform> GetEnemies(Transform slime){
+        if(slime.tag == "Team_RED")
+            return team_blue;
+        else
+            return team_red;
+    }
+
+    public List<Transform> GetMyTeam(Transform slime){
+        if(slime.tag == "Team_RED")
+            return team_red;
+        else
+            return team_blue;
+    }
+
+    public List<Transform> GetMyAttackerTeam(Transform slime){
+        if(slime.tag == "Team_RED")
+            return team_red_attacker;
+        else
+            return team_blue_attacker;
     }
 
     [PunRPC]

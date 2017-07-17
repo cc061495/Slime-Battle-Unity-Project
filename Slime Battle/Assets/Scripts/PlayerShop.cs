@@ -3,8 +3,8 @@
 public class PlayerShop:MonoBehaviour {
 
 	public string team;
-	public GameObject _slime, _giant, _ranger;
-	private SlimeBlueprint slime, giant, ranger;
+	public GameObject _slime, _giant, _ranger, _healer;
+	private SlimeBlueprint slime, giant, ranger, healer;
 
 	SpawnManager spawnManager; 
 
@@ -14,6 +14,7 @@ public class PlayerShop:MonoBehaviour {
 		slime = new SlimeBlueprint("Slime", team, _slime);
 		giant = new SlimeBlueprint("Giant", team, _giant);
 		ranger = new SlimeBlueprint("Ranger", team, _ranger);
+		healer = new SlimeBlueprint("Healer", team, _healer);
 	}
 	
 	public void SelectSlime() {
@@ -23,7 +24,12 @@ public class PlayerShop:MonoBehaviour {
 	public void SelectGiant() {
 		spawnManager.SelectSlimeToSpawn (giant); 
 	}
+
 	public void SelectRanger() {
 		spawnManager.SelectSlimeToSpawn (ranger); 
+	}
+
+	public void SelectHealer() {
+		spawnManager.SelectSlimeToSpawn (healer); 
 	}
 }
