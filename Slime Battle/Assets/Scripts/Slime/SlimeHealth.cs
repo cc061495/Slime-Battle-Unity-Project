@@ -102,7 +102,6 @@ public class SlimeHealth : Photon.MonoBehaviour {
 
 	[PunRPC]
 	private void RPC_SlimeDie(){
-		GetComponent<SlimeMovement>().StopUpdatePath();
 		GetComponent<Slime>().RemoveFromTeamList();
 
 		if(photonView.isMine)

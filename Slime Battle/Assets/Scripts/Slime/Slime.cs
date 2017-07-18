@@ -27,34 +27,18 @@ public class Slime : MonoBehaviour{
 	void JoinTeamList(){
         if(transform.tag == "Team_RED"){
             gm.team_red.Add(model);
-			if(slimeName != "Healer")
-				gm.team_red_attacker.Add(model);
-			else
-				gm.team_red_healer.Add(model);
 		}
 		else{
             gm.team_blue.Add(model);
-			if(slimeName != "Healer")
-				gm.team_blue_attacker.Add(model);
-			else
-				gm.team_blue_healer.Add(model);
 		}
 	}
 
 	public void RemoveFromTeamList(){
 		if(transform.tag == "Team_RED"){
             gm.team_red.Remove(model);
-			if(slimeName != "Healer")
-				gm.team_red_attacker.Remove(model);
-			else
-				gm.team_red_healer.Remove(model);
 		}
 		else{
             gm.team_blue.Remove(model);
-			if(slimeName != "Healer")
-				gm.team_blue_attacker.Remove(model);
-			else
-				gm.team_blue_healer.Remove(model);
 		}
 
         gm.CheckAnyEmptyTeam();

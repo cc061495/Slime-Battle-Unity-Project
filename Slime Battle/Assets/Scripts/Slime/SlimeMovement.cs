@@ -10,8 +10,9 @@ public class SlimeMovement : MonoBehaviour {
 	private NavMeshAgent agent;
 	private Transform model;
 
-	private float range;
-	private bool pathUpdate, move;
+	private float range, findTargetCoolDown;
+	private bool pathUpdate, move, findLowestHealth;
+	private Vector3 prevPos;
 
 	PhotonView photonView;
 	SlimeClass slimeClass;
@@ -34,11 +35,14 @@ public class SlimeMovement : MonoBehaviour {
 	
 	void Update () {
 		if (gm.currentState == GameManager.State.battle_start && photonView.isMine) {  //when the battle starts, start to execute
+			if(findTargetCoolDown > 0)
+				findTargetCoolDown -= Time.deltaTime;
+
 			if (target == null){
-                	UpdateTarget();		//find new target if target = null
+                UpdateTarget();		//find new target if target = null
 				if(!pathUpdate){
 					pathUpdate = true;
-					InvokeRepeating("UpdatePath", 0f, 0.5f);
+					InvokeRepeating("UpdatePath", Random.Range(0, 0.5f), 0.5f);
 				}
 			}
 
@@ -61,13 +65,14 @@ public class SlimeMovement : MonoBehaviour {
 	}
 
 	void UpdatePath(){
-		if(target != null && move && agent != null){
-			agent.destination = target.position;	//finding new target position
+		if(gm.currentState == GameManager.State.battle_start){
+			if(target != null && move && agent != null && target.position != prevPos){
+				prevPos = target.position;
+				agent.destination = target.position;	//finding new target position
+			}
 		}
-	}	
-
-	public void StopUpdatePath(){
-		CancelInvoke("UpdatePath");
+		else
+			CancelInvoke("UpdatePath");
 	}
 
 	void LookAtTarget(){
@@ -78,36 +83,45 @@ public class SlimeMovement : MonoBehaviour {
 	}
 
 	public void UpdateTarget(){
-		photonView.RPC("RPC_UpdateTarget", PhotonTargets.All);
+		if(findTargetCoolDown <= 0){
+			findTargetCoolDown = 1f;
+			photonView.RPC("RPC_UpdateTarget", PhotonTargets.All);
+		}
 	}
 
 	[PunRPC]
 	private void RPC_UpdateTarget(){
 		if(slimeClass.isMeleeAttack() || slimeClass.isRangedAttack() || slimeClass.isAreaEffectDamage()){
 			List<Transform> enemies = GameManager.Instance.GetEnemies(transform);
-			target = enemies.OrderBy(o => (o.position - model.position).sqrMagnitude).FirstOrDefault();
+			if(enemies.Count > 0)
+				target = enemies.OrderBy(o => (o.position - model.position).sqrMagnitude).FirstOrDefault();
 		}
 		else if(slimeClass.isHealing()){
-			List<Transform> myTeam = GameManager.Instance.GetMyTeam(transform);
-			List<Transform> myAttackerTeam = GameManager.Instance.GetMyAttackerTeam(transform);
-			List<Transform> myHealerTeam = new List<Transform>(GameManager.Instance.GetMyHealerTeam(transform));
-			myHealerTeam.Remove(model);
+			List<Transform> myTeam = new List<Transform>(GameManager.Instance.GetMyTeam(transform));
+			if(myTeam.Count > 1){
+				myTeam.Remove(model);
 
-			bool findLowestHealth = false;
-
-			foreach(Transform slime in myTeam){
-				if(slime.parent != transform){
-					if(slime.parent.GetComponent<SlimeHealth>().getCurrentHealth() != slime.parent.GetComponent<SlimeHealth>().getStartHealth()){
-						findLowestHealth = true;
-						break;
+				findLowestHealth = false;
+				
+				foreach(Transform slime in myTeam){
+					if(slime.parent != transform){
+						if(slime.parent.GetComponent<SlimeHealth>().getCurrentHealth() != slime.parent.GetComponent<SlimeHealth>().getStartHealth()){
+							findLowestHealth = true;
+							break;
+						}
 					}
 				}
-			}
 
-			if(myAttackerTeam.Count > 0)
-				findHealTarget(findLowestHealth, myAttackerTeam);
-			else if(myHealerTeam.Count > 0)
-				findHealTarget(findLowestHealth, myHealerTeam);
+				if(findLowestHealth){
+					target = myTeam.OrderBy(o => o.parent.GetComponent<Slime>().GetSlimeClass().getHealingPriority())
+								   .ThenBy(o => (o.parent.GetComponent<SlimeHealth>().getCurrentHealth() / o.parent.GetComponent<SlimeHealth>().getStartHealth())).FirstOrDefault();
+				}
+				else{
+					target = myTeam.OrderBy(o => o.parent.GetComponent<Slime>().GetSlimeClass().getHealingPriority())
+								   .ThenByDescending(o => (o.position - model.position).sqrMagnitude).FirstOrDefault();
+					Invoke("UpdateTarget", 1.1f);
+				}
+			}
 		}
 
 		if(target != null)
@@ -118,10 +132,7 @@ public class SlimeMovement : MonoBehaviour {
 		return target;
 	}
 
-	private void findHealTarget(bool lowHealth, List<Transform> healTargets){
-		if(lowHealth)
-			target = healTargets.OrderBy(o => (o.parent.GetComponent<SlimeHealth>().getCurrentHealth() / o.parent.GetComponent<SlimeHealth>().getStartHealth())).FirstOrDefault();
-		else
-			target = healTargets.OrderBy(o => (o.position - model.position).sqrMagnitude).FirstOrDefault();
+	private void findHealTarget(List<Transform> healTargets){
+
 	}
 }

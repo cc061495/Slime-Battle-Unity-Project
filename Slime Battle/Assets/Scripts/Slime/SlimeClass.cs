@@ -12,6 +12,7 @@ public class SlimeClass{
 	private float healingPoint;		//Slime's healing point
 	private float scaleRadius;		//Slime's scale radius
 	private float areaEffectRadius;
+	private int healingPriority;
 	private float turnSpeed = 3f;
 	private bool meleeAttack = false, rangedAttack = false, healing = false, areaEffectDamage = false;
 
@@ -23,6 +24,7 @@ public class SlimeClass{
 				setMovementSpeed( 5 );
 				setActionRange	( 1 );
 				setScaleRadius	( 0.5f );
+				setHealingPriority ( 1 );
 
 				SetMeleeAttack	( true );
 				setAttackDamage	( 2 );
@@ -34,6 +36,7 @@ public class SlimeClass{
 				setMovementSpeed( 3.5f );
 				setActionRange	( 2 );
 				setScaleRadius	( 1 );
+				setHealingPriority ( 1 );
 
 				SetAreaEffectDamage ( true );
 				setAttackDamage	( 4 );
@@ -46,6 +49,7 @@ public class SlimeClass{
 				setMovementSpeed( 5 );
 				setActionRange	( 9 );
 				setScaleRadius	( 0.5f );
+				setHealingPriority ( 2 );
 
 				SetRangedAttack	( true );
 				setAttackDamage	( 2 );
@@ -57,10 +61,11 @@ public class SlimeClass{
 				setMovementSpeed( 5 );
 				setActionRange	( 6.5f );
 				setScaleRadius	( 0.5f );
+				setHealingPriority ( 3 );
 
 				SetHealing		( true );
-				setHealingPoint	( 0.3f );
-				setActionSpeed	( 8 );
+				setHealingPoint	( 0.5f );
+				setActionSpeed	( 5 );
 				break;
 
 			default:
@@ -68,6 +73,7 @@ public class SlimeClass{
 				setMovementSpeed( 5 );
 				setActionRange	( 1 );
 				setScaleRadius	( 0.5f );
+				setHealingPriority ( 1 );
 
 				SetMeleeAttack	( true );
 				setAttackDamage	( 2 );
@@ -138,6 +144,14 @@ public class SlimeClass{
 
 	public float getAreaEffectRadius(){
 		return areaEffectRadius;
+	}
+
+	private void setHealingPriority(int priority){
+		healingPriority = priority;
+	}
+
+	public int getHealingPriority(){
+		return healingPriority;
 	}
 
 	public float getTurnSpeed(){
