@@ -18,33 +18,33 @@ public class SlimeAction : MonoBehaviour {
 		photonView = GetComponent<PhotonView>();
 	}
 
-	public void Action(SlimeClass slime){
-		model = GetComponent<Slime>().GetModel();
+	public void Action(SlimeClass slime, Transform _model){
+		model = _model;
 		photonView.RPC("RPC_SetTarget", PhotonTargets.All);
 
 		if (coolDown <= 0f) {
-			if (slime.isMeleeAttack()){
-				MeleeAttack (slime.getAttackDamage());
+			if (slime.isMeleeAttack){
+				MeleeAttack (slime.attackDamage);
 			}
-			else if (slime.isRangedAttack()){
-				photonView.RPC("RangedAttack",PhotonTargets.All, slime.getAttackDamage());
+			else if (slime.isRangedAttack){
+				photonView.RPC("RangedAttack",PhotonTargets.All, slime.attackDamage);
 			}
-			else if(slime.isHealing()){
+			else if(slime.isHealing){
 				SlimeHealth tarParentHealth = target.parent.GetComponent<SlimeHealth>();
 				if(tarParentHealth.getCurrentHealth() >= tarParentHealth.getStartHealth())
 					GetComponent<SlimeMovement>().UpdateTarget();
 				else
-					Healing (slime.getHealingPoint());
+					Healing (slime.healingPoint);
 			}
-			else if(slime.isAreaEffectDamage()){
-				AreaEffectDamage(slime.getAttackDamage(), slime.getAreaEffectRadius(), target.position);
+			else if(slime.isAreaEffectDamage){
+				AreaEffectDamage(slime.attackDamage, slime.areaEffectRadius, target.position);
 			}
-			else if(slime.isExplosion()){
-				AreaEffectDamage(slime.getAttackDamage(), slime.getAreaEffectRadius(), model.position);
+			else if(slime.isExplosion){
+				AreaEffectDamage(slime.attackDamage, slime.areaEffectRadius, model.position);
 				GetComponent<SlimeHealth>().TakeDamage(GetComponent<SlimeHealth>().getCurrentHealth());
 			}
 
-			coolDown = 1f / slime.getActionSpeed();
+			coolDown = 1f / slime.actionSpeed;
 		}
 		coolDown -= Time.deltaTime;
 	}

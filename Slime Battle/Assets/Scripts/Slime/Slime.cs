@@ -9,37 +9,33 @@ public class Slime : MonoBehaviour{
 	[Header("Slime model")]
 	[SerializeField]
 	private Transform model;
-
+	[SerializeField]
 	private SlimeClass slimeClass;
-    	private GameManager gm;
+    private GameManager gm;
 
 	void Start(){
 		gm = GameManager.Instance;
 		slimeClass = new SlimeClass(slimeName);
 		//PathFinding config
-		GetComponent<SlimeMovement>().SetUpNavMeshAgent();
+		GetComponent<SlimeMovement>().SetUpNavMeshAgent(model, slimeClass);
 		//Slime Health Display config
-		GetComponent<SlimeHealth>().SetUpSlimeHealth();
+		GetComponent<SlimeHealth>().SetUpSlimeHealth(model, slimeClass);
 		//Join team list
 		JoinTeamList();
 	}
 
 	void JoinTeamList(){
-        if(transform.tag == "Team_RED"){
+        if(transform.tag == "Team_RED")
             gm.team_red.Add(model);
-		}
-		else{
+	  	else
             gm.team_blue.Add(model);
-		}
 	}
 
 	public void RemoveFromTeamList(){
-		if(transform.tag == "Team_RED"){
+		if(transform.tag == "Team_RED")
             gm.team_red.Remove(model);
-		}
-		else{
+		else
             gm.team_blue.Remove(model);
-		}
 
         gm.CheckAnyEmptyTeam();
     }

@@ -4,80 +4,79 @@ using UnityEngine;
 [System.Serializable]
 public class SlimeBlueprint{
 
-	private GameObject slimePrefab;
-    private int cost;
-	private int size;
-	private string team;
-	private Vector3 spawnPosOffset;
+	public GameObject slimePrefab{get;private set;}
+    public int cost{get; private set;}
+	public int size{get; private set;}
+	public string team{get; private set;}
+	public Vector3 spawnPosOffset{get; private set;}
 
 	public SlimeBlueprint(string _name, string _team, GameObject _prefab){
 		team = _team;
 		slimePrefab = _prefab;
 
-		switch (_name)
-		{
+		switch (_name){
 			case "Slime":
-				setCost	( 1 );
-				setSize	( 1 );
+				cost = 1;
+				size = 1;
 				break;
 
 			case "Giant":
-				setCost	( 1 );
-				setSize	( 4 );
+				cost = 1;
+				size = 4;
 				break;
 
 			case "Ranger":
-				setCost	( 1 );
-				setSize	( 1 );
+				cost = 1;
+				size = 1;
 				break;
 
 			case "Healer":
-				setCost	( 1 );
-				setSize	( 1 );
+				cost = 1;
+				size = 1;
 				break;
 
 			case "Bomber":
-				setCost	( 1 );
-				setSize	( 1 );
-			break;
+				cost = 1;
+				size = 1;
+				break;
 				
 			default:
-				setCost	( 1 );
-				setSize	( 1 );
+				cost = 1;
+				size = 1;
 				break;
 		}
-
 		if(size == 1)
 			spawnPosOffset = new Vector3(0,1.5f,0);
 		else if(size == 4)
 			spawnPosOffset = new Vector3(0,2.5f,0);
+		
 	}
 
-	private void setCost(int _cost){
-		cost = _cost;
-	}
+	// private void setCost(int _cost){
+	// 	cost = _cost;
+	// }
 
-	private void setSize(int _size){
-		size = _size;
-	}
+	// private void setSize(int _size){
+	// 	size = _size;
+	// }
 
-	public int getCost(){
-		return cost;
-	}
+	// public int getCost(){
+	// 	return cost;
+	// }
 
-	public string getTeam(){
-		return team;
-	}
+	// public string getTeam(){
+	// 	return team;
+	// }
 
-	public int getSize(){
-		return size;
-	}
+	// public int getSize(){
+	// 	return size;
+	// }
 
-	public Vector3 getOffset(){
-		return spawnPosOffset;
-	}
+	// public Vector3 getOffset(){
+	// 	return spawnPosOffset;
+	// }
 
-	public string getPrefabName(){
-		return slimePrefab.name;
-	}
+	// public string getPrefabName(){
+	// 	return slimePrefab.name;
+	// }
 }

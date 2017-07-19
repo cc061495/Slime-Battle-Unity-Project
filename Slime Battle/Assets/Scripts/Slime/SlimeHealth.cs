@@ -15,9 +15,9 @@ public class SlimeHealth : Photon.MonoBehaviour {
 	private RectTransform healthBarPos;
 	private bool updateDisplay;
 
-	public void SetUpSlimeHealth(){
-		model = GetComponent<Slime>().GetModel();
-		startHealth = GetComponent<Slime>().GetSlimeClass().getStartHealth();
+	public void SetUpSlimeHealth(Transform _model, SlimeClass slime){
+		model = _model;
+		startHealth = slime.startHealth;
 		currentHealth = startHealth;
 		UpdateHealthBarPos();
 		if(!photonView.isMine)

@@ -43,23 +43,23 @@ public class Node : MonoBehaviour
     }
 
     void SpawnSlime(SlimeBlueprint blueprint){
-        if (blueprint.getTeam() != team_node)
+        if (blueprint.team != team_node)
             return;
 
         //Check Player Cost > slime money -> can build
-        if(PlayerStats.playerCost >= blueprint.getCost()){
-            PlayerStats.playerCost -= blueprint.getCost();
+        if(PlayerStats.playerCost >= blueprint.cost){
+            PlayerStats.playerCost -= blueprint.cost;
             PlayerStats.Instance.UpdatePlayerCostText();
         }
         else
             return;
 
-        int size = blueprint.getSize();
-        Vector3 offset = blueprint.getOffset();
+        int size = blueprint.size;
+        Vector3 offset = blueprint.spawnPosOffset;
 
         switch (size){
             case 1:
-                _slime = PhotonNetwork.Instantiate(blueprint.getPrefabName(), GetBuildPos(offset), Quaternion.identity, 0);
+                _slime = PhotonNetwork.Instantiate(blueprint.slimePrefab.name, GetBuildPos(offset), Quaternion.identity, 0);
                 //_slime.GetComponent<Slime>().GetModel().rotation = transform.rotation;
                 _tile = Instantiate(tile, transform.position + new Vector3(0, 0.51f, 0), Quaternion.identity);
                 slime = _slime;
@@ -82,7 +82,7 @@ public class Node : MonoBehaviour
         Vector3 buildOffset = CanBuild2x2(nodes);
 
         if(buildOffset != Vector3.zero){
-            _slime = PhotonNetwork.Instantiate(blueprint.getPrefabName(), GetBuildPos(buildOffset + offset), Quaternion.identity, 0);
+            _slime = PhotonNetwork.Instantiate(blueprint.slimePrefab.name, GetBuildPos(buildOffset + offset), Quaternion.identity, 0);
             //_slime.GetComponent<Slime>().GetModel().rotation = transform.rotation;
             _tile = Instantiate(tile, transform.position + new Vector3(0, 0.51f, 0) + buildOffset, Quaternion.identity);
             _tile.transform.localScale = new Vector3(0.6f,1,0.6f);
