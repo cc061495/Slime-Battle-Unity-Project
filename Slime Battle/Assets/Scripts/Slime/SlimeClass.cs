@@ -14,7 +14,7 @@ public class SlimeClass{
 	private float areaEffectRadius;
 	private int healingPriority;
 	private float turnSpeed = 3f;
-	private bool meleeAttack = false, rangedAttack = false, healing = false, areaEffectDamage = false;
+	private bool meleeAttack = false, rangedAttack = false, healing = false, areaEffectDamage = false, explosion = false;
 
 	public SlimeClass(string slimeName){
 		switch (slimeName){
@@ -32,14 +32,14 @@ public class SlimeClass{
 				break;
 
 			case "Giant":
-				setStartHealth	( 160 );
+				setStartHealth	( 100 );
 				setMovementSpeed( 3.5f );
 				setActionRange	( 2 );
 				setScaleRadius	( 1 );
 				setHealingPriority ( 1 );
 
 				SetAreaEffectDamage ( true );
-				setAttackDamage	( 4 );
+				setAttackDamage	( 3 );
 				setAreaEffectRadius( 2f );
 				setActionSpeed	( 1.5f );
 				break;
@@ -66,6 +66,19 @@ public class SlimeClass{
 				SetHealing		( true );
 				setHealingPoint	( 0.5f );
 				setActionSpeed	( 5 );
+				break;
+
+			case "Bomber":
+				setStartHealth	( 10 );
+				setMovementSpeed( 8 );
+				setActionRange	( 0.5f );
+				setScaleRadius	( 0.5f );
+				setHealingPriority ( 2 );
+
+				SetExplosion ( true );
+				setAttackDamage	( 8 );
+				setAreaEffectRadius( 5 );
+				setActionSpeed	( 0.01f );
 				break;
 
 			default:
@@ -174,6 +187,10 @@ public class SlimeClass{
 		areaEffectDamage = area;
 	}
 
+	private void SetExplosion(bool explode){
+		explosion = explode;
+	}
+
 	public bool isMeleeAttack(){
 		return meleeAttack;
 	}
@@ -188,5 +205,9 @@ public class SlimeClass{
 
 	public bool isAreaEffectDamage(){
 		return areaEffectDamage;
+	}
+
+	public bool isExplosion(){
+		return explosion;
 	}
 }

@@ -84,14 +84,14 @@ public class SlimeMovement : MonoBehaviour {
 
 	public void UpdateTarget(){
 		if(findTargetCoolDown <= 0){
-			findTargetCoolDown = 1f;
+			findTargetCoolDown = 0.5f;
 			photonView.RPC("RPC_UpdateTarget", PhotonTargets.All);
 		}
 	}
 
 	[PunRPC]
 	private void RPC_UpdateTarget(){
-		if(slimeClass.isMeleeAttack() || slimeClass.isRangedAttack() || slimeClass.isAreaEffectDamage()){
+		if(slimeClass.isMeleeAttack() || slimeClass.isRangedAttack() || slimeClass.isAreaEffectDamage() || slimeClass.isExplosion()){
 			List<Transform> enemies = GameManager.Instance.GetEnemies(transform);
 			if(enemies.Count > 0)
 				target = enemies.OrderBy(o => (o.position - model.position).sqrMagnitude).FirstOrDefault();
@@ -104,22 +104,20 @@ public class SlimeMovement : MonoBehaviour {
 				findLowestHealth = false;
 				
 				foreach(Transform slime in myTeam){
-					if(slime.parent != transform){
-						if(slime.parent.GetComponent<SlimeHealth>().getCurrentHealth() != slime.parent.GetComponent<SlimeHealth>().getStartHealth()){
-							findLowestHealth = true;
-							break;
-						}
+					if(slime.parent.GetComponent<SlimeHealth>().getCurrentHealth() != slime.parent.GetComponent<SlimeHealth>().getStartHealth()){
+						findLowestHealth = true;
+						break;
 					}
 				}
 
 				if(findLowestHealth){
-					target = myTeam.OrderBy(o => o.parent.GetComponent<Slime>().GetSlimeClass().getHealingPriority())
-								   .ThenBy(o => (o.parent.GetComponent<SlimeHealth>().getCurrentHealth() / o.parent.GetComponent<SlimeHealth>().getStartHealth())).FirstOrDefault();
+					target = myTeam.OrderBy(o => (o.parent.GetComponent<SlimeHealth>().getCurrentHealth() / o.parent.GetComponent<SlimeHealth>().getStartHealth()))
+								   .ThenBy(o => (o.position - model.position).sqrMagnitude).FirstOrDefault();
 				}
 				else{
 					target = myTeam.OrderBy(o => o.parent.GetComponent<Slime>().GetSlimeClass().getHealingPriority())
-								   .ThenByDescending(o => (o.position - model.position).sqrMagnitude).FirstOrDefault();
-					Invoke("UpdateTarget", 1.1f);
+								   .ThenBy(o => (o.position - model.position).sqrMagnitude).FirstOrDefault();
+					Invoke("UpdateTarget", 0.6f);
 				}
 			}
 		}
@@ -130,9 +128,5 @@ public class SlimeMovement : MonoBehaviour {
 
 	public Transform GetTarget(){
 		return target;
-	}
-
-	private void findHealTarget(List<Transform> healTargets){
-
 	}
 }

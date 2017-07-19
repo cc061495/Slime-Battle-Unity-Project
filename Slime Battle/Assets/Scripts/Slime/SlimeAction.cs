@@ -11,7 +11,7 @@ public class SlimeAction : MonoBehaviour {
 	private GameObject rangedWeaponPrefab;
 
 	private float coolDown = 0f;
-	private Transform target;
+	private Transform target, model;
 	PhotonView photonView;
 
 	void Start(){
@@ -19,6 +19,7 @@ public class SlimeAction : MonoBehaviour {
 	}
 
 	public void Action(SlimeClass slime){
+		model = GetComponent<Slime>().GetModel();
 		photonView.RPC("RPC_SetTarget", PhotonTargets.All);
 
 		if (coolDown <= 0f) {
@@ -38,6 +39,9 @@ public class SlimeAction : MonoBehaviour {
 			else if(slime.isAreaEffectDamage()){
 				AreaAttack(slime.getAttackDamage(), slime.getAreaEffectRadius());
 			}
+			else if(slime.isExplosion()){
+				Explosion(slime.getAttackDamage(), slime.getAreaEffectRadius());
+			}
 
 			coolDown = 1f / slime.getActionSpeed();
 		}
@@ -49,21 +53,19 @@ public class SlimeAction : MonoBehaviour {
 		target = GetComponent<SlimeMovement>().GetTarget();
 	}
 		
-	void MeleeAttack(float attackDamage){
+	private void MeleeAttack(float attackDamage){
 		SlimeHealth h = target.parent.GetComponent<SlimeHealth>();
 		h.TakeDamage(attackDamage);
 	}
 
-	void AreaAttack(float attackDamage, float effectAreaRadius){
+	private void AreaAttack(float attackDamage, float effectAreaRadius){
 		Collider[] slimes = Physics.OverlapSphere(target.position, effectAreaRadius);
 		foreach (Collider slime in slimes){
 			if(slime.transform.parent.tag == target.parent.tag){
 				SlimeHealth h = slime.transform.parent.GetComponent<SlimeHealth>();
 
 				float distanceFromSphereCentre = (slime.transform.position - target.position).sqrMagnitude;
-				float range = Mathf.Pow(effectAreaRadius + target.GetComponent<CapsuleCollider>().radius, 2);
-				float areaDamage = ((range - distanceFromSphereCentre) / range) * attackDamage;
-				h.TakeDamage(areaDamage);
+				h.TakeDamage(DamageWithRadius(attackDamage, distanceFromSphereCentre, effectAreaRadius));
 			}
 		}
 	}
@@ -79,5 +81,27 @@ public class SlimeAction : MonoBehaviour {
 	private void Healing(float healingPoint){
 		SlimeHealth h = target.parent.GetComponent<SlimeHealth>();
 		h.TakeHealing(healingPoint);
+	}
+
+	private void Explosion(float attackDamage, float effectAreaRadius){
+		Collider[] slimes = Physics.OverlapSphere(model.position, effectAreaRadius);
+		foreach (Collider slime in slimes){
+			if(slime.transform.parent.tag == target.parent.tag){
+				SlimeHealth h = slime.transform.parent.GetComponent<SlimeHealth>();
+
+				float distanceFromSphereCentre = (slime.transform.position - model.position).sqrMagnitude;
+				h.TakeDamage(DamageWithRadius(attackDamage, distanceFromSphereCentre, effectAreaRadius));
+			}
+		}
+		GetComponent<SlimeHealth>().TakeDamage(GetComponent<SlimeHealth>().getCurrentHealth());
+	}
+
+	private float DamageWithRadius(float attackDamage,float distanceFromCentre, float sphereRadius){
+		float radius = Mathf.Pow(sphereRadius, 2);
+		float areaDamage = ((radius - distanceFromCentre) / radius) * attackDamage;
+		if(areaDamage < 0)
+			areaDamage = 0;
+			
+		return Mathf.Ceil(areaDamage);
 	}
 }

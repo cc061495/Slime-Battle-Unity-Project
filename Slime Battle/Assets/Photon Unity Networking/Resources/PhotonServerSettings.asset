@@ -81,4 +81,6 @@ MonoBehaviour:
   - RangedAttack
   - RPC_GetTarget
   - RPC_SetTarget
+  - RPC_SlimeDestroy
+  - RPC_SetIsDead
   DisableAutoOpenWizard: 1

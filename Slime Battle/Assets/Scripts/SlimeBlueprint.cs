@@ -35,6 +35,11 @@ public class SlimeBlueprint{
 				setCost	( 1 );
 				setSize	( 1 );
 				break;
+
+			case "Bomber":
+				setCost	( 1 );
+				setSize	( 1 );
+			break;
 				
 			default:
 				setCost	( 1 );

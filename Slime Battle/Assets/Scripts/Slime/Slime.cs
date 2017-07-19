@@ -11,7 +11,7 @@ public class Slime : MonoBehaviour{
 	private Transform model;
 
 	private SlimeClass slimeClass;
-    private GameManager gm;
+    	private GameManager gm;
 
 	void Start(){
 		gm = GameManager.Instance;
