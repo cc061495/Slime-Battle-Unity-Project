@@ -1215,12 +1215,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f733158bd0d74d00a29b2d2b12c9e1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: RED
   _slime: {fileID: 1107804881901608, guid: 903ebea1718054ab2b4cb00051aa86fe, type: 2}
   _giant: {fileID: 1597623680475062, guid: 5af9b7608f7a945fb9ba84fbcd1d029c, type: 2}
   _ranger: {fileID: 1539508114879990, guid: 3124e8a1203074ef483a7a30f957266d, type: 2}
   _healer: {fileID: 1107804881901608, guid: 5a1c1a91522fe495888a6335ce4acc50, type: 2}
   _bomber: {fileID: 1010709725255560, guid: fb5d5f9d5f6b140c2ad49a1fe3b02686, type: 2}
+  _wall: {fileID: 1024320169951516, guid: 6874f7bd33657453f8e08d578bb68bfb, type: 2}
 --- !u!114 &164218327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7136,7 +7136,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: Wall
 --- !u!222 &893039494
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7193,12 +7193,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f733158bd0d74d00a29b2d2b12c9e1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: BLUE
   _slime: {fileID: 1657785362013334, guid: 07fe8698f10ae431796790adfcbce625, type: 2}
   _giant: {fileID: 1808515493412978, guid: eab0a0d96244a4c6a96c6aab313302ac, type: 2}
   _ranger: {fileID: 1285319791248710, guid: ad8a69c0746b442e586aa082f821b1d5, type: 2}
   _healer: {fileID: 1107804881901608, guid: c14fe4f8a511c423cb96f572b73d9cbe, type: 2}
   _bomber: {fileID: 1010709725255560, guid: 514fb316009364f6f88457298573e0aa, type: 2}
+  _wall: {fileID: 0}
 --- !u!114 &895086057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13382,7 +13382,7 @@ GameObject:
   - component: {fileID: 1723884726}
   - component: {fileID: 1723884725}
   m_Layer: 5
-  m_Name: Ranger
+  m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13413,7 +13413,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1723884723}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -13446,8 +13446,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: SelectRanger
+      - m_Target: {fileID: 164218326}
+        m_MethodName: SelectWall
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

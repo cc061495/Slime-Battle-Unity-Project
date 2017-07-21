@@ -11,12 +11,14 @@ public class SlimeMovement : MonoBehaviour {
 	private Transform model;
 
 	private float range, findTargetCoolDown;
-	private bool pathUpdate, move, findLowestHealth;
+	private bool pathUpdate, move, findNewTarget;
 	private Vector3 prevPos;
 
 	PhotonView photonView;
 	SlimeClass slime;
 	GameManager gm;
+	[SerializeField]
+	private List<Transform> myTeam;
 
 	void Start(){
 		gm = GameManager.Instance;
@@ -66,8 +68,12 @@ public class SlimeMovement : MonoBehaviour {
 
 	void UpdatePath(){
 		if(gm.currentState == GameManager.State.battle_start){
-			if(target != null && move && agent != null && target.position != prevPos){
-				prevPos = target.position;
+			if(target != null && move){
+				Debug.Log(agent.pathStatus);
+				if(agent.pathStatus != NavMeshPathStatus.PathComplete && !findNewTarget){
+					findNewTarget = true;
+					TargetSearching();
+				}
 				agent.destination = target.position;	//finding new target position
 			}
 		}
@@ -85,32 +91,44 @@ public class SlimeMovement : MonoBehaviour {
 	public void UpdateTarget(){
 		if(findTargetCoolDown <= 0){
 			findTargetCoolDown = 0.5f;
-			photonView.RPC("RPC_UpdateTarget", PhotonTargets.All);
+			TargetSearching();
 		}
 	}
 
-	[PunRPC]
-	private void RPC_UpdateTarget(){
+	private void TargetSearching(){
 		if(slime.isMeleeAttack || slime.isRangedAttack || slime.isAreaEffectDamage || slime.isExplosion){
 			List<Transform> enemies = GameManager.Instance.GetEnemies(transform);
-			if(enemies.Count > 0)
-				target = enemies.OrderBy(o => (o.position - model.position).sqrMagnitude).FirstOrDefault();
+			if(enemies.Count > 0){
+				if(findNewTarget){
+					target = enemies.OrderByDescending(o => o.parent.GetComponent<Slime>().GetSlimeClass().killingPriority).
+									 ThenBy(o => (o.position - model.position).sqrMagnitude).FirstOrDefault();
+					findNewTarget = false;
+				}
+				else{
+					target = enemies.OrderBy(o => o.parent.GetComponent<Slime>().GetSlimeClass().killingPriority).
+									 ThenBy(o => (o.position - model.position).sqrMagnitude).FirstOrDefault();
+				}
+			}
 		}
 		else if(slime.isHealing){
-			List<Transform> myTeam = new List<Transform>(GameManager.Instance.GetMyTeam(transform));
+			myTeam = new List<Transform>(GameManager.Instance.GetMyTeam(transform));
 			if(myTeam.Count > 1){
 				myTeam.Remove(model);
-
-				findLowestHealth = false;
+				foreach(Transform slime in myTeam.ToList()){
+					if(slime.parent.GetComponent<Slime>().GetSlimeClass().isBuilding)
+						myTeam.Remove(slime);
+				}
+				
+				bool findAnyLowHealth = false;
 				
 				foreach(Transform slime in myTeam){
 					if(slime.parent.GetComponent<SlimeHealth>().getCurrentHealth() != slime.parent.GetComponent<SlimeHealth>().getStartHealth()){
-						findLowestHealth = true;
+						findAnyLowHealth = true;
 						break;
 					}
 				}
 
-				if(findLowestHealth){
+				if(findAnyLowHealth){
 					target = myTeam.OrderBy(o => (o.parent.GetComponent<SlimeHealth>().getCurrentHealth() / o.parent.GetComponent<SlimeHealth>().getStartHealth()))
 								   .ThenBy(o => (o.position - model.position).sqrMagnitude).FirstOrDefault();
 				}
@@ -121,10 +139,17 @@ public class SlimeMovement : MonoBehaviour {
 				}
 			}
 		}
-
-		if(target != null)
+		
+		if(target != null){
 			range = slime.scaleRadius + slime.actionRange + target.parent.GetComponent<Slime>().GetSlimeClass().scaleRadius;
+			photonView.RPC("RPC_ClientSetTarget", PhotonTargets.Others, target.parent.gameObject.GetPhotonView().viewID);
+		}
     }
+
+	[PunRPC]
+	private void RPC_ClientSetTarget(int targetView){
+		target = PhotonView.Find(targetView).GetComponent<Slime>().GetModel();
+	}
 
 	public Transform GetTarget(){
 		return target;

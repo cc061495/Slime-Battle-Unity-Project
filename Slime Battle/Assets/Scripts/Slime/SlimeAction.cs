@@ -68,6 +68,7 @@ public class SlimeAction : MonoBehaviour {
 				float distanceFromCentre = (slime.transform.position - centre).sqrMagnitude;
 				float radius = Mathf.Pow(effectAreaRadius, 2);
 				float areaDamage = ((radius - distanceFromCentre) / radius) * attackDamage;
+				Debug.Log(areaDamage);
 				if(areaDamage < 0)
 					areaDamage = 0;
 				h.TakeDamage(areaDamage);

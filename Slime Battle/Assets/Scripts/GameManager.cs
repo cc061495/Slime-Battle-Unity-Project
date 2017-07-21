@@ -74,6 +74,10 @@ public class GameManager : MonoBehaviour
         GetComponent<CameraManager>().CamMove_Battle();
         ShopDisplay(false);
         PlayerStats.Instance.PlayerInfoPanelDisplay(false);
+
+        DisplayTeam(team_red);
+        DisplayTeam(team_blue);
+
         StartCoroutine(DisplayGamePanel());
 
         GameObject[] nodes = GameObject.FindGameObjectsWithTag("node");
@@ -276,5 +280,12 @@ public class GameManager : MonoBehaviour
     [PunRPC]
     private void RPC_BlueTeamFinish(){
         isBlueFinish = true;
+    }
+
+    private void DisplayTeam(List<Transform> team){
+        foreach (Transform slime in team){
+            SlimeHealth h = slime.parent.GetComponent<SlimeHealth>();
+            h.DisplaySlime(true);
+        }
     }
 }

@@ -12,6 +12,7 @@ public class SlimeClass{
 	public float healingPoint{get; private set;}		//Slime's healing point
 	public float scaleRadius{get; private set;}			//Slime's scale radius
 	public float areaEffectRadius{get; private set;}
+	public int killingPriority{get; private set;}
 	public int healingPriority{get; private set;}
 	public float turnSpeed = 3f;
 
@@ -20,6 +21,7 @@ public class SlimeClass{
 	public bool isHealing{get; private set;}
 	public bool isAreaEffectDamage{get; private set;}
 	public bool isExplosion{get; private set;}
+	public bool isBuilding{get; private set;}
 
 	public SlimeClass(string slimeName){
 		switch (slimeName){
@@ -30,6 +32,7 @@ public class SlimeClass{
 				actionRange 	= 1 ;
 				scaleRadius 	= 0.5f ;
 				healingPriority = 1 ;
+				killingPriority = 1 ;
 				/* Ability */
 				isMeleeAttack 	= true;
 				attackDamage 	= 2;
@@ -43,6 +46,7 @@ public class SlimeClass{
 				actionRange 	= 2 ;
 				scaleRadius 	= 1 ;
 				healingPriority = 1 ;
+				killingPriority = 1 ;
 				/* Ability */
 				isAreaEffectDamage	= true ;
 				attackDamage 		= 3 ;
@@ -57,6 +61,7 @@ public class SlimeClass{
 				actionRange 	= 9 ;
 				scaleRadius 	= 0.5f ;
 				healingPriority = 2 ;
+				killingPriority = 1 ;
 				/* Ability */
 				isRangedAttack 	= true ;
 				attackDamage 	= 2 ;
@@ -70,10 +75,11 @@ public class SlimeClass{
 				actionRange 	= 6.5f ;
 				scaleRadius 	= 0.5f ;
 				healingPriority = 3 ;
+				killingPriority = 1 ;
 				/* Ability */
 				isHealing 		= true ;
 				healingPoint 	= 0.5f ;
-				actionSpeed 	= 5 ;
+				actionSpeed 	= 6 ;
 				break;
 
 			case "Bomber":
@@ -83,11 +89,21 @@ public class SlimeClass{
 				actionRange 	= 0.5f ;
 				scaleRadius 	= 0.5f ;
 				healingPriority = 2 ;
+				killingPriority = 1 ;
 				/* Ability */
 				isExplosion	 		= true ;
 				attackDamage 		= 8 ;
 				areaEffectRadius 	= 5 ;
 				actionSpeed 		= 0.01f ;
+				break;
+
+			case "Wall":
+				/* Wall Properties */
+				startHealth 	= 30 ;
+				scaleRadius 	= 1.5f ;
+				killingPriority = 2 ;
+				/* Ability */
+				isBuilding 		= true ;
 				break;
 
 			default:

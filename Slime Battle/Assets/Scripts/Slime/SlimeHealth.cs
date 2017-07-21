@@ -7,6 +7,7 @@ public class SlimeHealth : Photon.MonoBehaviour {
 	private float currentHealth;
 	private float startHealth;
 	private Transform model;
+	private SlimeClass slimeClass;
 
 	[Header("Slime Health Bar")]
 	[SerializeField]
@@ -17,17 +18,33 @@ public class SlimeHealth : Photon.MonoBehaviour {
 
 	public void SetUpSlimeHealth(Transform _model, SlimeClass slime){
 		model = _model;
+		slimeClass = slime;
 		startHealth = slime.startHealth;
 		currentHealth = startHealth;
 		UpdateHealthBarPos();
+
 		if(!photonView.isMine)
 		 	DisplaySlime(false);
 
-		if(!PhotonNetwork.isMasterClient){
+		if(!PhotonNetwork.isMasterClient)
 			ChangeHealthBarPos();
+	}
 
-			if(photonView.isMine)
-				Invoke("TransferOwner", 0.5f);
+	void FixedUpdate(){
+		//health bar position
+		if((GameManager.Instance.currentState == GameManager.State.battle_start ||
+		   GameManager.Instance.currentState == GameManager.State.battle_end) && !slimeClass.isBuilding)
+			UpdateHealthBarPos();
+	}
+
+	public void DisplaySlime(bool display){
+		healthBarPos.gameObject.SetActive(display);
+		model.gameObject.SetActive(display);
+		if(GameManager.Instance.currentState == GameManager.State.build_end){
+			if(!PhotonNetwork.isMasterClient && photonView.isMine)
+				TransferOwner();
+
+			Invoke("NetworkEnable", 3);
 		}
 	}
 
@@ -35,20 +52,10 @@ public class SlimeHealth : Photon.MonoBehaviour {
 		GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.masterClient);
 	}
 
-	void FixedUpdate(){
-		//health bar position
-		UpdateHealthBarPos();
-		//show the model and health when state = end_build
-		if(GameManager.Instance.currentState == GameManager.State.build_end && !updateDisplay){
-			updateDisplay = true;
-			DisplaySlime(true);
-			GetComponent<SlimeNetwork>().enabled = true;
-		}
-	}
-
-	private void DisplaySlime(bool display){
-		healthBarPos.gameObject.SetActive(display);
-		model.gameObject.SetActive(display);
+	private void NetworkEnable(){
+		SlimeNetwork network = GetComponent<SlimeNetwork>();
+		if(network != null)
+			network.enabled = true;
 	}
 
 	private void ChangeHealthBarPos(){
@@ -57,7 +64,7 @@ public class SlimeHealth : Photon.MonoBehaviour {
 	}
 
 	private void UpdateHealthBarPos(){
-		if(healthBarPos.hasChanged && model != null){
+		if(model != null){
 			if(PhotonNetwork.isMasterClient)
 				healthBarPos.position = new Vector3 (model.position.x, model.position.y+2f, model.position.z+1f);
 			else

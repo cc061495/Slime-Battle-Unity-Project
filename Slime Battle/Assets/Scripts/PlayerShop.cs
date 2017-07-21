@@ -2,20 +2,20 @@
 
 public class PlayerShop:MonoBehaviour {
 
-	public string team;
-	public GameObject _slime, _giant, _ranger, _healer, _bomber;
-	private SlimeBlueprint slime, giant, ranger, healer, bomber;
+	public GameObject _slime, _giant, _ranger, _healer, _bomber, _wall;
+	private SlimeBlueprint slime, giant, ranger, healer, bomber, wall;
 
 	SpawnManager spawnManager; 
 
 	// Use this for initialization
 	void Start () {
 		spawnManager = SpawnManager.Instance;
-		slime = new SlimeBlueprint("Slime", team, _slime);
-		giant = new SlimeBlueprint("Giant", team, _giant);
-		ranger = new SlimeBlueprint("Ranger", team, _ranger);
-		healer = new SlimeBlueprint("Healer", team, _healer);
-		bomber = new SlimeBlueprint("Bomber", team, _bomber);
+		slime = new SlimeBlueprint("Slime", _slime);
+		giant = new SlimeBlueprint("Giant", _giant);
+		ranger = new SlimeBlueprint("Ranger", _ranger);
+		healer = new SlimeBlueprint("Healer", _healer);
+		bomber = new SlimeBlueprint("Bomber", _bomber);
+		wall = new SlimeBlueprint("Wall", _wall);
 	}
 	
 	public void SelectSlime() {
@@ -36,5 +36,9 @@ public class PlayerShop:MonoBehaviour {
 
 	public void SelectBomber() {
 		spawnManager.SelectSlimeToSpawn (bomber); 
+	}
+
+	public void SelectWall() {
+		spawnManager.SelectSlimeToSpawn (wall); 
 	}
 }

@@ -5,11 +5,6 @@ using UnityEngine;
 
 public class Node : MonoBehaviour
 {
-    // public Color selectColor;
-    // public Color availableColor;
-    // public Color teamA_Color;
-    // public Color teamB_Color;
-
     public GameObject slime;
     private GameObject _slime;
     public SlimeBlueprint slimeblueprint;
@@ -18,16 +13,18 @@ public class Node : MonoBehaviour
     private GameObject tile;
     private GameObject _tile;
     private Renderer rend;
-    //private Color startColor;
+
     GameManager gameManager;
     SpawnManager spawnManager;
 
     // Use this for initialization
     void Start(){
-        //rend = GetComponent<Renderer>();
-        //startColor = rend.material.color;
         gameManager = GameManager.Instance;
         spawnManager = SpawnManager.Instance;
+        if(PhotonNetwork.isMasterClient && team_node == "BLUE")
+            GetComponent<BoxCollider>().enabled = false;
+        else if(!PhotonNetwork.isMasterClient && team_node == "RED")
+            GetComponent<BoxCollider>().enabled = false;
     }
 
     void OnMouseEnter(){
@@ -43,9 +40,6 @@ public class Node : MonoBehaviour
     }
 
     void SpawnSlime(SlimeBlueprint blueprint){
-        if (blueprint.team != team_node)
-            return;
-
         //Check Player Cost > slime money -> can build
         if(PlayerStats.playerCost >= blueprint.cost){
             PlayerStats.playerCost -= blueprint.cost;
@@ -60,11 +54,9 @@ public class Node : MonoBehaviour
         switch (size){
             case 1:
                 _slime = PhotonNetwork.Instantiate(blueprint.slimePrefab.name, GetBuildPos(offset), Quaternion.identity, 0);
-                //_slime.GetComponent<Slime>().GetModel().rotation = transform.rotation;
                 _tile = Instantiate(tile, transform.position + new Vector3(0, 0.51f, 0), Quaternion.identity);
                 slime = _slime;
                 slimeblueprint = blueprint;
-                //rend.material.color = GetTeamColor();
                 break;
 
             case 4:
