@@ -32,7 +32,7 @@ public class SlimeAction : MonoBehaviour {
 			else if(slime.isHealing){
 				SlimeHealth tarParentHealth = target.parent.GetComponent<SlimeHealth>();
 				if(tarParentHealth.getCurrentHealth() >= tarParentHealth.getStartHealth())
-					GetComponent<SlimeMovement>().UpdateTarget();
+					GetComponent<SlimeMovement>().FindNewTargetWithFewSecond();
 				else
 					Healing (slime.healingPoint);
 			}

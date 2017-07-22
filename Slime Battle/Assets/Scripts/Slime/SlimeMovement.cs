@@ -54,18 +54,17 @@ public class SlimeMovement : MonoBehaviour {
 	}
 
 	public void StartUpdatePathLoop(){
-		InvokeRepeating("UpdatePath", Random.Range(0, 0.5f), 0.5f);
+		InvokeRepeating("UpdatePath", Random.Range(0, 0.5f), 0.1f);
 	}
 
 	void UpdatePath(){
 		if(gm.currentState == GameManager.State.battle_start){
 			if(target == null){
 				findNewTarget = false;
-				UpdateTarget();		//find new target if target = null
+				TargetSearching();		//find new target if target = null
 			}
 
 			if(target != null && move){
-				Debug.Log(agent.pathStatus);
 				agent.destination = target.position;	//finding new target position
 				if(agent.pathStatus != NavMeshPathStatus.PathComplete && !findNewTarget){
 					findNewTarget = true;
@@ -85,15 +84,7 @@ public class SlimeMovement : MonoBehaviour {
 		model.rotation = Quaternion.Euler (0f, rotation.y, 0f);
 	}
 
-	public void UpdateTarget(){
-		if(!findTargetCoolDown){
-			findTargetCoolDown = true;
-			TargetSearching();
-			Invoke("ResetCoolDown", 0.5f);
-		}
-	}
-
-	private void TargetSearching(){
+	public void TargetSearching(){
 		if(slime.isMeleeAttack || slime.isRangedAttack || slime.isAreaEffectDamage || slime.isExplosion){
 			List<Transform> enemies = gm.GetEnemies(transform);
 			if(enemies.Count > 0){
@@ -132,7 +123,6 @@ public class SlimeMovement : MonoBehaviour {
 				else{
 					target = myTeam.OrderBy(o => o.parent.GetComponent<Slime>().GetSlimeClass().healingPriority)
 								   .ThenBy(o => (o.position - model.position).sqrMagnitude).FirstOrDefault();
-					Invoke("UpdateTarget", 0.6f);
 				}
 			}
 		}
@@ -156,7 +146,7 @@ public class SlimeMovement : MonoBehaviour {
 		return target;
 	}
 
-	private void ResetCoolDown(){
-		findTargetCoolDown = false;
+	public void FindNewTargetWithFewSecond(){
+		Invoke("TargetSearching", 0.5f);
 	}
 }

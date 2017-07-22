@@ -43,8 +43,8 @@ public class SlimeClass{
 				/* Slime Properties */
 				startHealth 	= 100 ;
 				movemonetSpeed 	= 3.5f ;
-				actionRange 	= 2 ;
-				scaleRadius 	= 1 ;
+				actionRange 	= 1 ;
+				scaleRadius 	= 1.5f ;
 				healingPriority = 1 ;
 				killingPriority = 1 ;
 				/* Ability */
@@ -58,7 +58,7 @@ public class SlimeClass{
 				/* Slime Properties */
 				startHealth 	= 12 ;
 				movemonetSpeed	= 5 ;
-				actionRange 	= 9 ;
+				actionRange 	= 8 ;
 				scaleRadius 	= 0.5f ;
 				healingPriority = 2 ;
 				killingPriority = 1 ;
@@ -79,14 +79,14 @@ public class SlimeClass{
 				/* Ability */
 				isHealing 		= true ;
 				healingPoint 	= 0.5f ;
-				actionSpeed 	= 10 ;
+				actionSpeed 	= 7 ;
 				break;
 
 			case "Bomber":
 				/* Slime Properties */
 				startHealth 	= 10 ;
 				movemonetSpeed 	= 8 ;
-				actionRange 	= 0.5f ;
+				actionRange 	= 0.4f ;
 				scaleRadius 	= 0.5f ;
 				healingPriority = 2 ;
 				killingPriority = 1 ;
@@ -99,7 +99,7 @@ public class SlimeClass{
 
 			case "Wall":
 				/* Wall Properties */
-				startHealth 	= 30 ;
+				startHealth 	= 40 ;
 				scaleRadius 	= 1.5f ;
 				killingPriority = 2 ;
 				/* Ability */
