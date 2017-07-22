@@ -10,15 +10,13 @@ public class SlimeMovement : MonoBehaviour {
 	private NavMeshAgent agent;
 	private Transform model;
 
-	private float range, findTargetCoolDown;
-	private bool pathUpdate, move, findNewTarget;
+	private float range;
+	private bool move, findNewTarget, findTargetCoolDown;
 	private Vector3 prevPos;
 
 	PhotonView photonView;
 	SlimeClass slime;
 	GameManager gm;
-	[SerializeField]
-	private List<Transform> myTeam;
 
 	void Start(){
 		gm = GameManager.Instance;
@@ -32,22 +30,11 @@ public class SlimeMovement : MonoBehaviour {
 		agent = model.GetComponent<NavMeshAgent>();
 		agent.speed = slime.movemonetSpeed;
 		agent.acceleration = slime.movemonetSpeed;
-		agent.stoppingDistance = slime.actionRange;
+		agent.stoppingDistance = 1.5f;
 	}
 	
 	void Update () {
 		if (gm.currentState == GameManager.State.battle_start && photonView.isMine) {  //when the battle starts, start to execute
-			if(findTargetCoolDown > 0)
-				findTargetCoolDown -= Time.deltaTime;
-
-			if (target == null){
-                UpdateTarget();		//find new target if target = null
-				if(!pathUpdate){
-					pathUpdate = true;
-					InvokeRepeating("UpdatePath", Random.Range(0, 0.5f), 0.5f);
-				}
-			}
-
             if (target != null){
                 if((target.position - model.position).sqrMagnitude <= Mathf.Pow(range, 2)){
 					LookAtTarget();
@@ -66,18 +53,28 @@ public class SlimeMovement : MonoBehaviour {
 		}
 	}
 
+	public void StartUpdatePathLoop(){
+		InvokeRepeating("UpdatePath", Random.Range(0, 0.5f), 0.5f);
+	}
+
 	void UpdatePath(){
 		if(gm.currentState == GameManager.State.battle_start){
+			if(target == null){
+				findNewTarget = false;
+				UpdateTarget();		//find new target if target = null
+			}
+
 			if(target != null && move){
 				Debug.Log(agent.pathStatus);
+				agent.destination = target.position;	//finding new target position
 				if(agent.pathStatus != NavMeshPathStatus.PathComplete && !findNewTarget){
 					findNewTarget = true;
+					Debug.Log("findNewTarget");
 					TargetSearching();
 				}
-				agent.destination = target.position;	//finding new target position
 			}
 		}
-		else
+		else if(gm.currentState == GameManager.State.battle_end)
 			CancelInvoke("UpdatePath");
 	}
 
@@ -89,20 +86,20 @@ public class SlimeMovement : MonoBehaviour {
 	}
 
 	public void UpdateTarget(){
-		if(findTargetCoolDown <= 0){
-			findTargetCoolDown = 0.5f;
+		if(!findTargetCoolDown){
+			findTargetCoolDown = true;
 			TargetSearching();
+			Invoke("ResetCoolDown", 0.5f);
 		}
 	}
 
 	private void TargetSearching(){
 		if(slime.isMeleeAttack || slime.isRangedAttack || slime.isAreaEffectDamage || slime.isExplosion){
-			List<Transform> enemies = GameManager.Instance.GetEnemies(transform);
+			List<Transform> enemies = gm.GetEnemies(transform);
 			if(enemies.Count > 0){
 				if(findNewTarget){
 					target = enemies.OrderByDescending(o => o.parent.GetComponent<Slime>().GetSlimeClass().killingPriority).
 									 ThenBy(o => (o.position - model.position).sqrMagnitude).FirstOrDefault();
-					findNewTarget = false;
 				}
 				else{
 					target = enemies.OrderBy(o => o.parent.GetComponent<Slime>().GetSlimeClass().killingPriority).
@@ -111,7 +108,7 @@ public class SlimeMovement : MonoBehaviour {
 			}
 		}
 		else if(slime.isHealing){
-			myTeam = new List<Transform>(GameManager.Instance.GetMyTeam(transform));
+			List<Transform> myTeam = new List<Transform>(gm.GetMyTeam(transform));
 			if(myTeam.Count > 1){
 				myTeam.Remove(model);
 				foreach(Transform slime in myTeam.ToList()){
@@ -148,10 +145,18 @@ public class SlimeMovement : MonoBehaviour {
 
 	[PunRPC]
 	private void RPC_ClientSetTarget(int targetView){
-		target = PhotonView.Find(targetView).GetComponent<Slime>().GetModel();
+		List<Transform> enemies = gm.GetEnemies(transform);
+		foreach(Transform slime in enemies){
+			if(slime.parent.gameObject.GetPhotonView().viewID == targetView)
+				target = slime;
+		}
 	}
 
 	public Transform GetTarget(){
 		return target;
+	}
+
+	private void ResetCoolDown(){
+		findTargetCoolDown = false;
 	}
 }

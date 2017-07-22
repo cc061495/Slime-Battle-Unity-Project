@@ -14,7 +14,6 @@ public class SlimeHealth : Photon.MonoBehaviour {
 	private Image healthBar;
 	[SerializeField]
 	private RectTransform healthBarPos;
-	private bool updateDisplay;
 
 	public void SetUpSlimeHealth(Transform _model, SlimeClass slime){
 		model = _model;
@@ -42,20 +41,20 @@ public class SlimeHealth : Photon.MonoBehaviour {
 		model.gameObject.SetActive(display);
 		if(GameManager.Instance.currentState == GameManager.State.build_end){
 			if(!PhotonNetwork.isMasterClient && photonView.isMine)
-				TransferOwner();
+				GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.masterClient);
 
 			Invoke("NetworkEnable", 3);
 		}
 	}
-
-	void TransferOwner(){
-		GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.masterClient);
-	}
-
+	
 	private void NetworkEnable(){
 		SlimeNetwork network = GetComponent<SlimeNetwork>();
 		if(network != null)
 			network.enabled = true;
+
+		SlimeMovement movement = GetComponent<SlimeMovement>(); 
+		if(movement != null && photonView.isMine)
+			movement.StartUpdatePathLoop();
 	}
 
 	private void ChangeHealthBarPos(){

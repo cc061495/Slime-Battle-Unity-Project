@@ -66,14 +66,19 @@ public class SlimeAction : MonoBehaviour {
 				SlimeHealth h = slime.transform.parent.GetComponent<SlimeHealth>();
 
 				float distanceFromCentre = (slime.transform.position - centre).sqrMagnitude;
-				float radius = Mathf.Pow(effectAreaRadius, 2);
-				float areaDamage = ((radius - distanceFromCentre) / radius) * attackDamage;
-				Debug.Log(areaDamage);
+				//explosion constant(higher = lower damage, lower = higher damage received)
+				float areaDamage = attackDamage - distanceFromCentre * 0.15f;
+				Debug.Log(distanceFromCentre + " Damage: " + areaDamage);
 				if(areaDamage < 0)
 					areaDamage = 0;
 				h.TakeDamage(areaDamage);
 			}
 		}
+	}
+
+	private void OnDrawGizmosSelected(){
+		Gizmos.color = Color.red;
+		Gizmos.DrawWireSphere(transform.position, 5);
 	}
 
 	[PunRPC]

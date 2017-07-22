@@ -50,7 +50,7 @@ public class SlimeClass{
 				/* Ability */
 				isAreaEffectDamage	= true ;
 				attackDamage 		= 3 ;
-				areaEffectRadius 	= 2 ;
+				areaEffectRadius 	= 2.5f ;
 				actionSpeed 		= 1.5f ;
 				break;
 
@@ -79,7 +79,7 @@ public class SlimeClass{
 				/* Ability */
 				isHealing 		= true ;
 				healingPoint 	= 0.5f ;
-				actionSpeed 	= 6 ;
+				actionSpeed 	= 10 ;
 				break;
 
 			case "Bomber":
