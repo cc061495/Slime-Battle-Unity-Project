@@ -2,15 +2,18 @@
 
 public class Bullet : MonoBehaviour{
 
-    private Transform target;
+    private SlimeHealth tarHealth;
+    private Transform target, _transform;
     private float attackDamage;
 
     private float bulletSpeed = 20f;
     public GameObject impactEffect;
 
-    public void Seek(Transform _target, float _attackDamage){
+    public void Seek(Transform _target, float _attackDamage, SlimeHealth health){
         target = _target;
         attackDamage = _attackDamage;
+        tarHealth = health;
+        _transform = transform;
     }
     // Update is called once per frame
     void Update(){
@@ -19,25 +22,23 @@ public class Bullet : MonoBehaviour{
             return;
         }
 
-        Vector3 dir = target.position - transform.position;
-        float distanceThisFrame = bulletSpeed * Time.deltaTime;
+        Vector3 dir = target.position - _transform.position;
+        float distanceThisFrame = bulletSpeed * GameManager.globalDeltaTime;
 
         if (dir.magnitude <= distanceThisFrame){
             HitTarget();
             return;
         }
 
-        transform.Translate(dir.normalized * distanceThisFrame, Space.World);
+        _transform.Translate(dir.normalized * distanceThisFrame, Space.World);
     }
 
     void HitTarget(){
-        GameObject effectIns = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
+        GameObject effectIns = (GameObject)Instantiate(impactEffect, _transform.position, _transform.rotation);
         Destroy(effectIns, 0.5f);
         Destroy(gameObject);
         
-        if(PhotonNetwork.isMasterClient){
-            SlimeHealth h = target.parent.GetComponent<SlimeHealth>();
-		    h.TakeDamage(attackDamage);
-        }
+        if(PhotonNetwork.isMasterClient)
+		    tarHealth.TakeDamage(attackDamage);
     }
 }

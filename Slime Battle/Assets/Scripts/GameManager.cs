@@ -6,23 +6,29 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
+    public static float globalDeltaTime;
+    
     void Awake(){
-        Instance = this;   
+        Instance = this;
+        globalDeltaTime = Time.deltaTime;   
     }
+
     const int totalRoundGame = 5;
     public enum State{idle, ready, build_start, build_end, battle_start, battle_end, game_end};
     public State currentState;
     public int currentRound, team_red_score, team_blue_score;
     public Text gameDisplayText, DebugText;
     public GameObject gameDisplayPanel, teamRedSlimeShop, teamBlueSlimeShop;
+    public RectTransform canvasForHealthBar, healthBarParent;
     public List<Transform> team_red = new List<Transform>();
     public List<Transform> team_blue = new List<Transform>();
+    public ArrayForNodes nodesArray = new ArrayForNodes();
     private bool isRedFinish, isBlueFinish;
 
     private float mDeltaTime = 0.0f;
     private float mFPS = 0.0f;
     PhotonView photonView;
+    CameraManager camManager;
 
     void Update(){
         DebugText.text = "Round: " + currentRound + " / " + totalRoundGame + "\n";
@@ -36,6 +42,7 @@ public class GameManager : MonoBehaviour
     }
     void Start(){
         photonView = GetComponent<PhotonView>();
+        camManager = GetComponent<CameraManager>();
         if(!PhotonNetwork.connected){
             //Start single mode
             Debug.Log("HELLO");
@@ -69,9 +76,9 @@ public class GameManager : MonoBehaviour
     }
     /* Build End State */
     public void BuildEnd(){
-        currentState = State.build_end;
+        //currentState = State.build_end; (Moved to TimerManager.cs)
         Debug.Log("Build End!");
-        GetComponent<CameraManager>().CamMove_Battle();
+        camManager.CamMove_Battle();
         ShopDisplay(false);
         PlayerStats.Instance.PlayerInfoPanelDisplay(false);
 
@@ -80,9 +87,8 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(DisplayGamePanel());
 
-        GameObject[] nodes = GameObject.FindGameObjectsWithTag("node");
-        foreach (GameObject node in nodes)
-            node.GetComponent<Node>().ResetNode();
+        for(int i=0;i<nodesArray.GetNodeCount();i++)
+            nodesArray.GetNode(i).GetComponent<Node>().ResetNode();
 
         Invoke("BattleStart", 4f);
     }
@@ -92,8 +98,10 @@ public class GameManager : MonoBehaviour
         currentState = State.battle_start;    //set game state = battle_start
         Debug.Log("Battle!!!");
         StartCoroutine(DisplayGamePanel());    //display the game panel
-
         CheckAnyEmptyTeam();    //check any empty team when battle started
+
+        DisplayTeamHealthBar(team_blue);
+        DisplayTeamHealthBar(team_red);
 
         SpawnManager.Instance.ClearSlimeToSpawn();
     }
@@ -143,10 +151,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         if(PhotonNetwork.isMasterClient)
             PhotonNetwork.DestroyAll();
-        // foreach (Transform slime in team){
-        //     if(slime.parent.GetComponent<PhotonView>().isMine)
-        //         PhotonNetwork.Destroy(slime.parent.gameObject);
-        // }
+
         team.Clear();
     }
 
@@ -164,7 +169,7 @@ public class GameManager : MonoBehaviour
                 gameDisplayText.text = "-Round "+ currentRound + "-\nReady!";
                 gameDisplayPanel.SetActive(true);
                 yield return new WaitForSeconds(1.5f);
-                GetComponent<CameraManager>().CamMove_Build();
+                camManager.CamMove_Build();
                 gameDisplayText.text = "3";
                 yield return new WaitForSeconds(1f);
                 gameDisplayText.text = "2";
@@ -283,9 +288,16 @@ public class GameManager : MonoBehaviour
     }
 
     private void DisplayTeam(List<Transform> team){
-        foreach (Transform slime in team){
-            SlimeHealth h = slime.parent.GetComponent<SlimeHealth>();
+        for(int i=0;i<team.Count;i++){
+            SlimeHealth h = team[i].parent.GetComponent<SlimeHealth>();
             h.DisplaySlime(true);
+        }
+    }
+
+    private void DisplayTeamHealthBar(List<Transform> team){
+        for(int i=0;i<team.Count;i++){
+            SlimeHealth h = team[i].parent.GetComponent<SlimeHealth>();
+            h.DisplayHealthBar(true);
         }
     }
 }

@@ -35,7 +35,7 @@ public class TimerManager : MonoBehaviour {
 	
 	void Update () {
 		if(gameTimer > 0 && gameManager.currentState == GameManager.State.build_start && !allReady){
-			gameTimer -= Time.deltaTime;
+			gameTimer -= GameManager.globalDeltaTime;
         	timerBar.fillAmount = gameTimer / startTime;
 
 			if(Input.GetKeyDown("space"))
@@ -43,6 +43,7 @@ public class TimerManager : MonoBehaviour {
 
 			if((gameTimer <= 0 || (isRedReady && isBlueReady))){
 				allReady = true;
+				GameManager.Instance.currentState = GameManager.State.build_end;
 				Invoke("ResetAllReady", 1f);
 			}
 		}

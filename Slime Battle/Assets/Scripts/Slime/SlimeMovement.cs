@@ -5,6 +5,8 @@ using UnityEngine;
 using System.Linq;
 
 public class SlimeMovement : MonoBehaviour {
+	private Transform _transform;
+
 	[SerializeField]
 	private Transform target;
 	private NavMeshAgent agent;
@@ -12,20 +14,23 @@ public class SlimeMovement : MonoBehaviour {
 
 	private float range;
 	private bool move, findNewTarget, findTargetCoolDown;
-	private Vector3 prevPos;
 
 	PhotonView photonView;
 	SlimeClass slime;
 	GameManager gm;
+	SlimeAction slimeAction;
+	public List<Transform> myTeam;
 
-	void Start(){
+	void Awake(){
+		model = GetComponent<Slime>().GetModel();
 		gm = GameManager.Instance;
+		_transform = transform;
 		photonView = GetComponent<PhotonView>();
+		slimeAction = GetComponent<SlimeAction>();
 	}
 
-	public void SetUpNavMeshAgent (Transform _model, SlimeClass _slime) {
+	public void SetUpNavMeshAgent (SlimeClass _slime) {
 		this.slime = _slime;
-		this.model = _model;
 
 		agent = model.GetComponent<NavMeshAgent>();
 		agent.speed = slime.movemonetSpeed;
@@ -38,7 +43,8 @@ public class SlimeMovement : MonoBehaviour {
             if (target != null){
                 if((target.position - model.position).sqrMagnitude <= Mathf.Pow(range, 2)){
 					LookAtTarget();
-					GetComponent<SlimeAction>().Action(slime, model);		//Action to the target
+					slimeAction.Action();		//Action to the target
+
 					if(move){
 						move = false;
 						agent.angularSpeed = 0f;
@@ -54,7 +60,7 @@ public class SlimeMovement : MonoBehaviour {
 	}
 
 	public void StartUpdatePathLoop(){
-		InvokeRepeating("UpdatePath", Random.Range(0, 0.5f), 0.1f);
+		InvokeRepeating("UpdatePath", Random.Range(0, 0.5f), 0.2f);
 	}
 
 	void UpdatePath(){
@@ -79,14 +85,16 @@ public class SlimeMovement : MonoBehaviour {
 
 	void LookAtTarget(){
 		Vector3 dir = target.position - model.position;
-		Quaternion lookRotation = Quaternion.LookRotation (dir);
-		Vector3 rotation = Quaternion.Lerp (model.rotation, lookRotation, Time.deltaTime * slime.turnSpeed).eulerAngles;
-		model.rotation = Quaternion.Euler (0f, rotation.y, 0f);
+		if(dir != Vector3.zero){
+			Quaternion lookRotation = Quaternion.LookRotation (dir);
+			Vector3 rotation = Quaternion.Lerp (model.rotation, lookRotation, GameManager.globalDeltaTime * slime.turnSpeed).eulerAngles;
+			model.SetPositionAndRotation(model.position, Quaternion.Euler (0f, rotation.y, 0f));
+		}
 	}
 
 	public void TargetSearching(){
 		if(slime.isMeleeAttack || slime.isRangedAttack || slime.isAreaEffectDamage || slime.isExplosion){
-			List<Transform> enemies = gm.GetEnemies(transform);
+			List<Transform> enemies = gm.GetEnemies(_transform);
 			if(enemies.Count > 0){
 				if(findNewTarget){
 					target = enemies.OrderByDescending(o => o.parent.GetComponent<Slime>().GetSlimeClass().killingPriority).
@@ -99,7 +107,8 @@ public class SlimeMovement : MonoBehaviour {
 			}
 		}
 		else if(slime.isHealing){
-			List<Transform> myTeam = new List<Transform>(gm.GetMyTeam(transform));
+			myTeam = new List<Transform>(gm.GetMyTeam(_transform));
+
 			if(myTeam.Count > 1){
 				myTeam.Remove(model);
 				foreach(Transform slime in myTeam.ToList()){
@@ -110,15 +119,16 @@ public class SlimeMovement : MonoBehaviour {
 				bool findAnyLowHealth = false;
 				
 				foreach(Transform slime in myTeam){
-					if(slime.parent.GetComponent<SlimeHealth>().getCurrentHealth() != slime.parent.GetComponent<SlimeHealth>().getStartHealth()){
+					if(slime.parent.GetComponent<SlimeHealth>().currentHealth != slime.parent.GetComponent<SlimeHealth>().startHealth){
 						findAnyLowHealth = true;
 						break;
 					}
 				}
 
 				if(findAnyLowHealth){
-					target = myTeam.OrderBy(o => (o.parent.GetComponent<SlimeHealth>().getCurrentHealth() / o.parent.GetComponent<SlimeHealth>().getStartHealth()))
+					target = myTeam.OrderBy(o => (o.parent.GetComponent<SlimeHealth>().currentHealth / o.parent.GetComponent<SlimeHealth>().startHealth))
 								   .ThenBy(o => (o.position - model.position).sqrMagnitude).FirstOrDefault();
+								   
 				}
 				else{
 					target = myTeam.OrderBy(o => o.parent.GetComponent<Slime>().GetSlimeClass().healingPriority)
@@ -128,17 +138,17 @@ public class SlimeMovement : MonoBehaviour {
 		}
 		
 		if(target != null){
-			range = slime.scaleRadius + slime.actionRange + target.parent.GetComponent<Slime>().GetSlimeClass().scaleRadius;
 			photonView.RPC("RPC_ClientSetTarget", PhotonTargets.Others, target.parent.gameObject.GetPhotonView().viewID);
+			range = slime.scaleRadius + slime.actionRange + target.parent.GetComponent<Slime>().GetSlimeClass().scaleRadius;
 		}
     }
 
 	[PunRPC]
 	private void RPC_ClientSetTarget(int targetView){
-		List<Transform> enemies = gm.GetEnemies(transform);
-		foreach(Transform slime in enemies){
-			if(slime.parent.gameObject.GetPhotonView().viewID == targetView)
-				target = slime;
+		List<Transform> enemies = gm.GetEnemies(_transform);
+		for(int i=0;i<enemies.Count;i++){
+			if(enemies[i].parent.gameObject.GetPhotonView().viewID == targetView)
+				target = enemies[i];
 		}
 	}
 

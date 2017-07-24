@@ -11,18 +11,26 @@ public class SlimeAction : MonoBehaviour {
 	private GameObject rangedWeaponPrefab;
 
 	private float coolDown = 0f;
+	private SlimeClass slime;
 	private Transform target, model;
+	private SlimeMovement movement;
+	private SlimeHealth health;
+	private SlimeHealth tarHealth;
 	PhotonView photonView;
 
 	void Start(){
 		photonView = GetComponent<PhotonView>();
+		slime = GetComponent<Slime>().GetSlimeClass();
+		model = GetComponent<Slime>().GetModel();
+		movement = GetComponent<SlimeMovement>();
+		health = GetComponent<SlimeHealth>();
 	}
 
-	public void Action(SlimeClass slime, Transform _model){
-		model = _model;
-		photonView.RPC("RPC_SetTarget", PhotonTargets.All);
-
+	public void Action(){
 		if (coolDown <= 0f) {
+			if(target == null)
+				photonView.RPC("RPC_SetTarget", PhotonTargets.All);
+
 			if (slime.isMeleeAttack){
 				MeleeAttack (slime.attackDamage);
 			}
@@ -30,45 +38,46 @@ public class SlimeAction : MonoBehaviour {
 				photonView.RPC("RangedAttack",PhotonTargets.All, slime.attackDamage);
 			}
 			else if(slime.isHealing){
-				SlimeHealth tarParentHealth = target.parent.GetComponent<SlimeHealth>();
-				if(tarParentHealth.getCurrentHealth() >= tarParentHealth.getStartHealth())
-					GetComponent<SlimeMovement>().FindNewTargetWithFewSecond();
-				else
+				if(tarHealth.currentHealth >= tarHealth.startHealth)
+					movement.FindNewTargetWithFewSecond();
+				else{
+					Debug.Log("i am HEALing!!!");
 					Healing (slime.healingPoint);
+				}
 			}
 			else if(slime.isAreaEffectDamage){
 				AreaEffectDamage(slime.attackDamage, slime.areaEffectRadius, target.position);
 			}
 			else if(slime.isExplosion){
 				AreaEffectDamage(slime.attackDamage, slime.areaEffectRadius, model.position);
-				GetComponent<SlimeHealth>().TakeDamage(GetComponent<SlimeHealth>().getCurrentHealth());
+				health.TakeDamage(health.currentHealth);
 			}
 
 			coolDown = 1f / slime.actionSpeed;
 		}
-		coolDown -= Time.deltaTime;
+		coolDown -= GameManager.globalDeltaTime;
 	}
 
 	[PunRPC]
 	private void RPC_SetTarget(){
-		target = GetComponent<SlimeMovement>().GetTarget();
+		target = movement.GetTarget();
+		tarHealth = target.parent.GetComponent<SlimeHealth>();
 	}
 		
 	private void MeleeAttack(float attackDamage){
-		SlimeHealth h = target.parent.GetComponent<SlimeHealth>();
-		h.TakeDamage(attackDamage);
+		tarHealth.TakeDamage(attackDamage);
 	}
 
 	private void AreaEffectDamage(float attackDamage, float effectAreaRadius, Vector3 centre){
 		Collider[] slimes = Physics.OverlapSphere(centre, effectAreaRadius);
-		foreach (Collider slime in slimes){
-			if(slime.transform.parent.tag == target.parent.tag){
-				SlimeHealth h = slime.transform.parent.GetComponent<SlimeHealth>();
+		for(int i=0;i<slimes.Length;i++){
+			if(slimes[i].transform.parent.tag == target.parent.tag){
+				SlimeHealth h = slimes[i].transform.parent.GetComponent<SlimeHealth>();
 
-				float distanceFromCentre = (slime.transform.position - centre).sqrMagnitude;
+				float distanceFromCentre = (slimes[i].transform.position - centre).sqrMagnitude;
 				//explosion constant(higher = lower damage, lower = higher damage received)
 				float areaDamage = attackDamage - distanceFromCentre * 0.15f;
-				Debug.Log(distanceFromCentre + " Damage: " + areaDamage);
+				//Debug.Log(distanceFromCentre + " Damage: " + areaDamage);
 				if(areaDamage < 0)
 					areaDamage = 0;
 				h.TakeDamage(areaDamage);
@@ -76,21 +85,15 @@ public class SlimeAction : MonoBehaviour {
 		}
 	}
 
-	private void OnDrawGizmosSelected(){
-		Gizmos.color = Color.red;
-		Gizmos.DrawWireSphere(transform.position, 5);
-	}
-
 	[PunRPC]
 	private void RangedAttack(float attackDamage){
 		GameObject bulletGO = (GameObject)Instantiate (rangedWeaponPrefab, firePoint.position, firePoint.rotation);
 		Bullet bullet = bulletGO.GetComponent<Bullet>();
 		if (bullet != null)
-			bullet.Seek (target, attackDamage);
+			bullet.Seek (target, attackDamage, tarHealth);
 	}
 
 	private void Healing(float healingPoint){
-		SlimeHealth h = target.parent.GetComponent<SlimeHealth>();
-		h.TakeHealing(healingPoint);
+		tarHealth.TakeHealing(healingPoint);
 	}
 }

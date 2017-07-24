@@ -18,14 +18,16 @@ public class SlimeNetwork : MonoBehaviour {
 
 		photonView = GetComponent<PhotonView>();
 	}
-	// FixedUpdate is called once per physics loop
+
 	// Do all MOVEMENT and other physics stuff here
-	void FixedUpdate () {
+	void Update () {
 		if(photonView.isMine){
 			// Do nothing - slime.cs is moving us
 		}else{
-			model.position = Vector3.Lerp(model.position, realPosition, 5f * Time.deltaTime);
-			model.rotation = Quaternion.Lerp(model.rotation, realRotation, 5f * Time.deltaTime);
+			model.SetPositionAndRotation(
+				Vector3.Lerp(model.position, realPosition, 5f * GameManager.globalDeltaTime),
+				Quaternion.Lerp(model.rotation, realRotation, 5f * GameManager.globalDeltaTime)
+			);
 		}
 	}
 
@@ -46,8 +48,7 @@ public class SlimeNetwork : MonoBehaviour {
 			// We MAY want to set our transform.position to immediately to this old "realPosition"
 			// and then update realPosition
 			if(!gotFirstUpdate){
-				model.position = realPosition;
-				model.rotation = realRotation;
+				model.SetPositionAndRotation(realPosition, realRotation);
 				gotFirstUpdate = true;
 			}
 		}

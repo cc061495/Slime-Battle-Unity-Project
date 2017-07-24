@@ -13,18 +13,21 @@ public class Node : MonoBehaviour
     private GameObject tile;
     private GameObject _tile;
     private Renderer rend;
-
+    Transform _transform;
     GameManager gameManager;
     SpawnManager spawnManager;
 
     // Use this for initialization
     void Start(){
+        _transform = transform;
         gameManager = GameManager.Instance;
         spawnManager = SpawnManager.Instance;
         if(PhotonNetwork.isMasterClient && team_node == "BLUE")
             GetComponent<BoxCollider>().enabled = false;
         else if(!PhotonNetwork.isMasterClient && team_node == "RED")
             GetComponent<BoxCollider>().enabled = false;
+
+        GameManager.Instance.nodesArray.Add(_transform);
     }
 
     void OnMouseEnter(){
@@ -75,13 +78,12 @@ public class Node : MonoBehaviour
 
         if(buildOffset != Vector3.zero){
             _slime = PhotonNetwork.Instantiate(blueprint.slimePrefab.name, GetBuildPos(buildOffset + offset), Quaternion.identity, 0);
-            //_slime.GetComponent<Slime>().GetModel().rotation = transform.rotation;
             _tile = Instantiate(tile, transform.position + new Vector3(0, 0.51f, 0) + buildOffset, Quaternion.identity);
             _tile.transform.localScale = new Vector3(0.6f,1,0.6f);
 
-            foreach (Node node in nodes){
-                node.slime = _slime;
-                node.slimeblueprint = blueprint;
+            for(int i=0;i<nodes.Count;i++){
+                nodes[i].slime = _slime;
+                nodes[i].slimeblueprint = blueprint;
             }
         }
     }
@@ -114,9 +116,9 @@ public class Node : MonoBehaviour
             }
             
             Collider[] colliders = Physics.OverlapSphere(transform.position + sphereOffset, 1f);
-            foreach (Collider col in colliders){
-                if (col.gameObject.tag == "node"){
-                    Node e = col.gameObject.GetComponent<Node>();
+            for(int j=0;j<colliders.Length;j++){
+                if(colliders[j].gameObject.tag == "node"){
+                    Node e = colliders[j].gameObject.GetComponent<Node>();
                     
                     if (e.slime != null)
                         break;
