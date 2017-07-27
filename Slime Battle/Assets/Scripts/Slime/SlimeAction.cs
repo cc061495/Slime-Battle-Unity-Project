@@ -29,7 +29,7 @@ public class SlimeAction : MonoBehaviour {
 	public void Action(){
 		if (coolDown <= 0f) {
 			if(target == null)
-				photonView.RPC("RPC_SetTarget", PhotonTargets.All);
+				SetTarget();
 
 			if (slime.isMeleeAttack){
 				MeleeAttack (slime.attackDamage);
@@ -38,10 +38,11 @@ public class SlimeAction : MonoBehaviour {
 				photonView.RPC("RangedAttack",PhotonTargets.All, slime.attackDamage);
 			}
 			else if(slime.isHealing){
-				if(tarHealth.currentHealth >= tarHealth.startHealth)
-					movement.FindNewTargetWithFewSecond();
+				if(tarHealth.currentHealth >= tarHealth.startHealth){
+					movement.TargetSearching();
+					SetTarget();
+				}
 				else{
-					Debug.Log("i am HEALing!!!");
 					Healing (slime.healingPoint);
 				}
 			}
@@ -58,10 +59,10 @@ public class SlimeAction : MonoBehaviour {
 		coolDown -= GameManager.globalDeltaTime;
 	}
 
-	[PunRPC]
-	private void RPC_SetTarget(){
+	private void SetTarget(){
 		target = movement.GetTarget();
-		tarHealth = target.parent.GetComponent<SlimeHealth>();
+		if(target != null)
+			tarHealth = target.parent.GetComponent<SlimeHealth>();
 	}
 		
 	private void MeleeAttack(float attackDamage){
@@ -74,9 +75,9 @@ public class SlimeAction : MonoBehaviour {
 			if(slimes[i].transform.parent.tag == target.parent.tag){
 				SlimeHealth h = slimes[i].transform.parent.GetComponent<SlimeHealth>();
 
-				float distanceFromCentre = (slimes[i].transform.position - centre).sqrMagnitude;
+				float distanceFromCentre = DistanceCalculate(slimes[i].transform.position, centre);
 				//explosion constant(higher = lower damage, lower = higher damage received)
-				float areaDamage = attackDamage - distanceFromCentre * 0.15f;
+				float areaDamage = attackDamage - distanceFromCentre * 0.16f;
 				//Debug.Log(distanceFromCentre + " Damage: " + areaDamage);
 				if(areaDamage < 0)
 					areaDamage = 0;
@@ -88,6 +89,8 @@ public class SlimeAction : MonoBehaviour {
 	[PunRPC]
 	private void RangedAttack(float attackDamage){
 		GameObject bulletGO = (GameObject)Instantiate (rangedWeaponPrefab, firePoint.position, firePoint.rotation);
+		SetTarget();
+
 		Bullet bullet = bulletGO.GetComponent<Bullet>();
 		if (bullet != null)
 			bullet.Seek (target, attackDamage, tarHealth);
@@ -95,5 +98,17 @@ public class SlimeAction : MonoBehaviour {
 
 	private void Healing(float healingPoint){
 		tarHealth.TakeHealing(healingPoint);
+	}
+
+	private float DistanceCalculate(Vector3 pos1, Vector3 pos2){
+		Vector3 distance = Vector3.zero;
+		distance.x = pos1.x - pos2.x;
+		distance.y = pos1.y - pos2.y;
+		distance.z = pos1.z - pos2.z;
+
+		float magnitude = distance.x * distance.x+
+						  distance.y * distance.y+
+						  distance.z * distance.z;
+		return magnitude;
 	}
 }

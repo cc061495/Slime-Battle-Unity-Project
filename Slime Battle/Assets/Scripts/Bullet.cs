@@ -22,15 +22,28 @@ public class Bullet : MonoBehaviour{
             return;
         }
 
-        Vector3 dir = target.position - _transform.position;
-        float distanceThisFrame = bulletSpeed * GameManager.globalDeltaTime;
+        Vector3 dir;
+        dir.x = target.position.x - _transform.position.x;
+        dir.y = target.position.y - _transform.position.y;
+        dir.z = target.position.z - _transform.position.z;
 
-        if (dir.magnitude <= distanceThisFrame){
+        float distanceThisFrame = bulletSpeed * GameManager.globalDeltaTime;
+        float dirMagnitude = dir.x * dir.x+
+                             dir.y * dir.y+
+                             dir.z * dir.z;
+
+        if (dirMagnitude <= distanceThisFrame*distanceThisFrame){
             HitTarget();
             return;
         }
+        
+        float sqrtMagnitude = Mathf.Sqrt(dirMagnitude);
+        Vector3 dirNormalized;
+        dirNormalized.x = (dir.x / sqrtMagnitude) * distanceThisFrame;
+        dirNormalized.y = (dir.y / sqrtMagnitude) * distanceThisFrame;
+        dirNormalized.z = (dir.z / sqrtMagnitude) * distanceThisFrame;
 
-        _transform.Translate(dir.normalized * distanceThisFrame, Space.World);
+        _transform.Translate(dirNormalized, Space.World);
     }
 
     void HitTarget(){

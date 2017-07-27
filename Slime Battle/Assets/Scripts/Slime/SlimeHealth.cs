@@ -12,7 +12,7 @@ public class SlimeHealth : MonoBehaviour {
 	[Header("Slime Health Bar")]
 	[SerializeField]
 	private GameObject healthBarPrefab;
-	private GameObject healthBar;
+	public GameObject healthBar;
 	private Transform healthBarGroup;
 
 	HealthBar playerHealth;

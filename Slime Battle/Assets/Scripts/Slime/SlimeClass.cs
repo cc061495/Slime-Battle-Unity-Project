@@ -78,8 +78,8 @@ public class SlimeClass{
 				killingPriority = 1 ;
 				/* Ability */
 				isHealing 		= true ;
-				healingPoint 	= 0.5f ;
-				actionSpeed 	= 8 ;
+				healingPoint 	= 0.7f ;
+				actionSpeed 	= 6 ;
 				break;
 
 			case "Bomber":
@@ -92,7 +92,7 @@ public class SlimeClass{
 				killingPriority = 1 ;
 				/* Ability */
 				isExplosion	 		= true ;
-				attackDamage 		= 8 ;
+				attackDamage 		= 7 ;
 				areaEffectRadius 	= 5 ;
 				actionSpeed 		= 0.01f ;
 				break;

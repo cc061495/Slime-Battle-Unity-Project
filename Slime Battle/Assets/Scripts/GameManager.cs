@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
         mFPS = 1.0f / mDeltaTime;
         DebugText.text += string.Format("{0:0.0} ms ({1:0.} fps)", msec, mFPS);
     }
+    
     void Start(){
         photonView = GetComponent<PhotonView>();
         camManager = GetComponent<CameraManager>();

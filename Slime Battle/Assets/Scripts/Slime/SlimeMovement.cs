@@ -19,6 +19,7 @@ public class SlimeMovement : MonoBehaviour {
 	SlimeClass slime;
 	GameManager gm;
 	SlimeAction slimeAction;
+	List<Transform> enemies;
 	public List<Transform> myTeam;
 
 	void Awake(){
@@ -27,6 +28,7 @@ public class SlimeMovement : MonoBehaviour {
 		_transform = transform;
 		photonView = GetComponent<PhotonView>();
 		slimeAction = GetComponent<SlimeAction>();
+		enemies = gm.GetEnemies(_transform);
 	}
 
 	public void SetUpNavMeshAgent (SlimeClass _slime) {
@@ -41,19 +43,20 @@ public class SlimeMovement : MonoBehaviour {
 	void Update () {
 		if (gm.currentState == GameManager.State.battle_start && photonView.isMine) {  //when the battle starts, start to execute
             if (target != null){
-                if((target.position - model.position).sqrMagnitude <= Mathf.Pow(range, 2)){
-					LookAtTarget();
+
+                if(DistanceCalculate(target.position, model.position) <= range*range){
+					model.LookAt(target);
 					slimeAction.Action();		//Action to the target
 
 					if(move){
 						move = false;
-						agent.angularSpeed = 0f;
+						//agent.angularSpeed = 0f;
 						agent.destination = model.position;		//stand on the current position
 					}
 				}
 				else if(!move){
 					move = true;
-					agent.angularSpeed = 120f;
+					//agent.angularSpeed = 120f;
 				}
             }
 		}
@@ -71,38 +74,44 @@ public class SlimeMovement : MonoBehaviour {
 			}
 
 			if(target != null && move){
-				agent.destination = target.position;	//finding new target position
-				if(agent.pathStatus != NavMeshPathStatus.PathComplete && !findNewTarget){
-					findNewTarget = true;
-					Debug.Log("findNewTarget");
-					TargetSearching();
+				if(move){
+					agent.destination = target.position;	//finding new target position
+					if(agent.pathStatus != NavMeshPathStatus.PathComplete && !findNewTarget){
+						findNewTarget = true;
+						//Debug.Log("findNewTarget");
+						TargetSearching();
+					}
 				}
 			}
 		}
 		else if(gm.currentState == GameManager.State.battle_end)
 			CancelInvoke("UpdatePath");
 	}
-
+	/* 
 	void LookAtTarget(){
-		Vector3 dir = target.position - model.position;
+		Vector3 dir;
+		dir.x = target.position.x - model.position.x;
+		dir.y = target.position.y - model.position.y;
+		dir.z = target.position.z - model.position.z;
+
 		if(dir != Vector3.zero){
 			Quaternion lookRotation = Quaternion.LookRotation (dir);
 			Vector3 rotation = Quaternion.Lerp (model.rotation, lookRotation, GameManager.globalDeltaTime * slime.turnSpeed).eulerAngles;
 			model.SetPositionAndRotation(model.position, Quaternion.Euler (0f, rotation.y, 0f));
 		}
 	}
+	*/
 
 	public void TargetSearching(){
 		if(slime.isMeleeAttack || slime.isRangedAttack || slime.isAreaEffectDamage || slime.isExplosion){
-			List<Transform> enemies = gm.GetEnemies(_transform);
 			if(enemies.Count > 0){
 				if(findNewTarget){
 					target = enemies.OrderByDescending(o => o.parent.GetComponent<Slime>().GetSlimeClass().killingPriority).
-									 ThenBy(o => (o.position - model.position).sqrMagnitude).FirstOrDefault();
+									 ThenBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();
 				}
 				else{
 					target = enemies.OrderBy(o => o.parent.GetComponent<Slime>().GetSlimeClass().killingPriority).
-									 ThenBy(o => (o.position - model.position).sqrMagnitude).FirstOrDefault();
+									 ThenBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();
 				}
 			}
 		}
@@ -111,15 +120,15 @@ public class SlimeMovement : MonoBehaviour {
 
 			if(myTeam.Count > 1){
 				myTeam.Remove(model);
-				foreach(Transform slime in myTeam.ToList()){
-					if(slime.parent.GetComponent<Slime>().GetSlimeClass().isBuilding)
-						myTeam.Remove(slime);
+				foreach(Transform building in myTeam.ToList()){
+					if(building.parent.GetComponent<Slime>().GetSlimeClass().isBuilding)
+						myTeam.Remove(building);
 				}
 				
 				bool findAnyLowHealth = false;
 				
-				foreach(Transform slime in myTeam){
-					if(slime.parent.GetComponent<SlimeHealth>().currentHealth != slime.parent.GetComponent<SlimeHealth>().startHealth){
+				for(int i=0;i<myTeam.Count;i++){
+					if(myTeam[i].parent.GetComponent<SlimeHealth>().currentHealth != myTeam[i].parent.GetComponent<SlimeHealth>().startHealth){
 						findAnyLowHealth = true;
 						break;
 					}
@@ -127,12 +136,12 @@ public class SlimeMovement : MonoBehaviour {
 
 				if(findAnyLowHealth){
 					target = myTeam.OrderBy(o => (o.parent.GetComponent<SlimeHealth>().currentHealth / o.parent.GetComponent<SlimeHealth>().startHealth))
-								   .ThenBy(o => (o.position - model.position).sqrMagnitude).FirstOrDefault();
+								   .ThenBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();
 								   
 				}
 				else{
 					target = myTeam.OrderBy(o => o.parent.GetComponent<Slime>().GetSlimeClass().healingPriority)
-								   .ThenBy(o => (o.position - model.position).sqrMagnitude).FirstOrDefault();
+								   .ThenBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();
 				}
 			}
 		}
@@ -156,7 +165,15 @@ public class SlimeMovement : MonoBehaviour {
 		return target;
 	}
 
-	public void FindNewTargetWithFewSecond(){
-		Invoke("TargetSearching", 0.5f);
+	private float DistanceCalculate(Vector3 pos1, Vector3 pos2){
+		Vector3 distance;
+		distance.x = pos1.x - pos2.x;
+		distance.y = pos1.y - pos2.y;
+		distance.z = pos1.z - pos2.z;
+
+		float magnitude = distance.x * distance.x+
+						  distance.y * distance.y+
+						  distance.z * distance.z;
+		return magnitude;
 	}
 }
