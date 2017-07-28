@@ -43,20 +43,20 @@ public class SlimeMovement : MonoBehaviour {
 	void Update () {
 		if (gm.currentState == GameManager.State.battle_start && photonView.isMine) {  //when the battle starts, start to execute
             if (target != null){
-
                 if(DistanceCalculate(target.position, model.position) <= range*range){
-					model.LookAt(target);
+					//model.LookAt(new Vector3(target.position.x, model.position.y, target.position.z));
+					LookAtTarget();
 					slimeAction.Action();		//Action to the target
 
 					if(move){
 						move = false;
-						//agent.angularSpeed = 0f;
+						agent.angularSpeed = 0f;
 						agent.destination = model.position;		//stand on the current position
 					}
 				}
 				else if(!move){
 					move = true;
-					//agent.angularSpeed = 120f;
+					agent.angularSpeed = 120f;
 				}
             }
 		}
@@ -87,7 +87,7 @@ public class SlimeMovement : MonoBehaviour {
 		else if(gm.currentState == GameManager.State.battle_end)
 			CancelInvoke("UpdatePath");
 	}
-	/* 
+	
 	void LookAtTarget(){
 		Vector3 dir;
 		dir.x = target.position.x - model.position.x;
@@ -100,7 +100,6 @@ public class SlimeMovement : MonoBehaviour {
 			model.SetPositionAndRotation(model.position, Quaternion.Euler (0f, rotation.y, 0f));
 		}
 	}
-	*/
 
 	public void TargetSearching(){
 		if(slime.isMeleeAttack || slime.isRangedAttack || slime.isAreaEffectDamage || slime.isExplosion){
@@ -116,14 +115,10 @@ public class SlimeMovement : MonoBehaviour {
 			}
 		}
 		else if(slime.isHealing){
-			myTeam = new List<Transform>(gm.GetMyTeam(_transform));
+			myTeam = gm.GetMyTeam(_transform).Where(x => x.parent != transform)
+											 .Where(x => !x.parent.GetComponent<Slime>().GetSlimeClass().isBuilding).ToList();
 
-			if(myTeam.Count > 1){
-				myTeam.Remove(model);
-				foreach(Transform building in myTeam.ToList()){
-					if(building.parent.GetComponent<Slime>().GetSlimeClass().isBuilding)
-						myTeam.Remove(building);
-				}
+			if(myTeam.Count > 0){
 				
 				bool findAnyLowHealth = false;
 				

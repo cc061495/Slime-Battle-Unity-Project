@@ -113,7 +113,7 @@ public class GameManager : MonoBehaviour
         }
     }
     /* Battle End State */
-    void BattleEnd(){
+    private void BattleEnd(){
         currentState = State.battle_end;    //set game state = battle_end
         Debug.Log("Battle End!");
         if(PhotonNetwork.isMasterClient)

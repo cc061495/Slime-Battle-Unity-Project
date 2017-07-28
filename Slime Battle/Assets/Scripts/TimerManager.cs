@@ -25,8 +25,9 @@ public class TimerManager : MonoBehaviour {
 	void Start () {
 		photonView = GetComponent<PhotonView>();
 		gameManager = GameManager.Instance;
-        if(PhotonNetwork.isMasterClient)
+        if(PhotonNetwork.isMasterClient){
             worldSpaceCanvasPos.rotation = Quaternion.Euler(90f, 0f, 0f);
+		}
         else{
 			worldSpaceCanvasPos.position += new Vector3(0,0,-10);
             worldSpaceCanvasPos.rotation = Quaternion.Euler(90f, 180f, 0f);

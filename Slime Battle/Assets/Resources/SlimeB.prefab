@@ -226,6 +226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slimeName: Slime
   model: {fileID: 4494447229286618}
+  _transform: {fileID: 0}
 --- !u!114 &114716889060768648
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -238,6 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  myTeam: []
 --- !u!114 &114787968720500038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -275,6 +277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBarPrefab: {fileID: 1151739180578524, guid: 37590ddfa1ca44cf9a1f60f4952c1ed4,
     type: 2}
+  healthBar: {fileID: 0}
 --- !u!136 &136557922147304128
 CapsuleCollider:
   m_ObjectHideFlags: 1
