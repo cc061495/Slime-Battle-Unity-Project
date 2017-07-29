@@ -19,8 +19,7 @@ public class SlimeMovement : MonoBehaviour {
 	SlimeClass slime;
 	GameManager gm;
 	SlimeAction slimeAction;
-	List<Transform> enemies;
-	public List<Transform> myTeam;
+	List<Transform> enemies, myTeam;
 
 	void Awake(){
 		model = GetComponent<Slime>().GetModel();
@@ -28,7 +27,6 @@ public class SlimeMovement : MonoBehaviour {
 		_transform = transform;
 		photonView = GetComponent<PhotonView>();
 		slimeAction = GetComponent<SlimeAction>();
-		enemies = gm.GetEnemies(_transform);
 	}
 
 	public void SetUpNavMeshAgent (SlimeClass _slime) {
@@ -38,6 +36,8 @@ public class SlimeMovement : MonoBehaviour {
 		agent.speed = slime.movemonetSpeed;
 		agent.acceleration = slime.movemonetSpeed;
 		agent.stoppingDistance = 1.5f;
+
+		enemies = gm.GetEnemies(_transform);
 	}
 	
 	void Update () {

@@ -30,7 +30,7 @@ public class SlimeClass{
 				startHealth 	= 30 ;
 				movemonetSpeed 	= 5 ;
 				actionRange 	= 1 ;
-				scaleRadius 	= 0.5f ;
+				scaleRadius 	= 0.7f ;
 				healingPriority = 1 ;
 				killingPriority = 1 ;
 				/* Ability */
@@ -49,7 +49,7 @@ public class SlimeClass{
 				killingPriority = 1 ;
 				/* Ability */
 				isAreaEffectDamage	= true ;
-				attackDamage 		= 3 ;
+				attackDamage 		= 4 ;
 				areaEffectRadius 	= 2f ;
 				actionSpeed 		= 1.5f ;
 				break;
@@ -78,7 +78,7 @@ public class SlimeClass{
 				killingPriority = 1 ;
 				/* Ability */
 				isHealing 		= true ;
-				healingPoint 	= 0.7f ;
+				healingPoint 	= 0.5f ;
 				actionSpeed 	= 6 ;
 				break;
 

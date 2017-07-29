@@ -15,6 +15,7 @@ public class SlimeHealth : MonoBehaviour {
 	public GameObject healthBar;
 	private Transform healthBarGroup;
 
+	SlimeClass slime;
 	HealthBar playerHealth;
 
 	void Awake(){
@@ -22,7 +23,8 @@ public class SlimeHealth : MonoBehaviour {
 		model = GetComponent<Slime>().GetModel();
 	}
 
-	public void SetUpSlimeHealth(SlimeClass slime){
+	public void SetUpSlimeHealth(SlimeClass _slime){
+		slime = _slime;
 		healthBarGroup = GameManager.Instance.healthBarParent;
 		GeneratePlayerHealthBar(model);
 
@@ -43,7 +45,7 @@ public class SlimeHealth : MonoBehaviour {
 	public void DisplaySlime(bool display){
 		model.gameObject.SetActive(display);
 		if(GameManager.Instance.currentState == GameManager.State.build_end){
-			if(!PhotonNetwork.isMasterClient && photonView.isMine)
+			if(!PhotonNetwork.isMasterClient && photonView.isMine && !slime.isBuilding)
 				GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.masterClient);
 
 			Invoke("NetworkEnable", 2);
@@ -67,7 +69,7 @@ public class SlimeHealth : MonoBehaviour {
 	public void TakeDamage(float attackDamage){
 		//Only Master client deal with attack damage
 		//currentHealth must be larger than 0 HP(important) !!!
-		if(photonView.isMine && currentHealth > 0){
+		if(currentHealth > 0){
 			currentHealth -= attackDamage;
 			float amount = currentHealth / startHealth;
 			playerHealth.OnHealthChanged(amount);
@@ -79,7 +81,7 @@ public class SlimeHealth : MonoBehaviour {
 	public void TakeHealing(float heal){
 		//Only Master client deal with attack damage
 		//currentHealth must be larger than 0 HP(important) !!!
-		if(photonView.isMine && currentHealth > 0 && currentHealth < startHealth){
+		if(currentHealth > 0 && currentHealth < startHealth){
 			currentHealth += heal;
 			if(currentHealth > startHealth)
 				currentHealth = startHealth;

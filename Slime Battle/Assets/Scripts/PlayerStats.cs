@@ -10,7 +10,7 @@ public class PlayerStats : MonoBehaviour {
 	private GameObject playerInfoPanel;
 	public static int playerCost;
 	private int startCost = 100;
-	private int bounsCost = 50;
+	private int bounsCost = 25;
 
 	GameManager gm;
 
@@ -35,5 +35,10 @@ public class PlayerStats : MonoBehaviour {
 
 	public void PlayerInfoPanelDisplay(bool display){
 		playerInfoPanel.SetActive(display);
+	}
+
+	public void purchaseSlime(int cost){
+		playerCost -= cost;
+		UpdatePlayerCostText();
 	}
 }

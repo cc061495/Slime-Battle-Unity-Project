@@ -45,8 +45,7 @@ public class Node : MonoBehaviour
     void SpawnSlime(SlimeBlueprint blueprint){
         //Check Player Cost > slime money -> can build
         if(PlayerStats.playerCost >= blueprint.cost){
-            PlayerStats.playerCost -= blueprint.cost;
-            PlayerStats.Instance.UpdatePlayerCostText();
+            PlayerStats.Instance.purchaseSlime(blueprint.cost);
         }
         else
             return;
@@ -75,7 +74,7 @@ public class Node : MonoBehaviour
     void Spawn_Size_2x2_Slime(SlimeBlueprint blueprint, Vector3 offset){
         List<Node> nodes = new List<Node>();
         Vector3 buildOffset = CanBuild2x2(nodes);
-
+        
         if(buildOffset != Vector3.zero){
             _slime = PhotonNetwork.Instantiate(blueprint.slimePrefab.name, GetBuildPos(buildOffset + offset), Quaternion.identity, 0);
             _tile = Instantiate(tile, transform.position + new Vector3(0, 0.51f, 0) + buildOffset, Quaternion.identity);

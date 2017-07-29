@@ -9,50 +9,55 @@ public class SlimeBlueprint{
 	public int size{get; private set;}
 	public string team{get; private set;}
 	public Vector3 spawnPosOffset{get; private set;}
+	public string name{get; private set;}
 
 	public SlimeBlueprint(string _name, GameObject _prefab){
 		slimePrefab = _prefab;
+		name = _name;
 
 		switch (_name){
 			case "Slime":
-				cost = 1;
+				spawnPosOffset = new Vector3(0,0.5f,0);
+				cost = 10;
 				size = 1;
 				break;
 
 			case "Giant":
-				cost = 1;
+				spawnPosOffset = new Vector3(0,2.5f,0);
+				cost = 80;
 				size = 4;
 				break;
 
 			case "Ranger":
-				cost = 1;
+				spawnPosOffset = new Vector3(0,1.5f,0);
+				cost = 10;
 				size = 1;
 				break;
 
 			case "Healer":
-				cost = 1;
+				spawnPosOffset = new Vector3(0,1.5f,0);
+				cost = 30;
 				size = 1;
 				break;
 
 			case "Bomber":
-				cost = 1;
+				spawnPosOffset = new Vector3(0,1.5f,0);
+				cost = 15;
 				size = 1;
 				break;
 
 			case "Wall":
-				cost = 1;
+				spawnPosOffset = new Vector3(0,1.5f,0);
+				cost = 5;
 				size = 1;
 				break;
 				
 			default:
+				spawnPosOffset = new Vector3(0,1.5f,0);
 				cost = 1;
 				size = 1;
 				break;
 		}
-		if(size == 1)
-			spawnPosOffset = new Vector3(0,1.5f,0);
-		else if(size == 4)
-			spawnPosOffset = new Vector3(0,2.5f,0);
 	}
 
 	// private void setCost(int _cost){
