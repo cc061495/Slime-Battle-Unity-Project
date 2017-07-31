@@ -12,7 +12,7 @@ public class TimerManager : MonoBehaviour {
         Instance = this;   
     }
 
-	private const float BuildingTime = 60f;
+	private const float BuildingTime = 45f;
 	private float startTime;
     private float gameTimer;
 	private bool isRedReady, isBlueReady, allReady;
@@ -36,7 +36,8 @@ public class TimerManager : MonoBehaviour {
 	
 	void Update () {
 		if(gameTimer > 0 && gameManager.currentState == GameManager.State.build_start && !allReady){
-			gameTimer -= GameManager.globalDeltaTime;
+			gameTimer -= Time.deltaTime;
+			
         	timerBar.fillAmount = gameTimer / startTime;
 
 			if(Input.GetKeyDown("space"))

@@ -27,29 +27,29 @@ public class SlimeClass{
 		switch (slimeName){
 			case "Slime":
 				/* Slime Properties */
-				startHealth 	= 30 ;
+				startHealth 	= 25 ;
 				movemonetSpeed 	= 5 ;
 				actionRange 	= 1 ;
-				scaleRadius 	= 0.7f ;
+				scaleRadius 	= 0.5f ;
 				healingPriority = 1 ;
 				killingPriority = 1 ;
 				/* Ability */
 				isMeleeAttack 	= true;
-				attackDamage 	= 1.8f;
-				actionSpeed 	= 2;
+				attackDamage 	= 2f;
+				actionSpeed 	= 1.5f;
 				break;
 
 			case "Giant":
 				/* Slime Properties */
 				startHealth 	= 100 ;
-				movemonetSpeed 	= 3.5f ;
+				movemonetSpeed 	= 3f ;
 				actionRange 	= 1 ;
-				scaleRadius 	= 1.5f ;
+				scaleRadius 	= 1f ;
 				healingPriority = 1 ;
 				killingPriority = 1 ;
 				/* Ability */
 				isAreaEffectDamage	= true ;
-				attackDamage 		= 4 ;
+				attackDamage 		= 3 ;
 				areaEffectRadius 	= 2f ;
 				actionSpeed 		= 1.5f ;
 				break;
@@ -64,7 +64,7 @@ public class SlimeClass{
 				killingPriority = 1 ;
 				/* Ability */
 				isRangedAttack 	= true ;
-				attackDamage 	= 2 ;
+				attackDamage 	= 2.5f ;
 				actionSpeed 	= 1 ;
 				break;
 
@@ -78,7 +78,7 @@ public class SlimeClass{
 				killingPriority = 1 ;
 				/* Ability */
 				isHealing 		= true ;
-				healingPoint 	= 0.5f ;
+				healingPoint 	= 0.6f ;
 				actionSpeed 	= 6 ;
 				break;
 
@@ -92,7 +92,7 @@ public class SlimeClass{
 				killingPriority = 1 ;
 				/* Ability */
 				isExplosion	 		= true ;
-				attackDamage 		= 7 ;
+				attackDamage 		= 8 ;
 				areaEffectRadius 	= 5 ;
 				actionSpeed 		= 0.01f ;
 				break;

@@ -211,6 +211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBarPrefab: {fileID: 1151739180578524, guid: 37590ddfa1ca44cf9a1f60f4952c1ed4,
     type: 2}
+  healthBar: {fileID: 0}
 --- !u!114 &114419921439862696
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -236,6 +237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slimeName: Giant
   model: {fileID: 4106251731879664}
+  _transform: {fileID: 0}
 --- !u!114 &114755721573624252
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -308,4 +310,4 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 1
   m_WalkableMask: 1
-  m_ObstacleAvoidanceType: 1
+  m_ObstacleAvoidanceType: 4

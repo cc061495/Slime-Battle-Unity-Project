@@ -36,7 +36,7 @@ public class SlimeHealth : MonoBehaviour {
 	}
 
 	private void GeneratePlayerHealthBar(Transform playerModel){
-        healthBar = Instantiate(healthBarPrefab) as GameObject;
+        healthBar = Instantiate(healthBarPrefab, new Vector3(0f,1000f,0f), Quaternion.identity) as GameObject;
         healthBar.transform.SetParent(healthBarGroup, false);
 		playerHealth = healthBar.GetComponent<HealthBar>();
         playerHealth.SetHealthBarData(playerModel);

@@ -24,8 +24,8 @@ public class SlimeNetwork : MonoBehaviour {
 		if(photonView.isMine){
 			// Do nothing - slime.cs is moving us
 		}else{
-			model.position = Vector3.Lerp(model.position, realPosition, 5f * GameManager.globalDeltaTime);
-			model.rotation = Quaternion.Lerp(model.rotation, realRotation, 5f * GameManager.globalDeltaTime);
+			model.position = Vector3.Lerp(model.position, realPosition, 5f * Time.deltaTime);
+			model.rotation = Quaternion.Lerp(model.rotation, realRotation, 5f * Time.deltaTime);
 			// model.SetPositionAndRotation(
 			// 	Vector3.Lerp(model.position, realPosition, 5f * GameManager.globalDeltaTime),
 			// 	Quaternion.Lerp(model.rotation, realRotation, 5f * GameManager.globalDeltaTime)

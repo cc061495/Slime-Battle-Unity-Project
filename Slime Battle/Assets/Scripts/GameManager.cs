@@ -6,11 +6,9 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public static float globalDeltaTime;
     
     void Awake(){
-        Instance = this;
-        globalDeltaTime = Time.deltaTime;   
+        Instance = this; 
     }
 
     const int totalRoundGame = 5;
@@ -80,7 +78,9 @@ public class GameManager : MonoBehaviour
         //currentState = State.build_end; (Moved to TimerManager.cs)
         Debug.Log("Build End!");
         camManager.CamMove_Battle();
+
         ShopDisplay(false);
+
         PlayerStats.Instance.PlayerInfoPanelDisplay(false);
 
         DisplayTeam(team_red);
@@ -98,17 +98,19 @@ public class GameManager : MonoBehaviour
     void BattleStart(){
         currentState = State.battle_start;    //set game state = battle_start
         Debug.Log("Battle!!!");
-        StartCoroutine(DisplayGamePanel());    //display the game panel
-        CheckAnyEmptyTeam();    //check any empty team when battle started
-
+        ResetShopTextDisplay();
         DisplayTeamHealthBar(team_blue);
         DisplayTeamHealthBar(team_red);
 
+        StartCoroutine(DisplayGamePanel());    //display the game panel
+
         SpawnManager.Instance.ClearSlimeToSpawn();
+
+        Invoke("CheckAnyEmptyTeam", 1f);    //check any empty team when battle started
     }
 
     public void CheckAnyEmptyTeam(){
-        if ((team_red.Count == 0 || team_blue.Count == 0) && currentState == State.battle_start){
+        if (team_red.Count == 0 || team_blue.Count == 0){
             BattleEnd();
         }
     }
@@ -131,6 +133,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Blue Not Ready");
             yield return new WaitForSeconds(0.1f);
         }
+        
         StartCoroutine(DisplayGamePanel());
         isRedFinish = false;
         isBlueFinish = false;
@@ -263,6 +266,13 @@ public class GameManager : MonoBehaviour
             teamRedSlimeShop.SetActive(shopDisplay);
         else
             teamBlueSlimeShop.SetActive(shopDisplay);
+    }
+
+    private void ResetShopTextDisplay(){
+        if(PhotonNetwork.isMasterClient)
+            teamRedSlimeShop.GetComponent<PlayerShop>().ResetShopText();
+        else
+            teamBlueSlimeShop.GetComponent<PlayerShop>().ResetShopText();
     }
 
     public List<Transform> GetEnemies(Transform slime){

@@ -6,12 +6,16 @@ public class HealthBar : MonoBehaviour {
 
     private Vector2 positionCorrection = new Vector2(0, 25);
 	public Image healthBarImage;
-    public RectTransform targetCanvas;
+    public RectTransform targetCanvas, healthBar;
     public Transform objectToFollow;
+    float sizeDeltaX, sizeDeltaY;
  
     public void SetHealthBarData(Transform targetTransform){
         this.targetCanvas = GameManager.Instance.canvasForHealthBar;
         objectToFollow = targetTransform;
+        healthBar = GetComponent<RectTransform>();
+        sizeDeltaX = targetCanvas.sizeDelta.x;
+        sizeDeltaY = targetCanvas.sizeDelta.y;
     }
 
     public void OnHealthChanged(float healthFill){
@@ -19,23 +23,22 @@ public class HealthBar : MonoBehaviour {
     }
 
 	void Update(){
-		if(objectToFollow == null){
-			Destroy(transform.gameObject);
-			return;
-		}
-		else{
-			if(GameManager.Instance.currentState == GameManager.State.battle_start || GameManager.Instance.currentState == GameManager.State.battle_end)
+		if(objectToFollow){
+            if(GameManager.Instance.currentState == GameManager.State.battle_start || GameManager.Instance.currentState == GameManager.State.battle_end)
 				RepositionHealthBar();
 		}
+		else
+    	    Destroy(transform.gameObject);
 	}
 
     public void RepositionHealthBar(){
-		RectTransform healthBar = GetComponent<RectTransform>();
-        Vector2 ViewportPosition = Camera.main.WorldToViewportPoint(objectToFollow.position);
-        Vector2 WorldObject_ScreenPosition = new Vector2(
-        ((ViewportPosition.x * targetCanvas.sizeDelta.x) - (targetCanvas.sizeDelta.x * 0.5f)),
-        ((ViewportPosition.y * targetCanvas.sizeDelta.y) - (targetCanvas.sizeDelta.y * 0.5f)));
+        float ViewportPositionX = Camera.main.WorldToViewportPoint(objectToFollow.position).x;
+        float ViewportPositionY = Camera.main.WorldToViewportPoint(objectToFollow.position).y;
+
+        float WorldObject_ScreenPositionX = (ViewportPositionX * sizeDeltaX) - (sizeDeltaX * 0.5f);
+        float WorldObject_ScreenPositionY = (ViewportPositionY * sizeDeltaY) - (sizeDeltaY * 0.5f);
         //now you can set the position of the ui element
+        Vector2 WorldObject_ScreenPosition = new Vector2(WorldObject_ScreenPositionX, WorldObject_ScreenPositionY);
 		healthBar.anchoredPosition = WorldObject_ScreenPosition + positionCorrection;
     }
 }

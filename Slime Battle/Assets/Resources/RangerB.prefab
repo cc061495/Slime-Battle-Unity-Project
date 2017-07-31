@@ -292,6 +292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBarPrefab: {fileID: 1151739180578524, guid: 37590ddfa1ca44cf9a1f60f4952c1ed4,
     type: 2}
+  healthBar: {fileID: 0}
 --- !u!114 &114871201707065608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -305,6 +306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slimeName: Ranger
   model: {fileID: 4673274358399474}
+  _transform: {fileID: 0}
 --- !u!136 &136377951508431764
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -338,4 +340,4 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 1
   m_WalkableMask: 1
-  m_ObstacleAvoidanceType: 1
+  m_ObstacleAvoidanceType: 4

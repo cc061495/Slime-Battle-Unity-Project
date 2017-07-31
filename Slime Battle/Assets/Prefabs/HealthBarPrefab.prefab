@@ -28,7 +28,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1482595393210432
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,6 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBarImage: {fileID: 114318202442862796}
   targetCanvas: {fileID: 0}
+  healthBar: {fileID: 0}
   objectToFollow: {fileID: 0}
 --- !u!222 &222242097711610812
 CanvasRenderer:

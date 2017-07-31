@@ -56,7 +56,7 @@ public class SlimeAction : MonoBehaviour {
 
 			coolDown = 1f / slime.actionSpeed;
 		}
-		coolDown -= GameManager.globalDeltaTime;
+		coolDown -= Time.deltaTime;
 	}
 
 	private void SetTarget(){

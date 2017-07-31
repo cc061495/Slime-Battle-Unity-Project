@@ -27,7 +27,7 @@ public class Bullet : MonoBehaviour{
         dir.y = target.position.y - _transform.position.y;
         dir.z = target.position.z - _transform.position.z;
 
-        float distanceThisFrame = bulletSpeed * GameManager.globalDeltaTime;
+        float distanceThisFrame = bulletSpeed * Time.deltaTime;
         float dirMagnitude = dir.x * dir.x+
                              dir.y * dir.y+
                              dir.z * dir.z;

@@ -24,7 +24,7 @@ public class SlimeBlueprint{
 
 			case "Giant":
 				spawnPosOffset = new Vector3(0,2.5f,0);
-				cost = 80;
+				cost = 70;
 				size = 4;
 				break;
 

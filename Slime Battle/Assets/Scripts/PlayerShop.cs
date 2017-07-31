@@ -22,41 +22,46 @@ public class PlayerShop:MonoBehaviour {
 	}
 	
 	public void SelectSlime() {
-		shopSelect(0);
+		ShopSelect(0);
 	}
 
 	public void SelectGiant() {
-		shopSelect(1);
+		ShopSelect(1);
 	}
 
 	public void SelectRanger() {
-		shopSelect(2);
+		ShopSelect(2);
 	}
 
 	public void SelectHealer() {
-		shopSelect(3);
+		ShopSelect(3);
 	}
 
 	public void SelectBomber() { 
-		shopSelect(4);
+		ShopSelect(4);
 	}
 
 	public void SelectWall() {
-		shopSelect(5);
+		ShopSelect(5);
 	}
 
-	private void shopSelect(int selectedNum){
+	private void ShopSelect(int selectedNum){
 		spawnManager.SelectSlimeToSpawn (blueprint[selectedNum]);
-		textSetting(blueprint[selectedNum], selectedNum);
+		TextSetting(blueprint[selectedNum], selectedNum);
 	}
 
-	private void textSetting(SlimeBlueprint slime, int num){
+	private void TextSetting(SlimeBlueprint slime, int num){
 		if(prevNum != num && shopText[prevNum].text != blueprint[prevNum].name){
-			Debug.Log("Change name");
 			shopText[prevNum].text = blueprint[prevNum].name;
 		}
 
 		prevNum = num;
 		shopText[num].text = "$" + slime.cost;
+	}
+
+	public void ResetShopText(){
+		if(shopText[prevNum].text != blueprint[prevNum].name){
+			shopText[prevNum].text = blueprint[prevNum].name;
+		}
 	}
 }
