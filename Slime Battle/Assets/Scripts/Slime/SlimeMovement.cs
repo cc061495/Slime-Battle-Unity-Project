@@ -53,7 +53,7 @@ public class SlimeMovement : MonoBehaviour {
 						agent.angularSpeed = 0f;
 						agent.destination = model.position;		//stand on the current position
 						if(slime.isMeleeAttack)
-							agent.avoidancePriority = 10;
+							agent.avoidancePriority = 1;
 					}
 				}
 				else if(!move){

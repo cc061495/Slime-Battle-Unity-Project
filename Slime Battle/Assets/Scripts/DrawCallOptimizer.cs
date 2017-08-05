@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DrawCallOptimizer : MonoBehaviour {
+
+    [SerializeField]
+    private Transform modelParent;
 	
 	void Start(){
 		Matrix4x4 myTransform = transform.worldToLocalMatrix;
@@ -55,7 +58,8 @@ public class DrawCallOptimizer : MonoBehaviour {
             arenderer.material = m;
         }
         //改變合併後物件的parent
-        go.transform.parent = GameObject.Find("Combined_Model").transform;
+        go.transform.parent = modelParent;
+        go.isStatic = true;
 
         //刪除舊有物件
         DestroyImmediate(transform.gameObject);

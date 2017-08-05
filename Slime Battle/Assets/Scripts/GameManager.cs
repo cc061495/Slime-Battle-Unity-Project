@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿/* Copyright (c) cc061495 */
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
     public List<Transform> team_red = new List<Transform>();
     public List<Transform> team_blue = new List<Transform>();
     public ArrayForNodes nodesArray = new ArrayForNodes();
+    public PhotonPlayer masterPlayer;
     private bool isRedFinish, isBlueFinish;
 
     private float mDeltaTime = 0.0f;
@@ -42,6 +44,7 @@ public class GameManager : MonoBehaviour
     void Start(){
         photonView = GetComponent<PhotonView>();
         camManager = GetComponent<CameraManager>();
+        masterPlayer = PhotonNetwork.masterClient;
         if(!PhotonNetwork.connected){
             //Start single mode
             Debug.Log("HELLO");
@@ -293,6 +296,7 @@ public class GameManager : MonoBehaviour
     private void RPC_RedTeamFinish(){
         isRedFinish = true;
     }
+    
     [PunRPC]
     private void RPC_BlueTeamFinish(){
         isBlueFinish = true;

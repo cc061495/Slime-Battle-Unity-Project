@@ -210,7 +210,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slimeName: Slime
   model: {fileID: 4047445838876080}
-  _transform: {fileID: 0}
 --- !u!114 &114978055857740780
 MonoBehaviour:
   m_ObjectHideFlags: 1

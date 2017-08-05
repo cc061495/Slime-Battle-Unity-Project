@@ -9,7 +9,8 @@ public class Slime : MonoBehaviour{
 	[Space]
 	[Header("Slime model")]
 	[SerializeField]
-	private Transform model, _transform;
+	private Transform model;
+	private Transform _transform;
 	private SlimeClass slimeClass;
     private GameManager gm;
 

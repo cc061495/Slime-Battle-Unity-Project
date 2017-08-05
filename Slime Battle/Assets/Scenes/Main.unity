@@ -9813,6 +9813,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e37cffc2c1d624532ab0a38d9b4112f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  modelParent: {fileID: 1375545408}
 --- !u!1001 &1154200431
 Prefab:
   m_ObjectHideFlags: 0
@@ -16105,7 +16106,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 34daf930cabef4f60b95034f30e00f6b, type: 3}
       propertyPath: m_LocalScale.y
-      value: 32
+      value: 33
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 34daf930cabef4f60b95034f30e00f6b, type: 3}
