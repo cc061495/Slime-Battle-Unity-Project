@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,11 +18,13 @@ public class GameManager : MonoBehaviour
     public State currentState;
     public int currentRound, team_red_score, team_blue_score;
     public Text gameDisplayText, DebugText;
-    public GameObject gameDisplayPanel, teamRedSlimeShop, teamBlueSlimeShop;
+    public GameObject gameDisplayPanel, teamRedSlimeShop, teamBlueSlimeShop, teamControlPanel;
     public RectTransform canvasForHealthBar, healthBarParent;
     public List<Transform> team_red = new List<Transform>();
+    public List<Transform> team_red2 = new List<Transform>();
     public List<Transform> team_blue = new List<Transform>();
-    public ArrayForNodes nodesArray = new ArrayForNodes();
+    public List<Transform> team_blue2 = new List<Transform>();
+    public List<Node> nodeList = new List<Node>();
     public PhotonPlayer masterPlayer;
     private bool isRedFinish, isBlueFinish;
 
@@ -33,7 +36,7 @@ public class GameManager : MonoBehaviour
     void Update(){
         DebugText.text = "Round: " + currentRound + " / " + totalRoundGame + "\n";
         DebugText.text += "Score: " + team_red_score + " - " + team_blue_score + "\n"; 
-        DebugText.text += "Slime: " + team_red.Count + " - " + team_blue.Count + "\n";
+        DebugText.text += "Slime: " + team_red2.Count + " - " + team_blue2.Count + "\n";
 
         mDeltaTime += (Time.deltaTime - mDeltaTime) * 0.1f;
         float msec = mDeltaTime * 1000.0f;
@@ -91,8 +94,10 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(DisplayGamePanel());
 
-        for(int i=0;i<nodesArray.GetNodeCount();i++)
-            nodesArray.GetNode(i).GetComponent<Node>().ResetNode();
+        for(int i=0;i<nodeList.Count;i++){
+            nodeList[i].ResetNode();
+        }
+        nodeList.Clear();
 
         Invoke("BattleStart", 4f);
     }
@@ -104,16 +109,17 @@ public class GameManager : MonoBehaviour
         ResetShopTextDisplay();
         DisplayTeamHealthBar(team_blue);
         DisplayTeamHealthBar(team_red);
+        teamControlPanel.SetActive(true);
 
         StartCoroutine(DisplayGamePanel());    //display the game panel
 
         SpawnManager.Instance.ClearSlimeToSpawn();
 
-        Invoke("CheckAnyEmptyTeam", 1f);    //check any empty team when battle started
+        Invoke("CheckAnyEmptyTeam", 2f);    //check any empty team when battle started
     }
 
     public void CheckAnyEmptyTeam(){
-        if (team_red.Count == 0 || team_blue.Count == 0){
+        if ((team_red2.Count == 0 || team_blue2.Count == 0) && currentState == State.battle_start){
             BattleEnd();
         }
     }
@@ -128,20 +134,23 @@ public class GameManager : MonoBehaviour
         
         StartCoroutine(CheckTeamFinish());
     }
+
     IEnumerator CheckTeamFinish(){
         while(!isRedFinish || !isBlueFinish){
             if(!isRedFinish)
                 Debug.Log("Red Not Ready");
             if(!isBlueFinish)
                 Debug.Log("Blue Not Ready");
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.5f);
         }
-        
+        teamControlPanel.SetActive(false);
+        TeamController.Instance.SetToDefaultSearchMode();
+
         StartCoroutine(DisplayGamePanel());
         isRedFinish = false;
         isBlueFinish = false;
-
-        if(currentRound < totalRoundGame){
+        
+        if(team_red_score < 3 && team_blue_score < 3){
             PlayerStats.Instance.NewRoundCostUpdate();
             Invoke("GameReady", 5f);
         }
@@ -160,6 +169,11 @@ public class GameManager : MonoBehaviour
             PhotonNetwork.DestroyAll();
 
         team.Clear();
+
+        if(team_red.Count > 0)
+            team_red.Clear();
+        if(team_blue.Count > 0)
+            team_blue.Clear();
     }
 
     IEnumerator DisplayGamePanel(){
@@ -200,17 +214,17 @@ public class GameManager : MonoBehaviour
                 yield return new WaitForSeconds(1f);
                 break;
             case State.battle_end:
-                if (team_blue.Count > 0){
+                if (team_blue2.Count > 0){
                     gameDisplayText.color = Color.cyan;
                     gameDisplayText.text = "Team Blue\nwon!";
                     team_blue_score++;
-                    StartCoroutine(ClearAllSlime(team_blue));
+                    StartCoroutine(ClearAllSlime(team_blue2));
                 }
-                else if (team_red.Count > 0){
+                else if (team_red2.Count > 0){
                     gameDisplayText.color = Color.red;
                     gameDisplayText.text = "Team Red\nwon!";
                     team_red_score++;
-                    StartCoroutine(ClearAllSlime(team_red));
+                    StartCoroutine(ClearAllSlime(team_red2));
                 }
                 else{
                     team_red_score++;

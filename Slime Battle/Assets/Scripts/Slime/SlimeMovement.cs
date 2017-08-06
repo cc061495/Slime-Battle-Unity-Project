@@ -18,13 +18,16 @@ public class SlimeMovement : MonoBehaviour {
 	PhotonView photonView;
 	SlimeClass slime;
 	GameManager gm;
+	TeamController tm;
 	SlimeAction slimeAction;
 	List<Transform> enemies, myTeam;
+	
 
 	void Awake(){
+		_transform = transform;
 		model = GetComponent<Slime>().GetModel();
 		gm = GameManager.Instance;
-		_transform = transform;
+		tm = TeamController.Instance;
 		photonView = GetComponent<PhotonView>();
 		slimeAction = GetComponent<SlimeAction>();
 	}
@@ -35,7 +38,7 @@ public class SlimeMovement : MonoBehaviour {
 		agent = model.GetComponent<NavMeshAgent>();
 		agent.speed = slime.movemonetSpeed;
 		agent.acceleration = slime.movemonetSpeed;
-		agent.stoppingDistance = 1.5f;
+		agent.stoppingDistance = 1f;
 
 		enemies = gm.GetEnemies(_transform);
 	}
@@ -113,8 +116,19 @@ public class SlimeMovement : MonoBehaviour {
 									 ThenBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();
 				}
 				else{
-					target = enemies.OrderBy(o => o.parent.GetComponent<Slime>().GetSlimeClass().killingPriority).
-									 ThenBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();
+					TeamController.SearchMode mode = tm.GetTeamSearchMode(_transform);
+					if(mode == TeamController.SearchMode.distance){
+						target = enemies.OrderBy(o => o.parent.GetComponent<Slime>().GetSlimeClass().killingPriority).
+										ThenBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();
+					}
+					else if(mode == TeamController.SearchMode.health){
+						target = enemies.OrderBy(o => (o.parent.GetComponent<SlimeHealth>().currentHealth / o.parent.GetComponent<SlimeHealth>().startHealth)).
+										ThenBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();
+					}
+					else if(mode == TeamController.SearchMode.priority){
+						target = enemies.OrderByDescending(o => o.parent.GetComponent<Slime>().GetSlimeClass().healingPriority).
+										ThenBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();
+					}
 				}
 			}
 		}

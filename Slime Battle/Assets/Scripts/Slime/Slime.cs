@@ -16,11 +16,11 @@ public class Slime : MonoBehaviour{
 
 	void Start(){
 		_transform = transform;
+		slimeClass = new SlimeClass(slimeName);
+		
 		gm = GameManager.Instance;
 		//Join team list
 		JoinTeamList();
-
-		slimeClass = new SlimeClass(slimeName);
 		//PathFinding config
 		SlimeMovement move = GetComponent<SlimeMovement>();
 		if(move != null)
@@ -33,19 +33,31 @@ public class Slime : MonoBehaviour{
 
 	private void JoinTeamList(){
         if(_transform.tag == "Team_RED")
-            gm.team_red.Add(model);
+            AddTeam(gm.team_red, gm.team_red2);
 	  	else
-            gm.team_blue.Add(model);
+            AddTeam(gm.team_blue, gm.team_blue2);
+	}
+
+	private void AddTeam(List<Transform> team, List<Transform> team2){
+		team.Add(model);
+		if(!slimeClass.isBuilding)
+			team2.Add(model);
 	}
 
 	public void RemoveFromTeamList(){
 		if(_transform.tag == "Team_RED")
-            gm.team_red.Remove(model);
+            RemoveTeam(gm.team_red, gm.team_red2);
 		else
-            gm.team_blue.Remove(model);
+            RemoveTeam(gm.team_blue, gm.team_blue2);
 
         gm.CheckAnyEmptyTeam();
     }
+
+	private void RemoveTeam(List<Transform> team, List<Transform> team2){
+		team.Remove(model);
+		if(!slimeClass.isBuilding)
+			team2.Remove(model);
+	}
 
 	public Transform GetModel(){
 		return model;

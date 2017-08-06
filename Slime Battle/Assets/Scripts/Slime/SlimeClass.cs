@@ -86,7 +86,7 @@ public class SlimeClass{
 				/* Slime Properties */
 				startHealth 	= 10 ;
 				movemonetSpeed 	= 8 ;
-				actionRange 	= 0.3f ;
+				actionRange 	= 0.5f ;
 				scaleRadius 	= 0.5f ;
 				healingPriority = 2 ;
 				killingPriority = 1 ;

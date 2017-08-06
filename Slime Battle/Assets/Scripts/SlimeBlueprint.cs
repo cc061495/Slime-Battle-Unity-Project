@@ -36,7 +36,7 @@ public class SlimeBlueprint{
 
 			case "Healer":
 				spawnPosOffset = new Vector3(0,1.5f,0);
-				cost = 30;
+				cost = 25;
 				size = 1;
 				break;
 

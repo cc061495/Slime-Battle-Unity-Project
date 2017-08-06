@@ -8,26 +8,26 @@ public class Node : MonoBehaviour
     public GameObject slime;
     private GameObject _slime;
     public SlimeBlueprint slimeblueprint;
-    public string team_node;
-    [SerializeField]
-    private GameObject tile;
-    private GameObject _tile;
-    private Renderer rend;
+    public string teamNode;
+    private MeshRenderer tile;
     Transform _transform;
     GameManager gameManager;
     SpawnManager spawnManager;
 
     // Use this for initialization
     void Start(){
+        tile = GetComponent<MeshRenderer>();
+        tile.enabled = false;
+
         _transform = transform;
-        gameManager = GameManager.Instance;
-        spawnManager = SpawnManager.Instance;
-        if(PhotonNetwork.isMasterClient && team_node == "BLUE")
+
+        if(PhotonNetwork.isMasterClient && teamNode == "BLUE")
             GetComponent<BoxCollider>().enabled = false;
-        else if(!PhotonNetwork.isMasterClient && team_node == "RED")
+        else if(!PhotonNetwork.isMasterClient && teamNode == "RED")
             GetComponent<BoxCollider>().enabled = false;
 
-        GameManager.Instance.nodesArray.Add(_transform);
+        gameManager = GameManager.Instance;
+        spawnManager = SpawnManager.Instance;
     }
 
     void OnMouseEnter(){
@@ -44,10 +44,7 @@ public class Node : MonoBehaviour
 
     void SpawnSlime(SlimeBlueprint blueprint){
         //Check Player Cost > slime money -> can build
-        if(PlayerStats.playerCost >= blueprint.cost){
-            PlayerStats.Instance.purchaseSlime(blueprint.cost);
-        }
-        else
+        if(PlayerStats.playerCost < blueprint.cost)
             return;
 
         int size = blueprint.size;
@@ -56,9 +53,7 @@ public class Node : MonoBehaviour
         switch (size){
             case 1:
                 _slime = PhotonNetwork.Instantiate(blueprint.slimePrefab.name, GetBuildPos(offset), Quaternion.identity, 0);
-                _tile = Instantiate(tile, transform.position + new Vector3(0, 0.51f, 0), Quaternion.identity);
-                slime = _slime;
-                slimeblueprint = blueprint;
+                BuildSlime(_slime, blueprint);
                 break;
 
             case 4:
@@ -68,7 +63,17 @@ public class Node : MonoBehaviour
             default:
                 break;
         }
+
+        if(slime)
+            PlayerStats.Instance.purchaseSlime(blueprint.cost);        
         //Building effect
+    }
+
+    public void BuildSlime(GameObject _slime, SlimeBlueprint _blueprint){
+        slime = _slime;
+        slimeblueprint = _blueprint;
+        tile.enabled = true;
+        gameManager.nodeList.Add(this);
     }
 
     void Spawn_Size_2x2_Slime(SlimeBlueprint blueprint, Vector3 offset){
@@ -77,13 +82,9 @@ public class Node : MonoBehaviour
         
         if(buildOffset != Vector3.zero){
             _slime = PhotonNetwork.Instantiate(blueprint.slimePrefab.name, GetBuildPos(buildOffset + offset), Quaternion.identity, 0);
-            _tile = Instantiate(tile, transform.position + new Vector3(0, 0.51f, 0) + buildOffset, Quaternion.identity);
-            _tile.transform.localScale = new Vector3(0.6f,1,0.6f);
-
-            for(int i=0;i<nodes.Count;i++){
-                nodes[i].slime = _slime;
-                nodes[i].slimeblueprint = blueprint;
-            }
+            
+            for(int i=0;i<nodes.Count;i++)
+                nodes[i].BuildSlime(_slime, blueprint);
         }
     }
 
@@ -114,7 +115,7 @@ public class Node : MonoBehaviour
                     sphereOffset = new Vector3(-1.5f,0,-1.5f);  //upper right
             }
             
-            Collider[] colliders = Physics.OverlapSphere(transform.position + sphereOffset, 1f);
+            Collider[] colliders = Physics.OverlapSphere(_transform.position + sphereOffset, 1f);
             for(int j=0;j<colliders.Length;j++){
                 if(colliders[j].gameObject.tag == "node"){
                     Node e = colliders[j].gameObject.GetComponent<Node>();
@@ -133,14 +134,12 @@ public class Node : MonoBehaviour
     }
 
     public Vector3 GetBuildPos(Vector3 offset){
-        return transform.position + offset;
+        return _transform.position + offset;
     }
 
     public void ResetNode(){
         // rend.material.color = startColor;
-        if(_tile != null)
-            Destroy(_tile);
-            
+        tile.enabled = false;
         slime = null;   //reset all the slime
     }
 

@@ -85,4 +85,5 @@ MonoBehaviour:
   - RPC_SetIsDead
   - RPC_ClientSetTarget
   - RPC_Remove
+  - RPC_CallTargetSearching
   DisableAutoOpenWizard: 1
