@@ -28,8 +28,8 @@ public class Bullet : MonoBehaviour{
         dir.z = target.position.z - _transform.position.z;
 
         float distanceThisFrame = bulletSpeed * Time.deltaTime;
-        float dirMagnitude = dir.x * dir.x+
-                             dir.y * dir.y+
+        float dirMagnitude = dir.x * dir.x +
+                             dir.y * dir.y +
                              dir.z * dir.z;
 
         if (dirMagnitude <= distanceThisFrame*distanceThisFrame){

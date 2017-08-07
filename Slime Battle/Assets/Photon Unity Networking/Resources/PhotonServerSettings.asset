@@ -86,4 +86,6 @@ MonoBehaviour:
   - RPC_ClientSetTarget
   - RPC_Remove
   - RPC_CallTargetSearching
+  - SyncToReady
+  - RPC_RemoveFromTeamList
   DisableAutoOpenWizard: 1

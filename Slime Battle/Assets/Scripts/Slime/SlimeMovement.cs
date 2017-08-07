@@ -38,7 +38,7 @@ public class SlimeMovement : MonoBehaviour {
 		agent = model.GetComponent<NavMeshAgent>();
 		agent.speed = slime.movemonetSpeed;
 		agent.acceleration = slime.movemonetSpeed;
-		agent.stoppingDistance = 1f;
+		agent.stoppingDistance = 1.5f;
 
 		enemies = gm.GetEnemies(_transform);
 	}

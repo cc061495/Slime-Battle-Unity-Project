@@ -13,10 +13,12 @@ public class Slime : MonoBehaviour{
 	private Transform _transform;
 	private SlimeClass slimeClass;
     private GameManager gm;
+	PhotonView photonView;
 
 	void Start(){
 		_transform = transform;
 		slimeClass = new SlimeClass(slimeName);
+		photonView = GetComponent<PhotonView>();
 		
 		gm = GameManager.Instance;
 		//Join team list
@@ -65,5 +67,17 @@ public class Slime : MonoBehaviour{
 
 	public SlimeClass GetSlimeClass(){
 		return slimeClass;
+	}
+	/* Sync with two players */
+	public void SyncRemoveTeamList(){
+		photonView.RPC("RPC_RemoveFromTeamList", PhotonTargets.All);
+	}
+
+	[PunRPC]
+	private void RPC_RemoveFromTeamList(){
+		if(_transform.tag == "Team_RED")
+            RemoveTeam(gm.team_red, gm.team_red2);
+		else
+            RemoveTeam(gm.team_blue, gm.team_blue2);
 	}
 }

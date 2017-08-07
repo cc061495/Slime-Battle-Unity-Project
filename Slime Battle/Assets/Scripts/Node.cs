@@ -13,6 +13,7 @@ public class Node : MonoBehaviour
     Transform _transform;
     GameManager gameManager;
     SpawnManager spawnManager;
+    Vector3 buildPosition;
 
     // Use this for initialization
     void Start(){
@@ -35,8 +36,16 @@ public class Node : MonoBehaviour
             TouchEnter();
     }
 
+    void OnMouseDown(){
+        if(gameManager.currentState != GameManager.State.build_start)
+            return;
+
+        if (slime != null)
+            spawnManager.SelectNode(this);
+    }
+
     public void TouchEnter(){
-        if (slime != null || !spawnManager.CanSpawn)
+        if (slime != null || !spawnManager.CanSpawn || spawnManager.AnyNodeSelected)
             return;
 
         SpawnSlime(spawnManager.GetSlimeToSpawn());
@@ -52,7 +61,8 @@ public class Node : MonoBehaviour
 
         switch (size){
             case 1:
-                _slime = PhotonNetwork.Instantiate(blueprint.slimePrefab.name, GetBuildPos(offset), Quaternion.identity, 0);
+                buildPosition = GetBuildPos(offset);
+                _slime = PhotonNetwork.Instantiate(blueprint.slimePrefab.name, buildPosition, Quaternion.identity, 0);
                 BuildSlime(_slime, blueprint);
                 break;
 
@@ -65,7 +75,7 @@ public class Node : MonoBehaviour
         }
 
         if(slime)
-            PlayerStats.Instance.purchaseSlime(blueprint.cost);        
+            PlayerStats.Instance.PurchaseSlime(blueprint.cost);        
         //Building effect
     }
 
@@ -133,14 +143,29 @@ public class Node : MonoBehaviour
         return Vector3.zero;
     }
 
+    public void SellSlime(){
+        PlayerStats.Instance.SellSlime(slimeblueprint.cost);
+        /* Selling Effect */
+
+        tile.enabled = false;
+        slime.GetComponent<Slime>().SyncRemoveTeamList();
+        PhotonNetwork.Destroy(slime);
+        slimeblueprint = null;
+    }
+
     public Vector3 GetBuildPos(Vector3 offset){
         return _transform.position + offset;
+    }
+
+    public Vector3 GetSlimePostion(){
+        return slime.transform.position;
     }
 
     public void ResetNode(){
         // rend.material.color = startColor;
         tile.enabled = false;
         slime = null;   //reset all the slime
+        buildPosition = Vector3.zero;
     }
 
     // Color GetTeamColor(){

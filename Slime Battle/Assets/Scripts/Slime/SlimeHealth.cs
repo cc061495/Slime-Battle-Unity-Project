@@ -31,18 +31,11 @@ public class SlimeHealth : MonoBehaviour {
 		startHealth = slime.startHealth;
 		currentHealth = startHealth;
 
-		if(!photonView.isMine){
+		if(!photonView.isMine)
 		 	DisplaySlime(false);
-		}
-		else{
-			if(!PhotonNetwork.isMasterClient && !slime.isBuilding)
-				Invoke("NetworkTransfer", 0.5f);
-		}
 	}
 
-	private void NetworkTransfer(){
-		photonView.TransferOwnership(GameManager.Instance.masterPlayer);
-	}
+
 
 	private void GeneratePlayerHealthBar(Transform playerModel){
         healthBar = Instantiate(healthBarPrefab, new Vector3(0f,1000f,0f), Quaternion.identity) as GameObject;
@@ -58,11 +51,19 @@ public class SlimeHealth : MonoBehaviour {
 	public void DisplaySlime(bool display){
 		model.gameObject.SetActive(display);
 		if(GameManager.Instance.currentState == GameManager.State.build_end){
-			NetworkEnable();
+			if(!PhotonNetwork.isMasterClient && photonView.isMine && !slime.isBuilding)
+				Invoke("NetworkTransfer", Random.Range(0f,2f));
+
+			Invoke("NetworkEnable", 4f);
 		}
 	}
 
+	private void NetworkTransfer(){
+		photonView.TransferOwnership(GameManager.Instance.masterPlayer);
+	}
+
 	private void NetworkEnable(){
+		Debug.Log("Start network");
 		SlimeNetwork network = GetComponent<SlimeNetwork>();
 		if(network != null)
 			network.enabled = true;
