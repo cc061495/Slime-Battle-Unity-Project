@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine;
+using System.Linq;
 
 public class Node : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Node : MonoBehaviour
     public SlimeBlueprint slimeblueprint;
     public string teamNode;
     private MeshRenderer tile;
+    public List<Node> nodeList;
     Transform _transform;
     GameManager gameManager;
     SpawnManager spawnManager;
@@ -87,14 +89,16 @@ public class Node : MonoBehaviour
     }
 
     void Spawn_Size_2x2_Slime(SlimeBlueprint blueprint, Vector3 offset){
-        List<Node> nodes = new List<Node>();
-        Vector3 buildOffset = CanBuild2x2(nodes);
+        nodeList = new List<Node>();
+        Vector3 buildOffset = CanBuild2x2(nodeList);
         
         if(buildOffset != Vector3.zero){
             _slime = PhotonNetwork.Instantiate(blueprint.slimePrefab.name, GetBuildPos(buildOffset + offset), Quaternion.identity, 0);
-            
-            for(int i=0;i<nodes.Count;i++)
-                nodes[i].BuildSlime(_slime, blueprint);
+
+            for(int i=0;i<nodeList.Count;i++){
+                nodeList[i].BuildSlime(_slime, blueprint);
+                nodeList[i].nodeList = nodeList.ToList();
+            }   
         }
     }
 
@@ -145,12 +149,26 @@ public class Node : MonoBehaviour
 
     public void SellSlime(){
         PlayerStats.Instance.SellSlime(slimeblueprint.cost);
-        /* Selling Effect */
-
-        tile.enabled = false;
         slime.GetComponent<Slime>().SyncRemoveTeamList();
         PhotonNetwork.Destroy(slime);
-        slimeblueprint = null;
+        /* Selling Effect */
+        if(nodeList.Count > 0){
+            List<Node> tempNodeList = nodeList.ToList();
+
+            for(int i=0;i<tempNodeList.Count;i++)
+                NodeResetting(tempNodeList[i]);
+        }
+        else
+            NodeResetting(this);
+    }
+
+    private void NodeResetting(Node n){
+        Debug.Log(n);
+        n.slimeblueprint = null;
+        n.tile.enabled = false;
+        n.slime = null;
+        if(n.nodeList.Count > 0)
+            n.nodeList.Clear();
     }
 
     public Vector3 GetBuildPos(Vector3 offset){
@@ -165,7 +183,8 @@ public class Node : MonoBehaviour
         // rend.material.color = startColor;
         tile.enabled = false;
         slime = null;   //reset all the slime
-        buildPosition = Vector3.zero;
+        slimeblueprint = null;
+        //buildPosition = Vector3.zero;
     }
 
     // Color GetTeamColor(){

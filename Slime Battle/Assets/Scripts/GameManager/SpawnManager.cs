@@ -4,11 +4,9 @@ using UnityEngine.UI;
 public class SpawnManager:MonoBehaviour {
 
 	public static SpawnManager Instance;
-	PhotonView photonView;
 
 	void Awake() {
-		Instance = this; 
-		photonView = GetComponent<PhotonView>();
+		Instance = this;
 	}
 
 	private Node selectedNode;
