@@ -35,8 +35,6 @@ public class SlimeHealth : MonoBehaviour {
 		 	DisplaySlime(false);
 	}
 
-
-
 	private void GeneratePlayerHealthBar(Transform playerModel){
         healthBar = Instantiate(healthBarPrefab, new Vector3(0f,1000f,0f), Quaternion.identity) as GameObject;
         healthBar.transform.SetParent(healthBarGroup, false);
@@ -89,7 +87,8 @@ public class SlimeHealth : MonoBehaviour {
 		//Only Master client deal with attack damage
 		//currentHealth must be larger than 0 HP(important) !!!
 		if(currentHealth > 0 && currentHealth < startHealth){
-			currentHealth += heal;
+			//Health += healing percent * slime's start health
+			currentHealth += heal * startHealth;
 			if(currentHealth > startHealth)
 				currentHealth = startHealth;
 

@@ -117,16 +117,19 @@ public class SlimeMovement : MonoBehaviour {
 				}
 				else{
 					TeamController.SearchMode mode = tm.GetTeamSearchMode(_transform);
+					/* Kill the shortest distance enemy with killing priority(slime -> building) */
 					if(mode == TeamController.SearchMode.distance){
 						target = enemies.OrderBy(o => o.parent.GetComponent<Slime>().GetSlimeClass().killingPriority).
 										ThenBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();
 					}
+					/* Kill the shortest distance enemy with lowest health precentage */
 					else if(mode == TeamController.SearchMode.health){
 						target = enemies.OrderBy(o => (o.parent.GetComponent<SlimeHealth>().currentHealth / o.parent.GetComponent<SlimeHealth>().startHealth)).
 										ThenBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();
 					}
+					/* Kill the shortest distance with class priority() */
 					else if(mode == TeamController.SearchMode.priority){
-						target = enemies.OrderByDescending(o => o.parent.GetComponent<Slime>().GetSlimeClass().healingPriority).
+						target = enemies.OrderBy(o => o.parent.GetComponent<Slime>().GetSlimeClass().classPriority).
 										ThenBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();
 					}
 				}
@@ -184,8 +187,8 @@ public class SlimeMovement : MonoBehaviour {
 		distance.y = pos1.y - pos2.y;
 		distance.z = pos1.z - pos2.z;
 
-		float magnitude = distance.x * distance.x+
-						  distance.y * distance.y+
+		float magnitude = distance.x * distance.x +
+						  distance.y * distance.y +
 						  distance.z * distance.z;
 		return magnitude;
 	}

@@ -49,8 +49,11 @@ public class TeamController : MonoBehaviour {
 
 	private void TextColorSetting(Text textToSelect, Text textToFade, Text textToFade2){
 		textToSelect.color = selectedTextColor;
+		textToSelect.fontStyle = FontStyle.Bold;
 		textToFade.color = fadedTextColor;
+		textToFade.fontStyle = FontStyle.Normal;
 		textToFade2.color = fadedTextColor;
+		textToFade2.fontStyle = FontStyle.Normal;
 	}
 
 	private void DefineControlWhichTeam(SearchMode mode){

@@ -20,8 +20,6 @@ public class Node : MonoBehaviour
     // Use this for initialization
     void Start(){
         tile = GetComponent<MeshRenderer>();
-        tile.enabled = false;
-
         _transform = transform;
 
         if(PhotonNetwork.isMasterClient && teamNode == "BLUE")
@@ -47,8 +45,9 @@ public class Node : MonoBehaviour
     }
 
     public void TouchEnter(){
-        if (slime != null || !spawnManager.CanSpawn || spawnManager.AnyNodeSelected)
+        if (slime != null || !spawnManager.CanSpawn || spawnManager.AnyNodeSelected){
             return;
+        }
 
         SpawnSlime(spawnManager.GetSlimeToSpawn());
     }
@@ -76,8 +75,11 @@ public class Node : MonoBehaviour
                 break;
         }
 
-        if(slime)
-            PlayerStats.Instance.PurchaseSlime(blueprint.cost);        
+        if(slime){
+            PlayerStats.Instance.PurchaseSlime(blueprint.cost);
+            PlayerShop.Instance.ButtonsUpdate();
+        }
+
         //Building effect
     }
 
@@ -160,6 +162,8 @@ public class Node : MonoBehaviour
         }
         else
             NodeResetting(this);
+
+        PlayerShop.Instance.ButtonsUpdate();
     }
 
     private void NodeResetting(Node n){

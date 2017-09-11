@@ -115,18 +115,21 @@ public class GameManager : MonoBehaviour
 
         SpawnManager.Instance.ClearSlimeToSpawn();
 
-        Invoke("CheckAnyEmptyTeam", 2f);    //check any empty team when battle started
+        Invoke("CheckAnyEmptyTeam", 1f);    //check any empty team when battle started
     }
 
     public void CheckAnyEmptyTeam(){
-        if ((team_red2.Count == 0 || team_blue2.Count == 0) && currentState == State.battle_start){
-            BattleEnd();
+        if(currentState == State.battle_start){
+            if (team_red2.Count == 0 || team_blue2.Count == 0){
+                BattleEnd();
+            }
         }
     }
     /* Battle End State */
     private void BattleEnd(){
         currentState = State.battle_end;    //set game state = battle_end
         Debug.Log("Battle End!");
+        //Synchronize for ending game
         if(PhotonNetwork.isMasterClient)
             photonView.RPC ("RPC_RedTeamFinish", PhotonTargets.All);
         else
@@ -137,12 +140,14 @@ public class GameManager : MonoBehaviour
 
     IEnumerator CheckTeamFinish(){
         while(!isRedFinish || !isBlueFinish){
+            yield return new WaitForSeconds(1f);
+
             if(!isRedFinish)
                 Debug.Log("Red Not Ready");
             if(!isBlueFinish)
                 Debug.Log("Blue Not Ready");
-            yield return new WaitForSeconds(0.5f);
         }
+        //Close and reset the team control panel, when the battle is ended
         teamControlPanel.SetActive(false);
         TeamController.Instance.SetToDefaultSearchMode();
 
@@ -152,6 +157,7 @@ public class GameManager : MonoBehaviour
         
         if(team_red_score < 3 && team_blue_score < 3){
             PlayerStats.Instance.NewRoundCostUpdate();
+            PlayerShop.Instance.ButtonsUpdate();
             Invoke("GameReady", 5f);
         }
         else
@@ -163,13 +169,12 @@ public class GameManager : MonoBehaviour
         Invoke("LeaveTheRoom", 3f);
     }
 
-    IEnumerator ClearAllSlime(List<Transform> team){
+    IEnumerator ClearAllSlime(){
         yield return new WaitForSeconds(2f);
         if(PhotonNetwork.isMasterClient)
             PhotonNetwork.DestroyAll();
-
-        team.Clear();
-
+            
+        //Clear all the teams with building
         if(team_red.Count > 0)
             team_red.Clear();
         if(team_blue.Count > 0)
@@ -218,19 +223,20 @@ public class GameManager : MonoBehaviour
                     gameDisplayText.color = Color.cyan;
                     gameDisplayText.text = "Team Blue\nwon!";
                     team_blue_score++;
-                    StartCoroutine(ClearAllSlime(team_blue2));
+                    team_blue2.Clear();
                 }
                 else if (team_red2.Count > 0){
                     gameDisplayText.color = Color.red;
                     gameDisplayText.text = "Team Red\nwon!";
                     team_red_score++;
-                    StartCoroutine(ClearAllSlime(team_red2));
+                    team_red2.Clear();
                 }
                 else{
                     team_red_score++;
                     team_blue_score++;
                     gameDisplayText.text = "Draw!";
                 }
+                StartCoroutine(ClearAllSlime());
                 gameDisplayPanel.SetActive(true);
                 yield return new WaitForSeconds(2f);
                 gameDisplayText.color = Color.white;
@@ -278,7 +284,7 @@ public class GameManager : MonoBehaviour
         PhotonNetwork.LoadLevel("GameLobby");
     }
 
-    private void ShopDisplay(bool shopDisplay){
+    public void ShopDisplay(bool shopDisplay){
         if(PhotonNetwork.isMasterClient)
             teamRedSlimeShop.SetActive(shopDisplay);
         else

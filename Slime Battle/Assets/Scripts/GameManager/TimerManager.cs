@@ -13,7 +13,8 @@ public class TimerManager : MonoBehaviour {
     }
 
 	private const float BuildingTime = 60f;
-	private float startTime, gameTimer;
+	private const float ReadyCoolDownTime = 0.5f;
+	private float startTime, gameTimer, readyCoolDown;
 	private bool isRedReady, isBlueReady, timerReady;
 	private Color originalColor;
     public RectTransform worldSpaceCanvasPos;
@@ -38,8 +39,12 @@ public class TimerManager : MonoBehaviour {
 	
 	void Update () {
 		if(gameManager.currentState == GameManager.State.build_start && gameTimer > 0 && timerReady){
-			gameTimer -= Time.deltaTime;
-        	timerBar.fillAmount = gameTimer / startTime;
+			if(gameTimer > 0){
+				gameTimer -= Time.deltaTime;
+        		timerBar.fillAmount = gameTimer / startTime;
+			}
+			if(readyCoolDown > 0)
+				readyCoolDown -= Time.deltaTime;
 			/* Delete it later */
 			if(Input.GetKeyDown("space"))
 				setReady();
@@ -83,21 +88,37 @@ public class TimerManager : MonoBehaviour {
 	}
 
 	public void setReady(){
-		if(PhotonNetwork.isMasterClient)
-			photonView.RPC("RPC_setRedReady", PhotonTargets.All);
-		else
-			photonView.RPC("RPC_setBlueReady", PhotonTargets.All);
+		if(gameManager.currentState == GameManager.State.build_start && readyCoolDown <= 0){
+			if(PhotonNetwork.isMasterClient)
+				photonView.RPC("RPC_setRedReady", PhotonTargets.All);
+			else
+				photonView.RPC("RPC_setBlueReady", PhotonTargets.All);
+
+			readyCoolDown = ReadyCoolDownTime;	//setup Ready button cooldown time 0.5s
+		}
 	}
 
 	[PunRPC]
 	private void RPC_setRedReady(){
-		isRedReady = true;
-		redState.color = Color.red;
+		if(!isRedReady){
+			isRedReady = true;
+			redState.color = Color.red;
+		}
+		else{
+			isRedReady = false;
+			redState.color = originalColor;
+		}
 	}
 
 	[PunRPC]
 	private void RPC_setBlueReady(){
-		isBlueReady = true;
-		blueState.color = Color.blue;
+		if(!isBlueReady){
+			isBlueReady = true;
+			blueState.color = Color.blue;
+		}
+		else{
+			isBlueReady = false;
+			blueState.color = originalColor;
+		}
 	}
 }

@@ -24,13 +24,13 @@ public class SlimeBlueprint{
 
 			case "Giant":
 				spawnPosOffset = new Vector3(0,2.5f,0);
-				cost = 70;
+				cost = 50;
 				size = 4;
 				break;
 
 			case "Ranger":
 				spawnPosOffset = new Vector3(0,1.5f,0);
-				cost = 10;
+				cost = 15;
 				size = 1;
 				break;
 
@@ -42,13 +42,13 @@ public class SlimeBlueprint{
 
 			case "Bomber":
 				spawnPosOffset = new Vector3(0,1.5f,0);
-				cost = 15;
+				cost = 8;
 				size = 1;
 				break;
 
 			case "Wall":
 				spawnPosOffset = new Vector3(0,1.5f,0);
-				cost = 5;
+				cost = 3;
 				size = 1;
 				break;
 				

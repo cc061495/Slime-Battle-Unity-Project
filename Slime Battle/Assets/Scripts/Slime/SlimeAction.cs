@@ -43,7 +43,7 @@ public class SlimeAction : MonoBehaviour {
 					SetTarget();
 				}
 				else{
-					Healing (slime.healingPoint);
+					Healing (slime.healPercentage);
 				}
 			}
 			else if(slime.isAreaEffectDamage){
@@ -53,10 +53,11 @@ public class SlimeAction : MonoBehaviour {
 				AreaEffectDamage(slime.attackDamage, slime.areaEffectRadius, model.position);
 				health.TakeDamage(health.currentHealth);
 			}
-
-			coolDown = 1f / slime.actionSpeed;
+			
+			coolDown = slime.actionCoolDown;
 		}
-		coolDown -= Time.deltaTime;
+		else
+			coolDown -= Time.deltaTime;
 	}
 
 	private void SetTarget(){
