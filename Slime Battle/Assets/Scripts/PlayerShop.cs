@@ -6,8 +6,8 @@ public class PlayerShop:MonoBehaviour {
 	public static PlayerShop Instance;
 	public GameObject _slime, _giant, _ranger, _healer, _bomber, _wall;
 	private SlimeBlueprint[] blueprint = new SlimeBlueprint[6];
-	public Button[] shopButton = new Button[6];
-	public Text[] shopText = new Text[6];
+	public RectTransform[] shopButton = new RectTransform[6];
+	public Color defaultColor, yellowColor;
 	private int prevNum;
 
 	SpawnManager spawnManager; 
@@ -33,11 +33,11 @@ public class PlayerShop:MonoBehaviour {
 		/* Check six monster card price */
 		for(int i=0;i<blueprint.Length;i++){
 			if(PlayerStats.playerCost >= blueprint[i].cost){
-				shopButton[i].interactable = true;
+				shopButton[i].GetComponent<Button>().interactable = true;
 			}
 			else{
-				shopButton[i].interactable = false;
-				shopText[i].text = blueprint[i].name;
+				shopButton[i].GetComponent<Button>().interactable = false;
+				ShopButtonReset(i);
 			}
 		}
 	}
@@ -48,17 +48,23 @@ public class PlayerShop:MonoBehaviour {
 	}
 
 	private void TextSetting(SlimeBlueprint slime, int num){
-		if(prevNum != num && shopText[prevNum].text != blueprint[prevNum].name){
-			shopText[prevNum].text = blueprint[prevNum].name;
+		if(prevNum != num){
+			ShopButtonReset(prevNum);
 		}
 
 		prevNum = num;
-		shopText[num].text = "$" + slime.cost;
+		shopButton[num].GetComponent<Image>().color = yellowColor;
+		shopButton[num].GetChild(0).GetComponent<Text>().text = "$" + slime.cost;
 	}
 
 	public void ResetShopText(){
-		if(shopText[prevNum].text != blueprint[prevNum].name){
-			shopText[prevNum].text = blueprint[prevNum].name;
+		ShopButtonReset(prevNum);
+	}
+
+	private void ShopButtonReset(int index){
+		if(shopButton[index].GetComponent<Image>().color != defaultColor){
+			shopButton[index].GetComponent<Image>().color = defaultColor;
+			shopButton[index].GetChild(0).GetComponent<Text>().text = blueprint[index].name;
 		}
 	}
 }

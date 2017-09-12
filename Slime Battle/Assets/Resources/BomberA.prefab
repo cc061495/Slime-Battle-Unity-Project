@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114005185789140298}
   - component: {fileID: 114389683971747796}
   - component: {fileID: 114803473482858600}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: BomberA
   m_TagString: Team_RED
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 23617228389315430}
   - component: {fileID: 195895810696828746}
   - component: {fileID: 136118652138703464}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SlimeObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 4672166405470528}
   - component: {fileID: 33978711661087228}
   - component: {fileID: 23775487521558190}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -212,7 +212,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slimeName: Bomber
   model: {fileID: 4334672967612200}
-  _transform: {fileID: 0}
 --- !u!114 &114371601109471544
 MonoBehaviour:
   m_ObjectHideFlags: 1

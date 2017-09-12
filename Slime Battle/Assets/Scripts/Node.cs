@@ -164,12 +164,8 @@ public class Node : MonoBehaviour
         }
         else
             NodeResetting(this);
-        /* Update the player shop buttons */
+        /* Update the player shop buttons after selling */
         PlayerShop.Instance.ButtonsUpdate();
-        /* Clear the selected slime to spawn */
-        spawnManager.ClearSlimeToSpawn();
-        /* Reset the selected shop text from cost text to name text */
-        PlayerShop.Instance.ResetShopText();
     }
 
     public void NodeResetting(Node n){

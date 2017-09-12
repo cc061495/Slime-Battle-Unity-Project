@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23037802100903838}
   - component: {fileID: 195206753060556026}
   - component: {fileID: 136489374201793730}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SlimeObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 114755721573624252}
   - component: {fileID: 114038495697158300}
   - component: {fileID: 114419921439862696}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: GiantA
   m_TagString: Team_RED
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 4957061853155896}
   - component: {fileID: 33819923468703922}
   - component: {fileID: 23347779264797388}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -237,7 +237,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slimeName: Giant
   model: {fileID: 4106251731879664}
-  _transform: {fileID: 0}
 --- !u!114 &114755721573624252
 MonoBehaviour:
   m_ObjectHideFlags: 1

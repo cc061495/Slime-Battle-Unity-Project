@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114799974262379534}
   - component: {fileID: 114084432897900884}
   - component: {fileID: 114088185433747362}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: HealerB
   m_TagString: Team_BLUE
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 4432707793989104}
   - component: {fileID: 33295883467964934}
   - component: {fileID: 23226524522466018}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 23920439039935164}
   - component: {fileID: 195899523563293338}
   - component: {fileID: 136900005062219168}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SlimeObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -237,7 +237,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slimeName: Healer
   model: {fileID: 4487554232600360}
-  _transform: {fileID: 0}
 --- !u!114 &114245539473206882
 MonoBehaviour:
   m_ObjectHideFlags: 1

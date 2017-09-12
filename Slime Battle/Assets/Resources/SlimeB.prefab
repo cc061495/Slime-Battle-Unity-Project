@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114264567358023856}
   - component: {fileID: 114882725667070700}
   - component: {fileID: 114965821997773296}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SlimeB
   m_TagString: Team_BLUE
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 4849826201979082}
   - component: {fileID: 33354175031254622}
   - component: {fileID: 23845908888396470}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 4220746767681392}
   - component: {fileID: 195256469762268772}
   - component: {fileID: 135697575417567982}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SlimeObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +185,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slimeName: Slime
   model: {fileID: 4220746767681392}
-  _transform: {fileID: 0}
 --- !u!114 &114882725667070700
 MonoBehaviour:
   m_ObjectHideFlags: 1

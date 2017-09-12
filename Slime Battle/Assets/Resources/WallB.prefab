@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 65391760226298338}
   - component: {fileID: 208410893959704912}
   - component: {fileID: 114638406677378868}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: BuildingObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 114976646505531784}
   - component: {fileID: 114824509472825534}
   - component: {fileID: 114530244241457356}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: WallB
   m_TagString: Team_BLUE
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 4205783242608668}
   - component: {fileID: 33276354675472768}
   - component: {fileID: 23330809615912516}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

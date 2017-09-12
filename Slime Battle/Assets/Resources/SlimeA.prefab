@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114039084861071934}
   - component: {fileID: 114978055857740780}
   - component: {fileID: 114726415507328372}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SlimeA
   m_TagString: Team_RED
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 4047445838876080}
   - component: {fileID: 195397159902199698}
   - component: {fileID: 135103808407934914}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SlimeObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 4738481218210830}
   - component: {fileID: 33101854932094074}
   - component: {fileID: 23927181956327994}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

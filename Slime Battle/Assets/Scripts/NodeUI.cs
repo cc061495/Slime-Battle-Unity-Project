@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class NodeUI : MonoBehaviour {
 
+	public static NodeUI Instance;
 	public Text sellAmount;
 	public GameObject nodeUI, arrowUI;
 	private Node target;
@@ -16,6 +17,9 @@ public class NodeUI : MonoBehaviour {
 	// 		nodeUI.transform.rotation = Quaternion.Euler(90,0,180);
 	// 	}
 	// }
+	void Awake(){
+		Instance = this;
+	}
 	void Start(){
 		gameManager = GameManager.Instance;
 	}
@@ -28,19 +32,21 @@ public class NodeUI : MonoBehaviour {
 		arrowUI.transform.position = target.slime.transform.position + new Vector3(0,3,0);
 
 		gameManager.ShopDisplay(false);
-		nodeUI.SetActive(true);
-		arrowUI.SetActive(true);
-
+		SellingPanelDisplay(true);
 	}
 
 	public void Hide(){
 		gameManager.ShopDisplay(true);
-		nodeUI.SetActive(false);
-		arrowUI.SetActive(false);
+		SellingPanelDisplay(false);
 	}
 
 	public void Sell(){
 		target.SellSlime();
 		SpawnManager.Instance.DeselectNode();
+	}
+
+	public void SellingPanelDisplay(bool display){
+		nodeUI.SetActive(display);
+		arrowUI.SetActive(display);
 	}
 }

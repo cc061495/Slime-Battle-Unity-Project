@@ -87,7 +87,13 @@ public class GameManager : MonoBehaviour
 
         ShopDisplay(false);
 
+        NodeUI.Instance.SellingPanelDisplay(false);
         PlayerStats.Instance.PlayerInfoPanelDisplay(false);
+
+		/* Clear the selected node */
+        SpawnManager.Instance.ClearSelectedNode();
+        /* Clear the selected slime to spawn */
+        SpawnManager.Instance.ClearSlimeToSpawn();
 
         DisplayTeam(team_red);
         DisplayTeam(team_blue);
@@ -112,8 +118,6 @@ public class GameManager : MonoBehaviour
         teamControlPanel.SetActive(true);
 
         StartCoroutine(DisplayGamePanel());    //display the game panel
-
-        SpawnManager.Instance.ClearSlimeToSpawn();
 
         Invoke("CheckAnyEmptyTeam", 1f);    //check any empty team when battle started
     }
@@ -163,6 +167,7 @@ public class GameManager : MonoBehaviour
         else
             Invoke("GameEnd", 5f);
     }
+
     void GameEnd(){
         currentState = State.game_end;
         StartCoroutine(DisplayGamePanel());
@@ -285,6 +290,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void ShopDisplay(bool shopDisplay){
+
         if(PhotonNetwork.isMasterClient)
             teamRedSlimeShop.SetActive(shopDisplay);
         else

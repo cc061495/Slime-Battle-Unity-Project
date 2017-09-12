@@ -59,7 +59,7 @@ public class SlimeClass{
 				isAreaEffectDamage	= true ;
 				attackDamage 		= 4 ;
 				areaEffectRadius 	= 1.5f ;
-				actionCoolDown 		= 1.5f ;
+				actionCoolDown 		= 1.2f ;
 				break;
 
 			case "Ranger":
@@ -90,15 +90,15 @@ public class SlimeClass{
 				classPriority 	= 1 ;
 				/* Ability */
 				isHealing 		= true ;
-				healPercentage 	= 0.1f ;
+				healPercentage 	= 0.2f ;
 				actionCoolDown  = 0.5f ;
 				break;
 
 			case "Bomber":
 				/* Slime Properties */
 				startHealth 	= 10 ;
-				movemonetSpeed 	= 8 ;
-				actionRange 	= 0.5f ;
+				movemonetSpeed 	= 8.5f ;
+				actionRange 	= 1 ;
 				scaleRadius 	= 0.5f ;
 				/* Slime Priority */
 				healingPriority = 2 ;

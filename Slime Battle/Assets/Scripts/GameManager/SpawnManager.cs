@@ -11,8 +11,6 @@ public class SpawnManager:MonoBehaviour {
 
 	private Node selectedNode;
 	private SlimeBlueprint slimeToSpawn; 
-
-	public NodeUI nodeUI;
 	public bool CanSpawn {get {return slimeToSpawn != null; }}
 	public bool AnyNodeSelected{get {return selectedNode != null; }}
 
@@ -23,12 +21,18 @@ public class SpawnManager:MonoBehaviour {
 		selectedNode = node;
 		//slimeToSpawn = null;
 
-		nodeUI.SetTarget(node);
+		NodeUI.Instance.SetTarget(node);
 	}
 
 	public void DeselectNode(){
-		selectedNode = null;
-		nodeUI.Hide();
+		/* Clear the selected node */
+		ClearSelectedNode();
+        /* Clear the selected slime to spawn */
+       	ClearSlimeToSpawn();
+        /* Reset the selected shop text from cost text to name text */
+        PlayerShop.Instance.ResetShopText();
+
+		NodeUI.Instance.Hide();
 	}
 
 	public void SelectSlimeToSpawn(SlimeBlueprint slime) {
@@ -41,5 +45,9 @@ public class SpawnManager:MonoBehaviour {
 
 	public void ClearSlimeToSpawn(){
 		slimeToSpawn = null;
+	}
+
+	public void ClearSelectedNode(){
+		selectedNode = null;
 	}
 }
