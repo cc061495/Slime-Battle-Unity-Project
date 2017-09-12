@@ -18,42 +18,20 @@ public class PlayerShop:MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		spawnManager = SpawnManager.Instance;
+		/* Create Player Shop's monster builds */
 		blueprint[0] = new SlimeBlueprint("Slime", _slime);
 		blueprint[1] = new SlimeBlueprint("Giant", _giant);
 		blueprint[2] = new SlimeBlueprint("Ranger", _ranger);
 		blueprint[3] = new SlimeBlueprint("Healer", _healer);
 		blueprint[4] = new SlimeBlueprint("Bomber", _bomber);
 		blueprint[5] = new SlimeBlueprint("Wall", _wall);
-
+		/* Update Shop buttons by cheching player's money */
     	ButtonsUpdate();
 	}
-	/*
-	public void SelectSlime() {
-		ShopSelect(0);
-	}
 
-	public void SelectGiant() {
-		ShopSelect(1);
-	}
-
-	public void SelectRanger() {
-		ShopSelect(2);
-	}
-
-	public void SelectHealer() {
-		ShopSelect(3);
-	}
-
-	public void SelectBomber() { 
-		ShopSelect(4);
-	}
-
-	public void SelectWall() {
-		ShopSelect(5);
-	}
-	*/
 	public void ButtonsUpdate(){
-		for(int i = 0;i < 6;i++){
+		/* Check six monster card price */
+		for(int i=0;i<blueprint.Length;i++){
 			if(PlayerStats.playerCost >= blueprint[i].cost){
 				shopButton[i].interactable = true;
 			}

@@ -150,23 +150,29 @@ public class Node : MonoBehaviour
     }
 
     public void SellSlime(){
+        /* Selling the slime and get back the money */
         PlayerStats.Instance.SellSlime(slimeblueprint.cost);
+        /* Remove the slime from team list in two players */
         slime.GetComponent<Slime>().SyncRemoveTeamList();
+        /* Destroy the slime in the Photon Network */
         PhotonNetwork.Destroy(slime);
         /* Selling Effect */
         if(nodeList.Count > 0){
             List<Node> tempNodeList = nodeList.ToList();
-
             for(int i=0;i<tempNodeList.Count;i++)
                 NodeResetting(tempNodeList[i]);
         }
         else
             NodeResetting(this);
-
+        /* Update the player shop buttons */
         PlayerShop.Instance.ButtonsUpdate();
+        /* Clear the selected slime to spawn */
+        spawnManager.ClearSlimeToSpawn();
+        /* Reset the selected shop text from cost text to name text */
+        PlayerShop.Instance.ResetShopText();
     }
 
-    private void NodeResetting(Node n){
+    public void NodeResetting(Node n){
         Debug.Log(n);
         n.slimeblueprint = null;
         n.tile.enabled = false;
@@ -178,19 +184,6 @@ public class Node : MonoBehaviour
     public Vector3 GetBuildPos(Vector3 offset){
         return _transform.position + offset;
     }
-
-    public Vector3 GetSlimePostion(){
-        return slime.transform.position;
-    }
-
-    public void ResetNode(){
-        // rend.material.color = startColor;
-        tile.enabled = false;
-        slime = null;   //reset all the slime
-        slimeblueprint = null;
-        //buildPosition = Vector3.zero;
-    }
-
     // Color GetTeamColor(){
     //     if (team_node == "RED")
     //         return teamA_Color;

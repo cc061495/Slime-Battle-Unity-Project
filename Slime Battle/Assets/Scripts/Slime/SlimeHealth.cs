@@ -61,7 +61,7 @@ public class SlimeHealth : MonoBehaviour {
 	}
 
 	private void NetworkEnable(){
-		Debug.Log("Start network");
+		//Debug.Log("Network is enabled");
 		SlimeNetwork network = GetComponent<SlimeNetwork>();
 		if(network != null)
 			network.enabled = true;

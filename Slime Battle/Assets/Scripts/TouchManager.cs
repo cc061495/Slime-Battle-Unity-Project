@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TouchManager : MonoBehaviour {
-
+	/* Useless staff */
 	GameManager gameManager;
 	GameObject gObj = null;
 	Plane objPlane;

@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(DisplayGamePanel());
 
         for(int i=0;i<nodeList.Count;i++){
-            nodeList[i].ResetNode();
+            nodeList[i].NodeResetting(nodeList[i]);
         }
         nodeList.Clear();
 
