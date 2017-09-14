@@ -12,7 +12,7 @@ public class TimerManager : MonoBehaviour {
         Instance = this;   
     }
 
-	private const float BuildingTime = 600f;
+	private const float BuildingTime = 60f;
 	private const float ReadyCoolDownTime = 0.5f;
 	private float startTime, gameTimer, readyCoolDown;
 	private bool isRedReady, isBlueReady, timerReady;

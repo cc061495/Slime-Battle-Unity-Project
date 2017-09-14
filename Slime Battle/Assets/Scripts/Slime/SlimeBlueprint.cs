@@ -17,7 +17,7 @@ public class SlimeBlueprint{
 
 		switch (_name){
 			case "Slime":
-				spawnPosOffset = new Vector3(0,0.5f,0);
+				spawnPosOffset = new Vector3(0,1.5f,0);
 				cost = 10;
 				size = 1;
 				break;
@@ -47,7 +47,7 @@ public class SlimeBlueprint{
 				break;
 
 			case "Wall":
-				spawnPosOffset = new Vector3(0,1.5f,0);
+				spawnPosOffset = new Vector3(0,1f,0);
 				cost = 3;
 				size = 1;
 				break;

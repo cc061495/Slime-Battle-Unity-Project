@@ -169,7 +169,7 @@ public class Node : MonoBehaviour
     }
 
     public void NodeResetting(Node n){
-        Debug.Log(n);
+        //Debug.Log(n);
         n.slimeblueprint = null;
         n.tile.enabled = false;
         n.slime = null;

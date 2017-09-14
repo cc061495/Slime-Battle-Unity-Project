@@ -5,23 +5,24 @@ using UnityEngine.UI;
 
 public class NodeUI : MonoBehaviour {
 
+	private Vector2 positionCorrection = new Vector2(0, 50);
 	public static NodeUI Instance;
 	public Text sellAmount;
 	public GameObject nodeUI, arrowUI;
 	private Node target;
 	private GameManager gameManager;
 
-	// void Start(){
-	// 	if(!PhotonNetwork.isMasterClient){
-	// 		nodeUI.transform.position += new Vector3(0,0,-6);
-	// 		nodeUI.transform.rotation = Quaternion.Euler(90,0,180);
-	// 	}
-	// }
+	RectTransform arrow;
+	float sizeDeltaX, sizeDeltaY;
+
 	void Awake(){
 		Instance = this;
 	}
 	void Start(){
 		gameManager = GameManager.Instance;
+		sizeDeltaX = gameManager.canvasForHealthBar.sizeDelta.x;
+        sizeDeltaY = gameManager.canvasForHealthBar.sizeDelta.y;
+		arrow = arrowUI.GetComponent<RectTransform>();
 	}
 
 	public void SetTarget(Node _target){
@@ -29,11 +30,23 @@ public class NodeUI : MonoBehaviour {
 		//transform.position = target.GetSlimePostion();
 		
 		sellAmount.text = "$" + target.slimeblueprint.cost;
-		arrowUI.transform.position = target.slime.transform.position + new Vector3(0,3,0);
+		
+		PositionArrow(target.slime.transform);
 
 		gameManager.ShopDisplay(false);
 		SellingPanelDisplay(true);
 	}
+
+	public void PositionArrow(Transform objectToFollow){
+        float ViewportPositionX = Camera.main.WorldToViewportPoint(objectToFollow.position).x;
+        float ViewportPositionY = Camera.main.WorldToViewportPoint(objectToFollow.position).y;
+
+        float WorldObject_ScreenPositionX = (ViewportPositionX * sizeDeltaX) - (sizeDeltaX * 0.5f);
+        float WorldObject_ScreenPositionY = (ViewportPositionY * sizeDeltaY) - (sizeDeltaY * 0.5f);
+        //now you can set the position of the ui element
+        Vector2 WorldObject_ScreenPosition = new Vector2(WorldObject_ScreenPositionX, WorldObject_ScreenPositionY);
+		arrow.anchoredPosition = WorldObject_ScreenPosition + positionCorrection;
+    }
 
 	public void Hide(){
 		gameManager.ShopDisplay(true);

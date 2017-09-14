@@ -28,8 +28,8 @@ public class SlimeAction : MonoBehaviour {
 
 	public void Action(){
 		if (coolDown <= 0f) {
-			if(target == null)
-				SetTarget();
+			// if(target == null)
+			// 	SetTarget();
 
 			if (slime.isMeleeAttack){
 				MeleeAttack (slime.attackDamage);
@@ -60,7 +60,7 @@ public class SlimeAction : MonoBehaviour {
 			coolDown -= Time.deltaTime;
 	}
 
-	private void SetTarget(){
+	public void SetTarget(){
 		target = movement.GetTarget();
 		if(target != null)
 			tarHealth = target.parent.GetComponent<SlimeHealth>();

@@ -36,6 +36,7 @@ public class SlimeMovement : MonoBehaviour {
 		this.slime = _slime;
 
 		agent = model.GetComponent<NavMeshAgent>();
+		//agent.baseOffset = 0.9f;	//fix slime float on the ground problem
 		agent.speed = slime.movemonetSpeed;
 		agent.acceleration = slime.movemonetSpeed;
 		agent.stoppingDistance = 1.5f;
@@ -164,6 +165,7 @@ public class SlimeMovement : MonoBehaviour {
 		
 		if(target != null){
 			photonView.RPC("RPC_ClientSetTarget", PhotonTargets.Others, target.parent.gameObject.GetPhotonView().viewID);
+			slimeAction.SetTarget();
 			range = slime.scaleRadius + slime.actionRange + target.parent.GetComponent<Slime>().GetSlimeClass().scaleRadius;
 		}
     }
@@ -172,13 +174,19 @@ public class SlimeMovement : MonoBehaviour {
 	private void RPC_ClientSetTarget(int targetView){
 		List<Transform> enemies = gm.GetEnemies(_transform);
 		for(int i=0;i<enemies.Count;i++){
-			if(enemies[i].parent.gameObject.GetPhotonView().viewID == targetView)
+			if(enemies[i].parent.gameObject.GetPhotonView().viewID == targetView){
 				target = enemies[i];
+				break;
+			}
 		}
 	}
 
 	public Transform GetTarget(){
 		return target;
+	}
+
+	public void TurnOffFindNewTarget(){
+		findNewTarget = false;
 	}
 
 	private float DistanceCalculate(Vector3 pos1, Vector3 pos2){
