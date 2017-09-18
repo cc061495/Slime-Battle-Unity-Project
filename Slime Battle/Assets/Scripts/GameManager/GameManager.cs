@@ -20,10 +20,10 @@ public class GameManager : MonoBehaviour
     public Text gameDisplayText, DebugText;
     public GameObject gameDisplayPanel, teamRedSlimeShop, teamBlueSlimeShop, teamControlPanel;
     public RectTransform canvasForHealthBar, healthBarParent;
-    public List<Transform> team_red = new List<Transform>();
-    public List<Transform> team_red2 = new List<Transform>();
-    public List<Transform> team_blue = new List<Transform>();
-    public List<Transform> team_blue2 = new List<Transform>();
+    public List<Transform> team_red = new List<Transform>();    //team with building
+    public List<Transform> team_red2 = new List<Transform>();   //team without building
+    public List<Transform> team_blue = new List<Transform>();   //team with building
+    public List<Transform> team_blue2 = new List<Transform>();  //team without building
     public List<Node> nodeList = new List<Node>();
     public PhotonPlayer masterPlayer;
     private bool isRedFinish, isBlueFinish;
@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
 
         ShopDisplay(false);
 
-        NodeUI.Instance.SellingPanelDisplay(false);
+        SellingUI.Instance.SellingPanelDisplay(false);
         PlayerStats.Instance.PlayerInfoPanelDisplay(false);
 
 		/* Clear the selected node */
@@ -113,6 +113,9 @@ public class GameManager : MonoBehaviour
         currentState = State.battle_start;    //set game state = battle_start
         Debug.Log("Battle!!!");
         ResetShopTextDisplay();
+
+        ChangeBuildingLayer();
+
         DisplayTeamHealthBar(team_blue);
         DisplayTeamHealthBar(team_red);
         teamControlPanel.SetActive(true);
@@ -154,6 +157,7 @@ public class GameManager : MonoBehaviour
         //Close and reset the team control panel, when the battle is ended
         teamControlPanel.SetActive(false);
         TeamController.Instance.SetToDefaultSearchMode();
+        BuildingUI.Instance.BuildingPanelDisplay(false);
 
         StartCoroutine(DisplayGamePanel());
         isRedFinish = false;
@@ -339,6 +343,20 @@ public class GameManager : MonoBehaviour
         for(int i=0;i<team.Count;i++){
             SlimeHealth h = team[i].parent.GetComponent<SlimeHealth>();
             h.DisplayHealthBar(true);
+        }
+    }
+
+    private void ChangeBuildingLayer(){
+        //team that ONLY including building
+        List<Transform> team;
+
+        if(PhotonNetwork.isMasterClient)
+            team = team_red.Except(team_red2).ToList();
+        else
+            team = team_blue.Except(team_blue2).ToList();
+
+        for(int i=0;i<team.Count;i++){
+            team[i].gameObject.layer = LayerMask.NameToLayer("Default");
         }
     }
 }

@@ -40,7 +40,6 @@ public class SlimeAction : MonoBehaviour {
 			else if(slime.isHealing){
 				if(tarHealth.currentHealth >= tarHealth.startHealth){
 					movement.TargetSearching();
-					SetTarget();
 				}
 				else{
 					Healing (slime.healPercentage);
@@ -60,8 +59,8 @@ public class SlimeAction : MonoBehaviour {
 			coolDown -= Time.deltaTime;
 	}
 
-	public void SetTarget(){
-		target = movement.GetTarget();
+	public void SetTarget(Transform _target){
+		target = _target;
 		if(target != null)
 			tarHealth = target.parent.GetComponent<SlimeHealth>();
 	}
@@ -90,7 +89,7 @@ public class SlimeAction : MonoBehaviour {
 	[PunRPC]
 	private void RangedAttack(float attackDamage){
 		GameObject bulletGO = (GameObject)Instantiate (rangedWeaponPrefab, firePoint.position, firePoint.rotation);
-		SetTarget();
+		//SetTarget();
 
 		Bullet bullet = bulletGO.GetComponent<Bullet>();
 		if (bullet != null)

@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 114023423853420116}
   - component: {fileID: 114603917924777708}
   - component: {fileID: 114631986250221792}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: GiantB
   m_TagString: Team_BLUE
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 4703446683125404}
   - component: {fileID: 33147011309561938}
   - component: {fileID: 23372008579253798}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

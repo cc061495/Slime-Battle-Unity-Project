@@ -17,6 +17,7 @@ public class Slime : MonoBehaviour{
 
 	void Start(){
 		_transform = transform;
+		//Build up the slime class with Name
 		slimeClass = new SlimeClass(slimeName);
 		photonView = GetComponent<PhotonView>();
 		
@@ -41,9 +42,9 @@ public class Slime : MonoBehaviour{
 	}
 
 	private void AddTeam(List<Transform> team, List<Transform> team2){
-		team.Add(model);
+		team.Add(model);	//team with building
 		if(!slimeClass.isBuilding)
-			team2.Add(model);
+			team2.Add(model);	//team without building
 	}
 
 	public void RemoveFromTeamList(){

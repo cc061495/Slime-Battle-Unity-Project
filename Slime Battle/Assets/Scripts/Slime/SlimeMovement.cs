@@ -83,7 +83,8 @@ public class SlimeMovement : MonoBehaviour {
 
 			if(target){
 				if(move){
-					agent.destination = target.position;	//finding new target position
+					agent.destination = target.position;	//set new target position
+					/* if the target is not reachable, find the new target again */
 					if(agent.pathStatus != NavMeshPathStatus.PathComplete && !findNewTarget){
 						findNewTarget = true;
 						//Debug.Log("findNewTarget");
@@ -113,6 +114,7 @@ public class SlimeMovement : MonoBehaviour {
 		if(slime.isMeleeAttack || slime.isRangedAttack || slime.isAreaEffectDamage || slime.isExplosion){
 			if(enemies.Count > 0){
 				if(findNewTarget){
+					/* Kill the shortest distance enemy with killing priority(building -> slime) */
 					target = enemies.OrderByDescending(o => o.parent.GetComponent<Slime>().GetSlimeClass().killingPriority).
 									 ThenBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();
 				}
@@ -137,13 +139,13 @@ public class SlimeMovement : MonoBehaviour {
 			}
 		}
 		else if(slime.isHealing){
+			/* Create a healer team list that not include itself and building */
 			myTeam = gm.GetMyTeam(_transform).Where(x => x.parent != transform)
 											 .Where(x => !x.parent.GetComponent<Slime>().GetSlimeClass().isBuilding).ToList();
-
+			/* Check if the team list count > 0 */
 			if(myTeam.Count > 0){
-				
 				bool findAnyLowHealth = false;
-				
+				/* find any not full health in the team list */
 				for(int i=0;i<myTeam.Count;i++){
 					if(myTeam[i].parent.GetComponent<SlimeHealth>().currentHealth != myTeam[i].parent.GetComponent<SlimeHealth>().startHealth){
 						findAnyLowHealth = true;
@@ -152,20 +154,22 @@ public class SlimeMovement : MonoBehaviour {
 				}
 
 				if(findAnyLowHealth){
+					/* Find the nearest and lowest health target */
 					target = myTeam.OrderBy(o => (o.parent.GetComponent<SlimeHealth>().currentHealth / o.parent.GetComponent<SlimeHealth>().startHealth))
-								   .ThenBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();
-								   
+								   .ThenBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();					   
 				}
 				else{
+					/* Target with priority: melee attack > ranged attack > healer */
 					target = myTeam.OrderBy(o => o.parent.GetComponent<Slime>().GetSlimeClass().healingPriority)
 								   .ThenBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();
 				}
 			}
 		}
-		
+		/* if the target is found */
 		if(target != null){
+			//Client set the target
 			photonView.RPC("RPC_ClientSetTarget", PhotonTargets.Others, target.parent.gameObject.GetPhotonView().viewID);
-			slimeAction.SetTarget();
+			slimeAction.SetTarget(target);
 			range = slime.scaleRadius + slime.actionRange + target.parent.GetComponent<Slime>().GetSlimeClass().scaleRadius;
 		}
     }
@@ -176,13 +180,10 @@ public class SlimeMovement : MonoBehaviour {
 		for(int i=0;i<enemies.Count;i++){
 			if(enemies[i].parent.gameObject.GetPhotonView().viewID == targetView){
 				target = enemies[i];
+				slimeAction.SetTarget(target);	//setting target in client side
 				break;
 			}
 		}
-	}
-
-	public Transform GetTarget(){
-		return target;
 	}
 
 	public void TurnOffFindNewTarget(){

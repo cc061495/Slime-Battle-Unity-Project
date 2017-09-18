@@ -66,9 +66,9 @@ public class SlimeHealth : MonoBehaviour {
 		if(network != null)
 			network.enabled = true;
 
-		SlimeMovement movement = GetComponent<SlimeMovement>(); 
+		SlimeMovement movement = GetComponent<SlimeMovement>();
 		if(movement != null && photonView.isMine)
-			movement.StartUpdatePathLoop();
+			movement.StartUpdatePathLoop();		//slime start finding the target
 	}
 
 	public void TakeDamage(float attackDamage){
@@ -84,7 +84,7 @@ public class SlimeHealth : MonoBehaviour {
 	}
 
 	public void TakeHealing(float heal){
-		//Only Master client deal with attack damage
+		//Only Master client deal with healing
 		//currentHealth must be larger than 0 HP(important) !!!
 		if(currentHealth > 0 && currentHealth < startHealth){
 			//Health += healing percent * slime's start health
@@ -99,11 +99,12 @@ public class SlimeHealth : MonoBehaviour {
 		}
 	}
 
+	/* Update Client slime health and health bar */
 	[PunRPC]
 	private void RPC_UpdateHealth(float master_CurrentHealth, float master_fillAmount){
 		currentHealth = master_CurrentHealth;
 		playerHealth.OnHealthChanged(master_fillAmount);
-		//Sync the dead, after update all clients'slime health
+		//Sync the dead, after update all clients' slime health
 		if(currentHealth <= 0)
 			photonView.RPC("RPC_SlimeDie", PhotonTargets.All);
 	}
@@ -111,6 +112,9 @@ public class SlimeHealth : MonoBehaviour {
 	[PunRPC]
 	private void RPC_SlimeDie(){
 		GetComponent<Slime>().RemoveFromTeamList();
+		
+		if(slime.isBuilding)
+			BuildingUI.Instance.HideTheBuildingPanel(this);
 
 		if(photonView.isMine)
 			PhotonNetwork.Destroy(gameObject);

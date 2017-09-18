@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114005185789140298}
   - component: {fileID: 114389683971747796}
   - component: {fileID: 114803473482858600}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: BomberB
   m_TagString: Team_BLUE
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 4672166405470528}
   - component: {fileID: 33978711661087228}
   - component: {fileID: 23775487521558190}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

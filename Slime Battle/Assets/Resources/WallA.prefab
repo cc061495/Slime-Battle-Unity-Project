@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114869870835463468}
   - component: {fileID: 114570473520212048}
   - component: {fileID: 114646797437846582}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: WallA
   m_TagString: Team_RED
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 4934098387931882}
   - component: {fileID: 33441770955481648}
   - component: {fileID: 23552614342340194}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

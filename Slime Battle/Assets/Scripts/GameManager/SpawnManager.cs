@@ -21,7 +21,7 @@ public class SpawnManager:MonoBehaviour {
 		selectedNode = node;
 		//slimeToSpawn = null;
 
-		NodeUI.Instance.SetTarget(node);
+		SellingUI.Instance.SetTarget(node);
 	}
 
 	public void DeselectNode(){
@@ -32,7 +32,7 @@ public class SpawnManager:MonoBehaviour {
         /* Reset the selected shop text from cost text to name text */
         PlayerShop.Instance.ResetShopText();
 
-		NodeUI.Instance.Hide();
+		SellingUI.Instance.Hide();
 	}
 
 	public void SelectSlimeToSpawn(SlimeBlueprint slime) {

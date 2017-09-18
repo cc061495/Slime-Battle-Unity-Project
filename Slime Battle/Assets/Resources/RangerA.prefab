@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4682621384114094}
   - component: {fileID: 33767728021285630}
   - component: {fileID: 23012633091656754}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4755039262262106}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 114233232085776254}
   - component: {fileID: 114583210397936684}
   - component: {fileID: 114155102157337086}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: RangerA
   m_TagString: Team_RED
   m_Icon: {fileID: 0}

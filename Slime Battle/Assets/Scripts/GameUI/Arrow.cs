@@ -3,38 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NodeUI : MonoBehaviour {
+public class Arrow : MonoBehaviour {
 
 	private Vector2 positionCorrection = new Vector2(0, 50);
-	public static NodeUI Instance;
-	public Text sellAmount;
-	public GameObject nodeUI, arrowUI;
-	private Node target;
-	private GameManager gameManager;
+	public GameObject arrowUI;
 
 	RectTransform arrow;
 	float sizeDeltaX, sizeDeltaY;
+	GameManager gameManager;
 
-	void Awake(){
-		Instance = this;
-	}
 	void Start(){
 		gameManager = GameManager.Instance;
 		sizeDeltaX = gameManager.canvasForHealthBar.sizeDelta.x;
         sizeDeltaY = gameManager.canvasForHealthBar.sizeDelta.y;
 		arrow = arrowUI.GetComponent<RectTransform>();
-	}
-
-	public void SetTarget(Node _target){
-		target = _target;
-		//transform.position = target.GetSlimePostion();
-		
-		sellAmount.text = "$" + target.slimeblueprint.cost;
-		
-		PositionArrow(target.slime.transform);
-
-		gameManager.ShopDisplay(false);
-		SellingPanelDisplay(true);
 	}
 
 	public void PositionArrow(Transform objectToFollow){
@@ -48,18 +30,7 @@ public class NodeUI : MonoBehaviour {
 		arrow.anchoredPosition = WorldObject_ScreenPosition + positionCorrection;
     }
 
-	public void Hide(){
-		gameManager.ShopDisplay(true);
-		SellingPanelDisplay(false);
-	}
-
-	public void Sell(){
-		target.SellSlime();
-		SpawnManager.Instance.DeselectNode();
-	}
-
-	public void SellingPanelDisplay(bool display){
-		nodeUI.SetActive(display);
+	public void ArrowDisplay(bool display){
 		arrowUI.SetActive(display);
 	}
 }
