@@ -7,9 +7,9 @@ public class BuildingUI : MonoBehaviour {
 
 	public static BuildingUI Instance;
 	public GameObject buildingPanel;
+	public Arrow arrow;
 
-	private Arrow arrow;
-	private GameManager gameManager;
+	GameManager gameManager;
 	SlimeHealth buildHealth;
 
 	void Awake(){
@@ -18,7 +18,6 @@ public class BuildingUI : MonoBehaviour {
 
 	void Start(){
 		gameManager = GameManager.Instance;
-		arrow = GetComponent<Arrow>();
 	}
 
 	public void Show(Transform s, SlimeHealth h){
@@ -31,7 +30,7 @@ public class BuildingUI : MonoBehaviour {
 
 	public void Destroy(){
 		if(buildHealth != null)
-			buildHealth.TakeDamage(buildHealth.currentHealth);
+			buildHealth.SuddenDeath();
 			
 		Cancel();
 	}
@@ -48,6 +47,6 @@ public class BuildingUI : MonoBehaviour {
 
 	public void BuildingPanelDisplay(bool display){
 		buildingPanel.SetActive(display);
-		arrow.arrowUI.SetActive(display);
+		arrow.ArrowDisplay(display);
 	}
 }

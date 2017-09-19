@@ -6,17 +6,18 @@ using UnityEngine.UI;
 public class Arrow : MonoBehaviour {
 
 	private Vector2 positionCorrection = new Vector2(0, 50);
-	public GameObject arrowUI;
 
-	RectTransform arrow;
+	private RectTransform arrow;
+	private Image arrowImage;
 	float sizeDeltaX, sizeDeltaY;
 	GameManager gameManager;
 
 	void Start(){
+		arrow = GetComponent<RectTransform>();
+		arrowImage = GetComponent<Image>();
 		gameManager = GameManager.Instance;
 		sizeDeltaX = gameManager.canvasForHealthBar.sizeDelta.x;
         sizeDeltaY = gameManager.canvasForHealthBar.sizeDelta.y;
-		arrow = arrowUI.GetComponent<RectTransform>();
 	}
 
 	public void PositionArrow(Transform objectToFollow){
@@ -31,6 +32,6 @@ public class Arrow : MonoBehaviour {
     }
 
 	public void ArrowDisplay(bool display){
-		arrowUI.SetActive(display);
+		arrowImage.enabled = display;
 	}
 }

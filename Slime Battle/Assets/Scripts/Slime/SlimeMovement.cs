@@ -48,17 +48,16 @@ public class SlimeMovement : MonoBehaviour {
 		if (gm.currentState == GameManager.State.battle_start && photonView.isMine) {  //when the battle starts, start to execute
             if (target){
                 if(DistanceCalculate(target.position, model.position) <= range*range){
-					//model.LookAt(new Vector3(target.position.x, model.position.y, target.position.z));
-					slimeAction.Action();		//Action to the target
-					LookAtTarget();
-
-					if(move){
+					if(move && model){
 						move = false;
 						agent.angularSpeed = 0f;
 						agent.destination = model.position;		//stand on the current position
 						if(slime.isMeleeAttack)
 							agent.avoidancePriority = 1;
 					}
+					//model.LookAt(new Vector3(target.position.x, model.position.y, target.position.z));
+					slimeAction.Action();		//Action to the target
+					LookAtTarget();
 				}
 				else if(!move){
 					move = true;

@@ -109,16 +109,23 @@ public class SlimeHealth : MonoBehaviour {
 			photonView.RPC("RPC_SlimeDie", PhotonTargets.All);
 	}
 
+	/* Method for slime to die immediately */
+	public void SuddenDeath(){
+		photonView.RPC("RPC_SlimeDie", PhotonTargets.All);
+	}
+
 	[PunRPC]
 	private void RPC_SlimeDie(){
 		GetComponent<Slime>().RemoveFromTeamList();
-		
+
 		if(slime.isBuilding)
 			BuildingUI.Instance.HideTheBuildingPanel(this);
 
 		if(photonView.isMine)
 			PhotonNetwork.Destroy(gameObject);
 	}
+
+
 
 	// private void ChangeHealthBarPos(){
 	// 	healthBarPos.SetPositionAndRotation(healthBarPos.position, Quaternion.Euler(90f, 0f, 0f));

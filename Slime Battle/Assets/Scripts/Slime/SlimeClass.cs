@@ -107,7 +107,7 @@ public class SlimeClass{
 				/* Ability */
 				isExplosion	 		= true ;
 				attackDamage 		= 8 ;
-				areaEffectRadius 	= 5 ;
+				areaEffectRadius 	= 6 ;
 				actionCoolDown 		= 100 ;
 				break;
 

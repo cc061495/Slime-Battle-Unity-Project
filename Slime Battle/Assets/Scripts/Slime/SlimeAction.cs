@@ -50,7 +50,8 @@ public class SlimeAction : MonoBehaviour {
 			}
 			else if(slime.isExplosion){
 				AreaEffectDamage(slime.attackDamage, slime.areaEffectRadius, model.position);
-				health.TakeDamage(health.currentHealth);
+				/* Explosion Effect */
+				health.SuddenDeath();
 			}
 			
 			coolDown = slime.actionCoolDown;
