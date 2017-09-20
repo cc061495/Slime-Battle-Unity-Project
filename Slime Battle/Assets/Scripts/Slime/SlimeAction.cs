@@ -78,10 +78,11 @@ public class SlimeAction : MonoBehaviour {
 
 				float distanceFromCentre = DistanceCalculate(slimes[i].transform.position, centre);
 				//explosion constant(higher = lower damage, lower = higher damage received)
-				float areaDamage = attackDamage - distanceFromCentre * 0.16f;
-				//Debug.Log(distanceFromCentre + " Damage: " + areaDamage);
+				float areaDamage = attackDamage - distanceFromCentre * 0.15f;
+				//Debug.Log("Distance: " + distanceFromCentre + " Damage: " + areaDamage);
 				if(areaDamage < 0)
-					areaDamage = 0;
+					continue;	//if the damage is lower than 0, just skip it
+
 				h.TakeDamage(areaDamage);
 			}
 		}

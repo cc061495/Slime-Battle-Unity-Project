@@ -59,7 +59,7 @@ public class SlimeClass{
 				isAreaEffectDamage	= true ;
 				attackDamage 		= 5 ;
 				areaEffectRadius 	= 1.5f ;
-				actionCoolDown 		= 1.2f ;
+				actionCoolDown 		= 1f ;
 				break;
 
 			case "Ranger":
@@ -91,7 +91,7 @@ public class SlimeClass{
 				/* Ability */
 				isHealing 		= true ;
 				healPercentage 	= 0.05f ;
-				actionCoolDown  = 0.35f ;
+				actionCoolDown  = 0.5f ;
 				break;
 
 			case "Bomber":

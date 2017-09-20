@@ -294,7 +294,6 @@ public class GameManager : MonoBehaviour
     }
 
     public void ShopDisplay(bool shopDisplay){
-
         if(PhotonNetwork.isMasterClient)
             teamRedSlimeShop.SetActive(shopDisplay);
         else
