@@ -29,7 +29,7 @@ public class PlayerData : MonoBehaviour {
 		LoadPlayerNameSetting();
 		LoadPlayerBalanceSetting();
 
-		GetComponent<MenuScreen>().SetPlayerStatus();
+		MenuScreen.Instance.SetPlayerStatus();
 	}
 
 	private void LoadPlayerNameSetting(){

@@ -1,36 +1,55 @@
 ﻿/* Copyright (c) cc061495 */
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class MenuScreen : MonoBehaviour {
 
-	public GameObject Inventory, Team, Shop;
-	public Text PlayerNameText, PlayerBalanceText;
+    public static MenuScreen Instance;
+    
+    void Awake(){
+        Instance = this; 
+    }
+
+    public enum Layout{home, inventory, deck, shop};
+    public Layout currentLayout;
+
+	public RectTransform Home, Inventory, Deck, Shop;
+	public GameObject BackButton;
+	public Text WoodSignText, PlayerNameText, PlayerBalanceText;
 
 	public void SetPlayerStatus(){
 		PlayerNameText.text = PlayerData.Instance.playerName;
 		PlayerBalanceText.text = PlayerData.Instance.playerBalance.ToString();
+
+		LayoutSetting(Layout.home, "Home", Home, true);
 	}
 
-	public void InventoryButtonPressed(){
-		
+	public void OpenInventoryLayout(){
+		LayoutSetting(Layout.inventory, "Inventory", Inventory, false);
 	}
 
-	public void TeamButtonPressed(){
-
+	public void OpenDeckLayout(){
+		LayoutSetting(Layout.deck, "Deck", Deck, false);
 	}
 
-	public void ShopButtonPressed(){
-
+	public void OpenShopLayout(){
+		LayoutSetting(Layout.shop, "Shop", Shop, false);
 	}
 
-	public void GoToGameLobby(){
-		Debug.Log("Game Lobby!");
-		SceneManager.LoadScene("GameLobby");
+	public void BackToHomeLayout(){
+		LayoutSetting(Layout.home, "Home", Home, false);
 	}
 
-	public void QuitGame(){
-		Application.Quit();
+	private void LayoutSetting(Layout l, string signText, RectTransform r, bool defaultSetting){
+		if(l == Layout.home)
+			BackButton.SetActive(false);
+		else
+			BackButton.SetActive(true);
+			
+		if(currentLayout != l || defaultSetting){
+			currentLayout = l;
+			WoodSignText.text = signText;
+			r.SetAsLastSibling();
+		}
 	}
 }
