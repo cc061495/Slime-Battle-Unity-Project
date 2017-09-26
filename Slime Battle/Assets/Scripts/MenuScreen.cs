@@ -15,32 +15,32 @@ public class MenuScreen : MonoBehaviour {
 
 	public RectTransform Home, Inventory, Deck, Shop;
 	public GameObject BackButton;
-	public Text WoodSignText, PlayerNameText, PlayerBalanceText;
+	public Text PlayerNameText, PlayerBalanceText;
 
 	public void SetPlayerStatus(){
 		PlayerNameText.text = PlayerData.Instance.playerName;
 		PlayerBalanceText.text = PlayerData.Instance.playerBalance.ToString();
 
-		LayoutSetting(Layout.home, "Home", Home, true);
+		LayoutSetting(Layout.home, Home, true);
 	}
 
 	public void OpenInventoryLayout(){
-		LayoutSetting(Layout.inventory, "Inventory", Inventory, false);
+		LayoutSetting(Layout.inventory, Inventory, false);
 	}
 
 	public void OpenDeckLayout(){
-		LayoutSetting(Layout.deck, "Deck", Deck, false);
+		LayoutSetting(Layout.deck, Deck, false);
 	}
 
 	public void OpenShopLayout(){
-		LayoutSetting(Layout.shop, "Shop", Shop, false);
+		LayoutSetting(Layout.shop, Shop, false);
 	}
 
 	public void BackToHomeLayout(){
-		LayoutSetting(Layout.home, "Home", Home, false);
+		LayoutSetting(Layout.home, Home, false);
 	}
 
-	private void LayoutSetting(Layout l, string signText, RectTransform r, bool defaultSetting){
+	private void LayoutSetting(Layout l, RectTransform r, bool defaultSetting){
 		if(l == Layout.home)
 			BackButton.SetActive(false);
 		else
@@ -48,7 +48,6 @@ public class MenuScreen : MonoBehaviour {
 			
 		if(currentLayout != l || defaultSetting){
 			currentLayout = l;
-			WoodSignText.text = signText;
 			r.SetAsLastSibling();
 		}
 	}
