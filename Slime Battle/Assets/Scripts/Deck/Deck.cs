@@ -8,43 +8,46 @@ public class Deck : MonoBehaviour {
 	/* Singleton */
 	public static Deck Instance;
 
-	public delegate void OnCardChanged();
-	public OnCardChanged onCardChangedCallback;
-
-	public Card[] cardDeck = new Card[6];
-	public List<int> usedSpace = new List<int>();
-	private int currentEmptyCardSlot;
-	private int spaceOfCardDeck = 6;
-
 	void Awake(){
 		Instance = this;
+		slots = deckParent.GetComponentsInChildren<DeckSlot>();
 	}
 
-	public void Add(Card card){
-		if(usedSpace.Count >= spaceOfCardDeck){
+	public Card[] cardDeck = new Card[6];
+	private const int spaceOfCardDeck = 6;
+	public Transform deckParent;
+
+	DeckSlot[] slots;
+	int numOfCardDeck;
+
+	public void Add(Card card, Button selectedButton){
+		if(numOfCardDeck >= spaceOfCardDeck){
 			Debug.Log("Not enough room.");
 			return;
 		}
 		//find the current empty card slot in the deck
-		for (int i = 0; i < spaceOfCardDeck; i++){
-			if(cardDeck[i] == null){
-				Debug.Log(currentEmptyCardSlot);
-				currentEmptyCardSlot = i;
-				break;
-			}
-		}
-		usedSpace.Add(currentEmptyCardSlot);
-		cardDeck[currentEmptyCardSlot] = card;
+		int currentEmptyCardSlot = findEmptyCardSlot();
 
-		if(onCardChangedCallback != null)
-			onCardChangedCallback.Invoke();
+		numOfCardDeck++;
+		cardDeck[currentEmptyCardSlot] = card;
+		slots[currentEmptyCardSlot].AddCard(card, selectedButton);
+
+		PlayerData.Instance.SavePlayerCardDeck(currentEmptyCardSlot, card.name);
 	}
 
-	public void Remove(Card card, int slot){
-		usedSpace.Remove(slot);
+	public void Remove(int slot){
+		numOfCardDeck--;
 		cardDeck[slot] = null;
+		slots[slot].ClearSlot();
 
-		if(onCardChangedCallback != null)
-			onCardChangedCallback.Invoke();
+		PlayerData.Instance.ClearPlayerCardDeck(slot);
+	}
+
+	private int findEmptyCardSlot(){
+		for (int i = 0; i < spaceOfCardDeck; i++){
+			if(cardDeck[i] == null)
+				return i;
+		}
+		return -1;	
 	}
 }

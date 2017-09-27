@@ -31,7 +31,7 @@ public class InventorySlot : MonoBehaviour {
 
 	public void CardSelect(){
 		if(card != null){
-			card.Select();
+			card.Select(selectButton);			
 		}
 	}
 }

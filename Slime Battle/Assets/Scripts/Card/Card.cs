@@ -8,7 +8,7 @@ public class Card : ScriptableObject {
 	public Sprite icon = null;
 	public bool isDefaultCard = false;
 
-	public virtual void Select(){
+	public virtual void Select(Button selectedBtn){
 		//Select the card
 		//Something might happen
 		Debug.Log("Selected card: " + name);
@@ -16,12 +16,12 @@ public class Card : ScriptableObject {
 		//if(MenuScreen.Instance.currentLayout == MenuScreen.Layout.home)
 
 		if(MenuScreen.Instance.currentLayout == MenuScreen.Layout.deck){
-			Deck.Instance.Add(this);
+			Deck.Instance.Add(this, selectedBtn);
 		}
 	}
 
 	public virtual void Remove(int slot){
 		if(MenuScreen.Instance.currentLayout == MenuScreen.Layout.deck)
-			Deck.Instance.Remove(this, slot);
+			Deck.Instance.Remove(slot);
 	}
 }

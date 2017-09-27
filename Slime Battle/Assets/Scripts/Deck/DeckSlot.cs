@@ -8,14 +8,16 @@ public class DeckSlot : MonoBehaviour {
 	private Button selectedCard;
 	Card card;
 
-	public void AddCard(Card newCard){
+	public void AddCard(Card newCard, Button selectedBtn){
 		card = newCard;
 
 		icon.sprite = card.icon;
 		icon.enabled = true;
 
 		selectButton.interactable = true;
-		//selectedCard.interactable = false;
+
+		selectedCard = selectedBtn;
+		selectedCard.interactable = false;
 	}
 
 	public void ClearSlot(){
@@ -25,11 +27,7 @@ public class DeckSlot : MonoBehaviour {
 		icon.enabled = false;
 
 		selectButton.interactable = false;
-		//selectedCard.interactable = true;
-	}
-
-	public void OnRemoveButton(){
-		Inventory.instance.Remove(card);
+		selectedCard.interactable = true;
 	}
 
 	public void CardRemove(int slot){

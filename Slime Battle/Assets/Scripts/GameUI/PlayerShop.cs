@@ -19,12 +19,16 @@ public class PlayerShop:MonoBehaviour {
 	void Start () {
 		spawnManager = SpawnManager.Instance;
 		/* Create Player Shop's monster builds */
-		blueprint[0] = new SlimeBlueprint("Slime", _slime);
-		blueprint[1] = new SlimeBlueprint("Giant", _giant);
-		blueprint[2] = new SlimeBlueprint("Ranger", _ranger);
-		blueprint[3] = new SlimeBlueprint("Healer", _healer);
-		blueprint[4] = new SlimeBlueprint("Bomber", _bomber);
-		blueprint[5] = new SlimeBlueprint("Wall", _wall);
+		
+		blueprint[0] = new SlimeBlueprint(PlayerPrefs.GetString("Slot1"), GetShopGameObject(PlayerPrefs.GetString("Slot1")));
+		blueprint[1] = new SlimeBlueprint(PlayerPrefs.GetString("Slot2"), GetShopGameObject(PlayerPrefs.GetString("Slot2")));
+		blueprint[2] = new SlimeBlueprint(PlayerPrefs.GetString("Slot3"), GetShopGameObject(PlayerPrefs.GetString("Slot3")));
+		blueprint[3] = new SlimeBlueprint(PlayerPrefs.GetString("Slot4"), GetShopGameObject(PlayerPrefs.GetString("Slot4")));
+		blueprint[4] = new SlimeBlueprint(PlayerPrefs.GetString("Slot5"), GetShopGameObject(PlayerPrefs.GetString("Slot5")));
+		blueprint[5] = new SlimeBlueprint(PlayerPrefs.GetString("Slot6"), GetShopGameObject(PlayerPrefs.GetString("Slot6")));
+
+		for (int i = 0; i < 6; i++)
+			shopButton[i].GetChild(0).GetComponent<Text>().text = blueprint[i].name;
 		/* Update Shop buttons by cheching player's money */
     	ButtonsUpdate();
 	}
@@ -66,5 +70,22 @@ public class PlayerShop:MonoBehaviour {
 			shopButton[index].GetComponent<Image>().color = defaultColor;
 			shopButton[index].GetChild(0).GetComponent<Text>().text = blueprint[index].name;
 		}
+	}
+
+	private GameObject GetShopGameObject(string s){
+		if(s == "Slime")
+			return _slime;
+		else if(s == "Giant")
+			return _giant;
+		else if(s == "Ranger")
+			return _ranger;
+		else if(s == "Healer")
+			return _healer;
+		else if(s == "Bomber")
+			return _bomber;
+		else if(s == "Wall")
+			return _wall;
+
+		return null;
 	}
 }

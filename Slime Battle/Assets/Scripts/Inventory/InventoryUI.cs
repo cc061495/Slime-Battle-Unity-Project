@@ -9,7 +9,7 @@ public class InventoryUI : MonoBehaviour {
 
 	InventorySlot[] slots;
 	// Use this for initialization
-	void Awake(){
+	void Start(){
 		inventory = Inventory.instance;
 		inventory.onCardChangedCallback += UpdateUI;
 

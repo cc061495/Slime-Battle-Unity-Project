@@ -9,6 +9,7 @@ public class PlayerData : MonoBehaviour {
 
 	public string playerName {get ; private set;}
 	public int playerBalance {get ; private set;}
+	public string[] playerDeckSlot = new string[6];
 
 	private void Awake () {
 		Instance = this;
@@ -48,5 +49,32 @@ public class PlayerData : MonoBehaviour {
 			playerBalance = 100;
 			PlayerPrefs.SetInt("PlayerBalance", playerBalance);
 		}
+	}
+
+	public void SavePlayerCardDeck(int slot, string cardName){
+		playerDeckSlot[slot] = cardName;
+		PlayerPrefs.SetString(getSlotString(slot), cardName);
+	}
+
+	public void ClearPlayerCardDeck(int slot){
+		playerDeckSlot[slot] = null;
+		PlayerPrefs.DeleteKey(getSlotString(slot));
+	}
+
+	private string getSlotString(int num){
+		if(num == 0)
+			return "Slot1";
+		else if(num == 1)
+			return "Slot2";
+		else if(num == 2)
+			return "Slot3";
+		else if(num == 3)
+			return "Slot4";
+		else if(num == 4)
+			return "Slot5";
+		else if(num == 5)
+			return "Slot6";
+	
+		return null;
 	}
 }
