@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Name: Ranger
   m_EditorClassIdentifier: 
   name: Ranger
+  teamRedPrefab: {fileID: 1539508114879990, guid: 3124e8a1203074ef483a7a30f957266d,
+    type: 2}
+  teamBluePrefab: {fileID: 1285319791248710, guid: ad8a69c0746b442e586aa082f821b1d5,
+    type: 2}
   icon: {fileID: 21300000, guid: 7b8d5ecc0c1374fdb8e11f6c92a7c0bb, type: 3}
   isDefaultCard: 1

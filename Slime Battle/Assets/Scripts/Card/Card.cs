@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class Card : ScriptableObject {
 
 	new public string name = "New Card";
+	public GameObject teamRedPrefab, teamBluePrefab;
 	public Sprite icon = null;
 	public bool isDefaultCard = false;
 

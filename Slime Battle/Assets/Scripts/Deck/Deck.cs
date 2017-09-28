@@ -13,7 +13,7 @@ public class Deck : MonoBehaviour {
 		slots = deckParent.GetComponentsInChildren<DeckSlot>();
 	}
 
-	public Card[] cardDeck = new Card[6];
+	//public Card[] cardDeck = new Card[6];
 	private const int spaceOfCardDeck = 6;
 	public Transform deckParent;
 
@@ -29,7 +29,7 @@ public class Deck : MonoBehaviour {
 		int currentEmptyCardSlot = findEmptyCardSlot();
 
 		numOfCardDeck++;
-		cardDeck[currentEmptyCardSlot] = card;
+		PlayerCardDeck.Instance.deck[currentEmptyCardSlot] = card;
 		slots[currentEmptyCardSlot].AddCard(card, selectedButton);
 
 		PlayerData.Instance.SavePlayerCardDeck(currentEmptyCardSlot, card.name);
@@ -37,7 +37,7 @@ public class Deck : MonoBehaviour {
 
 	public void Remove(int slot){
 		numOfCardDeck--;
-		cardDeck[slot] = null;
+		PlayerCardDeck.Instance.deck[slot] = null;
 		slots[slot].ClearSlot();
 
 		PlayerData.Instance.ClearPlayerCardDeck(slot);
@@ -45,7 +45,7 @@ public class Deck : MonoBehaviour {
 
 	private int findEmptyCardSlot(){
 		for (int i = 0; i < spaceOfCardDeck; i++){
-			if(cardDeck[i] == null)
+			if(PlayerCardDeck.Instance.deck[i] == null)
 				return i;
 		}
 		return -1;	

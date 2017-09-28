@@ -20,7 +20,6 @@ public class Slime : MonoBehaviour{
 		//Build up the slime class with Name
 		slimeClass = new SlimeClass(slimeName);
 		photonView = GetComponent<PhotonView>();
-		
 		gm = GameManager.Instance;
 		//Join team list
 		JoinTeamList();

@@ -74,7 +74,7 @@ public class PlayerData : MonoBehaviour {
 			return "Slot5";
 		else if(num == 5)
 			return "Slot6";
-	
-		return null;
+		else
+			return null;
 	}
 }
