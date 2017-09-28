@@ -19,14 +19,16 @@ public class Inventory : MonoBehaviour {
 	}
 
 	void Start(){
-		for (int i = 0; i < defaultCards.Length; i++)
-		{
+		for (int i = 0; i < defaultCards.Length; i++){
 			cards.Add(defaultCards[i]);
 		}
 		
 		if(onCardChangedCallback != null){
 			onCardChangedCallback.Invoke();
 		}
+
+		//Load player saved card deck
+		PlayerData.Instance.LoadPlayerCardDeck();
 	}
 
 

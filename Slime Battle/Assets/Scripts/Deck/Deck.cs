@@ -27,12 +27,15 @@ public class Deck : MonoBehaviour {
 		}
 		//find the current empty card slot in the deck
 		int currentEmptyCardSlot = findEmptyCardSlot();
-
-		numOfCardDeck++;
-		PlayerCardDeck.Instance.deck[currentEmptyCardSlot] = card;
-		slots[currentEmptyCardSlot].AddCard(card, selectedButton);
+		Load(card, selectedButton, currentEmptyCardSlot);
 
 		PlayerData.Instance.SavePlayerCardDeck(currentEmptyCardSlot, card.name);
+	}
+
+	public void Load(Card card, Button selectedButton, int slotNum){
+		numOfCardDeck++;
+		PlayerCardDeck.Instance.deck[slotNum] = card;
+		slots[slotNum].AddCard(card, selectedButton);
 	}
 
 	public void Remove(int slot){

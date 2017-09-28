@@ -14,7 +14,9 @@ public class Card : ScriptableObject {
 		//Something might happen
 		Debug.Log("Selected card: " + name);
 
-		//if(MenuScreen.Instance.currentLayout == MenuScreen.Layout.home)
+		if(MenuScreen.Instance.currentLayout == MenuScreen.Layout.inventory){
+			InventoryStats.Instance.ShowCardStats(this, selectedBtn);
+		}
 
 		if(MenuScreen.Instance.currentLayout == MenuScreen.Layout.deck){
 			Deck.Instance.Add(this, selectedBtn);
@@ -24,5 +26,9 @@ public class Card : ScriptableObject {
 	public virtual void Remove(int slot){
 		if(MenuScreen.Instance.currentLayout == MenuScreen.Layout.deck)
 			Deck.Instance.Remove(slot);
+	}
+
+	public virtual void Load(Button selectedBtn, int slotNum){
+		Deck.Instance.Load(this, selectedBtn, slotNum);
 	}
 }

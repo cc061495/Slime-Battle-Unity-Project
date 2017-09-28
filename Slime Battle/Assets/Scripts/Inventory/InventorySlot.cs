@@ -34,4 +34,10 @@ public class InventorySlot : MonoBehaviour {
 			card.Select(selectButton);			
 		}
 	}
+
+	public void SavedCardSelect(int slotNum){
+		if(card != null){
+			card.Load(selectButton, slotNum);
+		}
+	}
 }
