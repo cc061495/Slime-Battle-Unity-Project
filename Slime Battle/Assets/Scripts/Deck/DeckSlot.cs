@@ -5,19 +5,18 @@ public class DeckSlot : MonoBehaviour {
 
 	public Image icon;
 	public Button selectButton;
-	private Button selectedCard;
+	int selectedSlotNum;
 	Card card;
 
-	public void AddCard(Card newCard, Button selectedBtn){
+	public void AddCard(Card newCard, int slotNum){
+		selectedSlotNum = slotNum;
 		card = newCard;
 
 		icon.sprite = card.icon;
 		icon.enabled = true;
 
 		selectButton.interactable = true;
-
-		selectedCard = selectedBtn;
-		selectedCard.interactable = false;
+		Inventory.Instance.inventoryUI[0].slots[selectedSlotNum].selectButton.interactable = false;
 	}
 
 	public void ClearSlot(){
@@ -27,7 +26,7 @@ public class DeckSlot : MonoBehaviour {
 		icon.enabled = false;
 
 		selectButton.interactable = false;
-		selectedCard.interactable = true;
+		Inventory.Instance.inventoryUI[0].slots[selectedSlotNum].selectButton.interactable = true;
 	}
 
 	public void CardRemove(int slot){

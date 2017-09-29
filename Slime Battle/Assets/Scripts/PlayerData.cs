@@ -9,7 +9,7 @@ public class PlayerData : MonoBehaviour {
 	
 	public string playerName {get ; private set;}
 	public int playerBalance {get ; private set;}
-	public string[] playerDeckSlot = new string[6];
+	//public int[] playerDeckSlot = new int[6];
 	private string[] slotKeys = new string[6]{"Slot1", "Slot2", "Slot3", "Slot4", "Slot5", "Slot6"};
 
 	public InventoryUI inventoryUI;
@@ -17,11 +17,6 @@ public class PlayerData : MonoBehaviour {
 	private void Awake () {
 		Instance = this;
 		LoadPlayerSetting();
-	}
-
-	// Use this for initialization
-	void Start () {
-
 	}
 
 	public void ClearPlayerData(){
@@ -54,35 +49,21 @@ public class PlayerData : MonoBehaviour {
 		}
 	}
 
-	public void SavePlayerCardDeck(int slot, string cardName){
-		playerDeckSlot[slot] = cardName;
-		PlayerPrefs.SetString(GetSlotString(slot), cardName);
+	public void SavePlayerCardDeck(int deckSlotNum, int inventorySlotNum){
+		//playerDeckSlot[deckSlotNum] = inventorySlotNum;
+		PlayerPrefs.SetInt(slotKeys[deckSlotNum], inventorySlotNum);
 	}
 
-	public void ClearPlayerCardDeck(int slot){
-		playerDeckSlot[slot] = null;
-		PlayerPrefs.DeleteKey(GetSlotString(slot));
-	}
-
-	private string GetSlotString(int num){
-		for (int i = 0; i < slotKeys.Length; i++){
-			if(num == i){
-				return slotKeys[i];
-			}
-		}
-		return null;
+	public void ClearPlayerCardDeck(int deckSlotNum){
+		//playerDeckSlot[deckSlotNum] = -1;
+		PlayerPrefs.DeleteKey(slotKeys[deckSlotNum]);
 	}
 
 	public void LoadPlayerCardDeck(){
 		for (int i = 0; i < slotKeys.Length; i++){
 			if(PlayerPrefs.HasKey(slotKeys[i])){
-				playerDeckSlot[i] = PlayerPrefs.GetString(slotKeys[i]);
-				for (int j = 0; j < Inventory.instance.cards.Count; j++){
-					if(playerDeckSlot[i] == Inventory.instance.cards[j].name){
-						inventoryUI.UpdatePlayerCardDeck(j,i);
-						break;
-					}	
-				}
+				//playerDeckSlot[i] = PlayerPrefs.GetInt(slotKeys[i]);
+				inventoryUI.UpdatePlayerCardDeck(i, PlayerPrefs.GetInt(slotKeys[i]));
 			}
 		}
 	}

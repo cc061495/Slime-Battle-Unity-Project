@@ -5,59 +5,61 @@ using UnityEngine;
 public class SlimeBlueprint{
 
 	public GameObject slimePrefab{get;private set;}
+	public string name{get; private set;}
     public int cost{get; private set;}
 	public int size{get; private set;}
-	public string team{get; private set;}
 	public Vector3 spawnPosOffset{get; private set;}
-	public string name{get; private set;}
 
-	public SlimeBlueprint(string _name, GameObject _prefab){
-		slimePrefab = _prefab;
-		name = _name;
+	public SlimeBlueprint(Card card, GameObject prefab){
+		slimePrefab = prefab;
+		name = card.name;
+		cost = card.cost;
+		size = card.size;
+		spawnPosOffset = card.spawnPosOffset;
 
-		switch (_name){
-			case "Slime":
-				spawnPosOffset = new Vector3(0,1.5f,0);
-				cost = 10;
-				size = 1;
-				break;
+		// switch (_name){
+		// 	case "Slime":
+		// 		spawnPosOffset = new Vector3(0,1.5f,0);
+		// 		cost = 10;
+		// 		size = 1;
+		// 		break;
 
-			case "Giant":
-				spawnPosOffset = new Vector3(0,2.5f,0);
-				cost = 50;
-				size = 4;
-				break;
+		// 	case "Giant":
+		// 		spawnPosOffset = new Vector3(0,2.5f,0);
+		// 		cost = 50;
+		// 		size = 4;
+		// 		break;
 
-			case "Ranger":
-				spawnPosOffset = new Vector3(0,1.5f,0);
-				cost = 15;
-				size = 1;
-				break;
+		// 	case "Ranger":
+		// 		spawnPosOffset = new Vector3(0,1.5f,0);
+		// 		cost = 15;
+		// 		size = 1;
+		// 		break;
 
-			case "Healer":
-				spawnPosOffset = new Vector3(0,1.5f,0);
-				cost = 15;
-				size = 1;
-				break;
+		// 	case "Healer":
+		// 		spawnPosOffset = new Vector3(0,1.5f,0);
+		// 		cost = 15;
+		// 		size = 1;
+		// 		break;
 
-			case "Bomber":
-				spawnPosOffset = new Vector3(0,1.5f,0);
-				cost = 8;
-				size = 1;
-				break;
+		// 	case "Bomber":
+		// 		spawnPosOffset = new Vector3(0,1.5f,0);
+		// 		cost = 8;
+		// 		size = 1;
+		// 		break;
 
-			case "Wall":
-				spawnPosOffset = new Vector3(0,1f,0);
-				cost = 3;
-				size = 1;
-				break;
+		// 	case "Wall":
+		// 		spawnPosOffset = new Vector3(0,1f,0);
+		// 		cost = 3;
+		// 		size = 1;
+		// 		break;
 				
-			default:
-				spawnPosOffset = new Vector3(0,1.5f,0);
-				cost = 1;
-				size = 1;
-				break;
-		}
+		// 	default:
+		// 		spawnPosOffset = new Vector3(0,1.5f,0);
+		// 		cost = 1;
+		// 		size = 1;
+		// 		break;
+		// }
 	}
 
 	// private void setCost(int _cost){

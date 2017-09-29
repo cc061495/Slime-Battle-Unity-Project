@@ -5,9 +5,11 @@ public class InventorySlot : MonoBehaviour {
 
 	public Image icon;
 	public Button selectButton;
+	private int inventorySlotNum;
 	Card card;
 
-	public void AddCard(Card newCard){
+	public void AddCard(Card newCard, int num){
+		inventorySlotNum = num;
 		card = newCard;
 
 		icon.sprite = card.icon;
@@ -26,18 +28,18 @@ public class InventorySlot : MonoBehaviour {
 	}
 
 	public void OnRemoveButton(){
-		Inventory.instance.Remove(card);
+		Inventory.Instance.Remove(card);
 	}
 
 	public void CardSelect(){
 		if(card != null){
-			card.Select(selectButton);			
+			card.Select(inventorySlotNum);			
 		}
 	}
 
-	public void SavedCardSelect(int slotNum){
+	public void SavedCardSelect(int deckSlotNum){
 		if(card != null){
-			card.Load(selectButton, slotNum);
+			card.Load(deckSlotNum, inventorySlotNum);
 		}
 	}
 }

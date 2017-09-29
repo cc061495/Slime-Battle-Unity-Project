@@ -6,8 +6,14 @@ public class Home : MonoBehaviour {
 
 	public void GoToGameLobby(){
 		if(MenuScreen.Instance.currentLayout == MenuScreen.Layout.home){
-			Debug.Log("Game Lobby!");
-			SceneManager.LoadScene("GameLobby");
+			Card[] deck = PlayerCardDeck.Instance.deck;
+			for (int i = 0; i < deck.Length; i++){
+				if(PlayerCardDeck.Instance.deck[i] != null){
+					Debug.Log("Game Lobby!");
+					SceneManager.LoadScene("GameLobby");
+					break;
+				}
+			}
 		}
 	}
 

@@ -4,7 +4,6 @@ using UnityEngine.UI;
 public class PlayerShop:MonoBehaviour {
 
 	public static PlayerShop Instance;
-	//public GameObject _slime, _giant, _ranger, _healer, _bomber, _wall;
 	private SlimeBlueprint[] blueprint = new SlimeBlueprint[6];
 	public RectTransform[] shopButton = new RectTransform[6];
 	public Color defaultColor, yellowColor;
@@ -12,6 +11,7 @@ public class PlayerShop:MonoBehaviour {
 
 	PlayerCardDeck pDeck;
 	SpawnManager spawnManager; 
+
 	void Awake(){
 		Instance = this;
 		pDeck = PlayerCardDeck.Instance;
@@ -23,7 +23,7 @@ public class PlayerShop:MonoBehaviour {
 		/* Create Player Shop's monster builds */
 		for (int i = 0; i < blueprint.Length; i++){
 			if(pDeck.deck[i] != null){
-				blueprint[i] = new SlimeBlueprint(pDeck.deck[i].name, GetShopPrefab(i));
+				blueprint[i] = new SlimeBlueprint(pDeck.deck[i], GetShopPrefab(i));
 				shopButton[i].GetChild(0).GetComponent<Text>().text = blueprint[i].name;
 			}
 			else{

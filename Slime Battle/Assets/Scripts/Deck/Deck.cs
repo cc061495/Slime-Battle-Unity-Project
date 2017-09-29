@@ -20,30 +20,30 @@ public class Deck : MonoBehaviour {
 	DeckSlot[] slots;
 	int numOfCardDeck;
 
-	public void Add(Card card, Button selectedButton){
+	public void Add(Card card, int inventorySlotNum){
 		if(numOfCardDeck >= spaceOfCardDeck){
 			Debug.Log("Not enough room.");
 			return;
 		}
 		//find the current empty card slot in the deck
 		int currentEmptyCardSlot = findEmptyCardSlot();
-		Load(card, selectedButton, currentEmptyCardSlot);
+		Load(card, currentEmptyCardSlot, inventorySlotNum);
 
-		PlayerData.Instance.SavePlayerCardDeck(currentEmptyCardSlot, card.name);
+		PlayerData.Instance.SavePlayerCardDeck(currentEmptyCardSlot, inventorySlotNum);
 	}
 
-	public void Load(Card card, Button selectedButton, int slotNum){
+	public void Load(Card card, int deckSlotNum, int inventorySlotNum){
 		numOfCardDeck++;
-		PlayerCardDeck.Instance.deck[slotNum] = card;
-		slots[slotNum].AddCard(card, selectedButton);
+		PlayerCardDeck.Instance.deck[deckSlotNum] = card;
+		slots[deckSlotNum].AddCard(card, inventorySlotNum);
 	}
 
-	public void Remove(int slot){
+	public void Remove(int deckSlot){
 		numOfCardDeck--;
-		PlayerCardDeck.Instance.deck[slot] = null;
-		slots[slot].ClearSlot();
+		PlayerCardDeck.Instance.deck[deckSlot] = null;
+		slots[deckSlot].ClearSlot();
 
-		PlayerData.Instance.ClearPlayerCardDeck(slot);
+		PlayerData.Instance.ClearPlayerCardDeck(deckSlot);
 	}
 
 	private int findEmptyCardSlot(){

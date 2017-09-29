@@ -10,19 +10,25 @@ public class InventoryStats : MonoBehaviour {
     }
 
 	public Image icon;
-	private Button buttonSelected;
-	//public Text nameText, costText, sizeText;
+	public GameObject statsPanel;
+	public Text nameText, costText, sizeText;
+
+	int slotNumSelected;
 	Card card;
-	
-	public void ShowCardStats(Card cardSelected, Button button){
+
+	public void ShowCardStats(Card cardSelected){
 		card = cardSelected;
+		nameText.text = card.name;
+		costText.text = "Cost: $" + card.cost;
+		sizeText.text = "Size: " + card.size;
+
 		icon.sprite = card.icon;
 		icon.enabled = true;
 
-		if(buttonSelected != null)
-			buttonSelected.interactable = true;
+		statsPanel.SetActive(true);
+	}
 
-		buttonSelected = button;
-		buttonSelected.interactable = false;
+	public void CloseCardStats(){
+		statsPanel.SetActive(false);
 	}
 }

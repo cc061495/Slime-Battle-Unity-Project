@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class LobbyNetwork : MonoBehaviour
 {
+    public Button createRoomButton;
     // Use this for initialization
     private void Start(){
         //Connect to Photon as configured in the editor
@@ -23,6 +25,8 @@ public class LobbyNetwork : MonoBehaviour
     //called on entering a lobby on the Master Server
     private void OnJoinedLobby(){
         Debug.Log("Joined Lobby.");
+        //player can create a room now if the player is connected to the Photon Cloud
+        createRoomButton.interactable = true;
 
         if (!PhotonNetwork.inRoom)
             MainCanvasManager.Instance.lobbyCanvas.transform.SetAsLastSibling();

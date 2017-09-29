@@ -12,9 +12,23 @@ MonoBehaviour:
   m_Name: Wall
   m_EditorClassIdentifier: 
   name: Wall
+  icon: {fileID: 21300000, guid: b20db44c244c44bcf8faa95477ede10d, type: 3}
+  isDefaultCard: 1
   teamRedPrefab: {fileID: 1024320169951516, guid: 6874f7bd33657453f8e08d578bb68bfb,
     type: 2}
   teamBluePrefab: {fileID: 1526877354988354, guid: 722149dc1d3b14f8da20c7ea142894ca,
     type: 2}
-  icon: {fileID: 21300000, guid: b20db44c244c44bcf8faa95477ede10d, type: 3}
-  isDefaultCard: 1
+  cost: 3
+  size: 1
+  spawnPosOffset: {x: 0, y: 1, z: 0}
+  health: 0
+  attackDamage: 0
+  actionCoolDown: 0
+  movemonetSpeed: 0
+  actionRange: 0
+  isMeleeAttack: 0
+  isRangedAttack: 0
+  isHealing: 0
+  isAreaEffectDamage: 0
+  isExplosion: 0
+  isBuilding: 0

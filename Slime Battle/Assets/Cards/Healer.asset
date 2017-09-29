@@ -12,9 +12,23 @@ MonoBehaviour:
   m_Name: Healer
   m_EditorClassIdentifier: 
   name: Healer
+  icon: {fileID: 21300000, guid: 7b8d5ecc0c1374fdb8e11f6c92a7c0bb, type: 3}
+  isDefaultCard: 1
   teamRedPrefab: {fileID: 1107804881901608, guid: 5a1c1a91522fe495888a6335ce4acc50,
     type: 2}
   teamBluePrefab: {fileID: 1107804881901608, guid: c14fe4f8a511c423cb96f572b73d9cbe,
     type: 2}
-  icon: {fileID: 21300000, guid: 7b8d5ecc0c1374fdb8e11f6c92a7c0bb, type: 3}
-  isDefaultCard: 1
+  cost: 15
+  size: 1
+  spawnPosOffset: {x: 0, y: 1.5, z: 0}
+  health: 0
+  attackDamage: 0
+  actionCoolDown: 0
+  movemonetSpeed: 0
+  actionRange: 0
+  isMeleeAttack: 0
+  isRangedAttack: 0
+  isHealing: 0
+  isAreaEffectDamage: 0
+  isExplosion: 0
+  isBuilding: 0

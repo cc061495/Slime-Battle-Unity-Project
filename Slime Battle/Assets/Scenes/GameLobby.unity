@@ -977,6 +977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290d7199d2eb14a1a870c773a2e2553c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  createRoomButton: {fileID: 1806359073}
 --- !u!4 &1014816850
 Transform:
   m_ObjectHideFlags: 0
@@ -2004,7 +2005,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1806359074}
   m_OnClick:
     m_PersistentCalls:

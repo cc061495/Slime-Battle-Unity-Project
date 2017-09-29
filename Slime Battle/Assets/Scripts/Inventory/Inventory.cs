@@ -5,17 +5,20 @@ using UnityEngine;
 public class Inventory : MonoBehaviour {
 
 	/* Singleton */
-	public static Inventory instance;
+	public static Inventory Instance;
 
 	public delegate void OnCardChanged();
 	public OnCardChanged onCardChangedCallback;
 
 	public Card[] defaultCards = new Card[6];
 	public List<Card> cards = new List<Card>();
+	public InventoryUI[] inventoryUI = new InventoryUI[2];
 	//public int space = 20;
 
 	void Awake(){
-		instance = this;
+		Instance = this;
+		for (int i = 0; i < inventoryUI.Length; i++)
+			inventoryUI[i].SetupInventoryUI();
 	}
 
 	void Start(){

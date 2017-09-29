@@ -12,9 +12,23 @@ MonoBehaviour:
   m_Name: Giant
   m_EditorClassIdentifier: 
   name: Giant
+  icon: {fileID: 21300000, guid: b20db44c244c44bcf8faa95477ede10d, type: 3}
+  isDefaultCard: 1
   teamRedPrefab: {fileID: 1597623680475062, guid: 5af9b7608f7a945fb9ba84fbcd1d029c,
     type: 2}
   teamBluePrefab: {fileID: 1808515493412978, guid: eab0a0d96244a4c6a96c6aab313302ac,
     type: 2}
-  icon: {fileID: 21300000, guid: b20db44c244c44bcf8faa95477ede10d, type: 3}
-  isDefaultCard: 1
+  cost: 50
+  size: 4
+  spawnPosOffset: {x: 0, y: 2.5, z: 0}
+  health: 0
+  attackDamage: 0
+  actionCoolDown: 0
+  movemonetSpeed: 0
+  actionRange: 0
+  isMeleeAttack: 0
+  isRangedAttack: 0
+  isHealing: 0
+  isAreaEffectDamage: 0
+  isExplosion: 0
+  isBuilding: 0

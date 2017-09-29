@@ -12,9 +12,23 @@ MonoBehaviour:
   m_Name: Slime
   m_EditorClassIdentifier: 
   name: Slime
+  icon: {fileID: 21300000, guid: b20db44c244c44bcf8faa95477ede10d, type: 3}
+  isDefaultCard: 1
   teamRedPrefab: {fileID: 1261243783283676, guid: 903ebea1718054ab2b4cb00051aa86fe,
     type: 2}
   teamBluePrefab: {fileID: 1292652115136320, guid: cc924165f9a854b49bcf9b88627280e8,
     type: 2}
-  icon: {fileID: 21300000, guid: b20db44c244c44bcf8faa95477ede10d, type: 3}
-  isDefaultCard: 1
+  cost: 10
+  size: 1
+  spawnPosOffset: {x: 0, y: 1.5, z: 0}
+  health: 0
+  attackDamage: 0
+  actionCoolDown: 0
+  movemonetSpeed: 0
+  actionRange: 0
+  isMeleeAttack: 0
+  isRangedAttack: 0
+  isHealing: 0
+  isAreaEffectDamage: 0
+  isExplosion: 0
+  isBuilding: 0
