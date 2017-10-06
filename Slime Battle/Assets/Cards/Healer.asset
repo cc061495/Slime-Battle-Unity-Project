@@ -21,14 +21,4 @@ MonoBehaviour:
   cost: 15
   size: 1
   spawnPosOffset: {x: 0, y: 1.5, z: 0}
-  health: 0
-  attackDamage: 0
-  actionCoolDown: 0
-  movemonetSpeed: 0
-  actionRange: 0
-  isMeleeAttack: 0
-  isRangedAttack: 0
-  isHealing: 0
-  isAreaEffectDamage: 0
-  isExplosion: 0
-  isBuilding: 0
+  type: Support

@@ -14,27 +14,36 @@ public class Card : ScriptableObject {
     public int cost;
 	public int size = 1;
 	public Vector3 spawnPosOffset = new Vector3(0,1.5f,0);
-	[Header("Slime Properties")]
-	public float health;			//Slime's health
-	public float attackDamage;		//Slime's attack damage
-	public float actionCoolDown;	//Slime's action cool down time
-	public float movemonetSpeed;	//Slime's movement speed
-	public float actionRange;		//Slime's action range
+	
+	public float health{get;private set;}			//Slime's health
+	public float attackDamage{get;private set;}		//Slime's attack damage
+	public float actionCoolDown{get;private set;}	//Slime's action cool down time
+	public float movemonetSpeed{get;private set;}	//Slime's movement speed
+	public float actionRange{get;private set;}		//Slime's action range
 	[Header("Action Type")]
-	public bool isMeleeAttack;
-	public bool isRangedAttack;
-	public bool isHealing;
-	public bool isAreaEffectDamage;
-	public bool isExplosion;
-	public bool isBuilding;
+	public string type;
+
+	SlimeClass slime;
+
+	private void SetupSlimeProperties(){
+		health = slime.startHealth;
+		attackDamage = slime.attackDamage;
+		actionCoolDown = slime.actionCoolDown;
+		movemonetSpeed = slime.movemonetSpeed;
+		actionRange = slime.actionRange;
+	}
 	
 	public virtual void Select(int inventorySlotNum){
 		//Select the card
 		//Something might happen
 		Debug.Log("Selected card: " + name);
+		if(slime == null){
+			slime = new SlimeClass(name);
+			SetupSlimeProperties();
+		}
 
 		if(MenuScreen.Instance.currentLayout == MenuScreen.Layout.inventory){
-			InventoryStats.Instance.ShowCardStats(this);
+			InventoryStatus.Instance.ShowCardStats(this);
 		}
 
 		if(MenuScreen.Instance.currentLayout == MenuScreen.Layout.deck){
@@ -50,4 +59,21 @@ public class Card : ScriptableObject {
 	public virtual void Load(int deckSlotNum, int inventorySlotNum){
 		Deck.Instance.Load(this, deckSlotNum, inventorySlotNum);
 	}
+
+	// public string GetCardTypeString(){
+	// 	if(isMeleeAttack)
+	// 		return "Single Melee Attack";
+	// 	else if(isRangedAttack)
+	// 		return "Single Ranged Attack";
+	// 	else if(isAreaEffectDamage)
+	// 		return "Area Effect Damage";
+	// 	else if(isExplosion)
+	// 		return "Explosion";
+	// 	else if(isHealing)
+	// 		return "Support";
+	// 	else if(isBuilding)
+	// 		return "Building";
+	// 	else
+	// 		return "Unknown";
+	// }
 }
