@@ -51,4 +51,8 @@ public class MenuScreen : MonoBehaviour {
 			r.SetAsLastSibling();
 		}
 	}
+
+	public void BackButtonDisplay(bool display){
+		BackButton.SetActive(display);
+	}
 }

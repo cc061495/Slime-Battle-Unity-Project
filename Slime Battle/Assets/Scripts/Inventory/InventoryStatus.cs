@@ -9,12 +9,25 @@ public class InventoryStatus : MonoBehaviour {
         Instance = this; 
     }
 
-	public Image icon, healthBar, damageBar, rateBar, speedBar, rangeBar;
+	public Image icon, healthBar, damageBar, speedBar, rangeBar, rateBar;
 	public GameObject statsPanel;
 	public Text nameText, typeText, costText, sizeText;
 
+	private float lerpSpeed = 2f;
+	bool showCardStatusBar = false;
 	int slotNumSelected;
 	Card card;
+
+	void Update(){
+		if(showCardStatusBar){
+			healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, card.health / 100, Time.deltaTime * lerpSpeed);
+			damageBar.fillAmount = Mathf.Lerp(damageBar.fillAmount, card.attackDamage / 10, Time.deltaTime * lerpSpeed);
+			speedBar.fillAmount = Mathf.Lerp(speedBar.fillAmount, card.movemonetSpeed / 10, Time.deltaTime * lerpSpeed);
+			rangeBar.fillAmount = Mathf.Lerp(rangeBar.fillAmount, card.actionRange / 10, Time.deltaTime * lerpSpeed);
+			if(card.actionCoolDown > 0)
+				rateBar.fillAmount = Mathf.Lerp(rateBar.fillAmount, (1f / card.actionCoolDown) / 5, Time.deltaTime * lerpSpeed);
+		}
+	}
 
 	public void ShowCardStats(Card cardSelected){
 		if(card != cardSelected){
@@ -25,17 +38,21 @@ public class InventoryStatus : MonoBehaviour {
 			typeText.text = card.type;
 			costText.text = "$ " + card.cost;
 			sizeText.text = "Size: " + card.size;
-
-			healthBar.fillAmount = card.health / 100;
-			damageBar.fillAmount = card.attackDamage / 10;
-			rateBar.fillAmount = (card.actionCoolDown > 0) ? (1f / card.actionCoolDown) / 5 : 0;
-			speedBar.fillAmount = card.movemonetSpeed / 10;
-			rangeBar.fillAmount = card.actionRange / 10;
 		}
 		statsPanel.SetActive(true);
+		MenuScreen.Instance.BackButtonDisplay(false);
+		showCardStatusBar = true;
 	}
 
 	public void CloseCardStats(){
 		statsPanel.SetActive(false);
+		MenuScreen.Instance.BackButtonDisplay(true);
+		showCardStatusBar = false;
+
+		healthBar.fillAmount = 0;
+		damageBar.fillAmount = 0;
+		speedBar.fillAmount = 0;
+		rangeBar.fillAmount = 0;
+		rateBar.fillAmount = 0;
 	}
 }
