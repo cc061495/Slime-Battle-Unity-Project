@@ -9913,7 +9913,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 445.32812, y: -45}
+  m_AnchoredPosition: {x: 445.3281, y: -45}
   m_SizeDelta: {x: 174.13124, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &921213547
@@ -10546,7 +10546,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 445.32812, y: -45}
+  m_AnchoredPosition: {x: 445.3281, y: -45}
   m_SizeDelta: {x: 174.13124, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &978108620
@@ -12371,12 +12371,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f733158bd0d74d00a29b2d2b12c9e1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slime: {fileID: 1261243783283676, guid: 903ebea1718054ab2b4cb00051aa86fe, type: 2}
-  _giant: {fileID: 1597623680475062, guid: 5af9b7608f7a945fb9ba84fbcd1d029c, type: 2}
-  _ranger: {fileID: 1539508114879990, guid: 3124e8a1203074ef483a7a30f957266d, type: 2}
-  _healer: {fileID: 1107804881901608, guid: 5a1c1a91522fe495888a6335ce4acc50, type: 2}
-  _bomber: {fileID: 1010709725255560, guid: fb5d5f9d5f6b140c2ad49a1fe3b02686, type: 2}
-  _wall: {fileID: 1024320169951516, guid: 6874f7bd33657453f8e08d578bb68bfb, type: 2}
   shopButton:
   - {fileID: 326035028}
   - {fileID: 884608160}
@@ -18414,12 +18408,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f733158bd0d74d00a29b2d2b12c9e1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slime: {fileID: 1292652115136320, guid: cc924165f9a854b49bcf9b88627280e8, type: 2}
-  _giant: {fileID: 1808515493412978, guid: eab0a0d96244a4c6a96c6aab313302ac, type: 2}
-  _ranger: {fileID: 1285319791248710, guid: ad8a69c0746b442e586aa082f821b1d5, type: 2}
-  _healer: {fileID: 1107804881901608, guid: c14fe4f8a511c423cb96f572b73d9cbe, type: 2}
-  _bomber: {fileID: 1010709725255560, guid: 514fb316009364f6f88457298573e0aa, type: 2}
-  _wall: {fileID: 1526877354988354, guid: 722149dc1d3b14f8da20c7ea142894ca, type: 2}
   shopButton:
   - {fileID: 2076602265}
   - {fileID: 1259450678}
@@ -19928,6 +19916,7 @@ GameObject:
   - component: {fileID: 1896071461}
   - component: {fileID: 1896071460}
   - component: {fileID: 1896071463}
+  - component: {fileID: 1896071464}
   m_Layer: 5
   m_Name: Arrow
   m_TagString: Untagged
@@ -19974,7 +19963,7 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1896071459}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
@@ -19984,7 +19973,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 90, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1896071463
 MonoBehaviour:
@@ -19997,6 +19986,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a68688e52bfc4ca48dc00632c8630f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1896071464
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1896071459}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5246b020c03734d74bb7257f1b024923, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &1899441164
 Prefab:
   m_ObjectHideFlags: 0

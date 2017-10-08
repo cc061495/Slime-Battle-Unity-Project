@@ -46,6 +46,14 @@ public class Deck : MonoBehaviour {
 		PlayerData.Instance.ClearPlayerCardDeck(deckSlot);
 	}
 
+	public void RemoveAllDeckSlot(){
+		for (int i = 0; i < spaceOfCardDeck; i++){
+			if(PlayerCardDeck.Instance.deck[i] != null){
+				Remove(i);
+			}
+		}
+	}
+
 	private int findEmptyCardSlot(){
 		for (int i = 0; i < spaceOfCardDeck; i++){
 			if(PlayerCardDeck.Instance.deck[i] == null)

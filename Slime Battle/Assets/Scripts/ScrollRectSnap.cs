@@ -11,56 +11,68 @@ public class ScrollRectSnap : MonoBehaviour {
 	public RectTransform center;	//Center to compare the distance for each button
 	public Image arrow;
 	public Text selectedName;
+	public Animator Title;
 
 	// Private Variables
-	private float[] distance;	//All buttons' distance to the center
 	private bool dragging = false; //Will be true, while we drag the panel
-	private int bttnDistance;	//Will hold the distance between the buttons
+	private int bttnDistance = 500;	//Will hold the distance between the buttons
 	private int minButtonNum;	//To hold the number of the button, with smallest distance to center
 
-	void Start(){
-		int bttnLength = bttn.Length;
-		distance = new float[bttnLength];
-
-		//Get distance between buttons
-		bttnDistance = (int)Mathf.Abs(bttn[1].GetComponent<RectTransform>().anchoredPosition.x - bttn[0].GetComponent<RectTransform>().anchoredPosition.x);
-		Debug.Log(bttnDistance);
-	}
-
 	void Update(){
-		for (int i = 0; i < bttn.Length; i++){
-			distance[i] = Mathf.Abs(center.transform.position.x - bttn[i].transform.position.x);
-		}
-
-		float minDistance = Mathf.Min(distance);	//Get the min distnace
-
-		for (int j = 0; j < bttn.Length; j++){
-			if(minDistance == distance[j])
-				minButtonNum = j;
-		}
-
-		if(!dragging){
-			LerpToBttn(minButtonNum * -bttnDistance);
+		if(MenuScreen.Instance.currentLayout == MenuScreen.Layout.home){
+			if(!dragging){
+				LerpToBttn(minButtonNum * -bttnDistance);
+			}
 		}
 	}
 
-	void LerpToBttn(int position){
-		float newX = Mathf.Lerp(panel.anchoredPosition.x, position, Time.deltaTime * 5f);
+	void Start(){
+		SelectWhichButton(0, true);
+	}
+
+	private void LerpToBttn(int position){
+		float newX = Mathf.Lerp(panel.anchoredPosition.x, position, Time.deltaTime * 15f);
 		Vector2 newPosition = new Vector2 (newX, panel.anchoredPosition.y);
 
 		panel.anchoredPosition = newPosition;
 	}
 
+	private void BtnScale(Vector2 scale){
+		RectTransform selectedButton = bttn[minButtonNum].GetComponent<RectTransform>();
+		selectedButton.sizeDelta = Vector2.Lerp(selectedButton.sizeDelta, scale, Time.deltaTime * 10f);
+	}
+
 	public void StartDrag(){
 		dragging = true;
-		arrow.enabled = false;
-		selectedName.enabled = false;
+		ButtonAndTitleAnimator(minButtonNum, false);
 	}
 
 	public void EndDrag(){
 		dragging = false;
-		arrow.enabled = true;
-		selectedName.text = bttn[minButtonNum].name;
-		selectedName.enabled = true;
+		FindNearestButton();
+	}
+
+	private void FindNearestButton(){
+		float distance, minDistance = float.MaxValue;
+
+		for (int i = 0; i < bttn.Length; i++){
+			distance = Mathf.Abs(center.transform.position.x - bttn[i].transform.position.x);
+			if(distance < minDistance){
+				minDistance = distance;
+				minButtonNum = i;
+				//text = Button name
+			}
+		}
+		SelectWhichButton(minButtonNum, true);
+	}
+
+	private void SelectWhichButton(int num, bool toggle){
+		ButtonAndTitleAnimator(num, toggle);
+		selectedName.text = bttn[num].name;	
+	}
+
+	private void ButtonAndTitleAnimator(int num, bool toggle){
+		bttn[num].animator.SetBool("Scale", toggle);
+		Title.SetBool("Fade", toggle);
 	}
 }

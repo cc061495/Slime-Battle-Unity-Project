@@ -7,6 +7,7 @@ public class Arrow : MonoBehaviour {
 
 	private Vector2 positionCorrection = new Vector2(0, 50);
 
+	private Animator arrowRotation;
 	private RectTransform arrow;
 	private Image arrowImage;
 	float sizeDeltaX, sizeDeltaY;
@@ -15,6 +16,7 @@ public class Arrow : MonoBehaviour {
 	void Start(){
 		arrow = GetComponent<RectTransform>();
 		arrowImage = GetComponent<Image>();
+		arrowRotation = GetComponent<Animator>();
 		gameManager = GameManager.Instance;
 		sizeDeltaX = gameManager.canvasForHealthBar.sizeDelta.x;
         sizeDeltaY = gameManager.canvasForHealthBar.sizeDelta.y;
@@ -33,5 +35,6 @@ public class Arrow : MonoBehaviour {
 
 	public void ArrowDisplay(bool display){
 		arrowImage.enabled = display;
+		arrowRotation.enabled = display;
 	}
 }
