@@ -44,9 +44,13 @@ public class InventoryStatus : MonoBehaviour {
 		showCardStatusBar = true;
 	}
 
-	public void CloseCardStats(){
-		statsPanel.SetActive(false);
+	public void CloseButtonPressed(){
+		CloseCardStatus();
 		MenuScreen.Instance.BackButtonDisplay(true);
+	}
+
+	public void CloseCardStatus(){
+		statsPanel.SetActive(false);
 		showCardStatusBar = false;
 
 		healthBar.fillAmount = 0;

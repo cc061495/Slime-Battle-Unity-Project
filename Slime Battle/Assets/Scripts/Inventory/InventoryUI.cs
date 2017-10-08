@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour {
 
 	public Transform cardsParent;
+	public Text inventoryStorageText;
 	Inventory inventory;
 
 	public InventorySlot[] slots;
@@ -17,6 +19,8 @@ public class InventoryUI : MonoBehaviour {
 
 	void UpdateUI(){
 		Debug.Log("Updating Inventory UI");
+		inventoryStorageText.text = inventory.cards.Count + " / " + slots.Length;
+		
 		for (int i = 0; i < slots.Length; i++){
 			if(i < inventory.cards.Count){
 				slots[i].AddCard(inventory.cards[i], i);

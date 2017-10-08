@@ -45,6 +45,9 @@ public class MenuScreen : MonoBehaviour {
 			BackButton.SetActive(false);
 		else
 			BackButton.SetActive(true);
+
+		if(currentLayout == Layout.inventory && l != Layout.inventory)
+			InventoryStatus.Instance.CloseCardStatus();
 			
 		if(currentLayout != l || defaultSetting){
 			currentLayout = l;
