@@ -60,7 +60,6 @@ public class ScrollRectSnap : MonoBehaviour {
 			if(distance < minDistance){
 				minDistance = distance;
 				minButtonNum = i;
-				//text = Button name
 			}
 		}
 		SelectWhichButton(minButtonNum, true);
@@ -68,11 +67,16 @@ public class ScrollRectSnap : MonoBehaviour {
 
 	private void SelectWhichButton(int num, bool toggle){
 		ButtonAndTitleAnimator(num, toggle);
-		selectedName.text = bttn[num].name;	
+		selectedName.text = bttn[num].name;		//text = Button name
 	}
 
 	private void ButtonAndTitleAnimator(int num, bool toggle){
 		bttn[num].animator.SetBool("Scale", toggle);
 		Title.SetBool("Fade", toggle);
+	}
+
+	public void EnableAllAnimator(bool display){
+		bttn[minButtonNum].animator.enabled = display;
+		Title.enabled = display;
 	}
 }

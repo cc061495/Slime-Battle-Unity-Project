@@ -8,6 +8,7 @@ public class MenuScreen : MonoBehaviour {
     
     void Awake(){
         Instance = this; 
+		scrollRectSnap = Home.GetComponent<ScrollRectSnap>();
     }
 
     public enum Layout{home, inventory, deck, shop};
@@ -16,6 +17,7 @@ public class MenuScreen : MonoBehaviour {
 	public RectTransform Home, Inventory, Deck, Shop;
 	public GameObject BackButton;
 	public Text PlayerNameText, PlayerBalanceText;
+	ScrollRectSnap scrollRectSnap;
 
 	public void SetPlayerStatus(){
 		PlayerNameText.text = PlayerData.Instance.playerName;
@@ -40,18 +42,24 @@ public class MenuScreen : MonoBehaviour {
 		LayoutSetting(Layout.home, Home, false);
 	}
 
-	private void LayoutSetting(Layout l, RectTransform r, bool defaultSetting){
-		if(l == Layout.home)
+	private void LayoutSetting(Layout nextLayout, RectTransform layout, bool defaultSetting){
+		if(nextLayout == Layout.home){
 			BackButton.SetActive(false);
-		else
+			scrollRectSnap.EnableAllAnimator(true);
+		}
+		else{
 			BackButton.SetActive(true);
+		}
 
-		if(currentLayout == Layout.inventory && l != Layout.inventory)
-			InventoryStatus.Instance.CloseCardStatus();
+		if(currentLayout == Layout.home && nextLayout != Layout.home)
+			scrollRectSnap.EnableAllAnimator(false);
+
+		if(currentLayout == Layout.inventory && nextLayout != Layout.inventory)
+			InventoryStats.Instance.CloseCardStats();
 			
-		if(currentLayout != l || defaultSetting){
-			currentLayout = l;
-			r.SetAsLastSibling();
+		if(currentLayout != nextLayout || defaultSetting){
+			currentLayout = nextLayout;
+			layout.SetAsLastSibling();
 		}
 	}
 

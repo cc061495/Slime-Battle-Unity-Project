@@ -43,7 +43,7 @@ public class Card : ScriptableObject {
 		}
 
 		if(MenuScreen.Instance.currentLayout == MenuScreen.Layout.inventory){
-			InventoryStatus.Instance.ShowCardStats(this);
+			InventoryStats.Instance.ShowCardStats(this);
 		}
 
 		if(MenuScreen.Instance.currentLayout == MenuScreen.Layout.deck){

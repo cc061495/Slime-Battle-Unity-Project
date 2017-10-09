@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryStatus : MonoBehaviour {
+public class InventoryStats : MonoBehaviour {
 
-	public static InventoryStatus Instance;
+	public static InventoryStats Instance;
     
     void Awake(){
         Instance = this; 
@@ -14,12 +14,12 @@ public class InventoryStatus : MonoBehaviour {
 	public Text nameText, typeText, costText, sizeText;
 
 	private float lerpSpeed = 2f;
-	bool showCardStatusBar = false;
+	bool showCardStatsBar = false;
 	int slotNumSelected;
 	Card card;
 
 	void Update(){
-		if(showCardStatusBar){
+		if(showCardStatsBar){
 			healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, card.health / 100, Time.deltaTime * lerpSpeed);
 			damageBar.fillAmount = Mathf.Lerp(damageBar.fillAmount, card.attackDamage / 10, Time.deltaTime * lerpSpeed);
 			speedBar.fillAmount = Mathf.Lerp(speedBar.fillAmount, card.movemonetSpeed / 10, Time.deltaTime * lerpSpeed);
@@ -41,17 +41,17 @@ public class InventoryStatus : MonoBehaviour {
 		}
 		statsPanel.SetActive(true);
 		MenuScreen.Instance.BackButtonDisplay(false);
-		showCardStatusBar = true;
+		showCardStatsBar = true;
 	}
 
 	public void CloseButtonPressed(){
-		CloseCardStatus();
+		CloseCardStats();
 		MenuScreen.Instance.BackButtonDisplay(true);
 	}
 
-	public void CloseCardStatus(){
+	public void CloseCardStats(){
 		statsPanel.SetActive(false);
-		showCardStatusBar = false;
+		showCardStatsBar = false;
 
 		healthBar.fillAmount = 0;
 		damageBar.fillAmount = 0;
