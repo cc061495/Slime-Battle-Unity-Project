@@ -5,12 +5,11 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour {
 
     private Vector2 positionCorrection = new Vector2(0, 25);
-	public Image healthBarImage;
+	public Image healthBarImage, barHandlerImage;
     public Sprite team_red, team_blue, damageBar, healBar;
     public RectTransform targetCanvas, healthBar;
     public Transform objectToFollow;
-    Sprite healthBarSprite;
-    bool takeDamage;
+    bool healthBarChanged;
     float sizeDeltaX, sizeDeltaY;
  
     public void SetHealthBarData(Transform targetTransform){
@@ -20,40 +19,49 @@ public class HealthBar : MonoBehaviour {
         sizeDeltaX = targetCanvas.sizeDelta.x;
         sizeDeltaY = targetCanvas.sizeDelta.y;
 
-        healthBarSprite = (targetTransform.parent.tag == "Team_RED") ? team_red : team_blue;
-        SettingHealthBarImage();
+        healthBarImage.sprite = (targetTransform.parent.tag == "Team_RED") ? team_red : team_blue;
     }
 
     public void OnHealthChanged(float healthFill){
-        if(healthBarImage.fillAmount == 1)
+        float currentFillAmount = healthBarImage.fillAmount;
+
+        if(currentFillAmount == 1)
             HealthBarTakeDamage();
 
-        if(healthFill < healthBarImage.fillAmount){
-            healthBarImage.sprite = damageBar;
-            Invoke("SettingHealthBarImage", 0.1f);
+        if(healthFill < currentFillAmount){
+            barHandlerImage.sprite = damageBar;
+            healthBarImage.fillAmount = healthFill;
+            StartCoroutine(SettingBarHandlerFillAmount(true));
         }
         else{
-            healthBarImage.sprite = healBar;
-            Invoke("SettingHealthBarImage", 0.5f);
+            barHandlerImage.sprite = healBar;
+            barHandlerImage.fillAmount = healthFill;
+            StartCoroutine(SettingBarHandlerFillAmount(false));
         }
 
-        healthBarImage.fillAmount = healthFill;
+        barHandlerImage.GetComponent<Animation>().Play();
     }
 
     private void HealthBarTakeDamage(){
-        takeDamage = true;
+        healthBarChanged = true;
 
         GetComponent<Image>().enabled = true;
         healthBarImage.enabled = true;
+        barHandlerImage.enabled = true;
     }
 
-    private void SettingHealthBarImage(){
-        healthBarImage.sprite = healthBarSprite;
+    IEnumerator SettingBarHandlerFillAmount(bool damage){
+        yield return new WaitForSeconds(0.2f);
+
+        if(damage)
+            barHandlerImage.fillAmount = healthBarImage.fillAmount;
+        else
+            healthBarImage.fillAmount = barHandlerImage.fillAmount;
     }
 
 	void Update(){
 		if(objectToFollow){
-            if(takeDamage){
+            if(healthBarChanged){
                 if(GameManager.Instance.currentState == GameManager.State.battle_start || GameManager.Instance.currentState == GameManager.State.battle_end)
                     RepositionHealthBar();
             }
