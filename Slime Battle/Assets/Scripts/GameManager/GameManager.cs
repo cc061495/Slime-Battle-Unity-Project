@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public int currentRound, team_red_score, team_blue_score;
     public Text gameDisplayText, DebugText;
     public GameObject gameDisplayPanel, teamRedSlimeShop, teamBlueSlimeShop, teamControlPanel;
+    public SceneFader sceneFader;
     public RectTransform canvasForHealthBar, healthBarParent;
     public List<Transform> team_red = new List<Transform>();    //team with building
     public List<Transform> team_red2 = new List<Transform>();   //team without building
@@ -59,7 +60,7 @@ public class GameManager : MonoBehaviour
         
         StartCoroutine(DisplayGamePanel());
         
-        Invoke("GameReady", 2f);
+        Invoke("GameReady", 3f);
     }
     /* Game Ready State */
     void GameReady(){
@@ -194,6 +195,7 @@ public class GameManager : MonoBehaviour
         switch (currentState)
         {
             case State.idle:
+                yield return new WaitForSeconds(1f);
                 gameDisplayText.fontSize = 40;
                 gameDisplayText.text = PhotonNetwork.playerName + "\n" + "vs\n" + PhotonNetwork.otherPlayers[0].NickName;
                 gameDisplayPanel.SetActive(true);
@@ -283,14 +285,14 @@ public class GameManager : MonoBehaviour
         gameDisplayText.fontSize = 40;
         gameDisplayText.text = photonPlayer + " left the game.";
         gameDisplayPanel.SetActive(true);
-        Invoke("LeaveTheRoom", 3f);
+        Invoke("LeaveTheRoom", 2f);
     }
 
-    private void LeaveTheRoom(){
+    public void LeaveTheRoom(){
         //gameDisplayPanel.SetActive(false);
         Destroy(GameObject.Find("DDOL"));
         PhotonNetwork.LeaveRoom();
-        PhotonNetwork.LoadLevel("GameLobby");
+        sceneFader.FadeTo("GameLobby");
     }
 
     public void ShopDisplay(bool shopDisplay){

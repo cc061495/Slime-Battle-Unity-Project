@@ -9,6 +9,7 @@ public class HealthBar : MonoBehaviour {
     public Sprite team_red, team_blue, damageBar, healBar;
     public RectTransform targetCanvas, healthBar;
     public Transform objectToFollow;
+    Animation FadeAnimation;
     bool healthBarChanged;
     float sizeDeltaX, sizeDeltaY;
  
@@ -16,6 +17,7 @@ public class HealthBar : MonoBehaviour {
         this.targetCanvas = GameManager.Instance.canvasForHealthBar;
         objectToFollow = targetTransform;
         healthBar = GetComponent<RectTransform>();
+        FadeAnimation = barHandlerImage.GetComponent<Animation>();
         sizeDeltaX = targetCanvas.sizeDelta.x;
         sizeDeltaY = targetCanvas.sizeDelta.y;
 
@@ -24,27 +26,27 @@ public class HealthBar : MonoBehaviour {
 
     public void OnHealthChanged(float healthFill){
         float currentFillAmount = healthBarImage.fillAmount;
-
+        //checking is it first damage taking -> display the health bar
         if(currentFillAmount == 1)
             HealthBarTakeDamage();
-
+        //checking whether is damage or healing
         if(healthFill < currentFillAmount){
-            barHandlerImage.sprite = damageBar;
+            barHandlerImage.sprite = damageBar;     //damage
             healthBarImage.fillAmount = healthFill;
             StartCoroutine(SettingBarHandlerFillAmount(true));
         }
         else{
-            barHandlerImage.sprite = healBar;
+            barHandlerImage.sprite = healBar;       //healing
             barHandlerImage.fillAmount = healthFill;
             StartCoroutine(SettingBarHandlerFillAmount(false));
         }
-
-        barHandlerImage.GetComponent<Animation>().Play();
+        //play the fade animation
+        FadeAnimation.Play();
     }
 
     private void HealthBarTakeDamage(){
         healthBarChanged = true;
-
+        
         GetComponent<Image>().enabled = true;
         healthBarImage.enabled = true;
         barHandlerImage.enabled = true;

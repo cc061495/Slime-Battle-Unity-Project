@@ -33,6 +33,7 @@ public class LobbyNetwork : MonoBehaviour
     }
     //called after disconnecting from the Photon server
     private void OnDisconnectedFromPhoton(){
+        Debug.Log("Reconnecting the Server");
         PhotonNetwork.Reconnect();
     }
 }

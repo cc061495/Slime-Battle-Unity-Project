@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class HomeScreen : MonoBehaviour {
 
+	public SceneFader sceneFader;
+
 	void Awake(){
 		//fix the fps = 30 in game
 		//Application.targetFrameRate = 30;
@@ -11,7 +13,7 @@ public class HomeScreen : MonoBehaviour {
 
 	public void GoToGameMenuScene(){
 		Debug.Log("Game Menu!");
-		SceneManager.LoadScene("GameMenu");
+		sceneFader.FadeTo("GameMenu");
 	}
 
 	public void QuitGame(){

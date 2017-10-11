@@ -6,6 +6,7 @@ public class PlayerNetwork : MonoBehaviour {
 	public static PlayerNetwork Instance;
 	//PlayerName can get from other scripts, but cant set from others
 	public string PlayerName { get ; private set;}
+	public SceneFader sceneFader;
 	private int numOfPlayersInGame = 0;
 	PhotonView photonView;
 
@@ -49,7 +50,8 @@ public class PlayerNetwork : MonoBehaviour {
 
 	[PunRPC]
 	private void RPC_LoadGameOthers(){
-		PhotonNetwork.LoadLevel ("Main");
+		sceneFader.FadeToWithPhotonNetwork("Main");
+		//PhotonNetwork.LoadLevel ("Main");
 	}
 
 	[PunRPC]
