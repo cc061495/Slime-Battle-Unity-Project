@@ -11,7 +11,7 @@ public class InventoryStats : MonoBehaviour {
     }
 
 	public Image icon, healthBar, damageBar, speedBar, rangeBar, rateBar;
-	public GameObject statsPanel;
+	public GameObject statsPanel, leftArrowButton, rightArrowButton;
 	public Text nameText, typeText, costText, sizeText;
 
 	private float lerpSpeed = 2f;
@@ -31,15 +31,8 @@ public class InventoryStats : MonoBehaviour {
 	}
 
 	public void ShowCardStats(Card cardSelected){
-		if(card != cardSelected){
-			card = cardSelected;
-			icon.sprite = card.icon;
+		ShowCardInfo(cardSelected);
 
-			nameText.text = card.name;
-			typeText.text = card.type;
-			costText.text = "$ " + card.cost;
-			sizeText.text = "Size: " + card.size;
-		}
 		statsPanel.SetActive(true);
 		MenuScreen.Instance.BackButtonDisplay(false);
 		showCardStatsBar = true;
@@ -54,10 +47,50 @@ public class InventoryStats : MonoBehaviour {
 		statsPanel.SetActive(false);
 		showCardStatsBar = false;
 
+		ResetAllStatsBar();
+	}
+
+	public void ArrowButtonPressed(int nextNum){
+		int currentCardNum = (Inventory.Instance.cards.IndexOf(card));
+		Card nextCard = Inventory.Instance.cards[currentCardNum + nextNum];
+		ShowAnotherCardStats(nextCard);
+	}
+
+	private void ShowAnotherCardStats(Card cardSelected){
+		ShowCardInfo(cardSelected);
+		ResetAllStatsBar();
+	}
+
+	private void ShowCardInfo(Card cardSelected){
+		if(card != cardSelected){
+			card = cardSelected;
+			icon.sprite = card.icon;
+
+			nameText.text = card.name;
+			typeText.text = card.type;
+			costText.text = "$ " + card.cost;
+			sizeText.text = "Size: " + card.size;
+		}
+		ShowArrowButton();
+	}
+
+	private void ResetAllStatsBar(){
 		healthBar.fillAmount = 0;
 		damageBar.fillAmount = 0;
 		speedBar.fillAmount = 0;
 		rangeBar.fillAmount = 0;
 		rateBar.fillAmount = 0;
+	}
+
+	private void ShowArrowButton(){
+		if(Inventory.Instance.cards.IndexOf(card) == 0)
+			leftArrowButton.SetActive(false);
+		else
+			leftArrowButton.SetActive(true);
+
+		if(Inventory.Instance.cards.IndexOf(card) == Inventory.Instance.cards.Count - 1)
+			rightArrowButton.SetActive(false);
+		else
+			rightArrowButton.SetActive(true);
 	}
 }

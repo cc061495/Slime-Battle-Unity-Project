@@ -25,7 +25,10 @@ public class Card : ScriptableObject {
 
 	SlimeClass slime;
 
-	private void SetupSlimeProperties(){
+	public void SetupSlimeProperties(){
+		if(slime == null)
+			slime = new SlimeClass(name);
+
 		health = slime.startHealth;
 		attackDamage = slime.attackDamage;
 		actionCoolDown = slime.actionCoolDown;
@@ -37,10 +40,6 @@ public class Card : ScriptableObject {
 		//Select the card
 		//Something might happen
 		Debug.Log("Selected card: " + name);
-		if(slime == null){
-			slime = new SlimeClass(name);
-			SetupSlimeProperties();
-		}
 
 		if(MenuScreen.Instance.currentLayout == MenuScreen.Layout.inventory){
 			InventoryStats.Instance.ShowCardStats(this);
@@ -59,21 +58,4 @@ public class Card : ScriptableObject {
 	public virtual void Load(int deckSlotNum, int inventorySlotNum){
 		Deck.Instance.Load(this, deckSlotNum, inventorySlotNum);
 	}
-
-	// public string GetCardTypeString(){
-	// 	if(isMeleeAttack)
-	// 		return "Single Melee Attack";
-	// 	else if(isRangedAttack)
-	// 		return "Single Ranged Attack";
-	// 	else if(isAreaEffectDamage)
-	// 		return "Area Effect Damage";
-	// 	else if(isExplosion)
-	// 		return "Explosion";
-	// 	else if(isHealing)
-	// 		return "Support";
-	// 	else if(isBuilding)
-	// 		return "Building";
-	// 	else
-	// 		return "Unknown";
-	// }
 }

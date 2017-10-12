@@ -22,8 +22,10 @@ public class Inventory : MonoBehaviour {
 	}
 
 	void Start(){
+		/* Set up the default cards ONLY */
 		for (int i = 0; i < defaultCards.Length; i++){
 			cards.Add(defaultCards[i]);
+			cards[i].SetupSlimeProperties();
 		}
 		
 		if(onCardChangedCallback != null){
