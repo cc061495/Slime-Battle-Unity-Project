@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿/* Copyright (c) cc061495 */
+using UnityEngine;
 using UnityEngine.UI;
 
 public class InventoryStats : MonoBehaviour {

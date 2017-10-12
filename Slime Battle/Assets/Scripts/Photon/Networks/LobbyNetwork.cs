@@ -12,6 +12,8 @@ public class LobbyNetwork : MonoBehaviour
             Debug.Log("Connecting to server...");
             PhotonNetwork.ConnectUsingSettings("0.0.0"); //specify a game version
         }
+        else
+            createRoomButton.interactable = true;
     }
     //called by photon when user connected to the Photon Cloud
     private void OnConnectedToMaster(){

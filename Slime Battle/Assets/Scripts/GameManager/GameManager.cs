@@ -285,14 +285,14 @@ public class GameManager : MonoBehaviour
         gameDisplayText.fontSize = 40;
         gameDisplayText.text = photonPlayer + " left the game.";
         gameDisplayPanel.SetActive(true);
-        Invoke("LeaveTheRoom", 2f);
+        Invoke("LeaveTheRoom", 3f);
     }
 
     public void LeaveTheRoom(){
         //gameDisplayPanel.SetActive(false);
         Destroy(GameObject.Find("DDOL"));
         PhotonNetwork.LeaveRoom();
-        sceneFader.FadeTo("GameLobby");
+        sceneFader.FadeToWithPhotonNetwork("GameLobby");
     }
 
     public void ShopDisplay(bool shopDisplay){
