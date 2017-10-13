@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour {
 
-	public GameObject pauseMenuPanel;
+	public GameObject pauseMenuPanel, confirmMenuPanel;
 
 	public void PauseButtonPressed(){
 		TogglePausePanel();
@@ -15,6 +15,15 @@ public class PauseMenu : MonoBehaviour {
 
 	public void Resume(){
 		TogglePausePanel();
+	}
+
+	public void QuitButtonPressed(){
+		TogglePausePanel();
+		confirmMenuPanel.SetActive(true);
+	}
+
+	public void CancelButtonPressed(){
+		confirmMenuPanel.SetActive(false);
 	}
 
 	public void Quit(){

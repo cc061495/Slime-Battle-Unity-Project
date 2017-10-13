@@ -281,11 +281,13 @@ public class GameManager : MonoBehaviour
 
     //if one of the player left, the game will be ended
     private void OnPhotonPlayerDisconnected(PhotonPlayer photonPlayer){
-        Debug.Log(photonPlayer + " is disconnected");
-        gameDisplayText.fontSize = 40;
-        gameDisplayText.text = photonPlayer + " left the game.";
-        gameDisplayPanel.SetActive(true);
-        Invoke("LeaveTheRoom", 3f);
+        if(currentState != State.game_end){
+            Debug.Log(photonPlayer + " is disconnected");
+            gameDisplayText.fontSize = 40;
+            gameDisplayText.text = photonPlayer + " left the game.";
+            gameDisplayPanel.SetActive(true);
+            Invoke("LeaveTheRoom", 3f);
+        }
     }
 
     public void LeaveTheRoom(){

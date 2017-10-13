@@ -60,43 +60,49 @@ public class SlimeMovement : MonoBehaviour {
 					LookAtTarget();
 				}
 				else if(!move){
-					move = true;
-					agent.angularSpeed = 120f;
-					if(slime.isMeleeAttack)
-						agent.avoidancePriority = 50;
+					SetupMovementSetting();
 				}
             }
 		}
 	}
-
+	/* Start this function in the SlimeHealth.cs */
 	public void StartUpdatePathLoop(){
 		InvokeRepeating("UpdatePath", Random.Range(0, 0.5f), 0.2f);
 	}
 
-	void UpdatePath(){
+	private void UpdatePath(){
 		if(gm.currentState == GameManager.State.battle_start){
 			if(target == null){
 				findNewTarget = false;
-				TargetSearching();		//find new target if target = null
+				SetupMovementSetting();
 			}
 
-			if(target){
-				if(move){
+			if(move){
+				TargetSearching();		//find new target if target = null
+				if(target){
 					agent.destination = target.position;	//set new target position
 					/* if the target is not reachable, find the new target again */
 					if(agent.pathStatus != NavMeshPathStatus.PathComplete && !findNewTarget){
 						findNewTarget = true;
 						//Debug.Log("findNewTarget");
-						TargetSearching();
-					}
+						//TargetSearching();
+					}	
 				}
 			}
 		}
 		else if(gm.currentState == GameManager.State.battle_end)
 			CancelInvoke("UpdatePath");
 	}
+
+	private void SetupMovementSetting(){
+		move = true;
+
+		agent.angularSpeed = 120f;
+		if(slime.isMeleeAttack)
+			agent.avoidancePriority = 50;
+	}
 	
-	void LookAtTarget(){
+	private void LookAtTarget(){
 		Vector3 dir;
 		dir.x = target.position.x - model.position.x;
 		dir.y = target.position.y - model.position.y;
@@ -185,8 +191,9 @@ public class SlimeMovement : MonoBehaviour {
 		}
 	}
 
-	public void TurnOffFindNewTarget(){
-		findNewTarget = false;
+	public void FindTheTargetAgain(){
+		findNewTarget = false;	//TurnOffFindNewTarget
+		TargetSearching();
 	}
 
 	private float DistanceCalculate(Vector3 pos1, Vector3 pos2){

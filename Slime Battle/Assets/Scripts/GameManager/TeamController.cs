@@ -74,8 +74,7 @@ public class TeamController : MonoBehaviour {
 	private void CallTargetSearching(List<Transform> team){
 		for(int i=0;i<team.Count;i++){
 			if(!team[i].parent.GetComponent<Slime>().GetSlimeClass().isHealing){
-				team[i].parent.GetComponent<SlimeMovement>().TurnOffFindNewTarget();
-				team[i].parent.GetComponent<SlimeMovement>().TargetSearching();
+				team[i].parent.GetComponent<SlimeMovement>().FindTheTargetAgain();
 			}
 		}
 	}
