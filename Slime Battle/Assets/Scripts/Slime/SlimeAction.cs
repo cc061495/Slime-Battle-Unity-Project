@@ -28,8 +28,6 @@ public class SlimeAction : MonoBehaviour {
 
 	public void Action(){
 		if (coolDown <= 0f) {
-			// if(target == null)
-			// 	SetTarget();
 
 			if (slime.isMeleeAttack){
 				MeleeAttack (slime.attackDamage);
@@ -87,8 +85,6 @@ public class SlimeAction : MonoBehaviour {
 	[PunRPC]
 	private void RangedAttack(float attackDamage){
 		GameObject bulletGO = (GameObject)Instantiate (rangedWeaponPrefab, firePoint.position, firePoint.rotation);
-		//SetTarget();
-
 		Bullet bullet = bulletGO.GetComponent<Bullet>();
 		if (bullet != null)
 			bullet.Seek (target, attackDamage, tarHealth);

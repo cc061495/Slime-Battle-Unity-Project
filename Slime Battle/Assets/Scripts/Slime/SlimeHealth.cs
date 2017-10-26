@@ -111,7 +111,7 @@ public class SlimeHealth : MonoBehaviour {
 
 	/* Method for slime to die immediately */
 	public void SuddenDeath(){
-		photonView.RPC("RPC_SlimeDie", PhotonTargets.All);
+		TakeDamage(currentHealth);
 	}
 
 	[PunRPC]
@@ -121,7 +121,7 @@ public class SlimeHealth : MonoBehaviour {
 		if(slime.isBuilding)
 			BuildingUI.Instance.HideTheBuildingPanel(this);
 
-		if(photonView.isMine)
+		if(photonView != null && photonView.isMine)
 			PhotonNetwork.Destroy(gameObject);
 	}
 

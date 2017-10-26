@@ -39,7 +39,7 @@ public class SlimeMovement : MonoBehaviour {
 		//agent.baseOffset = 0.9f;	//fix slime float on the ground problem
 		agent.speed = slime.movemonetSpeed;
 		agent.acceleration = slime.movemonetSpeed;
-		agent.stoppingDistance = 1.5f;
+		agent.stoppingDistance = 0f; //previous (1.5f)
 
 		enemies = gm.GetEnemies(_transform);
 	}
@@ -51,13 +51,12 @@ public class SlimeMovement : MonoBehaviour {
 					if(move && model){
 						move = false;
 						agent.angularSpeed = 0f;
-						agent.destination = model.position;		//stand on the current position
+						//agent.destination = model.position;		//stand on the current position
 						if(slime.isMeleeAttack)
 							agent.avoidancePriority = 1;
 					}
-					//model.LookAt(new Vector3(target.position.x, model.position.y, target.position.z));
 					slimeAction.Action();		//Action to the target
-					LookAtTarget();
+					LookAtTarget();				//Look at the target
 				}
 				else if(!move){
 					SetupMovementSetting();
@@ -78,9 +77,9 @@ public class SlimeMovement : MonoBehaviour {
 			}
 
 			if(move){
-				TargetSearching();		//find new target if target = null
-				if(target){
-					agent.destination = target.position;	//set new target position
+				TargetSearching();		//find new target every 0.2s
+				if(target){				
+					agent.destination = target.position;	//set target position if target is found
 					/* if the target is not reachable, find the new target again */
 					if(agent.pathStatus != NavMeshPathStatus.PathComplete && !findNewTarget){
 						findNewTarget = true;
@@ -89,6 +88,8 @@ public class SlimeMovement : MonoBehaviour {
 					}	
 				}
 			}
+			else
+				agent.destination = model.position;		//stand on the current position
 		}
 		else if(gm.currentState == GameManager.State.battle_end)
 			CancelInvoke("UpdatePath");

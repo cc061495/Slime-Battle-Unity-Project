@@ -9,7 +9,7 @@ public class PlayerStats : MonoBehaviour {
 	[SerializeField]
 	private GameObject playerInfoPanel;
 	public static int playerCost;
-	private int startCost = 100;
+	private int startCost = 1000;
 	private int bounsCost = 50;
 
 	GameManager gm;
