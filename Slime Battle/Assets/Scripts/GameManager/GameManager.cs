@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public Text gameDisplayText, DebugText;
     public GameObject gameDisplayPanel, teamRedSlimeShop, teamBlueSlimeShop, teamControlPanel;
     public SceneFader sceneFader;
+    public RewardsPanel rewardsPanel;
     public RectTransform canvasForHealthBar, healthBarParent;
     public List<Transform> team_red = new List<Transform>();    //team with building
     public List<Transform> team_red2 = new List<Transform>();   //team without building
@@ -28,11 +29,11 @@ public class GameManager : MonoBehaviour
     public List<Node> nodeList = new List<Node>();
     public PhotonPlayer masterPlayer;
     private bool isRedFinish, isBlueFinish;
-
     private float mDeltaTime = 0.0f;
     private float mFPS = 0.0f;
     PhotonView photonView;
     CameraManager camManager;
+    PlayerStats playerStats;
 
     void Update(){
         DebugText.text = "Round: " + currentRound + " / " + totalRoundGame + "\n";
@@ -49,6 +50,8 @@ public class GameManager : MonoBehaviour
         photonView = GetComponent<PhotonView>();
         camManager = GetComponent<CameraManager>();
         masterPlayer = PhotonNetwork.masterClient;
+        playerStats = PlayerStats.Instance;
+
         if(!PhotonNetwork.connected){
             //Start single mode
             Debug.Log("HELLO");
@@ -60,7 +63,7 @@ public class GameManager : MonoBehaviour
         
         StartCoroutine(DisplayGamePanel());
         
-        Invoke("GameReady", 3f);
+        //Invoke("GameReady", 3f);
     }
     /* Game Ready State */
     void GameReady(){
@@ -69,7 +72,7 @@ public class GameManager : MonoBehaviour
         currentRound++;
         StartCoroutine(DisplayGamePanel());
 
-        Invoke("BuildStart", 5f);
+        //Invoke("BuildStart", 5f);
     }
     /* Build Start State */
     void BuildStart(){
@@ -77,7 +80,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Build Start!");
         TimerManager.Instance.setBuildingTime();
         ShopDisplay(true);
-        PlayerStats.Instance.PlayerInfoPanelDisplay(true);
+        playerStats.PlayerInfoPanelDisplay(true);
         StartCoroutine(DisplayGamePanel());
     }
     /* Build End State */
@@ -89,7 +92,7 @@ public class GameManager : MonoBehaviour
         ShopDisplay(false);
 
         SellingUI.Instance.SellingPanelDisplay(false);
-        PlayerStats.Instance.PlayerInfoPanelDisplay(false);
+        playerStats.PlayerInfoPanelDisplay(false);
 
 		/* Clear the selected node */
         SpawnManager.Instance.ClearSelectedNode();
@@ -106,7 +109,7 @@ public class GameManager : MonoBehaviour
         }
         nodeList.Clear();
 
-        Invoke("BattleStart", 4f);
+        //Invoke("BattleStart", 4f);
     }
 
     /* Battle Starts State */
@@ -163,20 +166,11 @@ public class GameManager : MonoBehaviour
         StartCoroutine(DisplayGamePanel());
         isRedFinish = false;
         isBlueFinish = false;
-        
-        if(team_red_score < 3 && team_blue_score < 3){
-            PlayerStats.Instance.NewRoundCostUpdate();
-            PlayerShop.Instance.ButtonsUpdate();
-            Invoke("GameReady", 5f);
-        }
-        else
-            Invoke("GameEnd", 5f);
     }
-
+    /* Game End State */
     void GameEnd(){
         currentState = State.game_end;
         StartCoroutine(DisplayGamePanel());
-        Invoke("LeaveTheRoom", 3f);
     }
 
     IEnumerator ClearAllSlime(){
@@ -192,91 +186,130 @@ public class GameManager : MonoBehaviour
     }
 
     IEnumerator DisplayGamePanel(){
-        switch (currentState)
-        {
-            case State.idle:
-                yield return new WaitForSeconds(1f);
-                gameDisplayText.fontSize = 40;
-                gameDisplayText.text = PhotonNetwork.playerName + "\n" + "vs\n" + PhotonNetwork.otherPlayers[0].NickName;
-                gameDisplayPanel.SetActive(true);
-                yield return new WaitForSeconds(1f);
-                break;
-            case State.ready:
-                gameDisplayText.fontSize = 50;
-                gameDisplayText.text = "-Round "+ currentRound + "-\nReady!";
-                gameDisplayPanel.SetActive(true);
-                yield return new WaitForSeconds(1.5f);
-                camManager.CamMove_Build();
-                gameDisplayText.text = "3";
-                yield return new WaitForSeconds(1f);
-                gameDisplayText.text = "2";
-                yield return new WaitForSeconds(1f);
-                gameDisplayText.text = "1";
-                yield return new WaitForSeconds(1f);
-                break;
-            case State.build_start:
-                gameDisplayText.text = "Building Time!";
-                gameDisplayPanel.SetActive(true);
-                yield return new WaitForSeconds(1f);
-                break;
-            case State.build_end:
-                gameDisplayText.text = "STOP\nBUILDING!";
-                gameDisplayPanel.SetActive(true);
-                yield return new WaitForSeconds(1f);
-                break;
-            case State.battle_start:
-                gameDisplayText.text = "-Battle Start-";
-                gameDisplayPanel.SetActive(true);
-                yield return new WaitForSeconds(1f);
-                break;
-            case State.battle_end:
-                if (team_blue2.Count > 0){
-                    gameDisplayText.color = Color.cyan;
-                    gameDisplayText.text = "Team Blue\nwon!";
-                    team_blue_score++;
-                    team_blue2.Clear();
-                }
-                else if (team_red2.Count > 0){
-                    gameDisplayText.color = Color.red;
-                    gameDisplayText.text = "Team Red\nwon!";
-                    team_red_score++;
-                    team_red2.Clear();
-                }
-                else{
-                    team_red_score++;
-                    team_blue_score++;
-                    gameDisplayText.text = "Draw!";
-                }
-                StartCoroutine(ClearAllSlime());
-                gameDisplayPanel.SetActive(true);
-                yield return new WaitForSeconds(2f);
-                gameDisplayText.color = Color.white;
-                gameDisplayText.text = " RED | BLUE \n" + team_red_score + " : " + team_blue_score;
-                yield return new WaitForSeconds(2f);
-                break;
-            case State.game_end:
-                gameDisplayText.text = "Game End!";
-                gameDisplayPanel.SetActive(true);
-                if(team_red_score > team_blue_score){
-                    gameDisplayText.color = Color.red;
-                    gameDisplayText.text = "-Winner-\nTeam Red";
-                }
-                else if(team_red_score < team_blue_score){
-                    gameDisplayText.color = Color.cyan;
-                    gameDisplayText.text = "-Winner-\nTeam Blue";
-                }
-                else{
-                    gameDisplayText.text = "Draw!!!";
-                }
-                yield return new WaitForSeconds(1f);
-                gameDisplayText.color = Color.white;
-                gameDisplayText.text = "Good Game~";
-                yield return new WaitForSeconds(1f);
-                break;
-            default:
-                break;
+        if(currentState == State.idle){
+            yield return new WaitForSeconds(1f);
+            gameDisplayText.fontSize = 40;
+            gameDisplayText.text = PhotonNetwork.playerName + "\n" + "vs\n" + PhotonNetwork.otherPlayers[0].NickName;
+            gameDisplayPanel.SetActive(true);
+            yield return new WaitForSeconds(1f);
+            gameDisplayPanel.SetActive(false);
+
+            yield return new WaitForSeconds(0.5f);
+            GameReady();
         }
-        gameDisplayPanel.SetActive(false);
+        else if(currentState == State.ready){
+            gameDisplayText.fontSize = 50;
+            gameDisplayPanel.SetActive(true);
+            if(team_red_score == 2 || team_blue_score == 2){
+                gameDisplayText.color = Color.yellow;
+                gameDisplayText.text = "-Match Point-";
+                yield return new WaitForSeconds(1.5f);
+            }
+            gameDisplayText.color = Color.white;
+            gameDisplayText.text = "-Round "+ currentRound + "-\nReady!";
+            yield return new WaitForSeconds(1.5f);
+            camManager.CamMove_Build();
+            gameDisplayText.text = "3";
+            yield return new WaitForSeconds(1f);
+            gameDisplayText.text = "2";
+            yield return new WaitForSeconds(1f);
+            gameDisplayText.text = "1";
+            yield return new WaitForSeconds(1f);
+            gameDisplayPanel.SetActive(false);
+
+            yield return new WaitForSeconds(0.5f);
+            BuildStart();
+        }
+        else if(currentState == State.build_start){
+            gameDisplayText.text = "Building Time!";
+            gameDisplayPanel.SetActive(true);
+            yield return new WaitForSeconds(1f);
+            gameDisplayPanel.SetActive(false);
+        }
+        else if(currentState == State.build_end){
+            gameDisplayText.text = "STOP\nBUILDING!";
+            gameDisplayPanel.SetActive(true);
+            yield return new WaitForSeconds(1f);
+            gameDisplayPanel.SetActive(false);
+
+            yield return new WaitForSeconds(3f);
+            BattleStart();
+        }
+        else if(currentState == State.battle_start){
+            gameDisplayText.text = "-Battle Start-";
+            gameDisplayPanel.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+            gameDisplayPanel.SetActive(false);
+        }
+        else if(currentState == State.battle_end){
+            if (team_blue2.Count > 0){
+                gameDisplayText.color = Color.cyan;
+                gameDisplayText.text = "Team Blue\nwon!";
+                team_blue_score++;
+                team_blue2.Clear();
+            }
+            else if (team_red2.Count > 0){
+                gameDisplayText.color = Color.red;
+                gameDisplayText.text = "Team Red\nwon!";
+                team_red_score++;
+                team_red2.Clear();
+            }
+            else{
+                team_red_score++;
+                team_blue_score++;
+                gameDisplayText.text = "Draw!";
+            }
+            StartCoroutine(ClearAllSlime());
+            gameDisplayPanel.SetActive(true);
+            yield return new WaitForSeconds(2f);
+            gameDisplayText.color = Color.white;
+            gameDisplayText.text = " RED | BLUE \n" + team_red_score + " : " + team_blue_score;
+            yield return new WaitForSeconds(2f);
+            gameDisplayPanel.SetActive(false);
+
+            if(team_red_score < 3 && team_blue_score < 3){
+                yield return new WaitForSeconds(0.5f);
+                /* Display Rewards Panel */
+                rewardsPanel.gameObject.SetActive(true);
+                yield return new WaitForSeconds(0.5f);
+                rewardsPanel.TextSetting();
+                yield return new WaitForSeconds(5f);
+                rewardsPanel.gameObject.SetActive(false);
+
+                playerStats.NewRoundCostUpdate();
+                PlayerShop.Instance.ButtonsUpdate();
+                rewardsPanel.ResetAllTheText();
+                yield return new WaitForSeconds(0.5f);
+                GameReady();
+            }
+            else{
+                yield return new WaitForSeconds(0.5f);
+                GameEnd();
+            }
+        }
+        else if(currentState == State.game_end){
+            gameDisplayText.text = "Game End!";
+            gameDisplayPanel.SetActive(true);
+            if(team_red_score > team_blue_score){
+                gameDisplayText.color = Color.red;
+                gameDisplayText.text = "-Winner-\nTeam Red";
+            }
+            else if(team_red_score < team_blue_score){
+                gameDisplayText.color = Color.cyan;
+                gameDisplayText.text = "-Winner-\nTeam Blue";
+            }
+            else{
+                gameDisplayText.text = "Draw!!!";
+            }
+            yield return new WaitForSeconds(1f);
+            gameDisplayText.color = Color.white;
+            gameDisplayText.text = "Good Game~";
+            yield return new WaitForSeconds(1f);
+            gameDisplayPanel.SetActive(false);
+
+            yield return new WaitForSeconds(0.5f);
+            LeaveTheRoom();
+        }
     }
 
     //if one of the player left, the game will be ended

@@ -6,6 +6,8 @@ public class Slime : MonoBehaviour{
 
 	[Header("Slime name")]
 	public string slimeName;
+	[Header("Cost")]
+	public int cost;
 	[Space]
 	[Header("Slime model")]
 	[SerializeField]

@@ -8,9 +8,10 @@ public class PlayerStats : MonoBehaviour {
 	private Text playerCostText;
 	[SerializeField]
 	private GameObject playerInfoPanel;
+
 	public static int playerCost;
-	private int startCost = 1000;
-	private int bounsCost = 50;
+	private const int startCost = 100;
+	private const int roundBounsCost = 200;
 
 	GameManager gm;
 
@@ -29,7 +30,8 @@ public class PlayerStats : MonoBehaviour {
 	}
 
 	public void NewRoundCostUpdate(){
-		playerCost += startCost + bounsCost * gm.currentRound;
+		/* PlayerCost = Cost + RoundBouns*/
+		playerCost += roundBounsCost * gm.currentRound;
 		UpdatePlayerCostText();
 	}
 
@@ -45,5 +47,9 @@ public class PlayerStats : MonoBehaviour {
 	public void SellSlime(int cost){
 		playerCost += cost;
 		UpdatePlayerCostText();
+	}
+	
+	public int GetBounsCost(){
+		return roundBounsCost;
 	}
 }

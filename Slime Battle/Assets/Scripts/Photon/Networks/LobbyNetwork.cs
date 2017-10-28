@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class LobbyNetwork : MonoBehaviour
 {
     public Button createRoomButton;
+	public Text countPlayersOnlineText;
     // Use this for initialization
     private void Start(){
         //Connect to Photon as configured in the editor
@@ -37,5 +38,11 @@ public class LobbyNetwork : MonoBehaviour
     private void OnDisconnectedFromPhoton(){
         Debug.Log("Reconnecting the Server");
         PhotonNetwork.Reconnect();
+    }
+
+    public void OnLobbyStatisticsUpdate(){
+        string countPlayersOnline;
+	 	countPlayersOnline = PhotonNetwork.countOfPlayers.ToString() + " Online Players";
+	 	countPlayersOnlineText.text = countPlayersOnline; 
     }
 }

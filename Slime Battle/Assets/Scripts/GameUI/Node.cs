@@ -15,6 +15,7 @@ public class Node : MonoBehaviour
     Transform _transform;
     GameManager gameManager;
     SpawnManager spawnManager;
+    PlayerStats playerStats;
     Vector3 buildPosition;
 
     // Use this for initialization
@@ -29,6 +30,7 @@ public class Node : MonoBehaviour
 
         gameManager = GameManager.Instance;
         spawnManager = SpawnManager.Instance;
+        playerStats = PlayerStats.Instance;
     }
 
     void OnMouseEnter(){
@@ -64,6 +66,7 @@ public class Node : MonoBehaviour
             case 1:
                 buildPosition = GetBuildPos(offset);
                 _slime = PhotonNetwork.Instantiate(blueprint.slimePrefab.name, buildPosition, Quaternion.identity, 0);
+                _slime.GetComponent<Slime>().cost = blueprint.cost;
                 BuildSlime(_slime, blueprint);
                 break;
 
@@ -76,7 +79,7 @@ public class Node : MonoBehaviour
         }
 
         if(slime){
-            PlayerStats.Instance.PurchaseSlime(blueprint.cost);
+            playerStats.PurchaseSlime(blueprint.cost);
             PlayerShop.Instance.ButtonsUpdate();
         }
 
@@ -96,7 +99,8 @@ public class Node : MonoBehaviour
         
         if(buildOffset != Vector3.zero){
             _slime = PhotonNetwork.Instantiate(blueprint.slimePrefab.name, GetBuildPos(buildOffset + offset), Quaternion.identity, 0);
-
+            _slime.GetComponent<Slime>().cost = blueprint.cost;
+            
             for(int i=0;i<nodeList.Count;i++){
                 nodeList[i].BuildSlime(_slime, blueprint);
                 nodeList[i].nodeList = nodeList.ToList();
@@ -151,7 +155,7 @@ public class Node : MonoBehaviour
 
     public void SellSlime(){
         /* Selling the slime and get back the money */
-        PlayerStats.Instance.SellSlime(slimeblueprint.cost);
+        playerStats.SellSlime(slimeblueprint.cost);
         /* Remove the slime from team list in two players */
         slime.GetComponent<Slime>().SyncRemoveTeamList();
         /* Destroy the slime in the Photon Network */
