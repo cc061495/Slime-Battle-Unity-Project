@@ -219,6 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slimeName: Wall
+  cost: 0
   model: {fileID: 4310139269878892}
 --- !u!208 &208269570791176734
 NavMeshObstacle:

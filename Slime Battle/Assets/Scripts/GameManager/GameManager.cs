@@ -271,9 +271,9 @@ public class GameManager : MonoBehaviour
                 yield return new WaitForSeconds(0.5f);
                 /* Display Rewards Panel */
                 rewardsPanel.gameObject.SetActive(true);
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(1f);
                 rewardsPanel.TextSetting();
-                yield return new WaitForSeconds(5f);
+                yield return new WaitForSeconds(6f);
                 rewardsPanel.gameObject.SetActive(false);
 
                 playerStats.NewRoundCostUpdate();

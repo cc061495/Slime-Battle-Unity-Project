@@ -56,8 +56,7 @@ public class SlimeAction : MonoBehaviour {
 
 	public void SetTarget(Transform _target){
 		target = _target;
-		if(target != null)
-			tarHealth = target.parent.GetComponent<SlimeHealth>();
+		tarHealth = target.parent.GetComponent<SlimeHealth>();
 	}
 		
 	private void MeleeAttack(float attackDamage){

@@ -250,6 +250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slimeName: Giant
+  cost: 0
   model: {fileID: 4127756345726616}
 --- !u!114 &114631986250221792
 MonoBehaviour:

@@ -211,6 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slimeName: Bomber
+  cost: 0
   model: {fileID: 4334672967612200}
 --- !u!114 &114371601109471544
 MonoBehaviour:

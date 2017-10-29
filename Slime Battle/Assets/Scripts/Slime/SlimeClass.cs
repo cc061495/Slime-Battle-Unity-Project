@@ -96,7 +96,7 @@ public class SlimeClass{
 
 			case "Bomber":
 				/* Slime Properties */
-				startHealth 	= 10 ;
+				startHealth 	= 5 ;
 				movemonetSpeed 	= 8.5f ;
 				actionRange 	= 0.7f ;
 				scaleRadius 	= 0.5f ;
@@ -106,9 +106,9 @@ public class SlimeClass{
 				classPriority 	= 3 ; 
 				/* Ability */
 				isExplosion	 		= true ;
-				attackDamage 		= 8 ;
-				areaEffectRadius 	= 6 ;
-				actionCoolDown 		= 0 ;
+				attackDamage 		= 7 ;
+				areaEffectRadius 	= 5 ;
+				actionCoolDown 		= 10 ;
 				break;
 
 			case "Wall":

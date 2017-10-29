@@ -9,16 +9,20 @@ public class RewardsPanel : MonoBehaviour {
 	public Text costText, roundBounsText, extraBounsText, totalText;
 
 	public void TextSetting(){
+		StartCoroutine(StartAnimateText());
+	}
+
+	IEnumerator StartAnimateText(){
 		int cost = PlayerStats.playerCost;
 		int roundBouns = (PlayerStats.Instance.GetBounsCost() * GameManager.Instance.currentRound);
 		int extraBouns = 0;
-		
-		StartCoroutine(AnimateText(costText, PlayerStats.playerCost, "$ "));
-		StartCoroutine(AnimateText(roundBounsText, roundBouns, "+ "));
-		StartCoroutine(AnimateText(extraBounsText, extraBouns, "+ "));
-
 		int total = cost + roundBouns;
-		StartCoroutine(AnimateText(totalText, total, "$ "));
+
+		costText.text = "$ " + PlayerStats.playerCost;
+		yield return new WaitForSeconds(0.5f);
+		yield return StartCoroutine(AnimateText(roundBounsText, roundBouns, "+ "));
+		yield return StartCoroutine(AnimateText(extraBounsText, extraBouns, "+ "));
+		yield return StartCoroutine(AnimateText(totalText, total, "$ "));
 	}
 
 	IEnumerator AnimateText(Text textToAnimate, int end, string symbol){
@@ -33,7 +37,7 @@ public class RewardsPanel : MonoBehaviour {
 				startValue++;
 				
 			textToAnimate.text = symbol + startValue.ToString();
-			yield return new WaitForSeconds(0.05f);
+			yield return new WaitForSeconds(0.03f);
 		}
 	}
 

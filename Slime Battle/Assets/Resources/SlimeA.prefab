@@ -209,6 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slimeName: Slime
+  cost: 0
   model: {fileID: 4047445838876080}
 --- !u!114 &114978055857740780
 MonoBehaviour:

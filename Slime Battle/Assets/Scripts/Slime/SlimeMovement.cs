@@ -8,7 +8,7 @@ public class SlimeMovement : MonoBehaviour {
 	private Transform _transform;
 
 	[SerializeField]
-	private Transform target;
+	private Transform target, prevTarget;
 	private NavMeshAgent agent;
 	private Transform model;
 
@@ -172,11 +172,16 @@ public class SlimeMovement : MonoBehaviour {
 			}
 		}
 		/* if the target is found */
-		if(target != null){
-			//Client set the target
-			photonView.RPC("RPC_ClientSetTarget", PhotonTargets.Others, target.parent.gameObject.GetPhotonView().viewID);
+		if(target != null && target != prevTarget){
+			prevTarget = target;
 			slimeAction.SetTarget(target);
 			range = slime.scaleRadius + slime.actionRange + target.parent.GetComponent<Slime>().GetSlimeClass().scaleRadius;
+
+			//Client set the target
+			if(slime.isRangedAttack){
+				Debug.Log("RPC CALLS!!!");
+				photonView.RPC("RPC_ClientSetTarget", PhotonTargets.Others, target.parent.gameObject.GetPhotonView().viewID);
+			}
 		}
     }
 
