@@ -120,8 +120,8 @@ public class GameManager : MonoBehaviour
 
         ChangeBuildingLayer();
 
-        DisplayTeamHealthBar(team_blue);
-        DisplayTeamHealthBar(team_red);
+        // DisplayTeamHealthBar(team_blue);
+        // DisplayTeamHealthBar(team_red);
         teamControlPanel.SetActive(true);
 
         StartCoroutine(DisplayGamePanel());    //display the game panel
@@ -324,7 +324,6 @@ public class GameManager : MonoBehaviour
     }
 
     public void LeaveTheRoom(){
-        //gameDisplayPanel.SetActive(false);
         Destroy(GameObject.Find("DDOL"));
         PhotonNetwork.LeaveRoom();
         sceneFader.FadeToWithPhotonNetwork("GameLobby");
@@ -370,17 +369,17 @@ public class GameManager : MonoBehaviour
 
     private void DisplayTeam(List<Transform> team){
         for(int i=0;i<team.Count;i++){
-            SlimeHealth h = team[i].parent.GetComponent<SlimeHealth>();
-            h.DisplaySlime(true);
+            Slime s = team[i].parent.GetComponent<Slime>();
+            s.DisplaySlime(true);
         }
     }
 
-    private void DisplayTeamHealthBar(List<Transform> team){
-        for(int i=0;i<team.Count;i++){
-            SlimeHealth h = team[i].parent.GetComponent<SlimeHealth>();
-            h.DisplayHealthBar(true);
-        }
-    }
+    // private void DisplayTeamHealthBar(List<Transform> team){
+    //     for(int i=0;i<team.Count;i++){
+    //         SlimeHealth h = team[i].parent.GetComponent<SlimeHealth>();
+    //         h.DisplayHealthBar(true);
+    //     }
+    // }
 
     private void ChangeBuildingLayer(){
         //team that ONLY including building

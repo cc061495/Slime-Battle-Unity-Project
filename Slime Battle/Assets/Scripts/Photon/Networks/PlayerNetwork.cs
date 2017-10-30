@@ -57,10 +57,8 @@ public class PlayerNetwork : MonoBehaviour {
 	[PunRPC]
 	private void RPC_LoadedGameScene(){
 		numOfPlayersInGame++;
-		Debug.Log(numOfPlayersInGame);
-		if (numOfPlayersInGame == PhotonNetwork.room.PlayerCount) {
-			Debug.Log ("All players in Game now!");
-			//numOfPlayersInGame = 2;		//reset to 0, when all the players in game.
+		if (numOfPlayersInGame == PhotonNetwork.playerList.Length) {
+			Debug.Log ("All players are in the game scene!");
 			photonView.RPC ("RPC_GameStart", PhotonTargets.All);
 		}
 	}

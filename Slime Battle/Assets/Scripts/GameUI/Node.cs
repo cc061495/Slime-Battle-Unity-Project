@@ -66,7 +66,6 @@ public class Node : MonoBehaviour
             case 1:
                 buildPosition = GetBuildPos(offset);
                 _slime = PhotonNetwork.Instantiate(blueprint.slimePrefab.name, buildPosition, Quaternion.identity, 0);
-                _slime.GetComponent<Slime>().cost = blueprint.cost;
                 BuildSlime(_slime, blueprint);
                 break;
 
@@ -99,7 +98,6 @@ public class Node : MonoBehaviour
         
         if(buildOffset != Vector3.zero){
             _slime = PhotonNetwork.Instantiate(blueprint.slimePrefab.name, GetBuildPos(buildOffset + offset), Quaternion.identity, 0);
-            _slime.GetComponent<Slime>().cost = blueprint.cost;
             
             for(int i=0;i<nodeList.Count;i++){
                 nodeList[i].BuildSlime(_slime, blueprint);

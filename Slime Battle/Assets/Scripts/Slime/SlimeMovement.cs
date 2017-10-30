@@ -187,14 +187,17 @@ public class SlimeMovement : MonoBehaviour {
 
 	[PunRPC]
 	private void RPC_ClientSetTarget(int targetView){
-		List<Transform> enemies = gm.GetEnemies(_transform);
-		for(int i=0;i<enemies.Count;i++){
-			if(enemies[i].parent.gameObject.GetPhotonView().viewID == targetView){
-				target = enemies[i];
-				slimeAction.SetTarget(target);	//setting target in client side
-				break;
-			}
-		}
+		int index = enemies.FindIndex(x => x.parent.gameObject.GetPhotonView().viewID == targetView);
+		target = enemies[index];
+		slimeAction.SetTarget(target);	//setting target in client side
+
+		// for(int i=0;i<enemies.Count;i++){
+		// 	if(enemies[i].parent.gameObject.GetPhotonView().viewID == targetView){
+		// 		target = enemies[i];
+		// 		slimeAction.SetTarget(target);
+		// 		break;
+		// 	}
+		// }
 	}
 
 	public void FindTheTargetAgain(){

@@ -5,6 +5,7 @@ public class LobbyNetwork : MonoBehaviour
 {
     public Button createRoomButton;
 	public Text countPlayersOnlineText;
+    public bool isPressedBackButton;
     // Use this for initialization
     private void Start(){
         //Connect to Photon as configured in the editor
@@ -36,8 +37,10 @@ public class LobbyNetwork : MonoBehaviour
     }
     //called after disconnecting from the Photon server
     private void OnDisconnectedFromPhoton(){
-        Debug.Log("Reconnecting the Server");
-        PhotonNetwork.Reconnect();
+        if(!isPressedBackButton){
+            Debug.Log("Reconnecting the Server");
+            PhotonNetwork.Reconnect();
+        }
     }
 
     public void OnLobbyStatisticsUpdate(){

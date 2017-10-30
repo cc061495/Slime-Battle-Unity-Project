@@ -36,8 +36,7 @@ public class SlimeAction : MonoBehaviour {
 				photonView.RPC("RangedAttack",PhotonTargets.All, slime.attackDamage);
 			}
 			else if(slime.isHealing){
-				if(tarHealth.currentHealth < tarHealth.startHealth)
-					Healing (slime.healPercentage);
+				Healing (slime.healPercentage * tarHealth.startHealth);
 			}
 			else if(slime.isAreaEffectDamage){
 				AreaEffectDamage(slime.attackDamage, slime.areaEffectRadius, target.position);

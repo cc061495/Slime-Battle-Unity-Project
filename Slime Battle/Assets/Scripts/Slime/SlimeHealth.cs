@@ -30,9 +30,6 @@ public class SlimeHealth : MonoBehaviour {
 
 		startHealth = slime.startHealth;
 		currentHealth = startHealth;
-
-		if(!photonView.isMine)
-		 	DisplaySlime(false);
 	}
 
 	private void GeneratePlayerHealthBar(Transform playerModel){
@@ -41,35 +38,6 @@ public class SlimeHealth : MonoBehaviour {
 		playerHealth = healthBar.GetComponent<HealthBar>();
         playerHealth.SetHealthBarData(playerModel);
     }
-
-	public void DisplayHealthBar(bool display){
-		healthBar.SetActive(display);
-	}
-
-	public void DisplaySlime(bool display){
-		model.gameObject.SetActive(display);
-		if(GameManager.Instance.currentState == GameManager.State.build_end){
-			if(!PhotonNetwork.isMasterClient && photonView.isMine && !slime.isBuilding)
-				Invoke("NetworkTransfer", Random.Range(0f,2f));
-
-			Invoke("NetworkEnable", 4f);
-		}
-	}
-
-	private void NetworkTransfer(){
-		photonView.TransferOwnership(GameManager.Instance.masterPlayer);
-	}
-
-	private void NetworkEnable(){
-		//Debug.Log("Network is enabled");
-		SlimeNetwork network = GetComponent<SlimeNetwork>();
-		if(network != null)
-			network.enabled = true;
-
-		SlimeMovement movement = GetComponent<SlimeMovement>();
-		if(movement != null && photonView.isMine)
-			movement.StartUpdatePathLoop();		//slime start finding the target
-	}
 
 	public void TakeDamage(float attackDamage){
 		//Only Master client deal with attack damage
@@ -83,12 +51,12 @@ public class SlimeHealth : MonoBehaviour {
 		}
 	}
 
-	public void TakeHealing(float heal){
+	public void TakeHealing(float healPoint){
 		//Only Master client deal with healing
 		//currentHealth must be larger than 0 HP(important) !!!
 		if(currentHealth > 0 && currentHealth < startHealth){
 			//Health += healing percent * slime's start health
-			currentHealth += heal * startHealth;
+			currentHealth += healPoint;
 			if(currentHealth > startHealth)
 				currentHealth = startHealth;
 
@@ -124,12 +92,4 @@ public class SlimeHealth : MonoBehaviour {
 		if(photonView != null && photonView.isMine)
 			PhotonNetwork.Destroy(gameObject);
 	}
-
-
-
-	// private void ChangeHealthBarPos(){
-	// 	healthBarPos.SetPositionAndRotation(healthBarPos.position, Quaternion.Euler(90f, 0f, 0f));
-	// 	//healthBarPos.rotation = Quaternion.Euler(90f, 0f, 0f);
-	// 	healthBar.fillOrigin = (int)Image.OriginHorizontal.Right;
-	// }
 }

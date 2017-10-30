@@ -11,6 +11,11 @@ public class MenuScreen : MonoBehaviour {
 		scrollRectSnap = Home.GetComponent<ScrollRectSnap>();
     }
 
+	void Update(){
+		if(Input.GetKey(KeyCode.Escape))
+			LayoutSetting(Layout.home, Home, false);
+	}
+
     public enum Layout{home, inventory, deck, shop};
     public Layout currentLayout;
 

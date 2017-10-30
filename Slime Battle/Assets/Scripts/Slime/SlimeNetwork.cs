@@ -14,7 +14,7 @@ public class SlimeNetwork : MonoBehaviour {
 	void Awake () {
 		model = GetComponent<Slime>().GetModel();
 		PhotonNetwork.sendRate = 20;	//default(20) //(60)
-		PhotonNetwork.sendRateOnSerialize = 15;		//default(10) //(30)
+		PhotonNetwork.sendRateOnSerialize = 10;		//default(10) //(30)
 
 		photonView = GetComponent<PhotonView>();
 	}
@@ -22,7 +22,7 @@ public class SlimeNetwork : MonoBehaviour {
 	// Do all MOVEMENT and other physics stuff here
 	void Update () {
 		if(photonView.isMine){
-			// Do nothing - slime.cs is moving us
+			// Do nothing - SlimeMovement.cs is moving us
 		}else{
 			model.position = Vector3.Lerp(model.position, realPosition, 5f * Time.deltaTime);
 			model.rotation = Quaternion.Lerp(model.rotation, realRotation, 5f * Time.deltaTime);

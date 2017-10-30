@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class LobbyCanvas : MonoBehaviour {
 	
+    public SceneFader sceneFader;
+	public LobbyNetwork lobbyNetwork;
+
 	[SerializeField]
 	private RoomLayoutGroup _roomlayoutGroup;
 	private RoomLayoutGroup RoomLayoutGroup{
@@ -20,4 +23,12 @@ public class LobbyCanvas : MonoBehaviour {
 			Debug.Log ("Join room failed");
 		}
 	}
+
+    public void OnClick_BackButton(){
+        Destroy(GameObject.Find("DDOL"));
+		Destroy(GameObject.Find("PlayerCardDeck"));
+		lobbyNetwork.isPressedBackButton = true;
+        PhotonNetwork.Disconnect();
+        sceneFader.FadeTo("GameMenu");
+    }
 }

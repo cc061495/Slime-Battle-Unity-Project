@@ -19,10 +19,10 @@ public class PlayerData : MonoBehaviour {
 		LoadPlayerSetting();
 	}
 
-	public void ClearPlayerData(){
-		PlayerPrefs.DeleteAll();
-		LoadPlayerSetting();
-	}
+	// public void ClearPlayerData(){
+	// 	PlayerPrefs.DeleteAll();
+	// 	LoadPlayerSetting();
+	// }
 
 	private void LoadPlayerSetting(){
 		LoadPlayerNameSetting();
