@@ -14,8 +14,12 @@ public class LobbyNetwork : MonoBehaviour
             Debug.Log("Connecting to server...");
             PhotonNetwork.ConnectUsingSettings("0.0.0"); //specify a game version
         }
-        else
+        else{
             createRoomButton.interactable = true;
+            /* Rejoin the default Lobby, otherwise you cannot find the rooms */
+            /* needs to call OnReceivedRoomListUpdate() to find the rooms */
+            PhotonNetwork.JoinLobby(TypedLobby.Default);
+        }
     }
     //called by photon when user connected to the Photon Cloud
     private void OnConnectedToMaster(){

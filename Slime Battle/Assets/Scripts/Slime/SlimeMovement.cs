@@ -188,8 +188,11 @@ public class SlimeMovement : MonoBehaviour {
 	[PunRPC]
 	private void RPC_ClientSetTarget(int targetView){
 		int index = enemies.FindIndex(x => x.parent.gameObject.GetPhotonView().viewID == targetView);
-		target = enemies[index];
-		slimeAction.SetTarget(target);	//setting target in client side
+		/* if index >= 0, target is found and not equal to null */
+		if(index != -1){
+			target = enemies[index];
+			slimeAction.SetTarget(target);	//setting target in client side
+		}
 
 		// for(int i=0;i<enemies.Count;i++){
 		// 	if(enemies[i].parent.gameObject.GetPhotonView().viewID == targetView){
