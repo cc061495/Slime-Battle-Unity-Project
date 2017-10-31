@@ -12,10 +12,9 @@ public class CreateRoom : Photon.MonoBehaviour {
 
 	public void OnClick_CreateRoom(){
 		RoomOptions roomOptions = new RoomOptions (){ IsVisible = true, IsOpen = true, MaxPlayers = 2 };
-		gameRoomName = RoomName.text;
+		//gameRoomName = RoomName.text;
 		//check the room name is empty, set default room name
-		if (RoomName.text == "")
-			gameRoomName = PlayerNetwork.Instance.PlayerName + "'s room";
+		gameRoomName = PlayerNetwork.Instance.PlayerName + "'s room";
 		
 		//Creates a room but fails if this room is existing already
 		if (PhotonNetwork.CreateRoom (gameRoomName, roomOptions, TypedLobby.Default)) {

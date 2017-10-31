@@ -32,6 +32,8 @@ public class PlayerLayoutGroup : Photon.MonoBehaviour{
     //called by photon whenever the master client is switched.
     private void OnMasterClientSwitched(PhotonPlayer newMasterClient){
         UpdateButtonsLayout();
+        int index = PlayerListings.FindIndex(x => x.PhotonPlayer == newMasterClient);
+        PlayerListings[index].HostSetting();
     }
 
     //called by photon whenever you join a room.
