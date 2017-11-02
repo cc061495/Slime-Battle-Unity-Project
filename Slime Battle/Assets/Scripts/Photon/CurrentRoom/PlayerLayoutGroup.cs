@@ -34,6 +34,7 @@ public class PlayerLayoutGroup : Photon.MonoBehaviour{
         UpdateButtonsLayout();
         int index = PlayerListings.FindIndex(x => x.PhotonPlayer == newMasterClient);
         PlayerListings[index].HostSetting();
+        
     }
 
     //called by photon whenever you join a room.

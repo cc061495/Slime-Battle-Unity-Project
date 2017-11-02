@@ -88,4 +88,6 @@ MonoBehaviour:
   - RPC_CallTargetSearching
   - SyncToReady
   - RPC_RemoveFromTeamList
+  - RPC_EmotionCreate
+  - RPC_DestroyPrevEmotion
   DisableAutoOpenWizard: 1
