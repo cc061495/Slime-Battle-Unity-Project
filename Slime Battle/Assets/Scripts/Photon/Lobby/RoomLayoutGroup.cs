@@ -41,7 +41,7 @@ public class RoomLayoutGroup : MonoBehaviour
                 RoomListing roomListing = roomListingObj.GetComponent<RoomListing>();
                 //add the roomListing to the RoomListingButtons
                 RoomListingButtons.Add(roomListing);
-
+                
                 index = (RoomListingButtons.Count - 1);
             }
         }

@@ -4,6 +4,7 @@ public class LobbyCanvas : MonoBehaviour {
 	
     public SceneFader sceneFader;
 	public LobbyNetwork lobbyNetwork;
+	public GameObject roomSettingPanel;
 
 	[SerializeField]
 	private RoomLayoutGroup _roomlayoutGroup;
@@ -28,4 +29,8 @@ public class LobbyCanvas : MonoBehaviour {
         PhotonNetwork.Disconnect();
         sceneFader.FadeTo("GameMenu");
     }
+
+	public void OnClick_RoomSettingButton(){
+		roomSettingPanel.SetActive(true);
+	}
 }

@@ -2,22 +2,14 @@
 using UnityEngine.UI;
 
 public class CreateRoom : Photon.MonoBehaviour {
-	[SerializeField]
-	private Text _roomName;
-	private Text RoomName{
-		get{ return _roomName; }
-	}
 
-	private string gameRoomName;
+	public RoomSetting roomSetting;
 
 	public void OnClick_CreateRoom(){
 		RoomOptions roomOptions = new RoomOptions (){ IsVisible = true, IsOpen = true, MaxPlayers = 2 };
-		//gameRoomName = RoomName.text;
-		//check the room name is empty, set default room name
-		gameRoomName = PlayerNetwork.Instance.PlayerName + "'s room";
-		
+
 		//Creates a room but fails if this room is existing already
-		if (PhotonNetwork.CreateRoom (gameRoomName, roomOptions, TypedLobby.Default)) {
+		if (PhotonNetwork.CreateRoom (roomSetting.GetRoomName(), roomOptions, TypedLobby.Default)) {
 			Debug.Log ("create room successful sent.");
 		} else {
 			Debug.Log ("create room failed to send");
@@ -30,5 +22,15 @@ public class CreateRoom : Photon.MonoBehaviour {
 	//called when a CreateRoom() call successed
 	private void OnCreatedRoom(){
 		Debug.Log ("Room created successfully."); 
+
+		ExitGames.Client.Photon.Hashtable customRoom_Properties = new ExitGames.Client.Photon.Hashtable();
+
+		customRoom_Properties.Add("Rounds", roomSetting.GetRoundOfGame());
+		PhotonNetwork.room.SetCustomProperties(customRoom_Properties);
+		// customRoom_Properties.Add("RoomName", roomSetting.roomName);
+		
+		// string name = (string) PhotonNetwork.room.CustomProperties["RoomName"];
+		// int bo = (int) PhotonNetwork.room.CustomProperties["Rounds"];
+		// Debug.Log(name + ", " + bo);
 	}
 }

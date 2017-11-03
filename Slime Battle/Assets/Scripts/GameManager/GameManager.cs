@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
         Instance = this; 
     }
 
-    const int totalRoundGame = 5;
     public enum State{idle, ready, build_start, build_end, battle_start, battle_end, game_end};
     public State currentState;
     public int currentRound, team_red_score, team_blue_score;
@@ -28,6 +27,8 @@ public class GameManager : MonoBehaviour
     public List<Transform> team_blue2 = new List<Transform>();  //team without building
     public List<Node> nodeList = new List<Node>();
     public PhotonPlayer masterPlayer;
+
+    private int totalRoundGame, matchPoint, winPoint;
     private bool isRedFinish, isBlueFinish;
     private float mDeltaTime = 0.0f;
     private float mFPS = 0.0f;
@@ -51,6 +52,10 @@ public class GameManager : MonoBehaviour
         camManager = GetComponent<CameraManager>();
         masterPlayer = PhotonNetwork.masterClient;
         playerStats = PlayerStats.Instance;
+
+        totalRoundGame = (int) PhotonNetwork.room.CustomProperties["Rounds"];
+        matchPoint = totalRoundGame / 2;
+        winPoint = matchPoint + 1;
 
         if(!PhotonNetwork.connected){
             //Start single mode
@@ -200,7 +205,7 @@ public class GameManager : MonoBehaviour
         else if(currentState == State.ready){
             gameDisplayText.fontSize = 50;
             gameDisplayPanel.SetActive(true);
-            if(team_red_score == 2 || team_blue_score == 2){
+            if(team_red_score == matchPoint || team_blue_score == matchPoint){
                 gameDisplayText.color = Color.yellow;
                 gameDisplayText.text = "-Match Point-";
                 yield return new WaitForSeconds(1.5f);
@@ -267,7 +272,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(2f);
             gameDisplayPanel.SetActive(false);
 
-            if(team_red_score < 3 && team_blue_score < 3){
+            if(team_red_score < winPoint && team_blue_score < winPoint){
                 yield return new WaitForSeconds(0.5f);
                 /* Display Rewards Panel */
                 rewardsPanel.gameObject.SetActive(true);
