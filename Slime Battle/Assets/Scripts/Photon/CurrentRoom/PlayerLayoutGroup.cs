@@ -4,6 +4,8 @@ using UnityEngine.UI;
 using UnityEngine;
 
 public class PlayerLayoutGroup : Photon.MonoBehaviour{
+    public SceneFader sceneFader;
+
     #region UI_items
         [SerializeField]
         private GameObject _playerListingPrefab;
@@ -105,7 +107,7 @@ public class PlayerLayoutGroup : Photon.MonoBehaviour{
                 //Lock the room and load the level
                 PhotonNetwork.room.IsOpen = false;
                 PhotonNetwork.room.IsVisible = false;
-                PhotonNetwork.LoadLevel("Main");
+		        sceneFader.FadeToWithPhotonNetwork("Main");
             }
             else
                 Debug.Log("Not enought players");

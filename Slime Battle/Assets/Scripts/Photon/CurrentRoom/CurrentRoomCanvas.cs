@@ -9,9 +9,16 @@ public class CurrentRoomCanvas : MonoBehaviour {
 		get{ return _roomNameText; }
 	}
 
+	[SerializeField]
+	private Text _roundText;
+	private Text roundText{
+		get{ return _roundText; }
+	}
+
 	//called by photon whenever you join a room.
 	private void OnJoinedRoom(){
-		roomNameText.text = PhotonNetwork.room.Name;
+		roomNameText.text = (string) PhotonNetwork.room.CustomProperties["Name"];
+		roundText.text = "BO" + (int) PhotonNetwork.room.CustomProperties["Round"];
 	}
 	/*
 	public void OnClickStartSync(){

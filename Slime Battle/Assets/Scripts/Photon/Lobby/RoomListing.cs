@@ -15,6 +15,12 @@ public class RoomListing : MonoBehaviour {
 		get{ return _roomInfoText; }
 	}
 
+	[SerializeField]
+	private Text _roundText;
+	private Text roundText{
+		get{ return _roundText; }
+	}
+
 	public string RoomName{ get; private set; }
 	public int RoomPlayerCount{ get ; private set; }
 	public bool Updated{ get; set; }
@@ -37,10 +43,11 @@ public class RoomListing : MonoBehaviour {
 		button.onClick.RemoveAllListeners ();
 	}
 
-	public void SetRoomNameText(string text, int playerCount, int maxPlayerCount){
-		RoomName = text;
+	public void SetRoomNameText(string name, int playerCount, int maxPlayerCount, string roomID, int round){
+		RoomName = roomID;
 		RoomPlayerCount = playerCount;
-		roomNameText.text = RoomName;
+		roomNameText.text = name;
 		roomInfoText.text = "Player Count: " + RoomPlayerCount + "/" + maxPlayerCount;
+		roundText.text = "Format: "+ "BO" + round;
 	}
 }

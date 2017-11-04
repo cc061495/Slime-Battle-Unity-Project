@@ -49,6 +49,8 @@ public class LobbyNetwork : MonoBehaviour
     //called after disconnecting from the Photon server
     private void OnDisconnectedFromPhoton(){
         DisplayNetworkInfo();
+        createRoomButton.interactable = false;
+
         if(!isPressedBackButton){
             Debug.Log("Reconnecting the Server");
             PhotonNetwork.Reconnect();

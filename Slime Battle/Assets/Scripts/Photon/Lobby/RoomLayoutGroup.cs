@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class RoomLayoutGroup : MonoBehaviour
 {
@@ -29,9 +30,10 @@ public class RoomLayoutGroup : MonoBehaviour
 
     private void RoomReceived(RoomInfo room)
     {
+        string roomName = (string) room.CustomProperties["Name"];
         //find the room in PhotonNetwork
         //find the room index which the room.name(PhotonNetwork) matchs RoomListingButtons.RoomName
-        int index = RoomListingButtons.FindIndex(x => x.RoomName == room.Name);
+        int index = RoomListingButtons.FindIndex(x => x.RoomName == roomName);
         //if room could not be found(new room)
         if (index == -1){
             if (room.IsVisible && room.PlayerCount < room.MaxPlayers){
@@ -47,8 +49,9 @@ public class RoomLayoutGroup : MonoBehaviour
         }
         //if room is created, set up the Room name and updated
         if (index != -1){
+            int round = (int) room.CustomProperties["Round"];
             RoomListing roomListing = RoomListingButtons[index];
-            roomListing.SetRoomNameText(room.Name, room.PlayerCount, room.MaxPlayers);
+            roomListing.SetRoomNameText(roomName, room.PlayerCount, room.MaxPlayers, room.Name, round);
             roomListing.Updated = true;
         }
     }

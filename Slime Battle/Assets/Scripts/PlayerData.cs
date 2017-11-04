@@ -7,8 +7,8 @@ public class PlayerData : MonoBehaviour {
 
 	public static PlayerData Instance;
 	
-	public string playerName {get ; private set;}
-	public int playerBalance {get ; private set;}
+	public string playerName {get; private set;}
+	public int playerBalance {get; private set;}
 	//public int[] playerDeckSlot = new int[6];
 	private string[] slotKeys = new string[6]{"Slot1", "Slot2", "Slot3", "Slot4", "Slot5", "Slot6"};
 
@@ -18,11 +18,6 @@ public class PlayerData : MonoBehaviour {
 		Instance = this;
 		LoadPlayerSetting();
 	}
-
-	// public void ClearPlayerData(){
-	// 	PlayerPrefs.DeleteAll();
-	// 	LoadPlayerSetting();
-	// }
 
 	private void LoadPlayerSetting(){
 		LoadPlayerNameSetting();

@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
         masterPlayer = PhotonNetwork.masterClient;
         playerStats = PlayerStats.Instance;
 
-        totalRoundGame = (int) PhotonNetwork.room.CustomProperties["Rounds"];
+        totalRoundGame = (int) PhotonNetwork.room.CustomProperties["Round"];
         matchPoint = totalRoundGame / 2;
         winPoint = matchPoint + 1;
 
