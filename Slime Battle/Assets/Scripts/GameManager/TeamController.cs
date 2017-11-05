@@ -69,13 +69,13 @@ public class TeamController : MonoBehaviour {
 		//CallTargetSearching(gm.team_blue2);
 	}
 
-	private void CallTargetSearching(List<Transform> team){
-		for(int i=0;i<team.Count;i++){
-			if(!team[i].parent.GetComponent<Slime>().GetSlimeClass().isHealing){
-				team[i].parent.GetComponent<SlimeMovement>().FindTheTargetAgain();
-			}
-		}
-	}
+	// private void CallTargetSearching(List<Transform> team){
+	// 	for(int i=0;i<team.Count;i++){
+	// 		if(!team[i].parent.GetComponent<Slime>().GetSlimeClass().isHealing){
+	// 			team[i].parent.GetComponent<SlimeMovement>().FindTheTargetAgain();
+	// 		}
+	// 	}
+	// }
 
 	public SearchMode GetTeamSearchMode(Transform slime){
 		if(slime.tag == "Team_RED")

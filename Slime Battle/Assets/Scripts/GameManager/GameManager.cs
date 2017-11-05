@@ -193,25 +193,23 @@ public class GameManager : MonoBehaviour
     IEnumerator DisplayGamePanel(){
         if(currentState == State.idle){
             yield return new WaitForSeconds(1f);
-            gameDisplayText.fontSize = 40;
-            gameDisplayText.text = PhotonNetwork.playerName + "\n" + "vs\n" + PhotonNetwork.otherPlayers[0].NickName;
+            gameDisplayText.text = "<size=60><color=#ff0000ff>" + PhotonNetwork.playerName + "</color>\n" + "vs\n<color=#00ffffff>" + PhotonNetwork.otherPlayers[0].NickName + "</color></size>";
             gameDisplayPanel.SetActive(true);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(3f);
             gameDisplayPanel.SetActive(false);
-
             yield return new WaitForSeconds(0.5f);
             GameReady();
         }
         else if(currentState == State.ready){
-            gameDisplayText.fontSize = 50;
             gameDisplayPanel.SetActive(true);
             if(team_red_score == matchPoint || team_blue_score == matchPoint){
-                gameDisplayText.color = Color.yellow;
-                gameDisplayText.text = "-Match Point-";
+                gameDisplayText.text = "<size=70><color=#ffff00ff>Match Point</color></size>";
                 yield return new WaitForSeconds(1.5f);
             }
-            gameDisplayText.color = Color.white;
-            gameDisplayText.text = "-Round "+ currentRound + "-\nReady!";
+            if(currentRound == totalRoundGame)
+                gameDisplayText.text = "<size=60>Final Round"+ "\nReady!</size>";
+            else
+                gameDisplayText.text = "Round "+ currentRound + "\nReady!";
             yield return new WaitForSeconds(1.5f);
             camManager.CamMove_Build();
             gameDisplayText.text = "3";
@@ -226,13 +224,13 @@ public class GameManager : MonoBehaviour
             BuildStart();
         }
         else if(currentState == State.build_start){
-            gameDisplayText.text = "Building Time!";
+            gameDisplayText.text = "Building\nTime!";
             gameDisplayPanel.SetActive(true);
             yield return new WaitForSeconds(1f);
             gameDisplayPanel.SetActive(false);
         }
         else if(currentState == State.build_end){
-            gameDisplayText.text = "STOP\nBUILDING!";
+            gameDisplayText.text = "Stop\nBuilding!";
             gameDisplayPanel.SetActive(true);
             yield return new WaitForSeconds(1f);
             gameDisplayPanel.SetActive(false);
@@ -241,34 +239,31 @@ public class GameManager : MonoBehaviour
             BattleStart();
         }
         else if(currentState == State.battle_start){
-            gameDisplayText.text = "-Battle Start-";
+            gameDisplayText.text = "Battle Start!";
             gameDisplayPanel.SetActive(true);
             yield return new WaitForSeconds(0.5f);
             gameDisplayPanel.SetActive(false);
         }
         else if(currentState == State.battle_end){
             if (team_blue2.Count > 0){
-                gameDisplayText.color = Color.cyan;
-                gameDisplayText.text = "Team Blue\nwon!";
+                gameDisplayText.text = "<color=#00ffffff>Team Blue</color>\nwon!";
                 team_blue_score++;
                 team_blue2.Clear();
             }
             else if (team_red2.Count > 0){
-                gameDisplayText.color = Color.red;
-                gameDisplayText.text = "Team Red\nwon!";
+                gameDisplayText.text = "<color=#ff0000ff>Team Red</color>\nwon!";
                 team_red_score++;
                 team_red2.Clear();
             }
             else{
                 team_red_score++;
                 team_blue_score++;
-                gameDisplayText.text = "Draw!";
+                gameDisplayText.text = "<color=#ffff00ff>Draw!</color>";
             }
             StartCoroutine(ClearAllSlime());
             gameDisplayPanel.SetActive(true);
             yield return new WaitForSeconds(2f);
-            gameDisplayText.color = Color.white;
-            gameDisplayText.text = " RED | BLUE \n" + team_red_score + " : " + team_blue_score;
+            gameDisplayText.text = " <color=#ff0000ff>RED</color> | <color=#00ffffff>BLUE</color> \n" + team_red_score + " : " + team_blue_score;
             yield return new WaitForSeconds(2f);
             gameDisplayPanel.SetActive(false);
 
@@ -295,24 +290,21 @@ public class GameManager : MonoBehaviour
         else if(currentState == State.game_end){
             gameDisplayText.text = "Game End!";
             gameDisplayPanel.SetActive(true);
+            yield return new WaitForSeconds(2f);
             if(team_red_score > team_blue_score){
-                gameDisplayText.color = Color.red;
-                gameDisplayText.text = "-Winner-\nTeam Red";
+                gameDisplayText.text = "Winner\n<color=#ff0000ff>Team Red</color>";
             }
             else if(team_red_score < team_blue_score){
-                gameDisplayText.color = Color.cyan;
-                gameDisplayText.text = "-Winner-\nTeam Blue";
+                gameDisplayText.text = "Winner\n<color=#00ffffff>Team Blue</color>";
             }
             else{
-                gameDisplayText.text = "Draw!!!";
+                gameDisplayText.text = "<color=#ffff00ff>Draw Game</color>";
             }
-            yield return new WaitForSeconds(1f);
-            gameDisplayText.color = Color.white;
+            yield return new WaitForSeconds(3f);
             gameDisplayText.text = "Good Game~";
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2f);
             gameDisplayPanel.SetActive(false);
-
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1f);
             LeaveTheRoom();
         }
     }
@@ -321,8 +313,7 @@ public class GameManager : MonoBehaviour
     private void OnPhotonPlayerDisconnected(PhotonPlayer photonPlayer){
         if(currentState != State.game_end){
             Debug.Log(photonPlayer + " is disconnected");
-            gameDisplayText.fontSize = 40;
-            gameDisplayText.text = photonPlayer + " left the game.";
+            gameDisplayText.text = "<size=60>" + photonPlayer + "\nleft the game.</size>";
             gameDisplayPanel.SetActive(true);
             Invoke("LeaveTheRoom", 3f);
         }

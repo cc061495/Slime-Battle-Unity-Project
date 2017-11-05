@@ -177,10 +177,10 @@ public class SlimeMovement : MonoBehaviour {
 		}
 	}
 
-	public void FindTheTargetAgain(){
-		findNewTarget = false;	//TurnOffFindNewTarget
-		TargetSearching();
-	}
+	// public void FindTheTargetAgain(){
+	// 	findNewTarget = false;
+	// 	TargetSearching();
+	// }
 
 	private void DefaultSearching(){
 		TeamController.SearchMode mode = tm.GetTeamSearchMode(_transform);

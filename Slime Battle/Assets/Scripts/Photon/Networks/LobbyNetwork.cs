@@ -16,15 +16,15 @@ public class LobbyNetwork : MonoBehaviour
         if (!PhotonNetwork.connected){
             Debug.Log("Connecting to server...");
             PhotonNetwork.ConnectUsingSettings("0.0.0"); //specify a game version
-
-            DisplayNetworkInfo();
         }
         else{
-            // createRoomButton.interactable = true;
+            //createRoomButton.interactable = true;
             /* Rejoin the default Lobby, otherwise you cannot find the rooms */
             /* needs to call OnReceivedRoomListUpdate() to find the rooms */
-            PhotonNetwork.Reconnect();
+            //PhotonNetwork.JoinLobby(TypedLobby.Default);
+            PhotonNetwork.Disconnect();
         }
+        DisplayNetworkInfo();
     }
     //called by photon when user connected to the Photon Cloud
     private void OnConnectedToMaster(){
@@ -58,7 +58,6 @@ public class LobbyNetwork : MonoBehaviour
     }
 
 	private void DisplayNetworkInfo(){
-		Debug.Log(PhotonNetwork.connectionState);
         string colorTag = "color=#ffffff96"; //white
 
         if(PhotonNetwork.connectionState.ToString() == "Disconnected")
@@ -72,7 +71,7 @@ public class LobbyNetwork : MonoBehaviour
 							   "\nState: " + "<b>" + colorTag + PhotonNetwork.connectionState.ToString()+"</color></b>";
 	}
 
-    public void OnLobbyStatisticsUpdate(){
+    private void OnLobbyStatisticsUpdate(){
         string countPlayersOnline;
 	 	countPlayersOnline = PhotonNetwork.countOfPlayers.ToString() + " Online Players";
 	 	countPlayersOnlineText.text = countPlayersOnline; 
