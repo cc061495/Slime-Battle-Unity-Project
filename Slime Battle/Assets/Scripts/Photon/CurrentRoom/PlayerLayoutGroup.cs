@@ -23,6 +23,12 @@ public class PlayerLayoutGroup : Photon.MonoBehaviour{
         private Button roomMatchBtn{
             get { return _roomMatchBtn; }
         }
+
+        [SerializeField]
+        private Button _roomLeaveBtn;
+        private Button roomLeaveBtn{
+            get { return _roomLeaveBtn; }
+        }
     #endregion
     
     private bool isRoomReady = false;
@@ -107,6 +113,7 @@ public class PlayerLayoutGroup : Photon.MonoBehaviour{
                 //Lock the room and load the level
                 PhotonNetwork.room.IsOpen = false;
                 PhotonNetwork.room.IsVisible = false;
+                photonView.RPC("RPC_DisableAllButtons", PhotonTargets.All);
 		        sceneFader.FadeToWithPhotonNetwork("Main");
             }
             else
@@ -120,7 +127,7 @@ public class PlayerLayoutGroup : Photon.MonoBehaviour{
         }
     }
 
-    void UpdateButtonsLayout(){
+    private void UpdateButtonsLayout(){
         if (!PhotonNetwork.isMasterClient){
             //Server Client
             roomMatchText.text = "Ready";       //Ready Text
@@ -138,10 +145,16 @@ public class PlayerLayoutGroup : Photon.MonoBehaviour{
     }
 
     [PunRPC]
-    void toggleIsRoomReady(){
+    private void toggleIsRoomReady(){
         isRoomReady = !isRoomReady;
         //Host can start the match if the players are ready
         if (PhotonNetwork.isMasterClient)
             roomMatchBtn.interactable = (isRoomReady) ? true : false;
+    }
+
+    [PunRPC]
+    private void RPC_DisableAllButtons(){
+        roomMatchBtn.interactable = false;
+        roomLeaveBtn.interactable = false;
     }
 }

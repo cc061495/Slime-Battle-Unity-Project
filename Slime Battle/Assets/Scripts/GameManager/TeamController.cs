@@ -16,10 +16,8 @@ public class TeamController : MonoBehaviour {
 	public Color selectedTextColor, fadedTextColor;
 	private Text prevText;
 	PhotonView photonView;
-	GameManager gm;
 
 	void Start(){
-		gm = GameManager.Instance;
 		photonView = GetComponent<PhotonView>();
 		SetToDefaultSearchMode();
 	}
@@ -59,7 +57,7 @@ public class TeamController : MonoBehaviour {
 	private void DefineControlWhichTeam(SearchMode mode){
 		if(PhotonNetwork.isMasterClient){
 			redTeam_searchMode = mode;
-			CallTargetSearching(gm.team_red2);
+			//CallTargetSearching(gm.team_red2);
 		}
 		else
 			photonView.RPC("RPC_CallTargetSearching", PhotonTargets.MasterClient, mode);
@@ -68,7 +66,7 @@ public class TeamController : MonoBehaviour {
 	[PunRPC]
 	private void RPC_CallTargetSearching(SearchMode mode){
 		blueTeam_searchMode = mode;
-		CallTargetSearching(gm.team_blue2);
+		//CallTargetSearching(gm.team_blue2);
 	}
 
 	private void CallTargetSearching(List<Transform> team){

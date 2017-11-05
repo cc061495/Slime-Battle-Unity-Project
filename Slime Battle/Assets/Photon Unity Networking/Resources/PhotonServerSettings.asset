@@ -90,4 +90,5 @@ MonoBehaviour:
   - RPC_RemoveFromTeamList
   - RPC_EmotionCreate
   - RPC_DestroyPrevEmotion
+  - RPC_DisableAllButtons
   DisableAutoOpenWizard: 1

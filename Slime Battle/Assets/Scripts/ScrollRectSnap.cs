@@ -17,6 +17,7 @@ public class ScrollRectSnap : MonoBehaviour {
 	private bool dragging = false; //Will be true, while we drag the panel
 	private int bttnDistance = 500;	//Will hold the distance between the buttons
 	private int minButtonNum;	//To hold the number of the button, with smallest distance to center
+	private int prevButtonNum = -1;
 
 	void Update(){
 		if(MenuScreen.Instance.currentLayout == MenuScreen.Layout.home){
@@ -81,6 +82,15 @@ public class ScrollRectSnap : MonoBehaviour {
 	private void SelectWhichButton(int num, bool toggle){
 		ButtonAndTitleAnimator(num, toggle);
 		selectedName.text = bttn[num].name;		//text = Button name
+		// Setting the button interactable, selected button -> true
+		if(num != prevButtonNum){
+			bttn[num].interactable = true;
+
+			if(prevButtonNum > -1)
+				bttn[prevButtonNum].interactable = false;
+
+			prevButtonNum = num;
+		}
 	}
 
 	private void ButtonAndTitleAnimator(int num, bool toggle){

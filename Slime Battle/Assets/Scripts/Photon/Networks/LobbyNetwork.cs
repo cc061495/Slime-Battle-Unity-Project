@@ -20,10 +20,10 @@ public class LobbyNetwork : MonoBehaviour
             DisplayNetworkInfo();
         }
         else{
-            createRoomButton.interactable = true;
+            // createRoomButton.interactable = true;
             /* Rejoin the default Lobby, otherwise you cannot find the rooms */
             /* needs to call OnReceivedRoomListUpdate() to find the rooms */
-            PhotonNetwork.JoinLobby(TypedLobby.Default);
+            PhotonNetwork.Reconnect();
         }
     }
     //called by photon when user connected to the Photon Cloud
