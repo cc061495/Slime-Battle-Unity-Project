@@ -16,9 +16,11 @@ public class TeamController : MonoBehaviour {
 	public Color selectedTextColor, fadedTextColor;
 	private Text prevText;
 	PhotonView photonView;
+	GameManager gameManager;
 
 	void Start(){
 		photonView = GetComponent<PhotonView>();
+		gameManager = GameManager.Instance;
 		SetToDefaultSearchMode();
 	}
 
@@ -57,7 +59,7 @@ public class TeamController : MonoBehaviour {
 	private void DefineControlWhichTeam(SearchMode mode){
 		if(PhotonNetwork.isMasterClient){
 			redTeam_searchMode = mode;
-			//CallTargetSearching(gm.team_red2);
+			CallTargetSearching(gameManager.team_red2);
 		}
 		else
 			photonView.RPC("RPC_CallTargetSearching", PhotonTargets.MasterClient, mode);
@@ -66,16 +68,16 @@ public class TeamController : MonoBehaviour {
 	[PunRPC]
 	private void RPC_CallTargetSearching(SearchMode mode){
 		blueTeam_searchMode = mode;
-		//CallTargetSearching(gm.team_blue2);
+		CallTargetSearching(gameManager.team_blue2);
 	}
 
-	// private void CallTargetSearching(List<Transform> team){
-	// 	for(int i=0;i<team.Count;i++){
-	// 		if(!team[i].parent.GetComponent<Slime>().GetSlimeClass().isHealing){
-	// 			team[i].parent.GetComponent<SlimeMovement>().FindTheTargetAgain();
-	// 		}
-	// 	}
-	// }
+	private void CallTargetSearching(List<Transform> team){
+		for(int i=0;i<team.Count;i++){
+			if(!team[i].parent.GetComponent<Slime>().GetSlimeClass().isHealing){
+				team[i].parent.GetComponent<SlimeMovement>().FindTheTargetAgain();
+			}
+		}
+	}
 
 	public SearchMode GetTeamSearchMode(Transform slime){
 		if(slime.tag == "Team_RED")

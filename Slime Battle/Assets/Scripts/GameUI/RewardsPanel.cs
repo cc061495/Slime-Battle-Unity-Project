@@ -45,6 +45,6 @@ public class RewardsPanel : MonoBehaviour {
 		costText.text = "$ " + 0;
 		roundBounsText.text = "+ " + 0;
 		extraBounsText.text = "+ " + 0;
-		totalText.text = "$ " + 0;
+		totalText.text = "$" + 0;
 	}
 }

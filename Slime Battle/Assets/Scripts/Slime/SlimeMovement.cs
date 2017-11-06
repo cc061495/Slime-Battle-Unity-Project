@@ -44,23 +44,17 @@ public class SlimeMovement : MonoBehaviour {
 	}
 	
 	void Update () {
-		if (gm.currentState == GameManager.State.battle_start && photonView.isMine) {  //when the battle starts, start to execute
-            if (target){
-                if(DistanceCalculate(target.position, model.position) <= range*range){
-					if(move && model){
-						move = false;
-						agent.angularSpeed = 0f;
-						//agent.destination = model.position;		//stand on the current position
-						if(slime.isMeleeAttack)
-							agent.avoidancePriority = 1;
-					}
-					slimeAction.Action();		//Action to the target
-					LookAtTarget();				//Look at the target
-				}
-				else if(!move){
-					SetupMovementSetting();
-				}
-            }
+		/* when the battle starts, start to execute */
+		if (gm.currentState == GameManager.State.battle_start && photonView.isMine && target) {
+			if(DistanceCalculate(target.position, model.position) <= range*range){
+				if(move && model)
+					SetupMovementSetting(false, 0f, 1);
+
+				slimeAction.Action();		//Action to the target
+				LookAtTarget();				//Look at the target
+			}
+			else if(!move)
+				SetupMovementSetting(true, 120f, 50);
 		}
 	}
 	/* Start this function in the SlimeHealth.cs */
@@ -72,7 +66,7 @@ public class SlimeMovement : MonoBehaviour {
 		if(gm.currentState == GameManager.State.battle_start){
 			if(target == null){
 				findNewTarget = false;
-				SetupMovementSetting();
+				SetupMovementSetting(true, 120f, 50);
 			}
 
 			if(move){
@@ -94,28 +88,7 @@ public class SlimeMovement : MonoBehaviour {
 			CancelInvoke("UpdatePath");
 	}
 
-	private void SetupMovementSetting(){
-		move = true;
-
-		agent.angularSpeed = 120f;
-		if(slime.isMeleeAttack)
-			agent.avoidancePriority = 50;
-	}
-	
-	private void LookAtTarget(){
-		Vector3 dir;
-		dir.x = target.position.x - model.position.x;
-		dir.y = target.position.y - model.position.y;
-		dir.z = target.position.z - model.position.z;
-
-		if(dir != Vector3.zero){
-			Quaternion lookRotation = Quaternion.LookRotation (dir);
-			Vector3 rotation = Quaternion.Lerp (model.rotation, lookRotation, Time.deltaTime * slime.turnSpeed).eulerAngles;
-			model.SetPositionAndRotation(model.position, Quaternion.Euler (0f, rotation.y, 0f));
-		}
-	}
-
-	public void TargetSearching(){
+	private void TargetSearching(){
 		if(slime.isMeleeAttack || slime.isRangedAttack || slime.isAreaEffectDamage || slime.isExplosion){
 			if(enemies.Count > 0){
 				if(findNewTarget){
@@ -177,10 +150,10 @@ public class SlimeMovement : MonoBehaviour {
 		}
 	}
 
-	// public void FindTheTargetAgain(){
-	// 	findNewTarget = false;
-	// 	TargetSearching();
-	// }
+	public void FindTheTargetAgain(){
+		findNewTarget = false;
+		TargetSearching();
+	}
 
 	private void DefaultSearching(){
 		TeamController.SearchMode mode = tm.GetTeamSearchMode(_transform);
@@ -198,6 +171,27 @@ public class SlimeMovement : MonoBehaviour {
 		else if(mode == TeamController.SearchMode.priority){
 			target = enemies.OrderBy(o => o.parent.GetComponent<Slime>().GetSlimeClass().classPriority).
 							ThenBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();
+		}
+	}
+
+	private void SetupMovementSetting(bool _move, float _angularSpeed, int _priority){
+		move = _move;
+
+		agent.angularSpeed = _angularSpeed;
+		if(slime.isMeleeAttack)
+			agent.avoidancePriority = _priority;
+	}
+	
+	private void LookAtTarget(){
+		Vector3 dir;
+		dir.x = target.position.x - model.position.x;
+		dir.y = target.position.y - model.position.y;
+		dir.z = target.position.z - model.position.z;
+
+		if(dir != Vector3.zero){
+			Quaternion lookRotation = Quaternion.LookRotation (dir);
+			Vector3 rotation = Quaternion.Lerp (model.rotation, lookRotation, Time.deltaTime * slime.turnSpeed).eulerAngles;
+			model.SetPositionAndRotation(model.position, Quaternion.Euler (0f, rotation.y, 0f));
 		}
 	}
 

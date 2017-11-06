@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public GameObject gameDisplayPanel, teamRedSlimeShop, teamBlueSlimeShop, teamControlPanel;
     public SceneFader sceneFader;
     public RewardsPanel rewardsPanel;
+    public NextRoundCost nextRoundCostPanel;
     public RectTransform canvasForHealthBar, healthBarParent;
     public List<Transform> team_red = new List<Transform>();    //team with building
     public List<Transform> team_red2 = new List<Transform>();   //team without building
@@ -29,10 +30,10 @@ public class GameManager : MonoBehaviour
     public PhotonPlayer masterPlayer;
 
     private int totalRoundGame, matchPoint, winPoint;
-    private bool isRedFinish, isBlueFinish;
+    //private bool isRedFinish, isBlueFinish;
     private float mDeltaTime = 0.0f;
     private float mFPS = 0.0f;
-    PhotonView photonView;
+    //PhotonView photonView;
     CameraManager camManager;
     PlayerStats playerStats;
 
@@ -48,7 +49,7 @@ public class GameManager : MonoBehaviour
     }
     
     void Start(){
-        photonView = GetComponent<PhotonView>();
+        //photonView = GetComponent<PhotonView>();
         camManager = GetComponent<CameraManager>();
         masterPlayer = PhotonNetwork.masterClient;
         playerStats = PlayerStats.Instance;
@@ -131,7 +132,7 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(DisplayGamePanel());    //display the game panel
 
-        Invoke("CheckAnyEmptyTeam", 1f);    //check any empty team when battle started
+        Invoke("CheckAnyEmptyTeam", 2f);    //check any empty team when battle started
     }
 
     public void CheckAnyEmptyTeam(){
@@ -145,33 +146,38 @@ public class GameManager : MonoBehaviour
     private void BattleEnd(){
         currentState = State.battle_end;    //set game state = battle_end
         Debug.Log("Battle End!");
-        //Synchronize for ending game
-        if(PhotonNetwork.isMasterClient)
-            photonView.RPC ("RPC_RedTeamFinish", PhotonTargets.All);
-        else
-            photonView.RPC ("RPC_BlueTeamFinish", PhotonTargets.All);
-        
-        StartCoroutine(CheckTeamFinish());
-    }
 
-    IEnumerator CheckTeamFinish(){
-        while(!isRedFinish || !isBlueFinish){
-            yield return new WaitForSeconds(1f);
-
-            if(!isRedFinish)
-                Debug.Log("Red Not Ready");
-            if(!isBlueFinish)
-                Debug.Log("Blue Not Ready");
-        }
-        //Close and reset the team control panel, when the battle is ended
-        teamControlPanel.SetActive(false);
         TeamController.Instance.SetToDefaultSearchMode();
         BuildingUI.Instance.BuildingPanelDisplay(false);
 
         StartCoroutine(DisplayGamePanel());
-        isRedFinish = false;
-        isBlueFinish = false;
+        //Synchronize for ending game
+        // if(PhotonNetwork.isMasterClient)
+        //     photonView.RPC ("RPC_RedTeamFinish", PhotonTargets.All);
+        // else
+        //     photonView.RPC ("RPC_BlueTeamFinish", PhotonTargets.All);
+        
+        // StartCoroutine(CheckTeamFinish());
     }
+
+    // IEnumerator CheckTeamFinish(){
+    //     while(!isRedFinish || !isBlueFinish){
+    //         yield return new WaitForSeconds(0.1f);
+
+    //         if(!isRedFinish)
+    //             Debug.Log("Red Not Ready");
+    //         if(!isBlueFinish)
+    //             Debug.Log("Blue Not Ready");
+    //     }
+    //     //Close and reset the team control panel, when the battle is ended
+    //     teamControlPanel.SetActive(false);
+    //     TeamController.Instance.SetToDefaultSearchMode();
+    //     BuildingUI.Instance.BuildingPanelDisplay(false);
+
+    //     StartCoroutine(DisplayGamePanel());
+    //     isRedFinish = false;
+    //     isBlueFinish = false;
+    // }
     /* Game End State */
     void GameEnd(){
         currentState = State.game_end;
@@ -193,7 +199,7 @@ public class GameManager : MonoBehaviour
     IEnumerator DisplayGamePanel(){
         if(currentState == State.idle){
             yield return new WaitForSeconds(1f);
-            gameDisplayText.text = "<size=60><color=#ff0000ff>" + PhotonNetwork.playerName + "</color>\n" + "vs\n<color=#00ffffff>" + PhotonNetwork.otherPlayers[0].NickName + "</color></size>";
+            gameDisplayText.text = "<size=60><color=#ff0000ff>" + PhotonNetwork.playerName + "</color>\n" + "<color=#ffff00ff>vs</color>\n<color=#00ffffff>" + PhotonNetwork.otherPlayers[0].NickName + "</color></size>";
             gameDisplayPanel.SetActive(true);
             yield return new WaitForSeconds(3f);
             gameDisplayPanel.SetActive(false);
@@ -212,11 +218,11 @@ public class GameManager : MonoBehaviour
                 gameDisplayText.text = "Round "+ currentRound + "\nReady!";
             yield return new WaitForSeconds(1.5f);
             camManager.CamMove_Build();
-            gameDisplayText.text = "3";
+            gameDisplayText.text = "<size=100>3</size>";
             yield return new WaitForSeconds(1f);
-            gameDisplayText.text = "2";
+            gameDisplayText.text = "<size=100>2</size>";
             yield return new WaitForSeconds(1f);
-            gameDisplayText.text = "1";
+            gameDisplayText.text = "<size=100>1</size>";
             yield return new WaitForSeconds(1f);
             gameDisplayPanel.SetActive(false);
 
@@ -241,10 +247,12 @@ public class GameManager : MonoBehaviour
         else if(currentState == State.battle_start){
             gameDisplayText.text = "Battle Start!";
             gameDisplayPanel.SetActive(true);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1f);
             gameDisplayPanel.SetActive(false);
         }
         else if(currentState == State.battle_end){
+            yield return new WaitForSeconds(1f);
+            teamControlPanel.SetActive(false);
             if (team_blue2.Count > 0){
                 gameDisplayText.text = "<color=#00ffffff>Team Blue</color>\nwon!";
                 team_blue_score++;
@@ -270,15 +278,13 @@ public class GameManager : MonoBehaviour
             if(team_red_score < winPoint && team_blue_score < winPoint){
                 yield return new WaitForSeconds(0.5f);
                 /* Display Rewards Panel */
-                rewardsPanel.gameObject.SetActive(true);
-                yield return new WaitForSeconds(1f);
-                rewardsPanel.TextSetting();
-                yield return new WaitForSeconds(6f);
-                rewardsPanel.gameObject.SetActive(false);
+                nextRoundCostPanel.gameObject.SetActive(true);
+                nextRoundCostPanel.TextSetting();
+                yield return new WaitForSeconds(7f);
+                nextRoundCostPanel.gameObject.SetActive(false);
 
                 playerStats.NewRoundCostUpdate();
                 PlayerShop.Instance.ButtonsUpdate();
-                rewardsPanel.ResetAllTheText();
                 yield return new WaitForSeconds(0.5f);
                 GameReady();
             }
@@ -288,20 +294,20 @@ public class GameManager : MonoBehaviour
             }
         }
         else if(currentState == State.game_end){
-            gameDisplayText.text = "Game End!";
+            gameDisplayText.text = "<size=75>Game End!</size>";
             gameDisplayPanel.SetActive(true);
             yield return new WaitForSeconds(2f);
             if(team_red_score > team_blue_score){
-                gameDisplayText.text = "Winner\n<color=#ff0000ff>Team Red</color>";
+                gameDisplayText.text = "Winner\n<size=70><color=#ff0000ff>Team Red</color></size>";
             }
             else if(team_red_score < team_blue_score){
-                gameDisplayText.text = "Winner\n<color=#00ffffff>Team Blue</color>";
+                gameDisplayText.text = "Winner\n<size=70><color=#00ffffff>Team Blue</color></size>";
             }
             else{
-                gameDisplayText.text = "<color=#ffff00ff>Draw Game</color>";
+                gameDisplayText.text = "<size=75><color=#ffff00ff>Draw Game</color></size>";
             }
             yield return new WaitForSeconds(3f);
-            gameDisplayText.text = "Good Game~";
+            gameDisplayText.text = "<size=75>Good Game!</size>";
             yield return new WaitForSeconds(2f);
             gameDisplayPanel.SetActive(false);
             yield return new WaitForSeconds(1f);
@@ -321,7 +327,7 @@ public class GameManager : MonoBehaviour
 
     public void LeaveTheRoom(){
         Destroy(GameObject.Find("DDOL"));
-        PhotonNetwork.LeaveRoom();
+        //PhotonNetwork.LeaveRoom();
         sceneFader.FadeToWithPhotonNetwork("GameLobby");
     }
 
@@ -353,15 +359,15 @@ public class GameManager : MonoBehaviour
             return team_blue;
     }
 
-    [PunRPC]
-    private void RPC_RedTeamFinish(){
-        isRedFinish = true;
-    }
+    // [PunRPC]
+    // private void RPC_RedTeamFinish(){
+    //     isRedFinish = true;
+    // }
     
-    [PunRPC]
-    private void RPC_BlueTeamFinish(){
-        isBlueFinish = true;
-    }
+    // [PunRPC]
+    // private void RPC_BlueTeamFinish(){
+    //     isBlueFinish = true;
+    // }
 
     private void DisplayTeam(List<Transform> team){
         for(int i=0;i<team.Count;i++){
