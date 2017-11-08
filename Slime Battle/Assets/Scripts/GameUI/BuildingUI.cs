@@ -25,6 +25,8 @@ public class BuildingUI : MonoBehaviour {
 		arrow.PositionArrow(s);
 
 		gameManager.teamControlPanel.SetActive(false);
+		gameManager.teamControlButton.SetActive(false);
+		gameManager.chatButton.SetActive(false);
 		BuildingPanelDisplay(true);
 	}
 
@@ -36,7 +38,8 @@ public class BuildingUI : MonoBehaviour {
 	}
 
 	public void Cancel(){
-		gameManager.teamControlPanel.SetActive(true);
+		gameManager.teamControlButton.SetActive(true);
+		gameManager.chatButton.SetActive(true);
 		BuildingPanelDisplay(false);
 	}
 

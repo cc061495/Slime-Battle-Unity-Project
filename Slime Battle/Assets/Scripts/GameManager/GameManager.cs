@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public State currentState;
     public int currentRound, team_red_score, team_blue_score;
     public Text gameDisplayText, DebugText;
-    public GameObject gameDisplayPanel, teamRedSlimeShop, teamBlueSlimeShop, teamControlPanel;
+    public GameObject gameDisplayPanel, teamRedSlimeShop, teamBlueSlimeShop, teamControlButton, teamControlPanel, chatButton;
     public SceneFader sceneFader;
     public RewardsPanel rewardsPanel;
     public NextRoundCost nextRoundCostPanel;
@@ -128,7 +128,8 @@ public class GameManager : MonoBehaviour
 
         // DisplayTeamHealthBar(team_blue);
         // DisplayTeamHealthBar(team_red);
-        teamControlPanel.SetActive(true);
+        teamControlButton.SetActive(true);
+        chatButton.SetActive(true);
 
         StartCoroutine(DisplayGamePanel());    //display the game panel
 
@@ -147,7 +148,6 @@ public class GameManager : MonoBehaviour
         currentState = State.battle_end;    //set game state = battle_end
         Debug.Log("Battle End!");
 
-        TeamController.Instance.SetToDefaultSearchMode();
         BuildingUI.Instance.BuildingPanelDisplay(false);
 
         StartCoroutine(DisplayGamePanel());
@@ -252,7 +252,11 @@ public class GameManager : MonoBehaviour
         }
         else if(currentState == State.battle_end){
             yield return new WaitForSeconds(1f);
+            teamControlButton.SetActive(false);
             teamControlPanel.SetActive(false);
+            chatButton.SetActive(false);
+            TeamController.Instance.SetToDefaultSearchMode();
+            
             if (team_blue2.Count > 0){
                 gameDisplayText.text = "<color=#00ffffff>Team Blue</color>\nwon!";
                 team_blue_score++;

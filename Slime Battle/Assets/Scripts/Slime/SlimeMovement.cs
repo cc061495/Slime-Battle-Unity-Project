@@ -15,6 +15,7 @@ public class SlimeMovement : MonoBehaviour {
 	private float range;
 	private bool move, findNewTarget;
 
+	TeamController.SearchMode mode;
 	PhotonView photonView;
 	SlimeClass slime;
 	GameManager gm;
@@ -71,8 +72,11 @@ public class SlimeMovement : MonoBehaviour {
 
 			if(move){
 				TargetSearching();		//find new target every 0.2s
-				if(target){				
-					agent.destination = target.position;	//set target position if target is found
+				if(target){
+					if(mode != TeamController.SearchMode.defense)
+						agent.destination = target.position;	//set target position if target is found
+					else	
+						agent.destination = model.position;
 					//Debug.Log(transform.name + "->" + target.parent.name);
 					//Debug.Log(agent.pathStatus);
 					/* if the target is not reachable, find the new target again */
@@ -134,7 +138,7 @@ public class SlimeMovement : MonoBehaviour {
 
 			//Client set the target
 			if(slime.isRangedAttack){
-				Debug.Log("RPC CALLS!!!");
+				//Debug.Log("RPC CALLS!!!");
 				photonView.RPC("RPC_ClientSetTarget", PhotonTargets.Others, target.parent.gameObject.GetPhotonView().viewID);
 			}
 		}
@@ -156,9 +160,9 @@ public class SlimeMovement : MonoBehaviour {
 	}
 
 	private void DefaultSearching(){
-		TeamController.SearchMode mode = tm.GetTeamSearchMode(_transform);
+		mode = tm.GetTeamSearchMode(_transform);
 		/* Kill the shortest distance enemy with killing priority(slime -> building) */
-		if(mode == TeamController.SearchMode.distance){
+		if(mode == TeamController.SearchMode.distance && mode == TeamController.SearchMode.defense){
 			target = enemies.OrderBy(o => o.parent.GetComponent<Slime>().GetSlimeClass().killingPriority).
 							ThenBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();
 		}
