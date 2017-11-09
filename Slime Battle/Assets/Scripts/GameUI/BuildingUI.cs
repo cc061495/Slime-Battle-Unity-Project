@@ -9,24 +9,27 @@ public class BuildingUI : MonoBehaviour {
 	public GameObject buildingPanel;
 	public Arrow arrow;
 
-	GameManager gameManager;
 	SlimeHealth buildHealth;
+	TeamController teamController;
+	ChattingPanel chattingPanel;
 
 	void Awake(){
 		Instance = this;
 	}
 
 	void Start(){
-		gameManager = GameManager.Instance;
+		teamController = TeamController.Instance;
+		chattingPanel = ChattingPanel.Instance;
 	}
 
 	public void Show(Transform s, SlimeHealth h){
 		buildHealth = h;
 		arrow.PositionArrow(s);
-
-		gameManager.teamControlPanel.SetActive(false);
-		gameManager.teamControlButton.SetActive(false);
-		gameManager.chatButton.SetActive(false);
+		
+		teamController.SetControlPanelDisplay(false);
+		teamController.SetControlButtonDisplay(false);
+		chattingPanel.SetChatButtonDisplay(false);
+		chattingPanel.SetChatPanelDisplay(false);
 		BuildingPanelDisplay(true);
 	}
 
@@ -38,8 +41,9 @@ public class BuildingUI : MonoBehaviour {
 	}
 
 	public void Cancel(){
-		gameManager.teamControlButton.SetActive(true);
-		gameManager.chatButton.SetActive(true);
+
+		teamController.SetControlButtonDisplay(true);
+		chattingPanel.SetChatButtonDisplay(true);
 		BuildingPanelDisplay(false);
 	}
 

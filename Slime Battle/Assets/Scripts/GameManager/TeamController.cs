@@ -15,13 +15,20 @@ public class TeamController : MonoBehaviour {
 	public Sprite[] atkModeImg = new Sprite[4];
 	public Text modeText;
 	public GameObject controlPanel, controlButton;
+
 	private string prevMode;
+	private string[] modeString = new string[]{"Distance", "Health", "Priority", "Defense"};
+	private SearchMode[] mode = new SearchMode[]{SearchMode.distance, SearchMode.health, SearchMode.priority, SearchMode.defense};
 	PhotonView photonView;
 	GameManager gameManager;
+	ChattingPanel chattingPanel;
+	Animator controlPanelAnimator;
 
 	void Start(){
 		photonView = GetComponent<PhotonView>();
 		gameManager = GameManager.Instance;
+		chattingPanel = ChattingPanel.Instance;
+		controlPanelAnimator = controlPanel.GetComponent<Animator>();
 		SetToDefaultSearchMode();
 	}
 
@@ -30,52 +37,38 @@ public class TeamController : MonoBehaviour {
 			redTeam_searchMode = SearchMode.distance;
 			blueTeam_searchMode = SearchMode.distance;
 		}
-		ModeTextSetting("Distance", 0);
+		ModeTextSetting(0);
 	}
-	/* Action for Distance Button */
-	public void OnClick_FindTargetBy_Distance() {
-		ModeTextSetting("Distance", 0);
-		StartCoroutine(DefineControlWhichTeam(SearchMode.distance));
-	}
-	/* Action for Health Button */
-	public void OnClick_FindTargetBy_Health(){
-		ModeTextSetting("Health", 1);
-		StartCoroutine(DefineControlWhichTeam(SearchMode.health));
-	}
-	/* Action for Priority Button */
-	public void OnClick_FindTargetBy_Priority(){
-		ModeTextSetting("Priority", 2);
-		StartCoroutine(DefineControlWhichTeam(SearchMode.priority));
-	}
-	/* Action for Priority Button */
-	public void OnClick_FindTargetBy_Defense(){
-		ModeTextSetting("Defense", 3);
-		StartCoroutine(DefineControlWhichTeam(SearchMode.defense));
+	/* Action for Attack Mode Button */
+	public void OnClick_FindTargetBy_AttackMode(int index) {
+		ModeTextSetting(index);
+		StartCoroutine(DefineControlWhichTeam(mode[index]));
 	}
 
-	private void ModeTextSetting(string mode, int index){
-		if(prevMode != mode){
-			modeText.text = "Attack Mode:\n" + "<color=#FFFFFFFF>" + mode + "</color>";
+	private void ModeTextSetting(int index){
+		if(prevMode != modeString[index]){
+			modeText.text = "Attack Mode:\n" + "<color=#FFFFFFFF>" + modeString[index] + "</color>";
 			controlButton.GetComponent<Image>().sprite = atkModeImg[index];
-			prevMode = mode;
+			prevMode = modeString[index];
 		}
 	}
 
 	IEnumerator DefineControlWhichTeam(SearchMode mode){
-		controlPanel.GetComponent<Animator>().Play("Back", 0, 0f);
-		yield return new WaitForSeconds(0.2f);
-		if(gameManager.currentState == GameManager.State.battle_start){
-			controlPanel.SetActive(false);
-			controlButton.SetActive(true);
-			gameManager.chatButton.SetActive(true);
-		}
-
 		if(PhotonNetwork.isMasterClient){
 			redTeam_searchMode = mode;
 			CallTargetSearching(gameManager.team_red2);
 		}
 		else
 			photonView.RPC("RPC_CallTargetSearching", PhotonTargets.MasterClient, mode);
+
+		controlPanelAnimator.Play("Back", 0, 0f);
+		yield return new WaitForSeconds(0.2f);
+
+		if(gameManager.currentState == GameManager.State.battle_start){
+			SetControlPanelDisplay(false);
+			SetControlButtonDisplay(true);
+			chattingPanel.SetChatButtonDisplay(true);
+		}
 	}
 
 	[PunRPC]
@@ -93,10 +86,9 @@ public class TeamController : MonoBehaviour {
 	}
 
 	public void OnClick_ControlButton(){
-		//controlPanel.GetComponent<Animator>().Rebind();
-		controlPanel.SetActive(true);
-		controlButton.SetActive(false);
-		gameManager.chatButton.SetActive(false);
+		SetControlPanelDisplay(true);
+		SetControlButtonDisplay(false);
+		chattingPanel.SetChatButtonDisplay(false);
 	}
 
 	public SearchMode GetTeamSearchMode(Transform slime){
@@ -104,5 +96,15 @@ public class TeamController : MonoBehaviour {
 			return redTeam_searchMode;
 		else
 			return blueTeam_searchMode;
+	}
+
+	public void SetControlPanelDisplay(bool display){
+		if(controlPanel.activeSelf != display)
+			controlPanel.SetActive(display);
+	}
+
+	public void SetControlButtonDisplay(bool display){
+		if(controlButton.activeSelf != display)
+			controlButton.SetActive(display);
 	}
 }

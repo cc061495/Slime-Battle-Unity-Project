@@ -162,7 +162,7 @@ public class SlimeMovement : MonoBehaviour {
 	private void DefaultSearching(){
 		mode = tm.GetTeamSearchMode(_transform);
 		/* Kill the shortest distance enemy with killing priority(slime -> building) */
-		if(mode == TeamController.SearchMode.distance && mode == TeamController.SearchMode.defense){
+		if(mode == TeamController.SearchMode.distance || mode == TeamController.SearchMode.defense){
 			target = enemies.OrderBy(o => o.parent.GetComponent<Slime>().GetSlimeClass().killingPriority).
 							ThenBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();
 		}
