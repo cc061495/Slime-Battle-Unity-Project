@@ -13,9 +13,8 @@ public class TimerManager : MonoBehaviour {
     }
 
 	private const float BuildingTime = 60f;
-	private const float ReadyCoolDownTime = 0.5f;
-	private float startTime, gameTimer, readyCoolDown;
-	private bool isRedReady, isBlueReady, timerReady;
+	private float startTime, gameTimer;
+	private bool isRedReady, isBlueReady, timerReady, readyCoolDown;
 	private Color originalColor;
     public RectTransform worldSpaceCanvasPos;
 	public Button readyButton;
@@ -38,21 +37,18 @@ public class TimerManager : MonoBehaviour {
 	}
 	
 	void Update () {
-		if(gameManager.currentState == GameManager.State.build_start && gameTimer > 0 && timerReady){
+		if(gameManager.currentState == GameManager.State.build_start && timerReady){
 			if(gameTimer > 0){
 				gameTimer -= Time.deltaTime;
         		timerBar.fillAmount = gameTimer / startTime;
 			}
-			if(readyCoolDown > 0)
-				readyCoolDown -= Time.deltaTime;
 			/* Delete it later */
 			if(Input.GetKeyDown("space"))
 				setReady();
 
-			if(PhotonNetwork.isMasterClient){
-				if((gameTimer <= 0 || (isRedReady && isBlueReady))){
+			if(gameTimer <= 0 || (isRedReady && isBlueReady)){
+				if(PhotonNetwork.isMasterClient)
 					photonView.RPC("SyncToReady", PhotonTargets.All);
-				}
 			}
 		}
 	}
@@ -84,41 +80,35 @@ public class TimerManager : MonoBehaviour {
 	void StartTimer(){
 		gameTimer = BuildingTime;
 		startTime = gameTimer;
+		readyCoolDown = true;
 		timerReady = true;
 	}
 
 	public void setReady(){
-		if(gameManager.currentState == GameManager.State.build_start && readyCoolDown <= 0){
+		if(gameManager.currentState == GameManager.State.build_start && readyCoolDown){
+			readyCoolDown = false;
 			if(PhotonNetwork.isMasterClient)
 				photonView.RPC("RPC_setRedReady", PhotonTargets.All);
 			else
 				photonView.RPC("RPC_setBlueReady", PhotonTargets.All);
 
-			readyCoolDown = ReadyCoolDownTime;	//setup Ready button cooldown time 0.5s
+			Invoke("ResetReadyCoolDown", 0.5f);
 		}
+	}
+
+	private void ResetReadyCoolDown(){
+		readyCoolDown = true;
 	}
 
 	[PunRPC]
 	private void RPC_setRedReady(){
-		if(!isRedReady){
-			isRedReady = true;
-			redState.color = Color.red;
-		}
-		else{
-			isRedReady = false;
-			redState.color = originalColor;
-		}
+		isRedReady = !isRedReady;
+		redState.color = (isRedReady) ? Color.red : originalColor;
 	}
 
 	[PunRPC]
 	private void RPC_setBlueReady(){
-		if(!isBlueReady){
-			isBlueReady = true;
-			blueState.color = Color.blue;
-		}
-		else{
-			isBlueReady = false;
-			blueState.color = originalColor;
-		}
+		isBlueReady = !isBlueReady;
+		blueState.color = (isBlueReady) ? Color.blue : originalColor;
 	}
 }

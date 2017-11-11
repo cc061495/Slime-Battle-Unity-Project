@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerLayoutGroup : Photon.MonoBehaviour{
     public SceneFader sceneFader;
+    public Image[] rdyIcon = new Image[2];
 
     #region UI_items
         [SerializeField]
@@ -31,7 +32,7 @@ public class PlayerLayoutGroup : Photon.MonoBehaviour{
         }
     #endregion
     
-    private bool isRoomReady = false;
+    private bool isRoomReady, readyCooldown = true;
     private List<PlayerListing> _playerListings = new List<PlayerListing>();
     private List<PlayerListing> PlayerListings{
         get { return _playerListings; }
@@ -42,7 +43,8 @@ public class PlayerLayoutGroup : Photon.MonoBehaviour{
         UpdateButtonsLayout();
         int index = PlayerListings.FindIndex(x => x.PhotonPlayer == newMasterClient);
         PlayerListings[index].HostSetting();
-        
+
+        UpdateRdyIcon();
     }
 
     //called by photon whenever you join a room.
@@ -59,11 +61,15 @@ public class PlayerLayoutGroup : Photon.MonoBehaviour{
         for (int i = 0; i < photonPlayers.Length; i++){
             PlayerJoinedRoom(photonPlayers[i]);
         }
+
+        UpdateRdyIcon();
     }
 
     //called by photon when a player joins the room.
     private void OnPhotonPlayerConnected(PhotonPlayer photonPlayer){
         PlayerJoinedRoom(photonPlayer);
+
+        UpdateRdyIcon();
     }
 
     //called by photon when a player leaves the room.
@@ -72,6 +78,8 @@ public class PlayerLayoutGroup : Photon.MonoBehaviour{
             photonView.RPC("toggleIsRoomReady", PhotonTargets.All);
 
         PlayerLeftRoom(photonPlayer);
+
+        UpdateRdyIcon();
     }
 
     private void PlayerJoinedRoom(PhotonPlayer photonPlayer){
@@ -100,30 +108,38 @@ public class PlayerLayoutGroup : Photon.MonoBehaviour{
     }
     //Leave the room
     public void OnClickLeaveRoom(){
-        if (isRoomReady)
+        if (isRoomReady){
             photonView.RPC("toggleIsRoomReady", PhotonTargets.All);
-
+        }
         PhotonNetwork.LeaveRoom();
     }
     //Start the match
     public void OnClickStartSync(){
-        if (PhotonNetwork.isMasterClient){
-            //Master Client Start Match Button
-            if (PhotonNetwork.room.PlayerCount == 2 && isRoomReady){
-                //Lock the room and load the level
-                PhotonNetwork.room.IsOpen = false;
-                PhotonNetwork.room.IsVisible = false;
-                photonView.RPC("RPC_DisableAllButtons", PhotonTargets.All);
-		        sceneFader.FadeToWithPhotonNetwork("Main");
+        if(readyCooldown){
+            readyCooldown = false;
+
+            if (PhotonNetwork.isMasterClient){
+                //Master Client Start Match Button
+                if (PhotonNetwork.room.PlayerCount == 2 && isRoomReady){
+                    photonView.RPC("RPC_SetReadyIcon", PhotonTargets.All, 0);
+                    //Lock the room and load the level
+                    PhotonNetwork.room.IsOpen = false;
+                    PhotonNetwork.room.IsVisible = false;
+                    photonView.RPC("RPC_DisableAllButtons", PhotonTargets.All);
+                    sceneFader.FadeToWithPhotonNetwork("Main");
+                }
+                else
+                    Debug.Log("Not enought players");
             }
-            else
-                Debug.Log("Not enought players");
-        }
-        else{
-            //Server Client Ready Button
-            photonView.RPC("toggleIsRoomReady", PhotonTargets.All); //toggle isRoomReady
-                                                                    //change the Ready button color to Green
-            roomMatchBtn.GetComponent<Image>().color = (isRoomReady) ? Color.green : Color.white;
+            else{
+                //Server Client Ready Button
+                photonView.RPC("toggleIsRoomReady", PhotonTargets.All); //toggle isRoomReady
+                                                                        //change the Ready button color to Green
+                roomMatchBtn.GetComponent<Image>().color = (isRoomReady) ? Color.green : Color.white;
+                photonView.RPC("RPC_SetReadyIcon", PhotonTargets.All, 1);
+            }
+
+            Invoke("ResetReadyBtnCoolDown", 0.5f);
         }
     }
 
@@ -156,5 +172,24 @@ public class PlayerLayoutGroup : Photon.MonoBehaviour{
     private void RPC_DisableAllButtons(){
         roomMatchBtn.interactable = false;
         roomLeaveBtn.interactable = false;
+    }
+
+    private void UpdateRdyIcon(){
+        RPC_SetReadyIcon(1);
+        rdyIcon[0].enabled = true;
+        rdyIcon[1].enabled = PhotonNetwork.playerList.Length == 1 ? false : true;
+    }
+
+    [PunRPC]
+    private void RPC_SetReadyIcon(int index){
+		float ac = (isRoomReady) ? 1 : 0.2f;
+
+		Color color = rdyIcon[index].color;
+		color.a = ac;
+		rdyIcon[index].color = color;
+	}
+
+    private void ResetReadyBtnCoolDown(){
+        readyCooldown = true;
     }
 }

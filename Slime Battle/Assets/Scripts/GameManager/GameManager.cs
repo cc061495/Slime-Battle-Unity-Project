@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     //private bool isRedFinish, isBlueFinish;
     private float mDeltaTime = 0.0f;
     private float mFPS = 0.0f;
-    //PhotonView photonView;
+    PhotonView photonView;
     CameraManager camManager;
     PlayerStats playerStats;
     TeamController teamController;
@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
     }
     
     void Start(){
-        //photonView = GetComponent<PhotonView>();
+        photonView = GetComponent<PhotonView>();
         camManager = GetComponent<CameraManager>();
         masterPlayer = PhotonNetwork.masterClient;
         playerStats = PlayerStats.Instance;
@@ -61,31 +61,23 @@ public class GameManager : MonoBehaviour
         totalRoundGame = (int) PhotonNetwork.room.CustomProperties["Round"];
         matchPoint = totalRoundGame / 2;
         winPoint = matchPoint + 1;
-
-        if(!PhotonNetwork.connected){
-            //Start single mode
-            Debug.Log("HELLO");
-        }
     }
     /* Game Start State */
     public void GameStart(){
         currentState = State.idle;  //set game state = idle
-        
         StartCoroutine(DisplayGamePanel());
-        
-        //Invoke("GameReady", 3f);
     }
     /* Game Ready State */
-    void GameReady(){
+    [PunRPC]
+    private void RPC_GameReady(){
         currentState = State.ready;
         Debug.Log("Game Ready!");
         currentRound++;
         StartCoroutine(DisplayGamePanel());
-
-        //Invoke("BuildStart", 5f);
     }
     /* Build Start State */
-    void BuildStart(){
+    [PunRPC]
+    private void RPC_BuildStart(){
         currentState = State.build_start;  //set game state = building
         Debug.Log("Build Start!");
         TimerManager.Instance.setBuildingTime();
@@ -118,12 +110,11 @@ public class GameManager : MonoBehaviour
             nodeList[i].NodeResetting(nodeList[i]);
         }
         nodeList.Clear();
-
-        //Invoke("BattleStart", 4f);
     }
 
     /* Battle Starts State */
-    void BattleStart(){
+    [PunRPC]
+    private void RPC_BattleStart(){
         currentState = State.battle_start;    //set game state = battle_start
         Debug.Log("Battle!!!");
         ResetShopTextDisplay();
@@ -142,13 +133,16 @@ public class GameManager : MonoBehaviour
 
     public void CheckAnyEmptyTeam(){
         if(currentState == State.battle_start){
-            if (team_red2.Count == 0 || team_blue2.Count == 0){
-                BattleEnd();
+            if (team_red2.Count == 0 || team_blue2.Count == 0){     
+                /* sync the Battle Start */
+                if(PhotonNetwork.isMasterClient)
+                    photonView.RPC("RPC_BattleEnd", PhotonTargets.All);
             }
         }
     }
     /* Battle End State */
-    private void BattleEnd(){
+    [PunRPC]
+    private void RPC_BattleEnd(){
         currentState = State.battle_end;    //set game state = battle_end
         Debug.Log("Battle End!");
 
@@ -183,7 +177,8 @@ public class GameManager : MonoBehaviour
     //     isBlueFinish = false;
     // }
     /* Game End State */
-    void GameEnd(){
+    [PunRPC]
+    private void RPC_GameEnd(){
         currentState = State.game_end;
         StartCoroutine(DisplayGamePanel());
     }
@@ -208,7 +203,9 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(3f);
             gameDisplayText.enabled = false;
             yield return new WaitForSeconds(0.5f);
-            GameReady();
+            /* sync the GameReady */
+            if(PhotonNetwork.isMasterClient)
+                photonView.RPC("RPC_GameReady", PhotonTargets.All);
         }
         else if(currentState == State.ready){
             gameDisplayText.enabled = true;
@@ -231,7 +228,9 @@ public class GameManager : MonoBehaviour
             gameDisplayText.enabled = false;
 
             yield return new WaitForSeconds(0.5f);
-            BuildStart();
+            /* sync the building timer */
+            if(PhotonNetwork.isMasterClient)
+                photonView.RPC("RPC_BuildStart", PhotonTargets.All);
         }
         else if(currentState == State.build_start){
             gameDisplayText.text = "Building\nTime!";
@@ -246,7 +245,9 @@ public class GameManager : MonoBehaviour
             gameDisplayText.enabled = false;
 
             yield return new WaitForSeconds(3f);
-            BattleStart();
+            /* sync the Battle Start */
+            if(PhotonNetwork.isMasterClient)
+                photonView.RPC("RPC_BattleStart", PhotonTargets.All);
         }
         else if(currentState == State.battle_start){
             gameDisplayText.text = "Battle Start!";
@@ -294,12 +295,16 @@ public class GameManager : MonoBehaviour
 
                 playerStats.NewRoundCostUpdate();
                 PlayerShop.Instance.ButtonsUpdate();
-                yield return new WaitForSeconds(0.5f);
-                GameReady();
+                yield return new WaitForSeconds(0.5f);   
+                /* sync the GameReady */
+                if(PhotonNetwork.isMasterClient)
+                    photonView.RPC("RPC_GameReady", PhotonTargets.All);
             }
             else{
                 yield return new WaitForSeconds(0.5f);
-                GameEnd();
+                /* sync the GameReady */
+                if(PhotonNetwork.isMasterClient)
+                    photonView.RPC("RPC_GameEnd", PhotonTargets.All);
             }
         }
         else if(currentState == State.game_end){
@@ -327,8 +332,9 @@ public class GameManager : MonoBehaviour
     //if one of the player left, the game will be ended
     private void OnPhotonPlayerDisconnected(PhotonPlayer photonPlayer){
         if(currentState != State.game_end){
+            ClearAllInTheTeam(photonPlayer);
             Debug.Log(photonPlayer + " is disconnected");
-            gameDisplayText.text = "<color=#ff0000ff><size=60>" + photonPlayer + "\nleft the game.</size></color>";
+            gameDisplayText.text = "<color=#ffff00ff><size=60>" + photonPlayer + "\nleft the game.</size></color>";
             gameDisplayText.enabled = true;
             Invoke("LeaveTheRoom", 3f);
         }
@@ -403,6 +409,17 @@ public class GameManager : MonoBehaviour
 
         for(int i=0;i<team.Count;i++){
             team[i].gameObject.layer = LayerMask.NameToLayer("Default");
+        }
+    }
+
+    private void ClearAllInTheTeam(PhotonPlayer player){
+        if(player == masterPlayer){
+            team_red.Clear();
+            team_red2.Clear();
+        }
+        else{
+            team_blue.Clear();
+            team_red2.Clear();
         }
     }
 }

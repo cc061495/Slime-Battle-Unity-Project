@@ -91,4 +91,12 @@ MonoBehaviour:
   - RPC_EmotionCreate
   - RPC_DestroyPrevEmotion
   - RPC_DisableAllButtons
+  - RPC_BuildStart
+  - RPC_BattleEnd
+  - RPC_BattleStart
+  - RPC_GameEnd
+  - RPC_GameReady
+  - RPC_SetPlayerReadyIcon
+  - RPC_SetReadyIcon
+  - RPC_EmojiCreate
   DisableAutoOpenWizard: 1

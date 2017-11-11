@@ -48,7 +48,7 @@ public class SlimeClass{
 			case "Giant":
 				/* Slime Properties */
 				startHealth 	= 100 ;
-				movemonetSpeed 	= 3.5f ;
+				movemonetSpeed 	= 3f ;
 				actionRange 	= 1 ;
 				scaleRadius 	= 1f ;
 				/* Slime Priority */
@@ -82,7 +82,7 @@ public class SlimeClass{
 				/* Slime Properties */
 				startHealth 	= 10 ;
 				movemonetSpeed 	= 5 ;
-				actionRange 	= 6.5f ;
+				actionRange 	= 7f ;
 				scaleRadius 	= 0.5f ;
 				/* Slime Priority */
 				healingPriority = 3 ;
@@ -107,13 +107,13 @@ public class SlimeClass{
 				/* Ability */
 				isExplosion	 		= true ;
 				attackDamage 		= 7 ;
-				areaEffectRadius 	= 5 ;
+				areaEffectRadius 	= 6 ;
 				actionCoolDown 		= 10 ;
 				break;
 
 			case "Wall":
 				/* Wall Properties */
-				startHealth 	= 25 ;
+				startHealth 	= 30 ;
 				scaleRadius 	= 1.3f ;
 				/* Slime Priority */
 				healingPriority = 0 ;

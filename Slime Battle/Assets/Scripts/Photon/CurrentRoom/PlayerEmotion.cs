@@ -40,10 +40,8 @@ public class PlayerEmotion : MonoBehaviour {
 	[PunRPC]
 	private void RPC_EmotionCreate(string emotionString, int index, int randomNumber){
 
-		if(emotion[index] == null){
-			Transform emotionSpawnPoint = spawnPoint[index];
-			emotion[index] = Instantiate(emotionPrefab, emotionSpawnPoint);
-		}
+		if(emotion[index] == null)
+			emotion[index] = Instantiate(emotionPrefab, spawnPoint[index]);
 		
 		if(emotion[index] != null){
 			Image emotionImage = emotion[index].GetComponent<Image>();
