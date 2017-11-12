@@ -42,8 +42,8 @@ public class PlayerLayoutGroup : Photon.MonoBehaviour{
     private void OnMasterClientSwitched(PhotonPlayer newMasterClient){
         UpdateButtonsLayout();
         int index = PlayerListings.FindIndex(x => x.PhotonPlayer == newMasterClient);
-        PlayerListings[index].HostSetting();
-
+        if(index != -1)
+            PlayerListings[index].HostSetting();
         UpdateRdyIcon();
     }
 
@@ -139,7 +139,7 @@ public class PlayerLayoutGroup : Photon.MonoBehaviour{
                 photonView.RPC("RPC_SetReadyIcon", PhotonTargets.All, 1);
             }
 
-            Invoke("ResetReadyBtnCoolDown", 0.5f);
+            Invoke("ResetReadyBtnCoolDown", 0.1f);
         }
     }
 
