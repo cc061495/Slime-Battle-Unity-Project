@@ -96,7 +96,7 @@ public class SlimeMovement : MonoBehaviour {
 		if(slime.isMeleeAttack || slime.isRangedAttack || slime.isAreaEffectDamage || slime.isExplosion){
 			if(enemies.Count > 0){
 				if(findNewTarget){
-					/* Kill the shortest distance enemy with killing priority(building -> slime) */
+					/* Kill the shortest distance enemy */
 					target = enemies.OrderBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();
 				}
 				else

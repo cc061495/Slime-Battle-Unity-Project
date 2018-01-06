@@ -17,8 +17,8 @@ public class PlayerNetwork : MonoBehaviour {
 	private void Awake () {
 		Instance = this;
 		photonView = GetComponent<PhotonView>();
-		//fix the fps = 30 in game
-		Application.targetFrameRate = 30;
+		//fix the fps = 60 in game
+		//Application.targetFrameRate = 60;
 		PhotonNetwork.sendRate = 20;	//default(20) //(60)
 		PhotonNetwork.sendRateOnSerialize = 15;		//default(10) //(30)
 		//setting the default player name(Player#12)

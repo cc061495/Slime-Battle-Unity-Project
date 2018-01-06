@@ -13,7 +13,7 @@ public class SlimeAction : MonoBehaviour {
 	private float coolDown = 0f;
 	private SlimeClass slime;
 	private Transform target, model;
-	//private SlimeMovement movement;
+	private SlimeMovement movement;
 	private SlimeHealth health;
 	private SlimeHealth tarHealth;
 	PhotonView photonView;
@@ -22,7 +22,7 @@ public class SlimeAction : MonoBehaviour {
 		photonView = GetComponent<PhotonView>();
 		slime = GetComponent<Slime>().GetSlimeClass();
 		model = GetComponent<Slime>().GetModel();
-		//movement = GetComponent<SlimeMovement>();
+		movement = GetComponent<SlimeMovement>();
 		health = GetComponent<SlimeHealth>();
 	}
 
@@ -37,6 +37,9 @@ public class SlimeAction : MonoBehaviour {
 			}
 			else if(slime.isHealing){
 				Healing (slime.healPercentage * tarHealth.startHealth);
+				
+				if(tarHealth.currentHealth/tarHealth.startHealth > 0.9)
+					movement.FindTheTargetAgain();
 			}
 			else if(slime.isAreaEffectDamage){
 				AreaEffectDamage(slime.attackDamage, slime.areaEffectRadius, target.position);

@@ -12,7 +12,7 @@ public class TimerManager : MonoBehaviour {
         Instance = this;   
     }
 
-	private const float BuildingTime = 60f;
+	private const float BuildingTime = 60f; //default 60s
 	private float startTime, gameTimer;
 	private bool isRedReady, isBlueReady, timerReady, readyCoolDown;
 	private Color originalColor;

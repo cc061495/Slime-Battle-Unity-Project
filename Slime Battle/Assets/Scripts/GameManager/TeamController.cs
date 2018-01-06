@@ -12,7 +12,10 @@ public class TeamController : MonoBehaviour {
 
 	public enum SearchMode{distance, health, priority, defense};
     public SearchMode redTeam_searchMode, blueTeam_searchMode;
+	public Sprite[] atkModeChatBox = new Sprite[4];
+	public Sprite[] atkModeChatBox2 = new Sprite[4];
 	public Sprite[] atkModeImg = new Sprite[4];
+	public GameObject[] chatBox = new GameObject[2];
 	public Text modeText;
 	public GameObject controlPanel, controlButton;
 
@@ -43,6 +46,9 @@ public class TeamController : MonoBehaviour {
 	public void OnClick_FindTargetBy_AttackMode(int index) {
 		ModeTextSetting(index);
 		StartCoroutine(DefineControlWhichTeam(mode[index]));
+		//Display the attack mode chat box.	
+		RPC_ChatBoxCreate(index, 0);
+		photonView.RPC("RPC_ChatBoxCreate", PhotonTargets.Others, index, 1);
 	}
 
 	private void ModeTextSetting(int index){
@@ -106,5 +112,16 @@ public class TeamController : MonoBehaviour {
 	public void SetControlButtonDisplay(bool display){
 		if(controlButton.activeSelf != display)
 			controlButton.SetActive(display);
+	}
+
+	[PunRPC]
+	private void RPC_ChatBoxCreate(int index, int spawnPoint){
+		Image emojiImage = chatBox[spawnPoint].GetComponent<Image>();
+
+		emojiImage.sprite = spawnPoint == 0 ? atkModeChatBox[index] : atkModeChatBox2[index];
+		if(!emojiImage.enabled)
+			emojiImage.enabled = true;
+		
+		chatBox[spawnPoint].GetComponent<Animator>().Rebind();
 	}
 }

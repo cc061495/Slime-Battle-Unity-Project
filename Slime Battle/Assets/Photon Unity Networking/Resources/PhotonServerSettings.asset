@@ -99,4 +99,5 @@ MonoBehaviour:
   - RPC_SetPlayerReadyIcon
   - RPC_SetReadyIcon
   - RPC_EmojiCreate
+  - RPC_ChatBoxCreate
   DisableAutoOpenWizard: 1

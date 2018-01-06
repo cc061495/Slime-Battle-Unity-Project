@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Slime : MonoBehaviour{
 
@@ -108,5 +109,10 @@ public class Slime : MonoBehaviour{
 		SlimeMovement movement = GetComponent<SlimeMovement>();
 		if(movement != null && photonView.isMine)
 			movement.StartUpdatePathLoop();		//slime start finding the target
+	}
+
+	public void EnableObstacleCarve(){
+		if(slimeClass.isBuilding)
+			model.GetComponent<NavMeshObstacle>().carving = true;
 	}
 }

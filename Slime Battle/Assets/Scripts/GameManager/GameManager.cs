@@ -374,30 +374,14 @@ public class GameManager : MonoBehaviour
             return team_blue;
     }
 
-    // [PunRPC]
-    // private void RPC_RedTeamFinish(){
-    //     isRedFinish = true;
-    // }
-    
-    // [PunRPC]
-    // private void RPC_BlueTeamFinish(){
-    //     isBlueFinish = true;
-    // }
-
     private void DisplayTeam(List<Transform> team){
         for(int i=0;i<team.Count;i++){
             Slime s = team[i].parent.GetComponent<Slime>();
             s.DisplaySlime(true);
+            s.EnableObstacleCarve();
         }
     }
-
-    // private void DisplayTeamHealthBar(List<Transform> team){
-    //     for(int i=0;i<team.Count;i++){
-    //         SlimeHealth h = team[i].parent.GetComponent<SlimeHealth>();
-    //         h.DisplayHealthBar(true);
-    //     }
-    // }
-
+    
     private void ChangeBuildingLayer(){
         //team that ONLY including building
         List<Transform> team;
