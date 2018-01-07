@@ -26,6 +26,8 @@ public class SlimeClass{
 	public bool isAreaEffectDamage{get; private set;}
 	public bool isExplosion{get; private set;}
 	public bool isBuilding{get; private set;}
+	public bool isCleavable{get; private set;}
+	public bool isSpawnInBattle{get; private set;}
 
 	public SlimeClass(string slimeName){
 		switch (slimeName){
@@ -121,6 +123,58 @@ public class SlimeClass{
 				classPriority 	= 4 ;
 				/* Ability */
 				isBuilding 		= true ;
+				break;
+
+			case "Splitter":
+				/* Slime Properties */
+				startHealth 	= 35 ;
+				movemonetSpeed 	= 3f ;
+				actionRange 	= 1 ;
+				scaleRadius 	= 1f ;
+				/* Slime Priority */
+				healingPriority = 1 ;
+				killingPriority = 1 ;
+				classPriority 	= 3 ;
+				/* Ability */
+				isCleavable			= true ;
+				isMeleeAttack 		= true ;
+				attackDamage 		= 5 ;
+				actionCoolDown 		= 0.5f ;
+				break;
+
+			case "Splitter_Medium":
+				/* Slime Properties */
+				startHealth 	= 18 ;
+				movemonetSpeed 	= 5f ;
+				actionRange 	= 1 ;
+				scaleRadius 	= 0.75f ;
+				/* Slime Priority */
+				healingPriority = 1 ;
+				killingPriority = 1 ;
+				classPriority 	= 3 ;
+				/* Ability */
+				isCleavable			= true ;
+				isMeleeAttack 		= true ;
+				isSpawnInBattle		= true ;
+				attackDamage 		= 3 ;
+				actionCoolDown 		= 0.4f ;
+				break;
+
+			case "Splitter_Small":
+				/* Slime Properties */
+				startHealth 	= 12 ;
+				movemonetSpeed 	= 7f ;
+				actionRange 	= 1 ;
+				scaleRadius 	= 0.5f ;
+				/* Slime Priority */
+				healingPriority = 1 ;
+				killingPriority = 1 ;
+				classPriority 	= 3 ;
+				/* Ability */
+				isMeleeAttack 		= true ;
+				isSpawnInBattle		= true ;
+				attackDamage 		= 1 ;
+				actionCoolDown 		= 0.3f ;
 				break;
 
 			default:

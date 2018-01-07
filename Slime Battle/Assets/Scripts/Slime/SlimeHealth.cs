@@ -84,11 +84,14 @@ public class SlimeHealth : MonoBehaviour {
 
 	[PunRPC]
 	private void RPC_SlimeDie(){
+		if(slime.isCleavable && PhotonNetwork.isMasterClient)
+			GetComponent<SlimeSplite>().DoTheSlimeSplite(model.position);
+
 		GetComponent<Slime>().RemoveFromTeamList();
 
 		if(slime.isBuilding)
 			BuildingUI.Instance.HideTheBuildingPanel(this);
-
+	
 		if(photonView != null && photonView.isMine)
 			PhotonNetwork.Destroy(gameObject);
 	}

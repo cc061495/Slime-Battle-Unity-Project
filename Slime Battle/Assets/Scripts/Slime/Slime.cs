@@ -33,8 +33,10 @@ public class Slime : MonoBehaviour{
 		if(health != null)
 			health.SetUpSlimeHealth(slimeClass);
 
-		if(!photonView.isMine)
+		if(!photonView.isMine && !slimeClass.isSpawnInBattle)
 		 	DisplaySlime(false);
+		else if(slimeClass.isSpawnInBattle)
+			NetworkEnable();
 	}
 
 	private void JoinTeamList(){

@@ -128,10 +128,14 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(DisplayGamePanel());    //display the game panel
 
-        Invoke("CheckAnyEmptyTeam", 2f);    //check any empty team when battle started
+        Invoke("CheckAnyEmptyTeam", 1f);    //check any empty team when battle started
     }
 
     public void CheckAnyEmptyTeam(){
+        Invoke("AnyEmptyTeam", 0.5f);
+    }
+
+    private void AnyEmptyTeam(){
         if(currentState == State.battle_start){
             if (team_red2.Count == 0 || team_blue2.Count == 0){     
                 /* sync the Battle Start */

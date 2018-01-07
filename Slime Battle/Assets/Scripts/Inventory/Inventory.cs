@@ -10,7 +10,7 @@ public class Inventory : MonoBehaviour {
 	public delegate void OnCardChanged();
 	public OnCardChanged onCardChangedCallback;
 
-	public Card[] defaultCards = new Card[6];
+	public Card[] defaultCards = new Card[7];
 	public List<Card> cards = new List<Card>();
 	public InventoryUI[] inventoryUI = new InventoryUI[2];
 	//public int space = 20;
