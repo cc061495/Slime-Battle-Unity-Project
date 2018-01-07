@@ -18,6 +18,7 @@ public class SlimeClass{
 	public int healingPriority{get; private set;}
 	/* healer > ranged attack > melee attack > building */
 	public int classPriority{get; private set;}
+	public int moneyCanBeSpawned{get; private set;}
 	public float turnSpeed = 3f;
 
 	public bool isMeleeAttack{get; private set;}
@@ -27,7 +28,8 @@ public class SlimeClass{
 	public bool isExplosion{get; private set;}
 	public bool isBuilding{get; private set;}
 	public bool isCleavable{get; private set;}
-	public bool isSpawnInBattle{get; private set;}
+	public bool canSpawnInBattle{get; private set;}
+	public bool canSpawnMoney{get; private set;}
 
 	public SlimeClass(string slimeName){
 		switch (slimeName){
@@ -114,7 +116,7 @@ public class SlimeClass{
 				break;
 
 			case "Wall":
-				/* Wall Properties */
+				/* Building Properties */
 				startHealth 	= 30 ;
 				scaleRadius 	= 1.3f ;
 				/* Slime Priority */
@@ -123,6 +125,21 @@ public class SlimeClass{
 				classPriority 	= 4 ;
 				/* Ability */
 				isBuilding 		= true ;
+				break;
+
+			case "Treasury":
+				/* Building Properties */
+				startHealth 	= 10 ;
+				scaleRadius 	= 1.3f ;
+				/* Slime Priority */
+				healingPriority = 0 ;
+				killingPriority = 2 ;
+				classPriority 	= 4 ;
+				/* Ability */
+				isBuilding 		  = true ;
+				canSpawnMoney	  = true ;
+				moneyCanBeSpawned = 10 ;
+				actionCoolDown 	  = 5 ;
 				break;
 
 			case "Splitter":
@@ -155,7 +172,7 @@ public class SlimeClass{
 				/* Ability */
 				isCleavable			= true ;
 				isMeleeAttack 		= true ;
-				isSpawnInBattle		= true ;
+				canSpawnInBattle	= true ;
 				attackDamage 		= 3 ;
 				actionCoolDown 		= 0.4f ;
 				break;
@@ -172,7 +189,7 @@ public class SlimeClass{
 				classPriority 	= 3 ;
 				/* Ability */
 				isMeleeAttack 		= true ;
-				isSpawnInBattle		= true ;
+				canSpawnInBattle	= true ;
 				attackDamage 		= 1 ;
 				actionCoolDown 		= 0.3f ;
 				break;

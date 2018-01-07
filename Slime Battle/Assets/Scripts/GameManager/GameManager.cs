@@ -294,7 +294,7 @@ public class GameManager : MonoBehaviour
                 /* Display Rewards Panel */
                 nextRoundCostPanel.gameObject.SetActive(true);
                 nextRoundCostPanel.TextSetting();
-                yield return new WaitForSeconds(7f);
+                yield return new WaitForSeconds(9f);
                 nextRoundCostPanel.gameObject.SetActive(false);
 
                 playerStats.NewRoundCostUpdate();

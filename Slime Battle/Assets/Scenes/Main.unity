@@ -24897,6 +24897,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCostText: {fileID: 522756406}
   playerInfoPanel: {fileID: 583587499}
+  spawnedCost: 0
 --- !u!114 &1881397327
 MonoBehaviour:
   m_ObjectHideFlags: 0

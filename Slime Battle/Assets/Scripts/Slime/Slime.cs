@@ -33,10 +33,10 @@ public class Slime : MonoBehaviour{
 		if(health != null)
 			health.SetUpSlimeHealth(slimeClass);
 
-		if(!photonView.isMine && !slimeClass.isSpawnInBattle)
+		if(!photonView.isMine && !slimeClass.canSpawnInBattle)
 		 	DisplaySlime(false);
-		else if(slimeClass.isSpawnInBattle)
-			NetworkEnable();
+		else if(slimeClass.canSpawnInBattle)
+			SlimeComponentEnable();
 	}
 
 	private void JoinTeamList(){
@@ -94,7 +94,7 @@ public class Slime : MonoBehaviour{
 			if(!PhotonNetwork.isMasterClient && photonView.isMine && !slimeClass.isBuilding)
 				Invoke("NetworkTransfer", Random.Range(0f,2f));
 
-			Invoke("NetworkEnable", 4f);
+			Invoke("SlimeComponentEnable", 4f);
 		}
 	}
 
@@ -102,7 +102,7 @@ public class Slime : MonoBehaviour{
 		photonView.TransferOwnership(GameManager.Instance.masterPlayer);
 	}
 
-	private void NetworkEnable(){
+	private void SlimeComponentEnable(){
 		//Debug.Log("Network is enabled");
 		SlimeNetwork network = GetComponent<SlimeNetwork>();
 		if(network != null)
@@ -111,6 +111,11 @@ public class Slime : MonoBehaviour{
 		SlimeMovement movement = GetComponent<SlimeMovement>();
 		if(movement != null && photonView.isMine)
 			movement.StartUpdatePathLoop();		//slime start finding the target
+
+		BuildingSpawnCost money = GetComponent<BuildingSpawnCost>();
+		if(money != null && photonView.isMine){
+			money.StartSpawnCostLoop();
+		}
 	}
 
 	public void EnableObstacleCarve(){

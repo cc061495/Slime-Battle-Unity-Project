@@ -12,6 +12,7 @@ public class PlayerStats : MonoBehaviour {
 	public static int playerCost;
 	private const int startCost = 100;
 	private const int roundBounsCost = 200;
+	public int spawnedCost;
 
 	GameManager gm;
 
@@ -31,7 +32,8 @@ public class PlayerStats : MonoBehaviour {
 
 	public void NewRoundCostUpdate(){
 		/* PlayerCost = Cost + RoundBouns*/
-		playerCost += roundBounsCost * gm.currentRound;
+		playerCost += roundBounsCost * gm.currentRound + spawnedCost;
+		spawnedCost = 0;
 		UpdatePlayerCostText();
 	}
 
@@ -48,8 +50,16 @@ public class PlayerStats : MonoBehaviour {
 		playerCost += cost;
 		UpdatePlayerCostText();
 	}
+
+	public void CostToSpawn(int cost){
+		spawnedCost += cost;
+	}
 	
 	public int GetBounsCost(){
 		return roundBounsCost;
+	}
+
+	public int GetSpawnedCost(){
+		return spawnedCost;
 	}
 }

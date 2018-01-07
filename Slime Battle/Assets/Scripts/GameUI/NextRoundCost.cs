@@ -16,8 +16,8 @@ public class NextRoundCost : MonoBehaviour {
 
 	IEnumerator StartAnimateText(){
 		int cost = PlayerStats.playerCost;
-		int roundBouns = (PlayerStats.Instance.GetBounsCost() * GameManager.Instance.currentRound);
-		//int extraBouns = 0;
+		int roundBonus = (PlayerStats.Instance.GetBounsCost() * GameManager.Instance.currentRound);
+		int costSpawned = PlayerStats.Instance.GetSpawnedCost();
 
 		nextRoundCostText.text = "<color=#ffff00ff>Next Round Cost</color>";
 		costText.text = "$0";
@@ -30,9 +30,15 @@ public class NextRoundCost : MonoBehaviour {
 		yield return new WaitForSeconds(2f);
 
 		animator.Play("CostDisplay", 0, 0f);
-		nextRoundCostText.text = "<size=45>Round Bouns +" + roundBouns + "</size>";
+		nextRoundCostText.text = "<size=45>Round Bonus +" + roundBonus + "</size>";
 		yield return new WaitForSeconds(0.5f);
-		StartCoroutine(AnimateText(costText, cost, cost+roundBouns));
+		StartCoroutine(AnimateText(costText, cost, cost+roundBonus));
+		yield return new WaitForSeconds(2f);
+
+		animator.Play("CostDisplay", 0, 0f);
+		nextRoundCostText.text = "<size=45>Cost Spawned +" + costSpawned + "</size>";
+		yield return new WaitForSeconds(0.5f);
+		StartCoroutine(AnimateText(costText, cost+roundBonus, cost+roundBonus+costSpawned));
 	}
 
 	IEnumerator AnimateText(Text textToAnimate, int start, int end){
