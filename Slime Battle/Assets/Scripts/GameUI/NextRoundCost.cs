@@ -36,7 +36,7 @@ public class NextRoundCost : MonoBehaviour {
 		yield return new WaitForSeconds(2f);
 
 		animator.Play("CostDisplay", 0, 0f);
-		nextRoundCostText.text = "<size=45>Cost Spawned +" + costSpawned + "</size>";
+		nextRoundCostText.text = "<size=45>Generated Cost +" + costSpawned + "</size>";
 		yield return new WaitForSeconds(0.5f);
 		StartCoroutine(AnimateText(costText, cost+roundBonus, cost+roundBonus+costSpawned));
 	}

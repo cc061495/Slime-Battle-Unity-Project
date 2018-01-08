@@ -94,6 +94,7 @@ public class SlimeMovement : MonoBehaviour {
 
 	private void TargetSearching(){
 		if(slime.isMeleeAttack || slime.isRangedAttack || slime.isAreaEffectDamage || slime.isExplosion){
+
 			if(enemies.Count > 0){
 				if(findNewTarget){
 					/* Kill the shortest distance enemy */

@@ -22,9 +22,9 @@ public class GameManager : MonoBehaviour
     public RewardsPanel rewardsPanel;
     public NextRoundCost nextRoundCostPanel;
     public RectTransform canvasForHealthBar, healthBarParent;
-    public List<Transform> team_red = new List<Transform>();    //team with building
+    public List<Transform> team_red = new List<Transform>();    //team with building, not including mine
     public List<Transform> team_red2 = new List<Transform>();   //team without building
-    public List<Transform> team_blue = new List<Transform>();   //team with building
+    public List<Transform> team_blue = new List<Transform>();   //team with building, not including mine
     public List<Transform> team_blue2 = new List<Transform>();  //team without building
     public List<Node> nodeList = new List<Node>();
     public PhotonPlayer masterPlayer;
@@ -381,7 +381,9 @@ public class GameManager : MonoBehaviour
     private void DisplayTeam(List<Transform> team){
         for(int i=0;i<team.Count;i++){
             Slime s = team[i].parent.GetComponent<Slime>();
-            s.DisplaySlime(true);
+            if(!s.GetSlimeClass().isInvisibleTrap)
+                s.DisplaySlime(true);
+                
             s.EnableObstacleCarve();
         }
     }

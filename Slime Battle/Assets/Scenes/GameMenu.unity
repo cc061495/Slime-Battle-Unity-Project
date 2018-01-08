@@ -11935,8 +11935,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 944681111}
   m_HandleRect: {fileID: 944681110}
   m_Direction: 2
-  m_Value: 0.99999934
-  m_Size: 0.9158169
+  m_Value: 1
+  m_Size: 0.9164101
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -13685,6 +13685,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 743940c83ebc240b5a4990bd7350ebdb, type: 2}
   - {fileID: 11400000, guid: 81cc3a9698da2400ca9869f493a198ff, type: 2}
   - {fileID: 11400000, guid: 2fdbd12e9994d4c8894c8d98640bf3fe, type: 2}
+  - {fileID: 11400000, guid: 94134624dd565435c9ef48fb2c95a29c, type: 2}
   cards: []
   inventoryUI:
   - {fileID: 1672003878}
@@ -14342,7 +14343,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 190590535}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.66752034
+  m_Size: 0.6680055
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

@@ -236,7 +236,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slimeName: Healer
-  cost: 0
   model: {fileID: 4487554232600360}
 --- !u!114 &114245539473206882
 MonoBehaviour:
@@ -277,6 +276,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  prevTarget: {fileID: 0}
+  enemies: []
+  myTeam: []
 --- !u!136 &136136045612295922
 CapsuleCollider:
   m_ObjectHideFlags: 1

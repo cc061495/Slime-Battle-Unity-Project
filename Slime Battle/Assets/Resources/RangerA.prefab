@@ -228,6 +228,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  prevTarget: {fileID: 0}
+  enemies: []
+  myTeam: []
 --- !u!114 &114233232085776254
 MonoBehaviour:
   m_ObjectHideFlags: 1

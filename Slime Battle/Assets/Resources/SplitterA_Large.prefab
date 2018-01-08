@@ -227,8 +227,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextPrefabToSplite: SplitterA_Medium
-  minRan: 1
-  maxRan: 4
 --- !u!114 &114541368969628238
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -242,6 +240,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   prevTarget: {fileID: 0}
+  enemies: []
+  myTeam: []
 --- !u!114 &114649928641339496
 MonoBehaviour:
   m_ObjectHideFlags: 1

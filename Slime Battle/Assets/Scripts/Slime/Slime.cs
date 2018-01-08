@@ -47,7 +47,8 @@ public class Slime : MonoBehaviour{
 	}
 
 	private void AddTeam(List<Transform> team, List<Transform> team2){
-		team.Add(model);	//team with building
+		if(!slimeClass.isInvisibleTrap)
+			team.Add(model);	//team with building, not including mine
 		if(!slimeClass.isBuilding)
 			team2.Add(model);	//team without building
 	}
@@ -119,7 +120,7 @@ public class Slime : MonoBehaviour{
 	}
 
 	public void EnableObstacleCarve(){
-		if(slimeClass.isBuilding)
+		if(slimeClass.isBuilding && !slimeClass.isInvisibleTrap)
 			model.GetComponent<NavMeshObstacle>().carving = true;
 	}
 }

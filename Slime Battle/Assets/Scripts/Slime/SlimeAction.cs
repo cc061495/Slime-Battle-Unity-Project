@@ -28,7 +28,6 @@ public class SlimeAction : MonoBehaviour {
 
 	public void Action(){
 		if (coolDown <= 0f) {
-
 			if (slime.isMeleeAttack){
 				MeleeAttack (slime.attackDamage);
 			}

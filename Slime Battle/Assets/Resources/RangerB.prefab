@@ -279,6 +279,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  prevTarget: {fileID: 0}
+  enemies: []
+  myTeam: []
 --- !u!114 &114732832615993266
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -305,7 +308,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slimeName: Ranger
-  cost: 0
   model: {fileID: 4673274358399474}
 --- !u!136 &136377951508431764
 CapsuleCollider:

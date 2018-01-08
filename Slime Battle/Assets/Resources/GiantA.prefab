@@ -224,6 +224,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  prevTarget: {fileID: 0}
+  enemies: []
+  myTeam: []
 --- !u!114 &114498512518783642
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -236,7 +239,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slimeName: Giant
-  cost: 0
   model: {fileID: 4106251731879664}
 --- !u!114 &114755721573624252
 MonoBehaviour:

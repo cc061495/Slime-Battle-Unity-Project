@@ -100,4 +100,6 @@ MonoBehaviour:
   - RPC_SetReadyIcon
   - RPC_EmojiCreate
   - RPC_ChatBoxCreate
+  - RPC_DisplayTheMine
+  - RPC_DisplayTheModel
   DisableAutoOpenWizard: 1

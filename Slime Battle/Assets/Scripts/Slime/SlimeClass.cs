@@ -12,6 +12,7 @@ public class SlimeClass{
 	public float healPercentage{get; private set;}		//Slime's healing effect in percentage
 	public float scaleRadius{get; private set;}			//Slime's scale radius
 	public float areaEffectRadius{get; private set;}
+	public float detectRadius{get; private set;}
 	/* slime > building */
 	public int killingPriority{get; private set;}
 	/* melee attack > ranged attack > healer */
@@ -27,6 +28,7 @@ public class SlimeClass{
 	public bool isAreaEffectDamage{get; private set;}
 	public bool isExplosion{get; private set;}
 	public bool isBuilding{get; private set;}
+	public bool isInvisibleTrap{get; private set;}
 	public bool isCleavable{get; private set;}
 	public bool canSpawnInBattle{get; private set;}
 	public bool canSpawnMoney{get; private set;}
@@ -140,6 +142,23 @@ public class SlimeClass{
 				canSpawnMoney	  = true ;
 				moneyCanBeSpawned = 10 ;
 				actionCoolDown 	  = 5 ;
+				break;
+
+			case "Mine":
+				/* Building Properties */
+				startHealth 	= 20 ;
+				scaleRadius 	= 1f ;
+				/* Slime Priority */
+				healingPriority = 0 ;
+				killingPriority = 2 ;
+				classPriority 	= 4 ;
+				/* Ability */
+				isBuilding 		  = true ;
+				isInvisibleTrap	  = true ;
+				detectRadius	  = 0.5f ;
+				attackDamage 	  = 10 ;
+				areaEffectRadius  = 5 ;
+				actionCoolDown 	  = 10 ;
 				break;
 
 			case "Splitter":
