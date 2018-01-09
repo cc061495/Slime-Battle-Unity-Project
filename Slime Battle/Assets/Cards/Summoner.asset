@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c013c98488284e3686ac40507c98abb, type: 3}
+  m_Name: Summoner
+  m_EditorClassIdentifier: 
+  name: Summoner
+  icon: {fileID: 21300000, guid: b20db44c244c44bcf8faa95477ede10d, type: 3}
+  isDefaultCard: 1
+  teamRedPrefab: {fileID: 1539508114879990, guid: f6401a7d9f6634ab59dfd6d6a313b1b3,
+    type: 2}
+  teamBluePrefab: {fileID: 1539508114879990, guid: 8e37d0432f18d4fefaf394dcacfa9800,
+    type: 2}
+  cost: 10
+  size: 2
+  spawnPosOffset: {x: 0, y: 2, z: 0}
+  type: Summon

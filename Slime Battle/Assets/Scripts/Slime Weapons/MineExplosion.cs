@@ -65,8 +65,8 @@ public class MineExplosion : MonoBehaviour {
 		distance.y = pos1.y - pos2.y;
 		distance.z = pos1.z - pos2.z;
 
-		float magnitude = distance.x * distance.x+
-						  distance.y * distance.y+
+		float magnitude = distance.x * distance.x +
+						  distance.y * distance.y +
 						  distance.z * distance.z;
 		return magnitude;
 	}

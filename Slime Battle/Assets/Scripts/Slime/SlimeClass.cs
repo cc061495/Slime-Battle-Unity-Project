@@ -7,6 +7,7 @@ public class SlimeClass{
 	public float startHealth{get;private set;}			//Slime's health
 	public float attackDamage{get;private set;}			//Slime's attack damage
 	public float actionCoolDown{get; private set;}		//Slime's action cool down time
+	public float castTime{get; private set;}
 	public float movemonetSpeed{get; private set;}		//Slime's movement speed
 	public float actionRange{get; private set;}			//Slime's action range
 	public float healPercentage{get; private set;}		//Slime's healing effect in percentage
@@ -28,8 +29,10 @@ public class SlimeClass{
 	public bool isAreaEffectDamage{get; private set;}
 	public bool isExplosion{get; private set;}
 	public bool isBuilding{get; private set;}
+	public bool isMagicalAreaEffectDamage{get; private set;}
 	public bool isInvisibleTrap{get; private set;}
 	public bool isCleavable{get; private set;}
+	public bool isSummoner{get; private set;}
 	public bool canSpawnInBattle{get; private set;}
 	public bool canSpawnMoney{get; private set;}
 
@@ -211,6 +214,56 @@ public class SlimeClass{
 				canSpawnInBattle	= true ;
 				attackDamage 		= 1 ;
 				actionCoolDown 		= 0.3f ;
+				break;
+
+			case "Wizard":
+				/* Slime Properties */
+				startHealth 	= 15 ;
+				movemonetSpeed 	= 4 ;
+				actionRange 	= 9 ;
+				scaleRadius 	= 0.55f ;
+				/* Slime Priority */
+				healingPriority = 2 ;
+				killingPriority = 1 ;
+				classPriority 	= 2 ;
+				/* Ability */
+				isMagicalAreaEffectDamage = true ;
+				attackDamage 			  = 4 ;
+				areaEffectRadius 		  = 6 ;
+				actionCoolDown 			  = 1 ;
+				castTime				  = 1.5f ;
+				break;
+
+			case "Summoner":
+				/* Slime Properties */
+				startHealth 	= 15 ;
+				movemonetSpeed 	= 5 ;
+				actionRange 	= 5 ;
+				scaleRadius 	= 0.7f ;
+				/* Slime Priority */
+				healingPriority = 3 ;
+				killingPriority = 1 ;
+				classPriority 	= 1 ;
+				/* Ability */
+				isSummoner		 = true ;
+				actionCoolDown   = 5 ;
+				break;	
+
+			case "Summoner_s":
+				/* Slime Properties */
+				startHealth 	= 10 ;
+				movemonetSpeed 	= 6f ;
+				actionRange 	= 1 ;
+				scaleRadius 	= 0.5f ;
+				/* Slime Priority */
+				healingPriority = 1 ;
+				killingPriority = 1 ;
+				classPriority 	= 3 ;
+				/* Ability */
+				isMeleeAttack 		= true ;
+				canSpawnInBattle	= true ;
+				attackDamage 		= 2 ;
+				actionCoolDown 		= 0.7f ;
 				break;
 
 			default:

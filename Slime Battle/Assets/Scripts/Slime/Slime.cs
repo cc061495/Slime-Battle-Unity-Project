@@ -117,6 +117,11 @@ public class Slime : MonoBehaviour{
 		if(money != null && photonView.isMine){
 			money.StartSpawnCostLoop();
 		}
+
+		SlimeSummon summon = GetComponent<SlimeSummon>();
+		if(summon != null && photonView.isMine){
+			summon.StartSummonLoop();
+		}
 	}
 
 	public void EnableObstacleCarve(){

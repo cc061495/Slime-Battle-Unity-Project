@@ -10,7 +10,7 @@ public class SlimeAction : MonoBehaviour {
 	[SerializeField]
 	private GameObject rangedWeaponPrefab;
 
-	private float coolDown = 0f;
+	private float coolDown = 0f, castTime = 0f;
 	private SlimeClass slime;
 	private Transform target, model;
 	private SlimeMovement movement;
@@ -24,6 +24,9 @@ public class SlimeAction : MonoBehaviour {
 		model = GetComponent<Slime>().GetModel();
 		movement = GetComponent<SlimeMovement>();
 		health = GetComponent<SlimeHealth>();
+
+		if(slime.isMagicalAreaEffectDamage)
+			castTime = slime.castTime;
 	}
 
 	public void Action(){
@@ -48,7 +51,17 @@ public class SlimeAction : MonoBehaviour {
 				/* Explosion Effect */
 				health.SuddenDeath();
 			}
-			
+			else if(slime.isMagicalAreaEffectDamage){
+				/* Cast time delay */
+				if(castTime <= 0f){
+					AreaEffectDamage(slime.attackDamage, slime.areaEffectRadius, target.position);
+					castTime = slime.castTime;
+				}
+				else{
+					castTime -= Time.deltaTime;
+					return;
+				}
+			}
 			coolDown = slime.actionCoolDown;
 		}
 		else

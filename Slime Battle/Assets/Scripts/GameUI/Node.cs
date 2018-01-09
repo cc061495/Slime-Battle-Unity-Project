@@ -69,6 +69,10 @@ public class Node : MonoBehaviour
                 BuildSlime(_slime, blueprint);
                 break;
 
+            case 2:
+                Spawn_Size_1x2_Slime(blueprint, offset);
+                break;
+
             case 4:
                 Spawn_Size_2x2_Slime(blueprint, offset);
                 break;
@@ -104,6 +108,20 @@ public class Node : MonoBehaviour
                 nodeList[i].nodeList = nodeList.ToList();
             }   
         }
+    }
+
+    void Spawn_Size_1x2_Slime(SlimeBlueprint blueprint, Vector3 offset){
+        nodeList = new List<Node>();
+        Vector3 buildOffset = CanBuild1x2(nodeList);
+        
+        if(buildOffset != Vector3.zero){
+            _slime = PhotonNetwork.Instantiate(blueprint.slimePrefab.name, GetBuildPos(buildOffset + offset), Quaternion.identity, 0);
+            
+            for(int i=0;i<nodeList.Count;i++){
+                nodeList[i].BuildSlime(_slime, blueprint);
+                nodeList[i].nodeList = nodeList.ToList();
+            }   
+        }   
     }
 
     Vector3 CanBuild2x2(List<Node> nodes){
@@ -146,6 +164,43 @@ public class Node : MonoBehaviour
             }
 
             if(nodes.Count == 4)
+                return sphereOffset;
+        }
+        return Vector3.zero;
+    }
+
+    Vector3 CanBuild1x2(List<Node> nodes){
+        Vector3 sphereOffset = Vector3.zero;
+
+        for (int i = 0; i < 2; i++){
+            nodes.Clear();
+
+            if(PhotonNetwork.isMasterClient){
+                if(i == 0)
+                    sphereOffset = new Vector3(-1.5f,0,0);  // left
+                else if(i == 1)
+                    sphereOffset = new Vector3(1.5f,0,0);   // right
+            }
+            else{
+                if(i == 0)
+                    sphereOffset = new Vector3(1.5f,0,0);  // left
+                else if(i == 1)
+                    sphereOffset = new Vector3(-1.5f,0,0);   // right
+            }
+            
+            Collider[] colliders = Physics.OverlapSphere(_transform.position + sphereOffset, 1f);
+            for(int j=0;j<colliders.Length;j++){
+                if(colliders[j].gameObject.tag == "node"){
+                    Node e = colliders[j].gameObject.GetComponent<Node>();
+                    
+                    if (e.slime != null)
+                        break;
+
+                    nodes.Add(e);
+                }
+            }
+
+            if(nodes.Count == 2)
                 return sphereOffset;
         }
         return Vector3.zero;
