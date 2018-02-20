@@ -13688,6 +13688,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 94134624dd565435c9ef48fb2c95a29c, type: 2}
   - {fileID: 11400000, guid: 27ce0a891e59e401d800a0e63cb2687a, type: 2}
   - {fileID: 11400000, guid: d895cfb015e4a4458ac5282a8fbeac05, type: 2}
+  - {fileID: 11400000, guid: 57f483f6519ed4117acb00d8be9b682d, type: 2}
+  - {fileID: 11400000, guid: 65afa7143ed9a4ed5bc6a3d9e673bab3, type: 2}
   cards: []
   inventoryUI:
   - {fileID: 1672003878}

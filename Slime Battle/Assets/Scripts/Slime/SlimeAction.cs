@@ -43,6 +43,12 @@ public class SlimeAction : MonoBehaviour {
 				if(tarHealth.currentHealth/tarHealth.startHealth > 0.9)
 					movement.FindTheTargetAgain();
 			}
+			else if(slime.isAreaEffectHealing){
+				AreaEffectHealing(slime.healingPoint, slime.areaEffectRadius, target.position);
+
+				if(tarHealth.currentHealth/tarHealth.startHealth > 0.9)
+					movement.FindTheTargetAgain();
+			}
 			else if(slime.isAreaEffectDamage){
 				AreaEffectDamage(slime.attackDamage, slime.areaEffectRadius, target.position);
 			}
@@ -77,13 +83,13 @@ public class SlimeAction : MonoBehaviour {
 		tarHealth.TakeDamage(attackDamage);
 	}
 
-	private void AreaEffectDamage(float attackDamage, float effectAreaRadius, Vector3 centre){
-		Collider[] slimes = Physics.OverlapSphere(centre, effectAreaRadius);
+	private void AreaEffectDamage(float attackDamage, float effectAreaRadius, Vector3 center){
+		Collider[] slimes = Physics.OverlapSphere(center, effectAreaRadius);
 		for(int i=0;i<slimes.Length;i++){
 			if(slimes[i].transform.parent.tag == target.parent.tag){
 				SlimeHealth h = slimes[i].transform.parent.GetComponent<SlimeHealth>();
 
-				float distanceFromCentre = DistanceCalculate(slimes[i].transform.position, centre);
+				float distanceFromCentre = DistanceCalculate(slimes[i].transform.position, center);
 				//explosion constant(higher = lower damage, lower = higher damage received)
 				float areaDamage = attackDamage - distanceFromCentre * 0.15f;
 				//Debug.Log("Distance: " + distanceFromCentre + " Damage: " + areaDamage);
@@ -91,6 +97,16 @@ public class SlimeAction : MonoBehaviour {
 					continue;	//if the damage is lower than 0, just skip it
 
 				h.TakeDamage(areaDamage);
+			}
+		}
+	}
+
+	private void AreaEffectHealing(float healingPoint, float effectAreaRadius, Vector3 center){
+		Collider[] slimes = Physics.OverlapSphere(center, effectAreaRadius);
+		for(int i=0;i<slimes.Length;i++){
+			if(slimes[i].transform.parent.tag == transform.tag && slimes[i].transform != transform){
+				SlimeHealth h = slimes[i].transform.parent.GetComponent<SlimeHealth>();
+				h.TakeHealing(healingPoint);
 			}
 		}
 	}

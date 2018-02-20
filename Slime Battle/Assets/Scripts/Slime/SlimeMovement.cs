@@ -103,7 +103,7 @@ public class SlimeMovement : MonoBehaviour {
 					DefaultSearching();
 			}
 		}
-		else if(slime.isHealing){
+		else if(slime.isHealing || slime.isAreaEffectHealing){
 			/* Create a healer team list that not include itself and building */
 			myTeam = gm.GetMyTeam(_transform).Where(x => x.parent != transform)
 											 .Where(x => !x.parent.GetComponent<Slime>().GetSlimeClass().isBuilding).ToList();

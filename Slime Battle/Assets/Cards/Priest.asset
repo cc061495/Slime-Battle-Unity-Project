@@ -9,16 +9,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c013c98488284e3686ac40507c98abb, type: 3}
-  m_Name: Summoner
+  m_Name: Priest
   m_EditorClassIdentifier: 
-  name: Summoner
+  name: Priest
   icon: {fileID: 21300000, guid: b20db44c244c44bcf8faa95477ede10d, type: 3}
   isDefaultCard: 1
-  teamRedPrefab: {fileID: 1539508114879990, guid: f6401a7d9f6634ab59dfd6d6a313b1b3,
+  teamRedPrefab: {fileID: 1423795966262536, guid: acfcacfda48f9477eb28d2222435c591,
     type: 2}
-  teamBluePrefab: {fileID: 1539508114879990, guid: 8e37d0432f18d4fefaf394dcacfa9800,
+  teamBluePrefab: {fileID: 1409639907465546, guid: 9770f749823494ade9b42d0c8b1c9503,
     type: 2}
-  cost: 20
-  size: 2
-  spawnPosOffset: {x: 0, y: 2, z: 0}
-  type: Summon
+  cost: 25
+  size: 1
+  spawnPosOffset: {x: 0, y: 1.5, z: 0}
+  type: Area Effect Healing

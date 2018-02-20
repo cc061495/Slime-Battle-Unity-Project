@@ -6,6 +6,8 @@ public class SlimeHealth : MonoBehaviour {
 
 	public float currentHealth{get;private set;}
 	public float startHealth{get;private set;}
+	private float damageReduced = 1f;
+	public int buff = 0;
 	private Transform model;
 	private PhotonView photonView;
 
@@ -43,7 +45,7 @@ public class SlimeHealth : MonoBehaviour {
 		//Only Master client deal with attack damage
 		//currentHealth must be larger than 0 HP(important) !!!
 		if(currentHealth > 0){
-			currentHealth -= attackDamage;
+			currentHealth -= (attackDamage * damageReduced);
 			float amount = currentHealth / startHealth;
 			playerHealth.OnHealthChanged(amount);
 			//Update the others client health and health bar
@@ -94,5 +96,17 @@ public class SlimeHealth : MonoBehaviour {
 	
 		if(photonView != null && photonView.isMine)
 			PhotonNetwork.Destroy(gameObject);
+	}
+
+	public void SetDamageReduced(float amount){
+		if(damageReduced != amount){
+			damageReduced = amount;
+			Debug.Log(transform.name + ": " +damageReduced);
+		}
+	}
+
+	public void SetupDefaultDamageReduced(){
+		damageReduced = 1f;
+		Debug.Log(transform.name + ": " +damageReduced);
 	}
 }

@@ -7,13 +7,15 @@ public class SlimeClass{
 	public float startHealth{get;private set;}			//Slime's health
 	public float attackDamage{get;private set;}			//Slime's attack damage
 	public float actionCoolDown{get; private set;}		//Slime's action cool down time
-	public float castTime{get; private set;}
+	public float castTime{get; private set;}			//Slime's casting time
 	public float movemonetSpeed{get; private set;}		//Slime's movement speed
 	public float actionRange{get; private set;}			//Slime's action range
 	public float healPercentage{get; private set;}		//Slime's healing effect in percentage
+	public float healingPoint{get; private set;}		//Slime's healing point
 	public float scaleRadius{get; private set;}			//Slime's scale radius
 	public float areaEffectRadius{get; private set;}
 	public float detectRadius{get; private set;}
+	public float damageReducedPercentage{get; private set;}
 	/* slime > building */
 	public int killingPriority{get; private set;}
 	/* melee attack > ranged attack > healer */
@@ -26,10 +28,12 @@ public class SlimeClass{
 	public bool isMeleeAttack{get; private set;}
 	public bool isRangedAttack{get; private set;}
 	public bool isHealing{get; private set;}
+	public bool isAreaEffectHealing{get; private set;}
 	public bool isAreaEffectDamage{get; private set;}
 	public bool isExplosion{get; private set;}
 	public bool isBuilding{get; private set;}
 	public bool isMagicalAreaEffectDamage{get; private set;}
+	public bool isGuardianBuff{get; private set;}
 	public bool isInvisibleTrap{get; private set;}
 	public bool isCleavable{get; private set;}
 	public bool isSummoner{get; private set;}
@@ -264,6 +268,42 @@ public class SlimeClass{
 				canSpawnInBattle	= true ;
 				attackDamage 		= 2 ;
 				actionCoolDown 		= 0.7f ;
+				break;
+
+			case "Priest":
+				/* Slime Properties */
+				startHealth 	= 10 ;
+				movemonetSpeed 	= 5 ;
+				actionRange 	= 7f ;
+				scaleRadius 	= 0.5f ;
+				/* Slime Priority */
+				healingPriority = 3 ;
+				killingPriority = 1 ;
+				classPriority 	= 1 ;
+				/* Ability */
+				isAreaEffectHealing	= true ;
+				areaEffectRadius 	= 5 ;
+				healingPoint 		= 5 ;
+				actionCoolDown  	= 1f ;
+				break;
+
+			case "Guardian":
+				/* Slime Properties */
+				startHealth 	= 10 ;
+				movemonetSpeed 	= 5 ;
+				actionRange 	= 1f ;
+				scaleRadius 	= 0.7f ;
+				/* Slime Priority */
+				healingPriority = 1 ;
+				killingPriority = 1 ;
+				classPriority 	= 1 ;
+				/* Ability */
+				isMeleeAttack			= true ;
+				attackDamage			= 1 ;
+				actionCoolDown  		= 1f ;
+				isGuardianBuff			= true ;
+				areaEffectRadius 		= 7 ;
+				damageReducedPercentage = 0.5f ;
 				break;
 
 			default:

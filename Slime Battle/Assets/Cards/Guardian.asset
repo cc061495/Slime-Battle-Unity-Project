@@ -9,16 +9,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c013c98488284e3686ac40507c98abb, type: 3}
-  m_Name: Summoner
+  m_Name: Guardian
   m_EditorClassIdentifier: 
-  name: Summoner
-  icon: {fileID: 21300000, guid: b20db44c244c44bcf8faa95477ede10d, type: 3}
+  name: Guardian
+  icon: {fileID: 21300000, guid: 7b8d5ecc0c1374fdb8e11f6c92a7c0bb, type: 3}
   isDefaultCard: 1
-  teamRedPrefab: {fileID: 1539508114879990, guid: f6401a7d9f6634ab59dfd6d6a313b1b3,
+  teamRedPrefab: {fileID: 1660328779637464, guid: 63ccfc4cc6fd9460ab17e69277af49b9,
     type: 2}
-  teamBluePrefab: {fileID: 1539508114879990, guid: 8e37d0432f18d4fefaf394dcacfa9800,
+  teamBluePrefab: {fileID: 1933966464772400, guid: 843721896e487449bb1221d0314fc947,
     type: 2}
-  cost: 20
+  cost: 10
   size: 2
   spawnPosOffset: {x: 0, y: 2, z: 0}
-  type: Summon
+  type: Melee Attack
