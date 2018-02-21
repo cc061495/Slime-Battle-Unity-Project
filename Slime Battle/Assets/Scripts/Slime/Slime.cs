@@ -13,6 +13,7 @@ public class Slime : MonoBehaviour{
 	private Transform model;
 	private Transform _transform;
 	private SlimeClass slimeClass;
+	private SlimeMovement move;
     private GameManager gm;
 	PhotonView photonView;
 
@@ -25,7 +26,7 @@ public class Slime : MonoBehaviour{
 		//Join team list
 		JoinTeamList();
 		//PathFinding config
-		SlimeMovement move = GetComponent<SlimeMovement>();
+		move = GetComponent<SlimeMovement>();
 		if(move != null)
 			move.SetUpNavMeshAgent(slimeClass);
 		//Slime Health Display config
@@ -34,21 +35,24 @@ public class Slime : MonoBehaviour{
 			health.SetUpSlimeHealth(slimeClass);
 
 		if(!photonView.isMine && !slimeClass.canSpawnInBattle)
-		 	DisplaySlime(false);
+		 	DisplaySlime(false, true);
 		else if(slimeClass.canSpawnInBattle)
 			SlimeComponentEnable();
 	}
 
 	private void JoinTeamList(){
         if(_transform.tag == "Team_RED")
-            AddTeam(gm.team_red, gm.team_red2);
+            AddTeam(gm.team_red, gm.team_red2, gm.team_invisible);
 	  	else
-            AddTeam(gm.team_blue, gm.team_blue2);
+            AddTeam(gm.team_blue, gm.team_blue2, gm.team_invisible);
 	}
 
-	private void AddTeam(List<Transform> team, List<Transform> team2){
-		if(!slimeClass.isInvisibleTrap)
-			team.Add(model);	//team with building, not including mine
+	private void AddTeam(List<Transform> team, List<Transform> team2, List<Transform> team3){
+		if(!slimeClass.isInvisible)
+			team.Add(model);	//team with building, not including invisible gameobject
+		else
+			team3.Add(model);
+
 		if(!slimeClass.isBuilding)
 			team2.Add(model);	//team without building
 	}
@@ -63,8 +67,9 @@ public class Slime : MonoBehaviour{
     }
 
 	private void RemoveTeam(List<Transform> team, List<Transform> team2){
-		team.Remove(model);
-		if(!slimeClass.isBuilding)
+		if(team.Contains(model))
+			team.Remove(model);
+		if(team2.Contains(model))
 			team2.Remove(model);
 	}
 
@@ -88,12 +93,14 @@ public class Slime : MonoBehaviour{
             RemoveTeam(gm.team_blue, gm.team_blue2);
 	}
 
-	public void DisplaySlime(bool display){
-		model.gameObject.SetActive(display);
+	public void DisplaySlime(bool display, bool runSetActive){
+		if(runSetActive)
+			model.gameObject.SetActive(display);
 
 		if(GameManager.Instance.currentState == GameManager.State.build_end){
-			if(!PhotonNetwork.isMasterClient && photonView.isMine && !slimeClass.isBuilding)
+			if(!PhotonNetwork.isMasterClient && photonView.isMine && slimeClass.isNetworkTransfer){
 				Invoke("NetworkTransfer", Random.Range(0f,2f));
+			}
 
 			Invoke("SlimeComponentEnable", 4f);
 		}
@@ -109,9 +116,9 @@ public class Slime : MonoBehaviour{
 		if(network != null)
 			network.enabled = true;
 
-		SlimeMovement movement = GetComponent<SlimeMovement>();
-		if(movement != null && photonView.isMine)
-			movement.StartUpdatePathLoop();		//slime start finding the target
+		if(move != null && photonView.isMine){
+			move.StartUpdatePathLoop();		//slime start finding the target
+		}
 
 		BuildingSpawnCost money = GetComponent<BuildingSpawnCost>();
 		if(money != null && photonView.isMine){
@@ -122,10 +129,15 @@ public class Slime : MonoBehaviour{
 		if(summon != null && photonView.isMine){
 			summon.StartSummonLoop();
 		}
+
+		Guardian guardian = GetComponent<Guardian>();
+		if(guardian != null && photonView.isMine){
+			guardian.SpellingGuardianBuff(slimeClass);
+		}
 	}
 
 	public void EnableObstacleCarve(){
-		if(slimeClass.isBuilding && !slimeClass.isInvisibleTrap)
+		if(slimeClass.isBuilding)
 			model.GetComponent<NavMeshObstacle>().carving = true;
 	}
 }

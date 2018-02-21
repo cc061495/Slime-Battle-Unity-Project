@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 114842982875088132}
   - component: {fileID: 114203331040109668}
   - component: {fileID: 114767330131081022}
+  - component: {fileID: 114254916964458942}
   m_Layer: 0
   m_Name: GuardianA
   m_TagString: Team_RED
@@ -114,7 +115,7 @@ GameObject:
   - component: {fileID: 54779837428643934}
   - component: {fileID: 114900170024640422}
   m_Layer: 2
-  m_Name: GuardianBuff
+  m_Name: Buff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -385,7 +386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ca2df12009bc444f9ed82080765ad46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buff: 0
+  buffIndex: 0
   healthBarPrefab: {fileID: 1151739180578524, guid: 37590ddfa1ca44cf9a1f60f4952c1ed4,
     type: 2}
   healthBar: {fileID: 0}
@@ -402,6 +403,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   prevTarget: {fileID: 0}
+--- !u!114 &114254916964458942
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1660328779637464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc74aa0d4c23b412f9659fecfd93674e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sphereCollider: {fileID: 135079581372666598}
 --- !u!114 &114474211178278480
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -476,7 +489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c14cb338c34b64741bac13e9b641861a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sphereCollider: {fileID: 135079581372666598}
+  guardian: {fileID: 114254916964458942}
 --- !u!135 &135079581372666598
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -485,7 +498,7 @@ SphereCollider:
   m_GameObject: {fileID: 1992857171838770}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}

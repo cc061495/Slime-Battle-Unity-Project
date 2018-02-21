@@ -22,10 +22,11 @@ public class GameManager : MonoBehaviour
     public RewardsPanel rewardsPanel;
     public NextRoundCost nextRoundCostPanel;
     public RectTransform canvasForHealthBar, healthBarParent;
-    public List<Transform> team_red = new List<Transform>();    //team with building, not including mine
+    public List<Transform> team_red = new List<Transform>();    //team with building, not including invisible gameobject
     public List<Transform> team_red2 = new List<Transform>();   //team without building
-    public List<Transform> team_blue = new List<Transform>();   //team with building, not including mine
+    public List<Transform> team_blue = new List<Transform>();   //team with building, not including invisible gameobject
     public List<Transform> team_blue2 = new List<Transform>();  //team without building
+    public List<Transform> team_invisible = new List<Transform>();
     public List<Node> nodeList = new List<Node>();
     public PhotonPlayer masterPlayer;
 
@@ -103,6 +104,7 @@ public class GameManager : MonoBehaviour
 
         DisplayTeam(team_red);
         DisplayTeam(team_blue);
+        DisplayInvisibleTeam(team_invisible);
 
         StartCoroutine(DisplayGamePanel());
 
@@ -153,33 +155,7 @@ public class GameManager : MonoBehaviour
         BuildingUI.Instance.BuildingPanelDisplay(false);
 
         StartCoroutine(DisplayGamePanel());
-        //Synchronize for ending game
-        // if(PhotonNetwork.isMasterClient)
-        //     photonView.RPC ("RPC_RedTeamFinish", PhotonTargets.All);
-        // else
-        //     photonView.RPC ("RPC_BlueTeamFinish", PhotonTargets.All);
-        
-        // StartCoroutine(CheckTeamFinish());
     }
-
-    // IEnumerator CheckTeamFinish(){
-    //     while(!isRedFinish || !isBlueFinish){
-    //         yield return new WaitForSeconds(0.1f);
-
-    //         if(!isRedFinish)
-    //             Debug.Log("Red Not Ready");
-    //         if(!isBlueFinish)
-    //             Debug.Log("Blue Not Ready");
-    //     }
-    //     //Close and reset the team control panel, when the battle is ended
-    //     teamControlPanel.SetActive(false);
-    //     TeamController.Instance.SetToDefaultSearchMode();
-    //     BuildingUI.Instance.BuildingPanelDisplay(false);
-
-    //     StartCoroutine(DisplayGamePanel());
-    //     isRedFinish = false;
-    //     isBlueFinish = false;
-    // }
     /* Game End State */
     [PunRPC]
     private void RPC_GameEnd(){
@@ -197,6 +173,8 @@ public class GameManager : MonoBehaviour
             team_red.Clear();
         if(team_blue.Count > 0)
             team_blue.Clear();
+        if(team_invisible.Count > 0)
+            team_invisible.Clear();
     }
 
     IEnumerator DisplayGamePanel(){
@@ -381,10 +359,17 @@ public class GameManager : MonoBehaviour
     private void DisplayTeam(List<Transform> team){
         for(int i=0;i<team.Count;i++){
             Slime s = team[i].parent.GetComponent<Slime>();
-            if(!s.GetSlimeClass().isInvisibleTrap)
-                s.DisplaySlime(true);
+            if(!s.GetSlimeClass().isInvisible)
+                s.DisplaySlime(true, true);
                 
             s.EnableObstacleCarve();
+        }
+    }
+
+    private void DisplayInvisibleTeam(List<Transform> team){
+        for(int i=0;i<team.Count;i++){
+            Slime s = team[i].parent.GetComponent<Slime>();
+            s.DisplaySlime(false, false);
         }
     }
     

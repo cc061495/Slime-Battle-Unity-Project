@@ -3,39 +3,46 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class GuardianBuffSpelling : MonoBehaviour {
-	public SphereCollider sphereCollider;
-	private Slime s;
-	private SlimeClass slime;
+public class GuardianBuffDetection : MonoBehaviour {
+	public Guardian guardian;
 
 	GameManager gameManager;
 	Transform rootObject;
     List<SlimeHealth> buffList = new List<SlimeHealth>();
 
-	void Start(){
+	void Awake(){
 		gameManager = GameManager.Instance;
 		rootObject = transform.root;
-		s = rootObject.GetComponent<Slime>();
-		slime = s.GetSlimeClass();
-		sphereCollider.radius = slime.areaEffectRadius;
 	}
 
 	void OnTriggerEnter(Collider other){
+		Slime s = other.transform.root.GetComponent<Slime>();
+		if(s == null)
+			return;
+
 		Transform targetSlime = other.transform.root;
-		if(targetSlime.tag == rootObject.tag){
+		SlimeClass slimeClass = s.GetSlimeClass();
+		
+		if(targetSlime.tag == rootObject.tag && !slimeClass.isBuilding){
 			SlimeHealth h = targetSlime.GetComponent<SlimeHealth>();
 			buffList.Add(h);
-			h.buff++;
-			h.SetDamageReduced(slime.damageReducedPercentage);
+			h.buffIndex++;
+			h.SetDamageReduced(guardian.GetDamageReducedPercentage());
 		}
 	}
 
 	void OnTriggerExit(Collider other){
+		Slime s = other.transform.root.GetComponent<Slime>();
+		if(s == null)
+			return;		
+		
 		Transform targetSlime = other.transform.root;
-		if(targetSlime.tag == rootObject.tag){
+		SlimeClass slimeClass = s.GetSlimeClass();
+
+		if(targetSlime.tag == rootObject.tag && !slimeClass.isBuilding){
 			SlimeHealth h = targetSlime.GetComponent<SlimeHealth>();
-			h.buff--;
-			if(h.buff == 0){
+			h.buffIndex--;
+			if(h.buffIndex == 0){
 				buffList.Remove(h);
 				h.SetupDefaultDamageReduced();
 			}
@@ -46,8 +53,8 @@ public class GuardianBuffSpelling : MonoBehaviour {
 		if(gameManager.currentState == GameManager.State.battle_start){
 			for(int i=0; i < buffList.Count; i++){
 				if(buffList[i] != null){
-					buffList[i].buff--;
-					if(buffList[i].buff == 0)
+					buffList[i].buffIndex--;
+					if(buffList[i].buffIndex == 0)
 						buffList[i].SetupDefaultDamageReduced();
 				}
 			}

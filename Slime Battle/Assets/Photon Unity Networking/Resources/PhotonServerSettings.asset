@@ -102,4 +102,5 @@ MonoBehaviour:
   - RPC_ChatBoxCreate
   - RPC_DisplayTheMine
   - RPC_DisplayTheModel
+  - DisplayShadow
   DisableAutoOpenWizard: 1

@@ -33,6 +33,8 @@ public class SlimeAction : MonoBehaviour {
 		if (coolDown <= 0f) {
 			if (slime.isMeleeAttack){
 				MeleeAttack (slime.attackDamage);
+				if(slime.isInvisible)
+					GetComponent<ShadowAppear>().Appear();
 			}
 			else if (slime.isRangedAttack){
 				photonView.RPC("RangedAttack",PhotonTargets.All, slime.attackDamage);

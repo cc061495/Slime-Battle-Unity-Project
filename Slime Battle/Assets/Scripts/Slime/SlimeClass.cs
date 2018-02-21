@@ -18,9 +18,9 @@ public class SlimeClass{
 	public float damageReducedPercentage{get; private set;}
 	/* slime > building */
 	public int killingPriority{get; private set;}
-	/* melee attack > ranged attack > healer */
+	/* melee attack > ranged attack > healer > invisible */
 	public int healingPriority{get; private set;}
-	/* healer > ranged attack > melee attack > building */
+	/* healer + invisible > ranged attack > melee attack > building */
 	public int classPriority{get; private set;}
 	public int moneyCanBeSpawned{get; private set;}
 	public float turnSpeed = 3f;
@@ -34,11 +34,12 @@ public class SlimeClass{
 	public bool isBuilding{get; private set;}
 	public bool isMagicalAreaEffectDamage{get; private set;}
 	public bool isGuardianBuff{get; private set;}
-	public bool isInvisibleTrap{get; private set;}
+	public bool isInvisible{get; set;}
 	public bool isCleavable{get; private set;}
 	public bool isSummoner{get; private set;}
 	public bool canSpawnInBattle{get; private set;}
 	public bool canSpawnMoney{get; private set;}
+	public bool isNetworkTransfer{get; private set;}
 
 	public SlimeClass(string slimeName){
 		switch (slimeName){
@@ -56,6 +57,8 @@ public class SlimeClass{
 				isMeleeAttack 	= true ;
 				attackDamage 	= 2f ;
 				actionCoolDown 	= 0.6f ;
+				/* Network */
+				isNetworkTransfer = true;
 				break;
 
 			case "Giant":
@@ -73,6 +76,8 @@ public class SlimeClass{
 				attackDamage 		= 5 ;
 				areaEffectRadius 	= 1.5f ;
 				actionCoolDown 		= 1f ;
+				/* Network */
+				isNetworkTransfer = true;
 				break;
 
 			case "Ranger":
@@ -89,6 +94,8 @@ public class SlimeClass{
 				isRangedAttack 	= true ;
 				attackDamage 	= 2.5f ;
 				actionCoolDown 	= 1f ;
+				/* Network */
+				isNetworkTransfer = true;
 				break;
 
 			case "Healer":
@@ -105,12 +112,14 @@ public class SlimeClass{
 				isHealing 		= true ;
 				healPercentage 	= 0.05f ;
 				actionCoolDown  = 0.5f ;
+				/* Network */
+				isNetworkTransfer = true;
 				break;
 
 			case "Bomber":
 				/* Slime Properties */
 				startHealth 	= 5 ;
-				movemonetSpeed 	= 8.5f ;
+				movemonetSpeed 	= 7 ;
 				actionRange 	= 0.7f ;
 				scaleRadius 	= 0.5f ;
 				/* Slime Priority */
@@ -122,6 +131,8 @@ public class SlimeClass{
 				attackDamage 		= 7 ;
 				areaEffectRadius 	= 6 ;
 				actionCoolDown 		= 10 ;
+				/* Network */
+				isNetworkTransfer = true;
 				break;
 
 			case "Wall":
@@ -134,6 +145,8 @@ public class SlimeClass{
 				classPriority 	= 4 ;
 				/* Ability */
 				isBuilding 		= true ;
+				/* Network */
+				isNetworkTransfer = false;
 				break;
 
 			case "Treasury":
@@ -149,6 +162,8 @@ public class SlimeClass{
 				canSpawnMoney	  = true ;
 				moneyCanBeSpawned = 10 ;
 				actionCoolDown 	  = 5 ;
+				/* Network */
+				isNetworkTransfer = false;
 				break;
 
 			case "Mine":
@@ -161,11 +176,13 @@ public class SlimeClass{
 				classPriority 	= 4 ;
 				/* Ability */
 				isBuilding 		  = true ;
-				isInvisibleTrap	  = true ;
+				isInvisible		  = true ;
 				detectRadius	  = 0.5f ;
 				attackDamage 	  = 10 ;
 				areaEffectRadius  = 5 ;
 				actionCoolDown 	  = 10 ;
+				/* Network */
+				isNetworkTransfer = true;
 				break;
 
 			case "Splitter":
@@ -183,6 +200,8 @@ public class SlimeClass{
 				isMeleeAttack 		= true ;
 				attackDamage 		= 5 ;
 				actionCoolDown 		= 0.5f ;
+				/* Network */
+				isNetworkTransfer = true;
 				break;
 
 			case "Splitter_Medium":
@@ -201,6 +220,8 @@ public class SlimeClass{
 				canSpawnInBattle	= true ;
 				attackDamage 		= 3 ;
 				actionCoolDown 		= 0.4f ;
+				/* Network */
+				isNetworkTransfer = true;
 				break;
 
 			case "Splitter_Small":
@@ -218,6 +239,8 @@ public class SlimeClass{
 				canSpawnInBattle	= true ;
 				attackDamage 		= 1 ;
 				actionCoolDown 		= 0.3f ;
+				/* Network */
+				isNetworkTransfer = true;
 				break;
 
 			case "Wizard":
@@ -236,6 +259,8 @@ public class SlimeClass{
 				areaEffectRadius 		  = 6 ;
 				actionCoolDown 			  = 1 ;
 				castTime				  = 1.5f ;
+				/* Network */
+				isNetworkTransfer = true;
 				break;
 
 			case "Summoner":
@@ -251,6 +276,8 @@ public class SlimeClass{
 				/* Ability */
 				isSummoner		 = true ;
 				actionCoolDown   = 5 ;
+				/* Network */
+				isNetworkTransfer = true;
 				break;	
 
 			case "Summoner_s":
@@ -268,6 +295,8 @@ public class SlimeClass{
 				canSpawnInBattle	= true ;
 				attackDamage 		= 2 ;
 				actionCoolDown 		= 0.7f ;
+				/* Network */
+				isNetworkTransfer = true;
 				break;
 
 			case "Priest":
@@ -285,12 +314,14 @@ public class SlimeClass{
 				areaEffectRadius 	= 5 ;
 				healingPoint 		= 5 ;
 				actionCoolDown  	= 1f ;
+				/* Network */
+				isNetworkTransfer = true;
 				break;
 
 			case "Guardian":
 				/* Slime Properties */
-				startHealth 	= 10 ;
-				movemonetSpeed 	= 5 ;
+				startHealth 	= 30 ;
+				movemonetSpeed 	= 3 ;
 				actionRange 	= 1f ;
 				scaleRadius 	= 0.7f ;
 				/* Slime Priority */
@@ -299,11 +330,32 @@ public class SlimeClass{
 				classPriority 	= 1 ;
 				/* Ability */
 				isMeleeAttack			= true ;
-				attackDamage			= 1 ;
+				attackDamage			= 1f ;
 				actionCoolDown  		= 1f ;
 				isGuardianBuff			= true ;
-				areaEffectRadius 		= 7 ;
-				damageReducedPercentage = 0.5f ;
+				areaEffectRadius 		= 8 ;
+				damageReducedPercentage = 0.4f ;
+				/* Network */
+				isNetworkTransfer = true;
+				break;
+
+			case "Shadow":
+				/* Building Properties */
+				startHealth 	= 20 ;
+				movemonetSpeed 	= 8f ;
+				actionRange 	= 1f ;
+				scaleRadius 	= 0.7f ;
+				/* Slime Priority */
+				healingPriority = 4 ;
+				killingPriority = 1 ;
+				classPriority 	= 1 ;
+				/* Ability */
+				isInvisible		  = true ;
+				isMeleeAttack	  = true ;
+				attackDamage 	  = 5f ;
+				actionCoolDown 	  = 0.2f ;
+				/* Network */
+				isNetworkTransfer = true;
 				break;
 
 			default:

@@ -58,7 +58,7 @@ public class SlimeMovement : MonoBehaviour {
 				SetupMovementSetting(true, 120f, 50);
 		}
 	}
-	/* Start this function in the SlimeHealth.cs */
+	/* Start this function in the Slime.cs */
 	public void StartUpdatePathLoop(){
 		InvokeRepeating("UpdatePath", Random.Range(0, 0.5f), 0.2f);
 	}
@@ -72,6 +72,7 @@ public class SlimeMovement : MonoBehaviour {
 
 			if(move){
 				TargetSearching();		//find new target every 0.2s
+			
 				if(target){
 					if(mode != TeamController.SearchMode.defense)
 						agent.destination = target.position;	//set target position if target is found

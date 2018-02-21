@@ -7,7 +7,7 @@ public class SlimeHealth : MonoBehaviour {
 	public float currentHealth{get;private set;}
 	public float startHealth{get;private set;}
 	private float damageReduced = 1f;
-	public int buff = 0;
+	public int buffIndex = 0;
 	private Transform model;
 	private PhotonView photonView;
 
@@ -50,6 +50,9 @@ public class SlimeHealth : MonoBehaviour {
 			playerHealth.OnHealthChanged(amount);
 			//Update the others client health and health bar
 			photonView.RPC("RPC_UpdateHealth", PhotonTargets.Others, currentHealth, amount);
+
+			if(slime.isInvisible)
+				GetComponent<ShadowAppear>().Appear();
 		}
 	}
 

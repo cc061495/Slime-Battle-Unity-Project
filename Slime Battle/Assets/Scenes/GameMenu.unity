@@ -11936,7 +11936,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 944681110}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.9164101
+  m_Size: 0.9158189
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -13690,6 +13690,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d895cfb015e4a4458ac5282a8fbeac05, type: 2}
   - {fileID: 11400000, guid: 57f483f6519ed4117acb00d8be9b682d, type: 2}
   - {fileID: 11400000, guid: 65afa7143ed9a4ed5bc6a3d9e673bab3, type: 2}
+  - {fileID: 11400000, guid: d575a3c637dfc45439749f2151c1b2a7, type: 2}
   cards: []
   inventoryUI:
   - {fileID: 1672003878}
@@ -14347,7 +14348,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 190590535}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.6680055
+  m_Size: 0.66752195
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

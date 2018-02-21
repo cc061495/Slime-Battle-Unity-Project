@@ -24827,6 +24827,7 @@ MonoBehaviour:
   team_red2: []
   team_blue: []
   team_blue2: []
+  team_invisible: []
   nodeList: []
 --- !u!114 &1881397322
 MonoBehaviour:

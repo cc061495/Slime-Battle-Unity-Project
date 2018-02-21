@@ -25,13 +25,15 @@ public class MineExplosion : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other){
-		if(gameManager.currentState == GameManager.State.battle_start && other.transform.parent.tag == enemyTag){
+		if(gameManager.currentState == GameManager.State.battle_start && other.transform.parent.tag == enemyTag && slime.isInvisible){
 			// display the mine to another player
 			if(!model.gameObject.activeSelf)
-				model.gameObject.SetActive(true);
+				model.gameObject.SetActive(true);		
 			// explosion!!!
 			if(photonView.isMine)
-				Invoke("Explosion", 0.5f);
+				Invoke("Explosion", 0.35f);
+
+			slime.isInvisible = false;
 		}
 	}
 
