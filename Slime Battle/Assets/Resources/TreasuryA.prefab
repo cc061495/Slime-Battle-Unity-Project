@@ -46,6 +46,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1446489273148034
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4182437366821138}
+  m_Layer: 2
+  m_Name: BuildModel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1823493335722954
 GameObject:
   m_ObjectHideFlags: 0
@@ -54,10 +69,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4505461180855628}
-  - component: {fileID: 114546121623582048}
-  - component: {fileID: 114393129583375586}
   - component: {fileID: 114144686688830864}
   - component: {fileID: 114981696016304444}
+  - component: {fileID: 114454445611403910}
+  - component: {fileID: 114464501891521240}
   m_Layer: 0
   m_Name: TreasuryA
   m_TagString: Team_RED
@@ -82,17 +97,32 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4182437366821138
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1446489273148034}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4220674394172626}
+  - {fileID: 4850698939888256}
+  m_Father: {fileID: 4257066839410128}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4220674394172626
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1098040079271668}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: -0.5, z: 0}
-  m_LocalScale: {x: 0.167, y: 0.167, z: 0.25}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalScale: {x: 0.16699998, y: 0.16700004, z: 0.25000012}
   m_Children: []
-  m_Father: {fileID: 4257066839410128}
+  m_Father: {fileID: 4182437366821138}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4257066839410128
@@ -105,8 +135,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 2, z: 3}
   m_Children:
-  - {fileID: 4220674394172626}
-  - {fileID: 4850698939888256}
+  - {fileID: 4182437366821138}
   m_Father: {fileID: 4505461180855628}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -132,9 +161,9 @@ Transform:
   m_GameObject: {fileID: 1850252747776136}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 0.7142857, y: 0.7, z: 0.14285713}
+  m_LocalScale: {x: 0.7142856, y: 0.7, z: 0.14285712}
   m_Children: []
-  m_Father: {fileID: 4257066839410128}
+  m_Father: {fileID: 4182437366821138}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23861787574031360
@@ -264,7 +293,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57563271889c942bfb9337d20ae0e9db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114393129583375586
+--- !u!114 &114454445611403910
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1823493335722954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b865a0e9c98e74cdeaeb7e6ebf4884c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slimeName: Treasury
+  model: {fileID: 4182437366821138}
+  agent: {fileID: 4257066839410128}
+--- !u!114 &114464501891521240
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -279,19 +322,6 @@ MonoBehaviour:
   healthBarPrefab: {fileID: 1151739180578524, guid: 37590ddfa1ca44cf9a1f60f4952c1ed4,
     type: 2}
   healthBar: {fileID: 0}
---- !u!114 &114546121623582048
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1823493335722954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b865a0e9c98e74cdeaeb7e6ebf4884c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slimeName: Treasury
-  model: {fileID: 4257066839410128}
 --- !u!114 &114981696016304444
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -1,6 +1,7 @@
 ﻿/* Copyright (c) cc061495 */
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -361,8 +362,9 @@ public class GameManager : MonoBehaviour
             Slime s = team[i].parent.GetComponent<Slime>();
             if(!s.GetSlimeClass().isInvisible)
                 s.DisplaySlime(true, true);
-                
-            s.EnableObstacleCarve();
+
+            if(s.GetSlimeClass().canCarve)
+                s.GetAgent().GetComponent<NavMeshObstacle>().carving = true;
         }
     }
 

@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class ShadowAppear : MonoBehaviour {
 
-	private Transform model;
+	private Transform model, agent;
 	private SlimeClass slime;
 	GameManager gameManager;
 	PhotonView photonView;
 
 	void Start(){
-		model = transform.root.GetComponent<Slime>().GetModel();
-		slime = transform.root.GetComponent<Slime>().GetSlimeClass();
+		Slime s = transform.root.GetComponent<Slime>();
+		model = s.GetModel();
+		agent = s.GetAgent();
+		slime = s.GetSlimeClass();
 		photonView = GetComponent<PhotonView>();
 		gameManager = GameManager.Instance;
 	}
@@ -20,7 +22,7 @@ public class ShadowAppear : MonoBehaviour {
 		// appear and join the team list
 		JoinTeamList();
 		// display the mine to another player
-		photonView.RPC("DisplayShadow", PhotonTargets.Others);
+		photonView.RPC("DisplayShadow", PhotonTargets.All);
 		slime.isInvisible = false;
 	}
 
@@ -32,9 +34,9 @@ public class ShadowAppear : MonoBehaviour {
 
 	private void JoinTeamList(){
         if(transform.root.tag == "Team_RED")
-			gameManager.team_red.Add(model);
+			gameManager.team_red.Add(agent);
 	  	else
-            gameManager.team_blue.Add(model);
+            gameManager.team_blue.Add(agent);
 		
 		Debug.Log("Shadow is added to the team list");
 	}

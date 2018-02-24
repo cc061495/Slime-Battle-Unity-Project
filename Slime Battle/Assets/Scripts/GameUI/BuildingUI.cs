@@ -41,7 +41,6 @@ public class BuildingUI : MonoBehaviour {
 	}
 
 	public void Cancel(){
-
 		teamController.SetControlButtonDisplay(true);
 		chattingPanel.SetChatButtonDisplay(true);
 		BuildingPanelDisplay(false);

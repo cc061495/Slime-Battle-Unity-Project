@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine.UI;
-using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine;
 
 public class Slime : MonoBehaviour{
 
@@ -11,6 +11,9 @@ public class Slime : MonoBehaviour{
 	[Header("Slime model")]
 	[SerializeField]
 	private Transform model;
+	[Header("NavMeshAgent")]
+	[SerializeField]
+	private Transform agent;
 	private Transform _transform;
 	private SlimeClass slimeClass;
 	private SlimeMovement move;
@@ -49,28 +52,34 @@ public class Slime : MonoBehaviour{
 
 	private void AddTeam(List<Transform> team, List<Transform> team2, List<Transform> team3){
 		if(!slimeClass.isInvisible)
-			team.Add(model);	//team with building, not including invisible gameobject
+			team.Add(agent);	//team with building, not including invisible gameobject
 		else
-			team3.Add(model);
+			team3.Add(agent);
 
 		if(!slimeClass.isBuilding)
-			team2.Add(model);	//team without building
+			team2.Add(agent);	//team without building
 	}
 
 	public void RemoveFromTeamList(){
 		if(_transform.tag == "Team_RED")
-            RemoveTeam(gm.team_red, gm.team_red2);
+            RemoveTeam(gm.team_red, gm.team_red2, gm.team_invisible);
 		else
-            RemoveTeam(gm.team_blue, gm.team_blue2);
+            RemoveTeam(gm.team_blue, gm.team_blue2, gm.team_invisible);
 
         gm.CheckAnyEmptyTeam();
     }
 
-	private void RemoveTeam(List<Transform> team, List<Transform> team2){
-		if(team.Contains(model))
-			team.Remove(model);
-		if(team2.Contains(model))
-			team2.Remove(model);
+	private void RemoveTeam(List<Transform> team, List<Transform> team2, List<Transform> team3){
+		if(team.Contains(agent))
+			team.Remove(agent);
+		if(team2.Contains(agent))
+			team2.Remove(agent);
+		if(team3.Contains(agent))
+			team3.Remove(agent);
+	}
+
+	public Transform GetAgent(){
+		return agent;
 	}
 
 	public Transform GetModel(){
@@ -88,9 +97,9 @@ public class Slime : MonoBehaviour{
 	[PunRPC]
 	private void RPC_RemoveFromTeamList(){
 		if(_transform.tag == "Team_RED")
-            RemoveTeam(gm.team_red, gm.team_red2);
+            RemoveTeam(gm.team_red, gm.team_red2, gm.team_invisible);
 		else
-            RemoveTeam(gm.team_blue, gm.team_blue2);
+            RemoveTeam(gm.team_blue, gm.team_blue2, gm.team_invisible);
 	}
 
 	public void DisplaySlime(bool display, bool runSetActive){
@@ -134,10 +143,5 @@ public class Slime : MonoBehaviour{
 		if(guardian != null && photonView.isMine){
 			guardian.SpellingGuardianBuff(slimeClass);
 		}
-	}
-
-	public void EnableObstacleCarve(){
-		if(slimeClass.isBuilding)
-			model.GetComponent<NavMeshObstacle>().carving = true;
 	}
 }

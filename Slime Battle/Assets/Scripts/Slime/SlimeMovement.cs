@@ -6,11 +6,10 @@ using System.Linq;
 
 public class SlimeMovement : MonoBehaviour {
 	private Transform _transform;
-
 	[SerializeField]
 	private Transform target, prevTarget;
-	private NavMeshAgent agent;
-	private Transform model;
+	private NavMeshAgent navMeshAgent;
+	private Transform agent;
 
 	private float range;
 	private bool move, findNewTarget;
@@ -25,7 +24,7 @@ public class SlimeMovement : MonoBehaviour {
 	
 	void Awake(){
 		_transform = transform;
-		model = GetComponent<Slime>().GetModel();
+		agent = GetComponent<Slime>().GetAgent();
 		gm = GameManager.Instance;
 		tm = TeamController.Instance;
 		photonView = GetComponent<PhotonView>();
@@ -34,12 +33,11 @@ public class SlimeMovement : MonoBehaviour {
 
 	public void SetUpNavMeshAgent (SlimeClass _slime) {
 		this.slime = _slime;
-
-		agent = model.GetComponent<NavMeshAgent>();
+		navMeshAgent = agent.GetComponent<NavMeshAgent>();
 		//agent.baseOffset = 0.9f;	//fix slime float on the ground problem
-		agent.speed = slime.movemonetSpeed;
-		agent.acceleration = slime.movemonetSpeed;
-		agent.stoppingDistance = 1.5f; //previous (1.5f)
+		navMeshAgent.speed = slime.movemonetSpeed;
+		navMeshAgent.acceleration = slime.movemonetSpeed;
+		navMeshAgent.stoppingDistance = 1.5f; //previous (1.5f)
 
 		enemies = gm.GetEnemies(_transform);
 	}
@@ -47,8 +45,8 @@ public class SlimeMovement : MonoBehaviour {
 	void Update () {
 		/* when the battle starts, start to execute */
 		if (gm.currentState == GameManager.State.battle_start && photonView.isMine && target) {
-			if(DistanceCalculate(target.position, model.position) <= range*range){
-				if(move && model)
+			if(DistanceCalculate(target.position, agent.position) <= range*range){
+				if(move && agent)
 					SetupMovementSetting(false, 0f, 1);
 
 				slimeAction.Action();		//Action to the target
@@ -75,19 +73,19 @@ public class SlimeMovement : MonoBehaviour {
 			
 				if(target){
 					if(mode != TeamController.SearchMode.defense)
-						agent.destination = target.position;	//set target position if target is found
+						navMeshAgent.destination = target.position;	//set target position if target is found
 					else	
-						agent.destination = model.position;
+						navMeshAgent.destination = agent.position;
 					//Debug.Log(transform.name + "->" + target.parent.name);
 					//Debug.Log(agent.pathStatus);
 					/* if the target is not reachable, find the new target again */
-					if(agent.pathStatus != NavMeshPathStatus.PathComplete && !findNewTarget){
+					if(navMeshAgent.pathStatus != NavMeshPathStatus.PathComplete && !findNewTarget){
 						findNewTarget = true;
 					}
 				}
 			}
 			else
-				agent.destination = model.position;		//stand on the current position
+				navMeshAgent.destination = agent.position;		//stand on the current position
 		}
 		else if(gm.currentState == GameManager.State.battle_end)
 			CancelInvoke("UpdatePath");
@@ -98,7 +96,7 @@ public class SlimeMovement : MonoBehaviour {
 			if(enemies.Count > 0){
 				if(findNewTarget){
 					/* Kill the shortest distance enemy */
-					target = enemies.OrderBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();
+					target = enemies.OrderBy(o => DistanceCalculate(o.position, agent.position)).FirstOrDefault();
 				}
 				else
 					DefaultSearching();
@@ -122,12 +120,12 @@ public class SlimeMovement : MonoBehaviour {
 				if(findAnyLowHealth){
 					/* Find the nearest and lowest health target */
 					target = myTeam.OrderBy(o => (o.parent.GetComponent<SlimeHealth>().currentHealth / o.parent.GetComponent<SlimeHealth>().startHealth))
-								   .ThenBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();					   
+								   .ThenBy(o => DistanceCalculate(o.position, agent.position)).FirstOrDefault();					   
 				}
 				else{
 					/* Target with priority: melee attack > ranged attack > healer */
 					target = myTeam.OrderBy(o => o.parent.GetComponent<Slime>().GetSlimeClass().healingPriority)
-								   .ThenBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();
+								   .ThenBy(o => DistanceCalculate(o.position, agent.position)).FirstOrDefault();
 				}
 			}
 		}
@@ -165,38 +163,38 @@ public class SlimeMovement : MonoBehaviour {
 		/* Kill the shortest distance enemy with killing priority(slime -> building) */
 		if(mode == TeamController.SearchMode.distance || mode == TeamController.SearchMode.defense){
 			target = enemies.OrderBy(o => o.parent.GetComponent<Slime>().GetSlimeClass().killingPriority).
-							ThenBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();
+							ThenBy(o => DistanceCalculate(o.position, agent.position)).FirstOrDefault();
 		}
 		/* Kill the shortest distance enemy with lowest health precentage */
 		else if(mode == TeamController.SearchMode.health){
 			target = enemies.OrderBy(o => (o.parent.GetComponent<SlimeHealth>().currentHealth / o.parent.GetComponent<SlimeHealth>().startHealth)).
-							ThenBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();
+							ThenBy(o => DistanceCalculate(o.position, agent.position)).FirstOrDefault();
 		}
 		/* Kill the shortest distance with class priority() */
 		else if(mode == TeamController.SearchMode.priority){
 			target = enemies.OrderBy(o => o.parent.GetComponent<Slime>().GetSlimeClass().classPriority).
-							ThenBy(o => DistanceCalculate(o.position, model.position)).FirstOrDefault();
+							ThenBy(o => DistanceCalculate(o.position, agent.position)).FirstOrDefault();
 		}
 	}
 
 	private void SetupMovementSetting(bool _move, float _angularSpeed, int _priority){
 		move = _move;
 
-		agent.angularSpeed = _angularSpeed;
+		navMeshAgent.angularSpeed = _angularSpeed;
 		if(slime.isMeleeAttack)
-			agent.avoidancePriority = _priority;
+			navMeshAgent.avoidancePriority = _priority;
 	}
 	
 	private void LookAtTarget(){
 		Vector3 dir;
-		dir.x = target.position.x - model.position.x;
-		dir.y = target.position.y - model.position.y;
-		dir.z = target.position.z - model.position.z;
+		dir.x = target.position.x - agent.position.x;
+		dir.y = target.position.y - agent.position.y;
+		dir.z = target.position.z - agent.position.z;
 
 		if(dir != Vector3.zero){
 			Quaternion lookRotation = Quaternion.LookRotation (dir);
-			Vector3 rotation = Quaternion.Lerp (model.rotation, lookRotation, Time.deltaTime * slime.turnSpeed).eulerAngles;
-			model.SetPositionAndRotation(model.position, Quaternion.Euler (0f, rotation.y, 0f));
+			Vector3 rotation = Quaternion.Lerp (agent.rotation, lookRotation, Time.deltaTime * slime.turnSpeed).eulerAngles;
+			agent.SetPositionAndRotation(agent.position, Quaternion.Euler (0f, rotation.y, 0f));
 		}
 	}
 

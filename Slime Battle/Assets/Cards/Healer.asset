@@ -16,7 +16,7 @@ MonoBehaviour:
   isDefaultCard: 1
   teamRedPrefab: {fileID: 1107804881901608, guid: 5a1c1a91522fe495888a6335ce4acc50,
     type: 2}
-  teamBluePrefab: {fileID: 1107804881901608, guid: c14fe4f8a511c423cb96f572b73d9cbe,
+  teamBluePrefab: {fileID: 1792214528253688, guid: c14fe4f8a511c423cb96f572b73d9cbe,
     type: 2}
   cost: 15
   size: 1

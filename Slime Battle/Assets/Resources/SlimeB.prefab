@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 195256469762268772}
   - component: {fileID: 135697575417567982}
   m_Layer: 2
-  m_Name: SlimeObject
+  m_Name: NavMeshAgent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -185,7 +185,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slimeName: Slime
-  model: {fileID: 4220746767681392}
+  model: {fileID: 4849826201979082}
+  agent: {fileID: 4220746767681392}
 --- !u!114 &114882725667070700
 MonoBehaviour:
   m_ObjectHideFlags: 1

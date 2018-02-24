@@ -40,6 +40,7 @@ public class SlimeClass{
 	public bool canSpawnInBattle{get; private set;}
 	public bool canSpawnMoney{get; private set;}
 	public bool isNetworkTransfer{get; private set;}
+	public bool canCarve{get; private set;}
 
 	public SlimeClass(string slimeName){
 		switch (slimeName){
@@ -138,13 +139,14 @@ public class SlimeClass{
 			case "Wall":
 				/* Building Properties */
 				startHealth 	= 30 ;
-				scaleRadius 	= 1.3f ;
+				scaleRadius 	= 1.5f ;
 				/* Slime Priority */
 				healingPriority = 0 ;
 				killingPriority = 2 ;
 				classPriority 	= 4 ;
 				/* Ability */
 				isBuilding 		= true ;
+				canCarve		= true ;
 				/* Network */
 				isNetworkTransfer = false;
 				break;
@@ -159,6 +161,7 @@ public class SlimeClass{
 				classPriority 	= 4 ;
 				/* Ability */
 				isBuilding 		  = true ;
+				canCarve		  = true ;
 				canSpawnMoney	  = true ;
 				moneyCanBeSpawned = 10 ;
 				actionCoolDown 	  = 5 ;
@@ -177,7 +180,7 @@ public class SlimeClass{
 				/* Ability */
 				isBuilding 		  = true ;
 				isInvisible		  = true ;
-				detectRadius	  = 0.5f ;
+				detectRadius	  = 0.6f ;
 				attackDamage 	  = 10 ;
 				areaEffectRadius  = 5 ;
 				actionCoolDown 	  = 10 ;
@@ -283,7 +286,7 @@ public class SlimeClass{
 			case "Summoner_s":
 				/* Slime Properties */
 				startHealth 	= 10 ;
-				movemonetSpeed 	= 6f ;
+				movemonetSpeed 	= 5f ;
 				actionRange 	= 1 ;
 				scaleRadius 	= 0.5f ;
 				/* Slime Priority */
@@ -294,7 +297,7 @@ public class SlimeClass{
 				isMeleeAttack 		= true ;
 				canSpawnInBattle	= true ;
 				attackDamage 		= 2 ;
-				actionCoolDown 		= 0.7f ;
+				actionCoolDown 		= 0.8f ;
 				/* Network */
 				isNetworkTransfer = true;
 				break;

@@ -5,14 +5,9 @@ using UnityEngine;
 
 public class SlimeAction : MonoBehaviour {
 
-	[SerializeField]
-	private Transform firePoint;
-	[SerializeField]
-	private GameObject rangedWeaponPrefab;
-
 	private float coolDown = 0f, castTime = 0f;
 	private SlimeClass slime;
-	private Transform target, model;
+	private Transform target, agent;
 	private SlimeMovement movement;
 	private SlimeHealth health;
 	private SlimeHealth tarHealth;
@@ -21,7 +16,7 @@ public class SlimeAction : MonoBehaviour {
 	void Start(){
 		photonView = GetComponent<PhotonView>();
 		slime = GetComponent<Slime>().GetSlimeClass();
-		model = GetComponent<Slime>().GetModel();
+		agent = GetComponent<Slime>().GetAgent();
 		movement = GetComponent<SlimeMovement>();
 		health = GetComponent<SlimeHealth>();
 
@@ -55,7 +50,7 @@ public class SlimeAction : MonoBehaviour {
 				AreaEffectDamage(slime.attackDamage, slime.areaEffectRadius, target.position);
 			}
 			else if(slime.isExplosion){
-				AreaEffectDamage(slime.attackDamage, slime.areaEffectRadius, model.position);
+				AreaEffectDamage(slime.attackDamage, slime.areaEffectRadius, agent.position);
 				/* Explosion Effect */
 				health.SuddenDeath();
 			}
@@ -89,7 +84,6 @@ public class SlimeAction : MonoBehaviour {
 		Collider[] slimes = Physics.OverlapSphere(center, effectAreaRadius);
 		for(int i=0;i<slimes.Length;i++){
 			if(slimes[i].transform.parent.tag == target.parent.tag){
-				SlimeHealth h = slimes[i].transform.parent.GetComponent<SlimeHealth>();
 
 				float distanceFromCentre = DistanceCalculate(slimes[i].transform.position, center);
 				//explosion constant(higher = lower damage, lower = higher damage received)
@@ -98,6 +92,7 @@ public class SlimeAction : MonoBehaviour {
 				if(areaDamage < 0)
 					continue;	//if the damage is lower than 0, just skip it
 
+				SlimeHealth h = slimes[i].transform.parent.GetComponent<SlimeHealth>();
 				h.TakeDamage(areaDamage);
 			}
 		}
@@ -106,17 +101,18 @@ public class SlimeAction : MonoBehaviour {
 	private void AreaEffectHealing(float healingPoint, float effectAreaRadius, Vector3 center){
 		Collider[] slimes = Physics.OverlapSphere(center, effectAreaRadius);
 		for(int i=0;i<slimes.Length;i++){
-			if(slimes[i].transform.parent.tag == transform.tag && slimes[i].transform != transform){
+			if(slimes[i].transform.parent.tag == transform.tag && slimes[i].transform.parent != transform){
+				
 				SlimeHealth h = slimes[i].transform.parent.GetComponent<SlimeHealth>();
-				h.TakeHealing(healingPoint);
+				if(h != null)
+					h.TakeHealing(healingPoint);
 			}
 		}
 	}
 
 	[PunRPC]
 	private void RangedAttack(float attackDamage){
-		GameObject bulletGO = (GameObject)Instantiate (rangedWeaponPrefab, firePoint.position, firePoint.rotation);
-		Bullet bullet = bulletGO.GetComponent<Bullet>();
+		Bullet bullet = GetComponent<RangerShoot>().ShootingBullet().GetComponent<Bullet>();
 		if (bullet != null)
 			bullet.Seek (target, attackDamage, tarHealth);
 	}

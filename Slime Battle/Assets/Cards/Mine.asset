@@ -16,9 +16,9 @@ MonoBehaviour:
   isDefaultCard: 1
   teamRedPrefab: {fileID: 1210319353446000, guid: e1664cca3c41f40f68cf151bab8c79a7,
     type: 2}
-  teamBluePrefab: {fileID: 1210319353446000, guid: cd291f556b9b34a12a35304720476e0c,
+  teamBluePrefab: {fileID: 1704925722425976, guid: 4dc9eb80e23584f4baa97c7a693e16bb,
     type: 2}
   cost: 2
   size: 1
   spawnPosOffset: {x: 0, y: 0, z: 0}
-  type: Invisible Trap
+  type: Invisible Explosion Trap

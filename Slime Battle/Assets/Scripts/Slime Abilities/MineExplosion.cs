@@ -7,7 +7,7 @@ public class MineExplosion : MonoBehaviour {
 	private Slime s;
 	private SlimeClass slime;
 	private SlimeHealth health;
-	private Transform model;
+	private Transform model, agent;
 
 	private string enemyTag;
 	PhotonView photonView;
@@ -17,6 +17,7 @@ public class MineExplosion : MonoBehaviour {
 		s = transform.parent.GetComponent<Slime>();
 		health = transform.parent.GetComponent<SlimeHealth>();
 		model = s.GetModel();
+		agent = s.GetAgent();
 		slime = s.GetSlimeClass();
 		GetComponent<SphereCollider>().radius = slime.detectRadius;
 		enemyTag = (transform.parent.tag == "Team_RED") ? "Team_BLUE" : "Team_RED";
@@ -38,7 +39,7 @@ public class MineExplosion : MonoBehaviour {
 	}
 
 	private void Explosion(){
-		Vector3 centre = model.position;
+		Vector3 centre = agent.position;
 		float effectAreaRadius = slime.areaEffectRadius;
 		float attackDamage = slime.attackDamage;
 
@@ -54,7 +55,7 @@ public class MineExplosion : MonoBehaviour {
 				//Debug.Log("Distance: " + distanceFromCentre + " Damage: " + areaDamage);
 				if(areaDamage < 0)
 					continue;	//if the damage is lower than 0, just skip it
-
+				
 				h.TakeDamage(areaDamage);
 			}
 		}

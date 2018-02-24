@@ -103,4 +103,5 @@ MonoBehaviour:
   - RPC_DisplayTheMine
   - RPC_DisplayTheModel
   - DisplayShadow
+  - RPC_BuildingDestory
   DisableAutoOpenWizard: 1

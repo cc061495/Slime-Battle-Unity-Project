@@ -36,9 +36,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4245383503867462}
-  - component: {fileID: 114913435765893884}
-  - component: {fileID: 114956857700296884}
   - component: {fileID: 114954281856688260}
+  - component: {fileID: 114239566587492598}
+  - component: {fileID: 114455335130603546}
   m_Layer: 0
   m_Name: MineA
   m_TagString: Team_RED
@@ -48,7 +48,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1469011087425860
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -106,7 +106,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.5, z: -21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4397188696514660}
   - {fileID: 4695467440312292}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -132,11 +131,11 @@ Transform:
   m_GameObject: {fileID: 1469011087425860}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 2, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4985005549842866}
   - {fileID: 4337374329157094}
-  m_Father: {fileID: 4245383503867462}
+  m_Father: {fileID: 4695467440312292}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4695467440312292
@@ -148,9 +147,10 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 2, z: 3}
-  m_Children: []
+  m_Children:
+  - {fileID: 4397188696514660}
   m_Father: {fileID: 4245383503867462}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4985005549842866
 Transform:
@@ -258,18 +258,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114692835537229830
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1571998495570818}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 542f98e9d2ed94ead96a972773fc3897, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114913435765893884
+--- !u!114 &114239566587492598
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -282,6 +271,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slimeName: Mine
   model: {fileID: 4397188696514660}
+  agent: {fileID: 4695467440312292}
+--- !u!114 &114455335130603546
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1210319353446000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ca2df12009bc444f9ed82080765ad46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buffIndex: 0
+  healthBarPrefab: {fileID: 1151739180578524, guid: 37590ddfa1ca44cf9a1f60f4952c1ed4,
+    type: 2}
+  healthBar: {fileID: 0}
+--- !u!114 &114692835537229830
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1571998495570818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 542f98e9d2ed94ead96a972773fc3897, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114954281856688260
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -308,21 +324,6 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
---- !u!114 &114956857700296884
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1210319353446000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ca2df12009bc444f9ed82080765ad46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buffIndex: 0
-  healthBarPrefab: {fileID: 1151739180578524, guid: 37590ddfa1ca44cf9a1f60f4952c1ed4,
-    type: 2}
-  healthBar: {fileID: 0}
 --- !u!135 &135025643560849184
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -333,5 +334,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.6
   m_Center: {x: 0, y: 0, z: 0}

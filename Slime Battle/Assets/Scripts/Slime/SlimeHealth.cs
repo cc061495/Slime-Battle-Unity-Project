@@ -8,7 +8,7 @@ public class SlimeHealth : MonoBehaviour {
 	public float startHealth{get;private set;}
 	private float damageReduced = 1f;
 	public int buffIndex = 0;
-	private Transform model;
+	private Transform agent;
 	private PhotonView photonView;
 
 	[Header("Slime Health Bar")]
@@ -22,13 +22,13 @@ public class SlimeHealth : MonoBehaviour {
 
 	void Awake(){
 		photonView = GetComponent<PhotonView>();
-		model = GetComponent<Slime>().GetModel();
+		agent = GetComponent<Slime>().GetAgent();
 	}
 
 	public void SetUpSlimeHealth(SlimeClass _slime){
 		slime = _slime;
 		healthBarGroup = GameManager.Instance.healthBarParent;
-		GeneratePlayerHealthBar(model);
+		GeneratePlayerHealthBar(agent);
 
 		startHealth = slime.startHealth;
 		currentHealth = startHealth;
@@ -90,13 +90,13 @@ public class SlimeHealth : MonoBehaviour {
 	[PunRPC]
 	private void RPC_SlimeDie(){
 		if(slime.isCleavable && PhotonNetwork.isMasterClient)
-			GetComponent<SlimeSplite>().DoTheSlimeSplite(model.position);
+			GetComponent<SlimeSplite>().DoTheSlimeSplite(agent.position);
 
 		GetComponent<Slime>().RemoveFromTeamList();
 
 		if(slime.isBuilding)
 			BuildingUI.Instance.HideTheBuildingPanel(this);
-	
+
 		if(photonView != null && photonView.isMine)
 			PhotonNetwork.Destroy(gameObject);
 	}

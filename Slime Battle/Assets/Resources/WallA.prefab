@@ -19,9 +19,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4361628323799254}
-  - component: {fileID: 114869870835463468}
-  - component: {fileID: 114570473520212048}
   - component: {fileID: 114646797437846582}
+  - component: {fileID: 114008249908876170}
+  - component: {fileID: 114631529304174494}
   m_Layer: 0
   m_Name: WallA
   m_TagString: Team_RED
@@ -156,6 +156,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114008249908876170
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1024320169951516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b865a0e9c98e74cdeaeb7e6ebf4884c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slimeName: Wall
+  model: {fileID: 4934098387931882}
+  agent: {fileID: 4310139269878892}
 --- !u!114 &114249360731806820
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -167,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57563271889c942bfb9337d20ae0e9db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114570473520212048
+--- !u!114 &114631529304174494
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -208,19 +222,6 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
---- !u!114 &114869870835463468
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1024320169951516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b865a0e9c98e74cdeaeb7e6ebf4884c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slimeName: Wall
-  model: {fileID: 4310139269878892}
 --- !u!208 &208269570791176734
 NavMeshObstacle:
   m_ObjectHideFlags: 1

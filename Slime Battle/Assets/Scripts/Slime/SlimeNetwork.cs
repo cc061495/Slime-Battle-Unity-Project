@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class SlimeNetwork : MonoBehaviour {
 
-	private Transform model;
+	private Transform agent;
 	private Vector3 realPosition = Vector3.zero;
 	private Quaternion realRotation = Quaternion.identity;
 	private bool gotFirstUpdate = false;
 	PhotonView photonView;
 
 	void Awake () {
-		model = GetComponent<Slime>().GetModel();
+		agent = GetComponent<Slime>().GetAgent();
 		photonView = GetComponent<PhotonView>();
 	}
 
@@ -21,8 +21,8 @@ public class SlimeNetwork : MonoBehaviour {
 		if(photonView.isMine){
 			// Do nothing - SlimeMovement.cs is moving us
 		}else{
-			model.position = Vector3.Lerp(model.position, realPosition, 5f * Time.deltaTime);
-			model.rotation = Quaternion.Lerp(model.rotation, realRotation, 5f * Time.deltaTime);
+			agent.position = Vector3.Lerp(agent.position, realPosition, 5f * Time.deltaTime);
+			agent.rotation = Quaternion.Lerp(agent.rotation, realRotation, 5f * Time.deltaTime);
 			// model.SetPositionAndRotation(
 			// 	Vector3.Lerp(model.position, realPosition, 5f * GameManager.globalDeltaTime),
 			// 	Quaternion.Lerp(model.rotation, realRotation, 5f * GameManager.globalDeltaTime)
@@ -33,8 +33,8 @@ public class SlimeNetwork : MonoBehaviour {
 	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
 		if(stream.isWriting){
 			// This is OUR player, we need to send our actual position to the network.
-			stream.SendNext(model.position);
-			stream.SendNext(model.rotation);
+			stream.SendNext(agent.position);
+			stream.SendNext(agent.rotation);
 		}
 		else{
 			// This is someone else's player, we need to receive their position
@@ -47,7 +47,7 @@ public class SlimeNetwork : MonoBehaviour {
 			// We MAY want to set our transform.position to immediately to this old "realPosition"
 			// and then update realPosition
 			if(!gotFirstUpdate){
-				model.SetPositionAndRotation(realPosition, realRotation);
+				agent.SetPositionAndRotation(realPosition, realRotation);
 				gotFirstUpdate = true;
 			}
 		}
