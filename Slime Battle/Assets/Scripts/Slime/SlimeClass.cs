@@ -361,6 +361,25 @@ public class SlimeClass{
 				isNetworkTransfer = true;
 				break;
 
+			case "Turret":
+				/* Building Properties */
+				startHealth 	= 20 ;
+				scaleRadius 	= 1f ;
+				actionRange 	= 8f ;
+				/* Slime Priority */
+				healingPriority = 0 ;
+				killingPriority = 2 ;
+				classPriority 	= 4 ;
+				/* Ability */
+				isBuilding 		  = true ;
+				canCarve	      = true ;
+				isRangedAttack	  = true ;
+				attackDamage 	  = 2 ;
+				actionCoolDown 	  = 0.8f ;
+				/* Network */
+				isNetworkTransfer = true;
+				break;
+
 			default:
 				/* Slime Properties */
 				startHealth 	= 10 ;

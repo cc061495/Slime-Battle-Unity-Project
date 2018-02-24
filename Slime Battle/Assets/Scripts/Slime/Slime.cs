@@ -14,6 +14,9 @@ public class Slime : MonoBehaviour{
 	[Header("NavMeshAgent")]
 	[SerializeField]
 	private Transform agent;
+	[Header("NavMeshObstacle")]
+	[SerializeField]
+	private NavMeshObstacle obstacle;
 	private Transform _transform;
 	private SlimeClass slimeClass;
 	private SlimeMovement move;
@@ -86,6 +89,10 @@ public class Slime : MonoBehaviour{
 		return model;
 	}
 
+	public NavMeshObstacle GetObstacle(){
+		return obstacle;
+	}
+
 	public SlimeClass GetSlimeClass(){
 		return slimeClass;
 	}
@@ -142,6 +149,11 @@ public class Slime : MonoBehaviour{
 		Guardian guardian = GetComponent<Guardian>();
 		if(guardian != null && photonView.isMine){
 			guardian.SpellingGuardianBuff(slimeClass);
+		}
+
+		BuildingAction t = GetComponent<BuildingAction>();
+		if(t!= null && photonView.isMine){
+			t.SetUpBuilding(slimeClass);
 		}
 	}
 }

@@ -104,4 +104,5 @@ MonoBehaviour:
   - RPC_DisplayTheModel
   - DisplayShadow
   - RPC_BuildingDestory
+  - RPC_RangedAttack
   DisableAutoOpenWizard: 1

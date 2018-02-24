@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c013c98488284e3686ac40507c98abb, type: 3}
+  m_Name: Turret
+  m_EditorClassIdentifier: 
+  name: Turret
+  icon: {fileID: 21300000, guid: b20db44c244c44bcf8faa95477ede10d, type: 3}
+  isDefaultCard: 1
+  teamRedPrefab: {fileID: 1256400564637068, guid: 9f62e4c0362474f7f95f549b4294fcab,
+    type: 2}
+  teamBluePrefab: {fileID: 1793370921486854, guid: bf7ec854268724148b4d0d60797d447f,
+    type: 2}
+  cost: 15
+  size: 1
+  spawnPosOffset: {x: 0, y: 1, z: 0}
+  type: Building

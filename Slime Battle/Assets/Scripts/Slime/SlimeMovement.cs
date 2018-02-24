@@ -104,14 +104,14 @@ public class SlimeMovement : MonoBehaviour {
 		}
 		else if(slime.isHealing || slime.isAreaEffectHealing){
 			/* Create a healer team list that not include itself and building */
-			myTeam = gm.GetMyTeam(_transform).Where(x => x.parent != transform)
-											 .Where(x => !x.parent.GetComponent<Slime>().GetSlimeClass().isBuilding).ToList();
+			myTeam = gm.GetMyTeam(_transform).Where(x => x.root != transform)
+											 .Where(x => !x.root.GetComponent<Slime>().GetSlimeClass().isBuilding).ToList();
 			/* Check if the team list count > 0 */
 			if(myTeam.Count > 0){
 				bool findAnyLowHealth = false;
 				/* find any not full health in the team list */
 				for(int i=0;i<myTeam.Count;i++){
-					if(myTeam[i].parent.GetComponent<SlimeHealth>().currentHealth != myTeam[i].parent.GetComponent<SlimeHealth>().startHealth){
+					if(myTeam[i].root.GetComponent<SlimeHealth>().currentHealth != myTeam[i].root.GetComponent<SlimeHealth>().startHealth){
 						findAnyLowHealth = true;
 						break;
 					}
@@ -119,12 +119,12 @@ public class SlimeMovement : MonoBehaviour {
 
 				if(findAnyLowHealth){
 					/* Find the nearest and lowest health target */
-					target = myTeam.OrderBy(o => (o.parent.GetComponent<SlimeHealth>().currentHealth / o.parent.GetComponent<SlimeHealth>().startHealth))
+					target = myTeam.OrderBy(o => (o.root.GetComponent<SlimeHealth>().currentHealth / o.root.GetComponent<SlimeHealth>().startHealth))
 								   .ThenBy(o => DistanceCalculate(o.position, agent.position)).FirstOrDefault();					   
 				}
 				else{
 					/* Target with priority: melee attack > ranged attack > healer */
-					target = myTeam.OrderBy(o => o.parent.GetComponent<Slime>().GetSlimeClass().healingPriority)
+					target = myTeam.OrderBy(o => o.root.GetComponent<Slime>().GetSlimeClass().healingPriority)
 								   .ThenBy(o => DistanceCalculate(o.position, agent.position)).FirstOrDefault();
 				}
 			}
@@ -133,19 +133,19 @@ public class SlimeMovement : MonoBehaviour {
 		if(target != null && target != prevTarget){
 			prevTarget = target;
 			slimeAction.SetTarget(target);
-			range = slime.scaleRadius + slime.actionRange + target.parent.GetComponent<Slime>().GetSlimeClass().scaleRadius;
+			range = slime.scaleRadius + slime.actionRange + target.root.GetComponent<Slime>().GetSlimeClass().scaleRadius;
 
 			//Client set the target
 			if(slime.isRangedAttack){
 				//Debug.Log("RPC CALLS!!!");
-				photonView.RPC("RPC_ClientSetTarget", PhotonTargets.Others, target.parent.gameObject.GetPhotonView().viewID);
+				photonView.RPC("RPC_ClientSetTarget", PhotonTargets.Others, target.root.gameObject.GetPhotonView().viewID);
 			}
 		}
     }
 
 	[PunRPC]
 	private void RPC_ClientSetTarget(int targetView){
-		int index = enemies.FindIndex(x => x.parent.gameObject.GetPhotonView().viewID == targetView);
+		int index = enemies.FindIndex(x => x.root.gameObject.GetPhotonView().viewID == targetView);
 		/* if index >= 0, target is found and not equal to null */
 		if(index != -1){
 			target = enemies[index];
@@ -162,17 +162,17 @@ public class SlimeMovement : MonoBehaviour {
 		mode = tm.GetTeamSearchMode(_transform);
 		/* Kill the shortest distance enemy with killing priority(slime -> building) */
 		if(mode == TeamController.SearchMode.distance || mode == TeamController.SearchMode.defense){
-			target = enemies.OrderBy(o => o.parent.GetComponent<Slime>().GetSlimeClass().killingPriority).
+			target = enemies.OrderBy(o => o.root.GetComponent<Slime>().GetSlimeClass().killingPriority).
 							ThenBy(o => DistanceCalculate(o.position, agent.position)).FirstOrDefault();
 		}
 		/* Kill the shortest distance enemy with lowest health precentage */
 		else if(mode == TeamController.SearchMode.health){
-			target = enemies.OrderBy(o => (o.parent.GetComponent<SlimeHealth>().currentHealth / o.parent.GetComponent<SlimeHealth>().startHealth)).
+			target = enemies.OrderBy(o => (o.root.GetComponent<SlimeHealth>().currentHealth / o.root.GetComponent<SlimeHealth>().startHealth)).
 							ThenBy(o => DistanceCalculate(o.position, agent.position)).FirstOrDefault();
 		}
 		/* Kill the shortest distance with class priority() */
 		else if(mode == TeamController.SearchMode.priority){
-			target = enemies.OrderBy(o => o.parent.GetComponent<Slime>().GetSlimeClass().classPriority).
+			target = enemies.OrderBy(o => o.root.GetComponent<Slime>().GetSlimeClass().classPriority).
 							ThenBy(o => DistanceCalculate(o.position, agent.position)).FirstOrDefault();
 		}
 	}

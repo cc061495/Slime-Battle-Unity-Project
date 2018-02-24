@@ -88,7 +88,6 @@ GameObject:
   - component: {fileID: 114694966661388656}
   - component: {fileID: 114347947880749048}
   - component: {fileID: 114233232085776254}
-  - component: {fileID: 114583210397936684}
   - component: {fileID: 114016512498285938}
   m_Layer: 0
   m_Name: SummonerA
@@ -410,12 +409,12 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 1
+  synchronization: 0
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 114583210397936684}
+  - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -436,17 +435,6 @@ MonoBehaviour:
   healthBarPrefab: {fileID: 1151739180578524, guid: 37590ddfa1ca44cf9a1f60f4952c1ed4,
     type: 2}
   healthBar: {fileID: 0}
---- !u!114 &114583210397936684
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1539508114879990}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa6c5aa7627f24de281cd8560c749a37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114694966661388656
 MonoBehaviour:
   m_ObjectHideFlags: 1

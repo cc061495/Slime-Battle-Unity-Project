@@ -359,18 +359,18 @@ public class GameManager : MonoBehaviour
 
     private void DisplayTeam(List<Transform> team){
         for(int i=0;i<team.Count;i++){
-            Slime s = team[i].parent.GetComponent<Slime>();
+            Slime s = team[i].root.GetComponent<Slime>();
             if(!s.GetSlimeClass().isInvisible)
                 s.DisplaySlime(true, true);
 
             if(s.GetSlimeClass().canCarve)
-                s.GetAgent().GetComponent<NavMeshObstacle>().carving = true;
+                s.GetObstacle().carving = true;
         }
     }
 
     private void DisplayInvisibleTeam(List<Transform> team){
         for(int i=0;i<team.Count;i++){
-            Slime s = team[i].parent.GetComponent<Slime>();
+            Slime s = team[i].root.GetComponent<Slime>();
             s.DisplaySlime(false, false);
         }
     }
