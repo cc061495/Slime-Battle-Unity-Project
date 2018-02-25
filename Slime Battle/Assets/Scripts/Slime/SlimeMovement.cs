@@ -58,7 +58,7 @@ public class SlimeMovement : MonoBehaviour {
 	}
 	/* Start this function in the Slime.cs */
 	public void StartUpdatePathLoop(){
-		InvokeRepeating("UpdatePath", Random.Range(0, 0.5f), 0.2f);
+		InvokeRepeating("UpdatePath", Random.Range(0.1f, 0.5f), 0.5f);
 	}
 
 	private void UpdatePath(){
@@ -194,7 +194,7 @@ public class SlimeMovement : MonoBehaviour {
 		if(dir != Vector3.zero){
 			Quaternion lookRotation = Quaternion.LookRotation (dir);
 			Vector3 rotation = Quaternion.Lerp (agent.rotation, lookRotation, Time.deltaTime * slime.turnSpeed).eulerAngles;
-			agent.SetPositionAndRotation(agent.position, Quaternion.Euler (0f, rotation.y, 0f));
+			agent.rotation = Quaternion.Euler (0f, rotation.y, 0f);
 		}
 	}
 

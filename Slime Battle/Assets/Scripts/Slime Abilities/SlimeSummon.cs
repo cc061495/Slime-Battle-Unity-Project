@@ -28,9 +28,9 @@ public class SlimeSummon : MonoBehaviour {
 		Vector3 pos = Vector3.zero;
 
 		if(transform.tag == "Team_RED")
-			pos = Vector3.forward;
+			pos = new Vector3(0,0,1.5f);
 		else if(transform.tag == "Team_BLUE")
-			pos = Vector3.back;
+			pos = new Vector3(0,0,-1.5f);
 			
 		return pos;
 	}

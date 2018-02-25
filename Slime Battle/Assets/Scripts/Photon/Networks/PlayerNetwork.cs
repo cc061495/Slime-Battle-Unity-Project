@@ -20,7 +20,7 @@ public class PlayerNetwork : MonoBehaviour {
 		//fix the fps = 60 in game
 		//Application.targetFrameRate = 60;
 		PhotonNetwork.sendRate = 20;	//default(20) //(60)
-		PhotonNetwork.sendRateOnSerialize = 15;		//default(10) //(30)
+		PhotonNetwork.sendRateOnSerialize = 10;		//default(10) //(30)
 		//setting the default player name(Player#12)
 		//it will set the player name in LobbyNetwork.cs, CreateRoom.cs
 		PlayerName = PlayerData.Instance.playerName;

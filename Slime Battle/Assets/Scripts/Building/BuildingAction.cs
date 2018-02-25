@@ -15,6 +15,7 @@ public class BuildingAction : MonoBehaviour {
 	private float coolDown = 0f;
 	private float range;
 	private SlimeClass slime;
+	private bool action;
 	GameManager gameManager;
 	Transform target, prevTarget, model, agent;
 
@@ -32,19 +33,30 @@ public class BuildingAction : MonoBehaviour {
 			if(DistanceCalculate(target.position, agent.position) <= range*range){	
 				LookAtTarget();
 				Action();
+
+				if(!action)
+					action = true;
 			}
+			else if(action)
+				action = false;
 		}
 	}
 
 	public void SetUpBuilding(SlimeClass _slime){
 		slime = _slime;
-		InvokeRepeating("FindTheTarget", 0.1f, 0.2f);
+		InvokeRepeating("FindTheTarget", Random.Range(0.1f, 0.5f), 1f);
 	}
 
 	private void FindTheTarget(){
 		if(target == null)
+			action = false;
+
+		if(!action){
+			Debug.Log("FIND TARGET");
 			FindTheNearestEnemy();
-		else if(gameManager.currentState == GameManager.State.battle_end)
+		}
+
+		if(gameManager.currentState == GameManager.State.battle_end)
 			CancelInvoke("FindTheTarget");
 	}
 

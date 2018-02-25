@@ -51,7 +51,7 @@ public class SlimeHealth : MonoBehaviour {
 			//Update the others client health and health bar
 			photonView.RPC("RPC_UpdateHealth", PhotonTargets.Others, currentHealth, amount);
 
-			if(slime.isInvisible)
+			if(slime.isMeleeAttack && slime.isInvisible)
 				GetComponent<ShadowAppear>().Appear();
 		}
 	}

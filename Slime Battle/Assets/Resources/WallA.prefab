@@ -170,6 +170,7 @@ MonoBehaviour:
   slimeName: Wall
   model: {fileID: 4934098387931882}
   agent: {fileID: 4310139269878892}
+  obstacle: {fileID: 208269570791176734}
 --- !u!114 &114249360731806820
 MonoBehaviour:
   m_ObjectHideFlags: 1

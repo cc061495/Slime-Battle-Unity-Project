@@ -181,7 +181,7 @@ public class SlimeClass{
 				isBuilding 		  = true ;
 				isInvisible		  = true ;
 				detectRadius	  = 0.6f ;
-				attackDamage 	  = 10 ;
+				attackDamage 	  = 8 ;
 				areaEffectRadius  = 5 ;
 				actionCoolDown 	  = 10 ;
 				/* Network */
@@ -278,7 +278,7 @@ public class SlimeClass{
 				classPriority 	= 1 ;
 				/* Ability */
 				isSummoner		 = true ;
-				actionCoolDown   = 5 ;
+				actionCoolDown   = 6 ;
 				/* Network */
 				isNetworkTransfer = true;
 				break;	
@@ -288,7 +288,7 @@ public class SlimeClass{
 				startHealth 	= 10 ;
 				movemonetSpeed 	= 5f ;
 				actionRange 	= 1 ;
-				scaleRadius 	= 0.5f ;
+				scaleRadius 	= 0.4f ;
 				/* Slime Priority */
 				healingPriority = 1 ;
 				killingPriority = 1 ;
@@ -296,8 +296,8 @@ public class SlimeClass{
 				/* Ability */
 				isMeleeAttack 		= true ;
 				canSpawnInBattle	= true ;
-				attackDamage 		= 2 ;
-				actionCoolDown 		= 0.8f ;
+				attackDamage 		= 1.5f ;
+				actionCoolDown 		= 1f ;
 				/* Network */
 				isNetworkTransfer = true;
 				break;
@@ -363,9 +363,9 @@ public class SlimeClass{
 
 			case "Turret":
 				/* Building Properties */
-				startHealth 	= 20 ;
+				startHealth 	= 15 ;
 				scaleRadius 	= 1f ;
-				actionRange 	= 8f ;
+				actionRange 	= 7f ;
 				/* Slime Priority */
 				healingPriority = 0 ;
 				killingPriority = 2 ;
@@ -374,8 +374,8 @@ public class SlimeClass{
 				isBuilding 		  = true ;
 				canCarve	      = true ;
 				isRangedAttack	  = true ;
-				attackDamage 	  = 2 ;
-				actionCoolDown 	  = 0.8f ;
+				attackDamage 	  = 1.5f ;
+				actionCoolDown 	  = 1f ;
 				/* Network */
 				isNetworkTransfer = true;
 				break;

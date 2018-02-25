@@ -333,6 +333,7 @@ MonoBehaviour:
   slimeName: Treasury
   model: {fileID: 4502752751161216}
   agent: {fileID: 4822454663766736}
+  obstacle: {fileID: 208184617284420386}
 --- !u!208 &208184617284420386
 NavMeshObstacle:
   m_ObjectHideFlags: 1

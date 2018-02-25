@@ -42,8 +42,9 @@ public class Slime : MonoBehaviour{
 
 		if(!photonView.isMine && !slimeClass.canSpawnInBattle)
 		 	DisplaySlime(false, true);
-		else if(slimeClass.canSpawnInBattle)
-			SlimeComponentEnable();
+		else if(slimeClass.canSpawnInBattle){
+			Invoke("SlimeComponentEnable", 0.3f);
+		}
 	}
 
 	private void JoinTeamList(){
@@ -128,32 +129,39 @@ public class Slime : MonoBehaviour{
 
 	private void SlimeComponentEnable(){
 		//Debug.Log("Network is enabled");
-		SlimeNetwork network = GetComponent<SlimeNetwork>();
-		if(network != null)
-			network.enabled = true;
+		if(!slimeClass.isBuilding){
+			SlimeNetwork network = GetComponent<SlimeNetwork>();
+			if(network != null)
+				network.enabled = true;
 
-		if(move != null && photonView.isMine){
-			move.StartUpdatePathLoop();		//slime start finding the target
+			if(move != null && photonView.isMine){
+				move.StartUpdatePathLoop();		//slime start finding the target
+			}
+
+			SlimeSummon summon = GetComponent<SlimeSummon>();
+			if(summon != null && photonView.isMine){
+				summon.StartSummonLoop();
+			}
+
+			Guardian guardian = GetComponent<Guardian>();
+			if(guardian != null && photonView.isMine){
+				guardian.SpellingGuardianBuff(slimeClass);
+			}
 		}
+		else{
+			BuildingNetwork b = GetComponent<BuildingNetwork>();
+			if(b != null)
+				b.enabled = true;
 
-		BuildingSpawnCost money = GetComponent<BuildingSpawnCost>();
-		if(money != null && photonView.isMine){
-			money.StartSpawnCostLoop();
-		}
+			BuildingSpawnCost money = GetComponent<BuildingSpawnCost>();
+			if(money != null && photonView.isMine){
+				money.StartSpawnCostLoop();
+			}
 
-		SlimeSummon summon = GetComponent<SlimeSummon>();
-		if(summon != null && photonView.isMine){
-			summon.StartSummonLoop();
-		}
-
-		Guardian guardian = GetComponent<Guardian>();
-		if(guardian != null && photonView.isMine){
-			guardian.SpellingGuardianBuff(slimeClass);
-		}
-
-		BuildingAction t = GetComponent<BuildingAction>();
-		if(t!= null && photonView.isMine){
-			t.SetUpBuilding(slimeClass);
+			BuildingAction t = GetComponent<BuildingAction>();
+			if(t!= null && photonView.isMine){
+				t.SetUpBuilding(slimeClass);
+			}
 		}
 	}
 }

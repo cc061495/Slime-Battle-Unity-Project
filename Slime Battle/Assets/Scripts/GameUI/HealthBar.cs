@@ -21,7 +21,7 @@ public class HealthBar : MonoBehaviour {
         sizeDeltaX = targetCanvas.sizeDelta.x;
         sizeDeltaY = targetCanvas.sizeDelta.y;
 
-        healthBarImage.sprite = (targetTransform.parent.tag == "Team_RED") ? team_red : team_blue;
+        healthBarImage.sprite = (targetTransform.root.tag == "Team_RED") ? team_red : team_blue;
     }
 
     public void OnHealthChanged(float healthFill){

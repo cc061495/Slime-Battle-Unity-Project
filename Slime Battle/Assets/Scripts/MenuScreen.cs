@@ -9,8 +9,8 @@ public class MenuScreen : MonoBehaviour {
     void Awake(){
         Instance = this; 
 		scrollRectSnap = Home.GetComponent<ScrollRectSnap>();
-		//fix the fps = 60 in game
-		Application.targetFrameRate = 60;
+		//fix the fps = 30 in game
+		Application.targetFrameRate = 30;
     }
 
 	void Update(){

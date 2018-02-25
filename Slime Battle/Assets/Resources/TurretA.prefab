@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4339193241651170}
   - component: {fileID: 33219693750063476}
   - component: {fileID: 23591117492038790}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,8 +39,8 @@ GameObject:
   - component: {fileID: 114921038004713350}
   - component: {fileID: 114173863583281662}
   - component: {fileID: 114823859785099690}
-  - component: {fileID: 114673595285659178}
   - component: {fileID: 114846700482968480}
+  - component: {fileID: 114556533955456484}
   m_Layer: 0
   m_Name: TurretA
   m_TagString: Team_RED
@@ -73,7 +73,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4467785270526162}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,9 +88,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4527207684459458}
-  - component: {fileID: 65244997496502346}
   - component: {fileID: 208304728493037334}
-  - component: {fileID: 114781221980780278}
+  - component: {fileID: 65171707021683542}
+  - component: {fileID: 114992651297175788}
   m_Layer: 2
   m_Name: BuildingObject
   m_TagString: Untagged
@@ -106,7 +106,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4496353889213662}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Firepoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -344,7 +344,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1292621083218598}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65244997496502346
+--- !u!65 &65171707021683542
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -369,9 +369,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slimeName: Turret
   model: {fileID: 4467785270526162}
-  agent: {fileID: 4467785270526162}
+  agent: {fileID: 4527207684459458}
   obstacle: {fileID: 208304728493037334}
---- !u!114 &114673595285659178
+--- !u!114 &114556533955456484
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -379,18 +379,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1256400564637068}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa6c5aa7627f24de281cd8560c749a37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114781221980780278
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1357498040360320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57563271889c942bfb9337d20ae0e9db, type: 3}
+  m_Script: {fileID: 11500000, guid: 65401940dd4ed43019c2f740dc65926f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114823859785099690
@@ -442,12 +431,23 @@ MonoBehaviour:
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 114673595285659178}
+  - {fileID: 114556533955456484}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!114 &114992651297175788
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1357498040360320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57563271889c942bfb9337d20ae0e9db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!208 &208304728493037334
 NavMeshObstacle:
   m_ObjectHideFlags: 1
@@ -459,7 +459,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5

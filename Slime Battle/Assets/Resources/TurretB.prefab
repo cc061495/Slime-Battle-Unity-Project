@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4186431680613738}
   - component: {fileID: 33907406284136172}
   - component: {fileID: 23420256835157866}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4388847224767144}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Firepoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,9 +68,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4072051724775090}
-  - component: {fileID: 65757621270147588}
   - component: {fileID: 208471451626636326}
-  - component: {fileID: 114553256734222752}
+  - component: {fileID: 114384469699339420}
+  - component: {fileID: 65389401071860646}
   m_Layer: 2
   m_Name: BuildingObject
   m_TagString: Untagged
@@ -106,8 +106,8 @@ GameObject:
   - component: {fileID: 114197049318457604}
   - component: {fileID: 114797410383721504}
   - component: {fileID: 114304500942166412}
-  - component: {fileID: 114187866300581494}
   - component: {fileID: 114644174846824120}
+  - component: {fileID: 114703559028277984}
   m_Layer: 0
   m_Name: TurretB
   m_TagString: Team_BLUE
@@ -123,7 +123,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4281024154916040}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -344,7 +344,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1013420029539850}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65757621270147588
+--- !u!65 &65389401071860646
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -356,17 +356,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114187866300581494
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1793370921486854}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa6c5aa7627f24de281cd8560c749a37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114197049318457604
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -387,7 +376,7 @@ MonoBehaviour:
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 114187866300581494}
+  - {fileID: 114703559028277984}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -408,7 +397,7 @@ MonoBehaviour:
   healthBarPrefab: {fileID: 1151739180578524, guid: 37590ddfa1ca44cf9a1f60f4952c1ed4,
     type: 2}
   healthBar: {fileID: 0}
---- !u!114 &114553256734222752
+--- !u!114 &114384469699339420
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -433,6 +422,17 @@ MonoBehaviour:
   firePoint: {fileID: 4388847224767144}
   rangedWeaponPrefab: {fileID: 1913246470140862, guid: 22cff032ebf594eda99f770b646cfc1e,
     type: 2}
+--- !u!114 &114703559028277984
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1793370921486854}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65401940dd4ed43019c2f740dc65926f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114797410383721504
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -446,7 +446,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slimeName: Turret
   model: {fileID: 4281024154916040}
-  agent: {fileID: 4281024154916040}
+  agent: {fileID: 4072051724775090}
   obstacle: {fileID: 208471451626636326}
 --- !u!208 &208471451626636326
 NavMeshObstacle:

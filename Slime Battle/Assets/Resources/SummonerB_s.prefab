@@ -365,8 +365,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 246b2a59e23ac4285984af4d6187e6e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firePoint: {fileID: 0}
-  rangedWeaponPrefab: {fileID: 0}
 --- !u!114 &114683844621045130
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -381,6 +379,7 @@ MonoBehaviour:
   slimeName: Summoner_s
   model: {fileID: 4987168697587916}
   agent: {fileID: 4904192378856512}
+  obstacle: {fileID: 0}
 --- !u!114 &114791005604136234
 MonoBehaviour:
   m_ObjectHideFlags: 1

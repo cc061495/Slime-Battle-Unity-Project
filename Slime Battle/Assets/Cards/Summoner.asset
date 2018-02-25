@@ -18,7 +18,7 @@ MonoBehaviour:
     type: 2}
   teamBluePrefab: {fileID: 1724523793743550, guid: 8e37d0432f18d4fefaf394dcacfa9800,
     type: 2}
-  cost: 25
+  cost: 35
   size: 2
   spawnPosOffset: {x: 0, y: 2, z: 0}
   type: Summon
