@@ -75,7 +75,7 @@ public class SlimeClass{
 				/* Ability */
 				isAreaEffectDamage	= true ;
 				attackDamage 		= 5 ;
-				areaEffectRadius 	= 1.5f ;
+				areaEffectRadius 	= 3.5f ;
 				actionCoolDown 		= 1f ;
 				/* Network */
 				isNetworkTransfer = true;
@@ -129,8 +129,8 @@ public class SlimeClass{
 				classPriority 	= 3 ; 
 				/* Ability */
 				isExplosion	 		= true ;
-				attackDamage 		= 7 ;
-				areaEffectRadius 	= 6 ;
+				attackDamage 		= 6.5f ;
+				areaEffectRadius 	= 8 ;
 				actionCoolDown 		= 10 ;
 				/* Network */
 				isNetworkTransfer = true;
@@ -182,7 +182,7 @@ public class SlimeClass{
 				isInvisible		  = true ;
 				detectRadius	  = 0.6f ;
 				attackDamage 	  = 8 ;
-				areaEffectRadius  = 5 ;
+				areaEffectRadius  = 6 ;
 				actionCoolDown 	  = 10 ;
 				/* Network */
 				isNetworkTransfer = true;
@@ -258,9 +258,9 @@ public class SlimeClass{
 				classPriority 	= 2 ;
 				/* Ability */
 				isMagicalAreaEffectDamage = true ;
-				attackDamage 			  = 4 ;
-				areaEffectRadius 		  = 6 ;
-				actionCoolDown 			  = 1 ;
+				attackDamage 			  = 4.5f ;
+				areaEffectRadius 		  = 2 ;
+				actionCoolDown 			  = 0 ;
 				castTime				  = 1.5f ;
 				/* Network */
 				isNetworkTransfer = true;
@@ -278,17 +278,17 @@ public class SlimeClass{
 				classPriority 	= 1 ;
 				/* Ability */
 				isSummoner		 = true ;
-				actionCoolDown   = 6 ;
+				actionCoolDown   = 5 ;
 				/* Network */
 				isNetworkTransfer = true;
 				break;	
 
 			case "Summoner_s":
 				/* Slime Properties */
-				startHealth 	= 10 ;
+				startHealth 	= 8 ;
 				movemonetSpeed 	= 5f ;
 				actionRange 	= 1 ;
-				scaleRadius 	= 0.4f ;
+				scaleRadius 	= 0.45f ;
 				/* Slime Priority */
 				healingPriority = 1 ;
 				killingPriority = 1 ;
@@ -297,7 +297,7 @@ public class SlimeClass{
 				isMeleeAttack 		= true ;
 				canSpawnInBattle	= true ;
 				attackDamage 		= 1.5f ;
-				actionCoolDown 		= 1f ;
+				actionCoolDown 		= 0.8f ;
 				/* Network */
 				isNetworkTransfer = true;
 				break;
@@ -315,7 +315,7 @@ public class SlimeClass{
 				/* Ability */
 				isAreaEffectHealing	= true ;
 				areaEffectRadius 	= 5 ;
-				healingPoint 		= 5 ;
+				healingPoint 		= 3 ;
 				actionCoolDown  	= 1f ;
 				/* Network */
 				isNetworkTransfer = true;
@@ -323,7 +323,7 @@ public class SlimeClass{
 
 			case "Guardian":
 				/* Slime Properties */
-				startHealth 	= 30 ;
+				startHealth 	= 40 ;
 				movemonetSpeed 	= 3 ;
 				actionRange 	= 1f ;
 				scaleRadius 	= 0.7f ;
@@ -337,7 +337,7 @@ public class SlimeClass{
 				actionCoolDown  		= 1f ;
 				isGuardianBuff			= true ;
 				areaEffectRadius 		= 8 ;
-				damageReducedPercentage = 0.4f ;
+				damageReducedPercentage = 0.6f ;
 				/* Network */
 				isNetworkTransfer = true;
 				break;
@@ -365,7 +365,7 @@ public class SlimeClass{
 				/* Building Properties */
 				startHealth 	= 15 ;
 				scaleRadius 	= 1f ;
-				actionRange 	= 7f ;
+				actionRange 	= 9f ;
 				/* Slime Priority */
 				healingPriority = 0 ;
 				killingPriority = 2 ;

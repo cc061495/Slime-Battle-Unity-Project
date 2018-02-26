@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MineExplosion : MonoBehaviour {
@@ -32,32 +33,29 @@ public class MineExplosion : MonoBehaviour {
 				model.gameObject.SetActive(true);		
 			// explosion!!!
 			if(photonView.isMine)
-				Invoke("Explosion", 0.35f);
+				Invoke("Explosion", 0.4f);
 
 			slime.isInvisible = false;
 		}
 	}
 
 	private void Explosion(){
-		Vector3 centre = agent.position;
+		Vector3 center = agent.position;
 		float effectAreaRadius = slime.areaEffectRadius;
 		float attackDamage = slime.attackDamage;
 
-		Collider[] slimes = Physics.OverlapSphere(centre, effectAreaRadius);
+		List<Transform> enemyTeam = GameManager.Instance.GetEnemies(transform)
+										.Where(x => DistanceCalculate(center, x.position) <= effectAreaRadius*effectAreaRadius).ToList();
 
-		for(int i=0;i<slimes.Length;i++){
-			if(slimes[i].transform.parent.tag == enemyTag){
-				SlimeHealth h = slimes[i].transform.parent.GetComponent<SlimeHealth>();
-
-				float distanceFromCentre = DistanceCalculate(slimes[i].transform.position, centre);
-				//explosion constant(higher = lower damage, lower = higher damage received)
-				float areaDamage = attackDamage - distanceFromCentre * 0.15f;
-				//Debug.Log("Distance: " + distanceFromCentre + " Damage: " + areaDamage);
-				if(areaDamage < 0)
-					continue;	//if the damage is lower than 0, just skip it
-				
-				h.TakeDamage(areaDamage);
-			}
+		for(int i=0;i<enemyTeam.Count;i++){
+			float distanceFromCentre = DistanceCalculate(enemyTeam[i].position, center);
+			//explosion constant(higher = lower damage, lower = higher damage received)
+			float dmg = attackDamage - distanceFromCentre * 0.15f;
+			//Debug.Log("Distance: " + distanceFromCentre + " Damage: " + areaDamage);
+			if(dmg < 0)
+				continue;	//if the damage is lower than 0, just skip it
+		
+			enemyTeam[i].root.GetComponent<SlimeHealth>().TakeDamage(dmg);
 		}
 		health.SuddenDeath();
 	}

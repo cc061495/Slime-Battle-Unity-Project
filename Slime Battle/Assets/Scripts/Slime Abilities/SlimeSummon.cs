@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SlimeSummon : MonoBehaviour {
 
+	List<GameObject> summonList = new List<GameObject>();
+	private const int summonLimit = 3;
 	public string prefabToSummon;
 	GameManager gameManager;
 	SlimeClass slime;
@@ -18,8 +21,13 @@ public class SlimeSummon : MonoBehaviour {
 	}
 
 	public void Summon(){
-		if(gameManager.currentState == GameManager.State.battle_start)
-			PhotonNetwork.Instantiate(prefabToSummon, agentPos + GetSpawnPos(), Quaternion.identity, 0);
+		if(gameManager.currentState == GameManager.State.battle_start){
+			summonList = summonList.Where(o => o != null).ToList();
+			if(summonList.Count < summonLimit){
+				GameObject s = PhotonNetwork.Instantiate(prefabToSummon, agentPos + GetSpawnPos(), Quaternion.identity, 0);
+				summonList.Add(s);
+			}
+		}
 		else if(gameManager.currentState == GameManager.State.battle_end)
 			CancelInvoke("Summon");
 	}

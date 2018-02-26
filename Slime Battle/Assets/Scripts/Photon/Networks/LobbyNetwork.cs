@@ -11,6 +11,8 @@ public class LobbyNetwork : MonoBehaviour
     private void Start(){
         /* Show the Network Info */
         DisplayNetworkInfo();
+        //fix the fps = 60 in the lobby screen
+		Application.targetFrameRate = 60;
         //Connect to Photon as configured in the editor
         //if player is not connected, connect to the Photon
         if (!PhotonNetwork.connected){

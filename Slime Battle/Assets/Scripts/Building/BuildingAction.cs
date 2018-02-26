@@ -79,12 +79,11 @@ public class BuildingAction : MonoBehaviour {
 	}
 
 	private void FindTheNearestEnemy(){
-		target = enemyList.OrderBy(o => o.root.GetComponent<Slime>().GetSlimeClass().killingPriority).
-						ThenBy(o => DistanceCalculate(o.position, agent.position)).FirstOrDefault();
+		/* Kill the shortest distance enemy */
+		target = enemyList.OrderBy(o => DistanceCalculate(o.position, agent.position)).FirstOrDefault();
 
 		if(target != null && target != prevTarget){
 			prevTarget = target;
-
 			range = slime.scaleRadius + slime.actionRange + target.root.GetComponent<Slime>().GetSlimeClass().scaleRadius;
 			//Client set the target
 			photonView.RPC("RPC_ClientSetTarget", PhotonTargets.Others, target.root.gameObject.GetPhotonView().viewID);

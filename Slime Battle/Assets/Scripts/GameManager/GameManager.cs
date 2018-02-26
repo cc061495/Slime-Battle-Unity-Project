@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     
     void Awake(){
         Instance = this; 
+        //fix the fps = 60 in the menu screen
+		Application.targetFrameRate = 30;
     }
 
     public enum State{idle, ready, build_start, build_end, battle_start, battle_end, game_end};
@@ -32,7 +34,6 @@ public class GameManager : MonoBehaviour
     public PhotonPlayer masterPlayer;
 
     private int totalRoundGame, matchPoint, winPoint;
-    //private bool isRedFinish, isBlueFinish;
     private float mDeltaTime = 0.0f;
     private float mFPS = 0.0f;
     PhotonView photonView;
@@ -343,20 +344,6 @@ public class GameManager : MonoBehaviour
             teamBlueSlimeShop.GetComponent<PlayerShop>().ResetShopText();
     }
 
-    public List<Transform> GetEnemies(Transform slime){
-        if(slime.tag == "Team_RED")
-            return team_blue;
-        else
-            return team_red;
-    }
-
-    public List<Transform> GetMyTeam(Transform slime){
-        if(slime.tag == "Team_RED")
-            return team_red;
-        else
-            return team_blue;
-    }
-
     private void DisplayTeam(List<Transform> team){
         for(int i=0;i<team.Count;i++){
             Slime s = team[i].root.GetComponent<Slime>();
@@ -398,5 +385,26 @@ public class GameManager : MonoBehaviour
             team_blue.Clear();
             team_red2.Clear();
         }
+    }
+
+    public List<Transform> GetEnemies(Transform slime){
+        if(slime.tag == "Team_RED")
+            return team_blue;
+        else
+            return team_red;
+    }
+
+    public List<Transform> GetMyTeam(Transform slime){
+        if(slime.tag == "Team_RED")
+            return team_red;
+        else
+            return team_blue;
+    }
+
+    public List<Transform> GetMyTeamWithoutBuilding(Transform slime){
+        if(slime.tag == "Team_RED")
+            return team_red2;
+        else
+            return team_blue2;  
     }
 }

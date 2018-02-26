@@ -52,8 +52,9 @@ public class SlimeMovement : MonoBehaviour {
 				slimeAction.Action();		//Action to the target
 				LookAtTarget();				//Look at the target
 			}
-			else if(!move)
+			else if(!move){
 				SetupMovementSetting(true, 120f, 50);
+			}
 		}
 	}
 	/* Start this function in the Slime.cs */
@@ -104,8 +105,7 @@ public class SlimeMovement : MonoBehaviour {
 		}
 		else if(slime.isHealing || slime.isAreaEffectHealing){
 			/* Create a healer team list that not include itself and building */
-			myTeam = gm.GetMyTeam(_transform).Where(x => x.root != transform)
-											 .Where(x => !x.root.GetComponent<Slime>().GetSlimeClass().isBuilding).ToList();
+			myTeam = gm.GetMyTeamWithoutBuilding(_transform).Where(x => x.root != transform).ToList();
 			/* Check if the team list count > 0 */
 			if(myTeam.Count > 0){
 				bool findAnyLowHealth = false;
@@ -133,6 +133,7 @@ public class SlimeMovement : MonoBehaviour {
 		if(target != null && target != prevTarget){
 			prevTarget = target;
 			slimeAction.SetTarget(target);
+			
 			range = slime.scaleRadius + slime.actionRange + target.root.GetComponent<Slime>().GetSlimeClass().scaleRadius;
 
 			//Client set the target
@@ -140,6 +141,9 @@ public class SlimeMovement : MonoBehaviour {
 				//Debug.Log("RPC CALLS!!!");
 				photonView.RPC("RPC_ClientSetTarget", PhotonTargets.Others, target.root.gameObject.GetPhotonView().viewID);
 			}
+
+			if(slime.isMagicalAreaEffectDamage)
+				slimeAction.castTime = slime.castTime;
 		}
     }
 

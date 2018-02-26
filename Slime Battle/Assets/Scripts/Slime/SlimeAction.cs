@@ -1,11 +1,13 @@
 ﻿/* Copyright (c) cc061495 */
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SlimeAction : MonoBehaviour {
 
-	private float coolDown = 0f, castTime = 0f;
+	private float coolDown = 0f;
+	public float castTime = 0f;
 	private SlimeClass slime;
 	private Transform target, agent;
 	private SlimeMovement movement;
@@ -19,9 +21,6 @@ public class SlimeAction : MonoBehaviour {
 		agent = GetComponent<Slime>().GetAgent();
 		movement = GetComponent<SlimeMovement>();
 		health = GetComponent<SlimeHealth>();
-
-		if(slime.isMagicalAreaEffectDamage)
-			castTime = slime.castTime;
 	}
 
 	public void Action(){
@@ -47,17 +46,17 @@ public class SlimeAction : MonoBehaviour {
 					movement.FindTheTargetAgain();
 			}
 			else if(slime.isAreaEffectDamage){
-				AreaEffectDamage(slime.attackDamage, slime.areaEffectRadius, target.position);
+				AreaEffectDamage(slime.attackDamage, slime.areaEffectRadius, target.position, true);
 			}
 			else if(slime.isExplosion){
-				AreaEffectDamage(slime.attackDamage, slime.areaEffectRadius, agent.position);
+				AreaEffectDamage(slime.attackDamage, slime.areaEffectRadius, agent.position, true);
 				/* Explosion Effect */
 				health.SuddenDeath();
 			}
 			else if(slime.isMagicalAreaEffectDamage){
 				/* Cast time delay */
 				if(castTime <= 0f){
-					AreaEffectDamage(slime.attackDamage, slime.areaEffectRadius, target.position);
+					AreaEffectDamage(slime.attackDamage, slime.areaEffectRadius, target.position, false);
 					castTime = slime.castTime;
 				}
 				else{
@@ -73,41 +72,38 @@ public class SlimeAction : MonoBehaviour {
 
 	public void SetTarget(Transform _target){
 		target = _target;
-		tarHealth = target.parent.GetComponent<SlimeHealth>();
+		tarHealth = target.root.GetComponent<SlimeHealth>();
 	}
 		
 	private void MeleeAttack(float attackDamage){
 		tarHealth.TakeDamage(attackDamage);
 	}
 
-	private void AreaEffectDamage(float attackDamage, float effectAreaRadius, Vector3 center){
-		Collider[] slimes = Physics.OverlapSphere(center, effectAreaRadius);
-		for(int i=0;i<slimes.Length;i++){
-			if(slimes[i].transform.parent.tag == target.parent.tag){
+	private void AreaEffectDamage(float attackDamage, float effectAreaRadius, Vector3 center, bool damageReduceWithDistance){
+		List<Transform> enemyTeam = GameManager.Instance.GetEnemies(transform)
+										.Where(x => DistanceCalculate(center, x.position) <= effectAreaRadius*effectAreaRadius).ToList();
 
-				float distanceFromCentre = DistanceCalculate(slimes[i].transform.position, center);
+		for(int i=0;i<enemyTeam.Count;i++){
+			float dmg = attackDamage;
+			if(damageReduceWithDistance){
+				float distanceFromCentre = DistanceCalculate(enemyTeam[i].position, center);
 				//explosion constant(higher = lower damage, lower = higher damage received)
-				float areaDamage = attackDamage - distanceFromCentre * 0.15f;
+				dmg = attackDamage - distanceFromCentre * 0.15f;
 				//Debug.Log("Distance: " + distanceFromCentre + " Damage: " + areaDamage);
-				if(areaDamage < 0)
+				if(dmg < 0)
 					continue;	//if the damage is lower than 0, just skip it
-
-				SlimeHealth h = slimes[i].transform.parent.GetComponent<SlimeHealth>();
-				h.TakeDamage(areaDamage);
 			}
-		}
+			enemyTeam[i].root.GetComponent<SlimeHealth>().TakeDamage(dmg);
+		}	
 	}
 
 	private void AreaEffectHealing(float healingPoint, float effectAreaRadius, Vector3 center){
-		Collider[] slimes = Physics.OverlapSphere(center, effectAreaRadius);
-		for(int i=0;i<slimes.Length;i++){
-			if(slimes[i].transform.parent.tag == transform.tag && slimes[i].transform.parent != transform){
-				
-				SlimeHealth h = slimes[i].transform.parent.GetComponent<SlimeHealth>();
-				if(h != null)
-					h.TakeHealing(healingPoint);
-			}
-		}
+		List<Transform> myTeam = GameManager.Instance.GetMyTeamWithoutBuilding(transform)
+									.Where(x => x.root != transform)
+									.Where(x => DistanceCalculate(x.position, center) <= effectAreaRadius*effectAreaRadius).ToList();
+
+		for(int i=0;i<myTeam.Count;i++)
+			myTeam[i].root.GetComponent<SlimeHealth>().TakeHealing(healingPoint);
 	}
 
 	[PunRPC]
@@ -127,8 +123,8 @@ public class SlimeAction : MonoBehaviour {
 		distance.y = pos1.y - pos2.y;
 		distance.z = pos1.z - pos2.z;
 
-		float magnitude = distance.x * distance.x+
-						  distance.y * distance.y+
+		float magnitude = distance.x * distance.x +
+						  distance.y * distance.y +
 						  distance.z * distance.z;
 		return magnitude;
 	}

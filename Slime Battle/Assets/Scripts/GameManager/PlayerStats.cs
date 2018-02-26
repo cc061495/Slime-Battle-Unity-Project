@@ -10,7 +10,7 @@ public class PlayerStats : MonoBehaviour {
 	private GameObject playerInfoPanel;
 
 	public static int playerCost;
-	private const int startCost = 100;
+	private const int startCost = 2000;	//100 (default)
 	private const int roundBounsCost = 200;
 	public int spawnedCost;
 
