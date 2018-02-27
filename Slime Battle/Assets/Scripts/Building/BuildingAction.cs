@@ -62,7 +62,10 @@ public class BuildingAction : MonoBehaviour {
 
 	private void Action(){
 		if (coolDown <= 0f) {
-			photonView.RPC("RPC_RangedAttack", PhotonTargets.All, slime.attackDamage);
+			if(!slime.canSlowDown)
+				photonView.RPC("RPC_RangedAttack", PhotonTargets.All, slime.attackDamage);
+			else
+				photonView.RPC("RPC_RangedAttack", PhotonTargets.All, slime.attackDamage, slime.areaEffectRadius, slime.slowDownPercentage);
 			
 			coolDown = slime.actionCoolDown;
 		}
@@ -76,6 +79,13 @@ public class BuildingAction : MonoBehaviour {
 		GameObject b = (GameObject)Instantiate (rangedWeaponPrefab, firePoint.position, firePoint.rotation);
 		Bullet bullet = b.GetComponent<Bullet>();
 		bullet.Seek (target, attackDamage, tarHealth);
+	}
+
+	[PunRPC]
+	private void RPC_RangedAttack(float attackDamage, float effectAreaRadius, float slowDownPrecentage){
+		GameObject b = (GameObject)Instantiate (rangedWeaponPrefab, firePoint.position, firePoint.rotation);
+		Bullet bullet = b.GetComponent<Bullet>();
+		bullet.Seek (target, attackDamage, effectAreaRadius, slowDownPrecentage);
 	}
 
 	private void FindTheNearestEnemy(){

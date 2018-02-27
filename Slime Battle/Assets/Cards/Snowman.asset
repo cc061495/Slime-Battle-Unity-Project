@@ -9,16 +9,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c013c98488284e3686ac40507c98abb, type: 3}
-  m_Name: Mine
+  m_Name: Snowman
   m_EditorClassIdentifier: 
-  name: Mine
+  name: Snowman
   icon: {fileID: 21300000, guid: b20db44c244c44bcf8faa95477ede10d, type: 3}
   isDefaultCard: 1
-  teamRedPrefab: {fileID: 1210319353446000, guid: e1664cca3c41f40f68cf151bab8c79a7,
+  teamRedPrefab: {fileID: 1138167171531574, guid: d5f71a031c4f84492a14a1bfa0b20943,
     type: 2}
-  teamBluePrefab: {fileID: 1704925722425976, guid: 4dc9eb80e23584f4baa97c7a693e16bb,
+  teamBluePrefab: {fileID: 1138167171531574, guid: b26d5200c317a46a5838d52822749f4e,
     type: 2}
-  cost: 5
-  size: 1
-  spawnPosOffset: {x: 0, y: 0, z: 0}
-  type: Invisible Explosion Trap
+  cost: 15
+  size: 4
+  spawnPosOffset: {x: 0, y: 1.5, z: 0}
+  type: Building

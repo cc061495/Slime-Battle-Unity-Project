@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
+using System.Collections;
 using System.Linq;
 
 public class SlimeMovement : MonoBehaviour {
@@ -12,7 +13,7 @@ public class SlimeMovement : MonoBehaviour {
 	private Transform agent;
 
 	private float range;
-	private bool move, findNewTarget;
+	private bool move, findNewTarget, isSlowedDown;
 
 	TeamController.SearchMode mode;
 	PhotonView photonView;
@@ -212,5 +213,30 @@ public class SlimeMovement : MonoBehaviour {
 						  distance.y * distance.y +
 						  distance.z * distance.z;
 		return magnitude;
+	}
+
+	private IEnumerator coroutine;
+
+	public void ChangeTheMovementSpeed(float precentage){
+		float originalSpeed = navMeshAgent.speed;
+
+		if(!isSlowedDown){
+			navMeshAgent.speed *= precentage;
+			isSlowedDown = true;
+			coroutine = RemoveSlowEffect(originalSpeed);
+			StartCoroutine(coroutine);
+		}
+		else{
+			StopCoroutine(coroutine);
+			//coroutine = RemoveSlowEffect(originalSpeed);
+			StartCoroutine(coroutine);
+		}
+	}
+
+	IEnumerator RemoveSlowEffect(float originalSpeed){
+		yield return new WaitForSeconds(3f);
+		navMeshAgent.speed = originalSpeed;
+		Debug.Log(navMeshAgent.speed);
+		isSlowedDown = false;
 	}
 }

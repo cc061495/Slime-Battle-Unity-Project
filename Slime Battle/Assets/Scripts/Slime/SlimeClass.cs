@@ -16,6 +16,7 @@ public class SlimeClass{
 	public float areaEffectRadius{get; private set;}
 	public float detectRadius{get; private set;}
 	public float damageReducedPercentage{get; private set;}
+	public float slowDownPercentage{get; private set;}
 	/* slime > building */
 	public int killingPriority{get; private set;}
 	/* melee attack > ranged attack > healer > invisible */
@@ -41,6 +42,7 @@ public class SlimeClass{
 	public bool canSpawnMoney{get; private set;}
 	public bool isNetworkTransfer{get; private set;}
 	public bool canCarve{get; private set;}
+	public bool canSlowDown{get; private set;}
 
 	public SlimeClass(string slimeName){
 		switch (slimeName){
@@ -248,7 +250,7 @@ public class SlimeClass{
 
 			case "Wizard":
 				/* Slime Properties */
-				startHealth 	= 15 ;
+				startHealth 	= 13 ;
 				movemonetSpeed 	= 4 ;
 				actionRange 	= 9 ;
 				scaleRadius 	= 0.55f ;
@@ -259,7 +261,7 @@ public class SlimeClass{
 				/* Ability */
 				isMagicalAreaEffectDamage = true ;
 				attackDamage 			  = 4.5f ;
-				areaEffectRadius 		  = 2 ;
+				areaEffectRadius 		  = 3 ;
 				actionCoolDown 			  = 0 ;
 				castTime				  = 1.5f ;
 				/* Network */
@@ -296,8 +298,8 @@ public class SlimeClass{
 				/* Ability */
 				isMeleeAttack 		= true ;
 				canSpawnInBattle	= true ;
-				attackDamage 		= 1.5f ;
-				actionCoolDown 		= 0.8f ;
+				attackDamage 		= 1f ;
+				actionCoolDown 		= 1f ;
 				/* Network */
 				isNetworkTransfer = true;
 				break;
@@ -344,7 +346,7 @@ public class SlimeClass{
 
 			case "Shadow":
 				/* Building Properties */
-				startHealth 	= 20 ;
+				startHealth 	= 25 ;
 				movemonetSpeed 	= 8f ;
 				actionRange 	= 1f ;
 				scaleRadius 	= 0.7f ;
@@ -376,6 +378,28 @@ public class SlimeClass{
 				isRangedAttack	  = true ;
 				attackDamage 	  = 1.5f ;
 				actionCoolDown 	  = 1f ;
+				/* Network */
+				isNetworkTransfer = true;
+				break;
+
+			case "Snowman":
+				/* Building Properties */
+				startHealth 	= 15 ;
+				scaleRadius 	= 3f ;
+				actionRange 	= 9f ;
+				/* Slime Priority */
+				healingPriority = 0 ;
+				killingPriority = 2 ;
+				classPriority 	= 4 ;
+				/* Ability */
+				isBuilding 		  	= true ;
+				canCarve	      	= true ;
+				isRangedAttack	  	= true ;
+				canSlowDown		  	= true ;
+				attackDamage 	  	= 0.5f ;
+				areaEffectRadius  	= 5 ;
+				slowDownPercentage 	= 0.5f ;
+				actionCoolDown 	  	= 2f ;
 				/* Network */
 				isNetworkTransfer = true;
 				break;
