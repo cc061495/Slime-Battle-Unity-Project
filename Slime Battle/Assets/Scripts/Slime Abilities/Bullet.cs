@@ -81,7 +81,9 @@ public class Bullet : MonoBehaviour{
 
 		for(int i=0;i<enemyTeam.Count;i++){
             Transform e = enemyTeam[i].root;
-            e.GetComponent<SlimeMovement>().ChangeTheMovementSpeed(slowDownPrecentage);
+            SlimeMovement move = e.GetComponent<SlimeMovement>();
+            if(move != null)
+                move.ChangeTheMovementSpeed(slowDownPrecentage);
 			e.GetComponent<SlimeHealth>().TakeDamage(attackDamage);
 		}
     }

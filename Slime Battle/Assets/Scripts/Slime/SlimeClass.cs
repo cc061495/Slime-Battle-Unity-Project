@@ -76,7 +76,7 @@ public class SlimeClass{
 				classPriority 	= 3 ;
 				/* Ability */
 				isAreaEffectDamage	= true ;
-				attackDamage 		= 5 ;
+				attackDamage 		= 4 ;
 				areaEffectRadius 	= 3.5f ;
 				actionCoolDown 		= 1f ;
 				/* Network */
@@ -113,7 +113,7 @@ public class SlimeClass{
 				classPriority 	= 1 ;
 				/* Ability */
 				isHealing 		= true ;
-				healPercentage 	= 0.05f ;
+				healPercentage 	= 0.08f ;
 				actionCoolDown  = 0.5f ;
 				/* Network */
 				isNetworkTransfer = true;
@@ -252,7 +252,7 @@ public class SlimeClass{
 				/* Slime Properties */
 				startHealth 	= 13 ;
 				movemonetSpeed 	= 4 ;
-				actionRange 	= 9 ;
+				actionRange 	= 8.5f ;
 				scaleRadius 	= 0.55f ;
 				/* Slime Priority */
 				healingPriority = 2 ;
@@ -260,10 +260,10 @@ public class SlimeClass{
 				classPriority 	= 2 ;
 				/* Ability */
 				isMagicalAreaEffectDamage = true ;
-				attackDamage 			  = 4.5f ;
+				attackDamage 			  = 4f ;
 				areaEffectRadius 		  = 3 ;
 				actionCoolDown 			  = 0 ;
-				castTime				  = 1.5f ;
+				castTime				  = 2f ;
 				/* Network */
 				isNetworkTransfer = true;
 				break;
@@ -271,8 +271,6 @@ public class SlimeClass{
 			case "Summoner":
 				/* Slime Properties */
 				startHealth 	= 15 ;
-				movemonetSpeed 	= 5 ;
-				actionRange 	= 5 ;
 				scaleRadius 	= 0.7f ;
 				/* Slime Priority */
 				healingPriority = 3 ;
@@ -280,7 +278,7 @@ public class SlimeClass{
 				classPriority 	= 1 ;
 				/* Ability */
 				isSummoner		 = true ;
-				actionCoolDown   = 5 ;
+				actionCoolDown   = 7 ;
 				/* Network */
 				isNetworkTransfer = true;
 				break;	
@@ -318,14 +316,14 @@ public class SlimeClass{
 				isAreaEffectHealing	= true ;
 				areaEffectRadius 	= 5 ;
 				healingPoint 		= 3 ;
-				actionCoolDown  	= 1f ;
+				actionCoolDown  	= 1.5f ;
 				/* Network */
 				isNetworkTransfer = true;
 				break;
 
 			case "Guardian":
 				/* Slime Properties */
-				startHealth 	= 40 ;
+				startHealth 	= 30 ;
 				movemonetSpeed 	= 3 ;
 				actionRange 	= 1f ;
 				scaleRadius 	= 0.7f ;
@@ -385,8 +383,8 @@ public class SlimeClass{
 			case "Snowman":
 				/* Building Properties */
 				startHealth 	= 15 ;
-				scaleRadius 	= 3f ;
-				actionRange 	= 9f ;
+				scaleRadius 	= 2.5f ;
+				actionRange 	= 5.5f ;
 				/* Slime Priority */
 				healingPriority = 0 ;
 				killingPriority = 2 ;
@@ -396,7 +394,7 @@ public class SlimeClass{
 				canCarve	      	= true ;
 				isRangedAttack	  	= true ;
 				canSlowDown		  	= true ;
-				attackDamage 	  	= 0.5f ;
+				attackDamage 	  	= 1f ;
 				areaEffectRadius  	= 5 ;
 				slowDownPercentage 	= 0.5f ;
 				actionCoolDown 	  	= 2f ;

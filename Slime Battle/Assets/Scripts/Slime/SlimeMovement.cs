@@ -15,7 +15,6 @@ public class SlimeMovement : MonoBehaviour {
 	private float range;
 	private bool move, findNewTarget, isSlowedDown;
 
-	TeamController.SearchMode mode;
 	PhotonView photonView;
 	SlimeClass slime;
 	GameManager gm;
@@ -74,7 +73,7 @@ public class SlimeMovement : MonoBehaviour {
 				TargetSearching();		//find new target every 0.2s
 			
 				if(target){
-					if(mode != TeamController.SearchMode.defense)
+					if(tm.GetTeamSearchMode(_transform) != TeamController.SearchMode.defense)
 						navMeshAgent.destination = target.position;	//set target position if target is found
 					else	
 						navMeshAgent.destination = agent.position;
@@ -164,7 +163,7 @@ public class SlimeMovement : MonoBehaviour {
 	}
 
 	private void DefaultSearching(){
-		mode = tm.GetTeamSearchMode(_transform);
+		TeamController.SearchMode mode = tm.GetTeamSearchMode(_transform);
 		/* Kill the shortest distance enemy with killing priority(slime -> building) */
 		if(mode == TeamController.SearchMode.distance || mode == TeamController.SearchMode.defense){
 			target = enemies.OrderBy(o => o.root.GetComponent<Slime>().GetSlimeClass().killingPriority).
@@ -218,17 +217,15 @@ public class SlimeMovement : MonoBehaviour {
 	private IEnumerator coroutine;
 
 	public void ChangeTheMovementSpeed(float precentage){
-		float originalSpeed = navMeshAgent.speed;
-
 		if(!isSlowedDown){
 			navMeshAgent.speed *= precentage;
 			isSlowedDown = true;
-			coroutine = RemoveSlowEffect(originalSpeed);
+			coroutine = RemoveSlowEffect(navMeshAgent.speed / precentage);
 			StartCoroutine(coroutine);
 		}
 		else{
 			StopCoroutine(coroutine);
-			//coroutine = RemoveSlowEffect(originalSpeed);
+			coroutine = RemoveSlowEffect(navMeshAgent.speed / precentage);
 			StartCoroutine(coroutine);
 		}
 	}

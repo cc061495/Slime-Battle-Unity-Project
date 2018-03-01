@@ -44,7 +44,7 @@ public class BuildingAction : MonoBehaviour {
 
 	public void SetUpBuilding(SlimeClass _slime){
 		slime = _slime;
-		InvokeRepeating("FindTheTarget", Random.Range(0.1f, 0.5f), 1f);
+		InvokeRepeating("FindTheTarget", Random.Range(0.1f, 0.5f), 0.5f);
 	}
 
 	private void FindTheTarget(){
@@ -88,9 +88,24 @@ public class BuildingAction : MonoBehaviour {
 		bullet.Seek (target, attackDamage, effectAreaRadius, slowDownPrecentage);
 	}
 
+	private TeamController.SearchMode mode; 
+
 	private void FindTheNearestEnemy(){
+		mode = TeamController.Instance.GetTeamSearchMode(transform);
 		/* Kill the shortest distance enemy */
-		target = enemyList.OrderBy(o => DistanceCalculate(o.position, agent.position)).FirstOrDefault();
+		if(mode == TeamController.SearchMode.distance || mode == TeamController.SearchMode.defense){
+			target = enemyList.OrderBy(o => DistanceCalculate(o.position, agent.position)).FirstOrDefault();
+		}
+		/* Kill the shortest distance enemy with lowest health precentage */
+		else if(mode == TeamController.SearchMode.health){
+			target = enemyList.OrderBy(o => (o.root.GetComponent<SlimeHealth>().currentHealth / o.root.GetComponent<SlimeHealth>().startHealth)).
+							ThenBy(o => DistanceCalculate(o.position, agent.position)).FirstOrDefault();
+		}
+		/* Kill the shortest distance with class priority() */
+		else if(mode == TeamController.SearchMode.priority){
+			target = enemyList.OrderBy(o => o.root.GetComponent<Slime>().GetSlimeClass().classPriority).
+							ThenBy(o => DistanceCalculate(o.position, agent.position)).FirstOrDefault();
+		}
 
 		if(target != null && target != prevTarget){
 			prevTarget = target;

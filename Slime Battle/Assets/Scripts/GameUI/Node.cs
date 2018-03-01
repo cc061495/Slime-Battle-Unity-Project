@@ -235,7 +235,11 @@ public class Node : MonoBehaviour
     }
 
     public Vector3 GetBuildPos(Vector3 offset){
-        return _transform.position + offset;
+        Vector3 pos;
+        pos.x = _transform.position.x + offset.x;
+        pos.y = offset.y;
+        pos.z = _transform.position.z + offset.z;
+        return pos;
     }
     // Color GetTeamColor(){
     //     if (team_node == "RED")
