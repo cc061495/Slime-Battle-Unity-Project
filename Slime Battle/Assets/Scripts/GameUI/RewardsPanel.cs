@@ -6,23 +6,25 @@ using System.Collections.Generic;
 
 public class RewardsPanel : MonoBehaviour {
 
-	public Text costText, roundBonusText, extraBonusText, totalText;
+	public GameObject pauseMenu, confirmPanel;
+	public Text playerMoneyText, roundBonusText, winBonusText, totalMoneyText;
+	private int money, roundBonus, winBonus;
 
 	public void TextSetting(){
 		StartCoroutine(StartAnimateText());
+		ClosePauseMenuIfOpened();
 	}
 
 	IEnumerator StartAnimateText(){
-		int cost = PlayerStats.playerCost;
-		int roundBonus = (PlayerStats.Instance.GetBounsCost() * GameManager.Instance.currentRound);
-		int extraBonus = 0;
-		int total = cost + roundBonus;
+		money = PlayerData.Instance.playerMoney;
+		roundBonus = (10 * GameManager.Instance.currentRound);
 
-		costText.text = "$ " + PlayerStats.playerCost;
-		yield return new WaitForSeconds(0.5f);
+		playerMoneyText.text = "$" + money;
+		yield return new WaitForSeconds(2f);
+		int total = money + roundBonus + winBonus;
 		yield return StartCoroutine(AnimateText(roundBonusText, roundBonus, "+ "));
-		yield return StartCoroutine(AnimateText(extraBonusText, extraBonus, "+ "));
-		yield return StartCoroutine(AnimateText(totalText, total, "$ "));
+		yield return StartCoroutine(AnimateText(winBonusText, winBonus, "+ "));
+		yield return StartCoroutine(AnimateText(totalMoneyText, total, "$"));
 	}
 
 	IEnumerator AnimateText(Text textToAnimate, int end, string symbol){
@@ -37,14 +39,30 @@ public class RewardsPanel : MonoBehaviour {
 				startValue++;
 				
 			textToAnimate.text = symbol + startValue.ToString();
-			yield return new WaitForSeconds(0.03f);
+			yield return new WaitForSeconds(0.04f);
 		}
 	}
 
-	public void ResetAllTheText(){
-		costText.text = "$ " + 0;
-		roundBonusText.text = "+ " + 0;
-		extraBonusText.text = "+ " + 0;
-		totalText.text = "$" + 0;
+	public void SetUpWinBouns(string winner){
+		if(winner.Equals("red"))
+			SetUpTwoPlayersWinBouns(50, 10);
+		else if(winner.Equals("blue"))
+			SetUpTwoPlayersWinBouns(10, 50);
+		else if(winner.Equals("draw"))
+			SetUpTwoPlayersWinBouns(30, 30);
+	}
+
+	private void SetUpTwoPlayersWinBouns(int redWinBouns, int blueWinBouns){
+		if(PhotonNetwork.isMasterClient)
+			winBonus = redWinBouns;
+		else
+			winBonus = blueWinBouns;
+	}
+
+	private void ClosePauseMenuIfOpened(){
+		if(pauseMenu.activeSelf)
+			pauseMenu.SetActive(false);
+		if(confirmPanel.activeSelf)
+			confirmPanel.SetActive(false);
 	}
 }

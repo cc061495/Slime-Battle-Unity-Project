@@ -12,8 +12,8 @@ public class GameManager : MonoBehaviour
     
     void Awake(){
         Instance = this; 
-        //fix the fps = 60 in the menu screen
-		Application.targetFrameRate = 30;
+        // fix the fps = 60 in the menu screen
+		Application.targetFrameRate = 60;
     }
 
     public enum State{idle, ready, build_start, build_end, battle_start, battle_end, game_end};
@@ -292,24 +292,27 @@ public class GameManager : MonoBehaviour
             }
         }
         else if(currentState == State.game_end){
+            string gameWinner = "";
             gameDisplayText.text = "<size=75>Game End!</size>";
             gameDisplayText.enabled = true;
             yield return new WaitForSeconds(2f);
             if(team_red_score > team_blue_score){
                 gameDisplayText.text = "Winner\n<size=70><color=#ff0000ff>Team Red</color></size>";
+                gameWinner = "red";
             }
             else if(team_red_score < team_blue_score){
                 gameDisplayText.text = "Winner\n<size=70><color=#00ffffff>Team Blue</color></size>";
+                gameWinner = "blue";
             }
             else{
                 gameDisplayText.text = "<size=75><color=#ffff00ff>Draw Game</color></size>";
+                gameWinner = "draw";
             }
             yield return new WaitForSeconds(3f);
-            gameDisplayText.text = "<size=75>Good Game!</size>";
-            yield return new WaitForSeconds(2f);
             gameDisplayText.enabled = false;
-            yield return new WaitForSeconds(1f);
-            LeaveTheRoom();
+            rewardsPanel.gameObject.SetActive(true);
+            rewardsPanel.TextSetting();
+            rewardsPanel.SetUpWinBouns(gameWinner);
         }
     }
 
@@ -324,10 +327,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private bool isPlayerLeft;
+
     public void LeaveTheRoom(){
-        Destroy(GameObject.Find("DDOL"));
-        //PhotonNetwork.LeaveRoom();
-        sceneFader.FadeToWithPhotonNetwork("GameLobby");
+        if(!isPlayerLeft){
+            isPlayerLeft = true;
+            Destroy(GameObject.Find("DDOL"));
+            sceneFader.FadeToWithPhotonNetwork("GameLobby");
+        }
     }
 
     public void ShopDisplay(bool shopDisplay){

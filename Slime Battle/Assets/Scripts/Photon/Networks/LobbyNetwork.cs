@@ -6,7 +6,7 @@ public class LobbyNetwork : MonoBehaviour
     public Button createRoomButton;
     public bool isPressedBackButton;
 
-    public Text countPlayersOnlineText, networkInfoText;
+    public Text networkInfoText;
     // Use this for initialization
     private void Start(){
         /* Show the Network Info */
@@ -74,10 +74,4 @@ public class LobbyNetwork : MonoBehaviour
 		networkInfoText.text = "Server Region: " + "<b>" + PhotonNetwork.CloudRegion.ToString().ToUpper() +"</b>"+ 
 							   "\nState: " + "<b>" + colorTag + PhotonNetwork.connectionState.ToString()+"</color></b>";
 	}
-
-    private void OnLobbyStatisticsUpdate(){
-        string countPlayersOnline;
-	 	countPlayersOnline = PhotonNetwork.countOfPlayers.ToString() + " Online Players";
-	 	countPlayersOnlineText.text = countPlayersOnline; 
-    }
 }

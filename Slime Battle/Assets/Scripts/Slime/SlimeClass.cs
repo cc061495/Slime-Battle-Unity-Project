@@ -285,9 +285,9 @@ public class SlimeClass{
 
 			case "Summoner_s":
 				/* Slime Properties */
-				startHealth 	= 8 ;
+				startHealth 	= 10 ;
 				movemonetSpeed 	= 5f ;
-				actionRange 	= 1 ;
+				actionRange 	= 0.8f ;
 				scaleRadius 	= 0.45f ;
 				/* Slime Priority */
 				healingPriority = 1 ;
@@ -297,7 +297,7 @@ public class SlimeClass{
 				isMeleeAttack 		= true ;
 				canSpawnInBattle	= true ;
 				attackDamage 		= 1f ;
-				actionCoolDown 		= 1f ;
+				actionCoolDown 		= 0.8f ;
 				/* Network */
 				isNetworkTransfer = true;
 				break;

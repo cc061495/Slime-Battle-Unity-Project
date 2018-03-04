@@ -28,7 +28,7 @@ public class MenuScreen : MonoBehaviour {
 
 	public void SetPlayerStatus(){
 		PlayerNameText.text = PlayerData.Instance.playerName;
-		PlayerBalanceText.text = PlayerData.Instance.playerBalance.ToString();
+		PlayerBalanceText.text = PlayerData.Instance.playerMoney.ToString();
 
 		LayoutSetting(Layout.home, Home, true);
 	}
