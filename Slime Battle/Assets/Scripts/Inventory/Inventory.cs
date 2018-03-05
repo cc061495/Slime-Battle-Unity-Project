@@ -10,7 +10,7 @@ public class Inventory : MonoBehaviour {
 	public delegate void OnCardChanged();
 	public OnCardChanged onCardChangedCallback;
 
-	public Card[] defaultCards = new Card[7];
+	public Card[] defaultCards;
 	public List<Card> cards = new List<Card>();
 	public InventoryUI[] inventoryUI = new InventoryUI[2];
 	//public int space = 20;
@@ -23,10 +23,13 @@ public class Inventory : MonoBehaviour {
 
 	void Start(){
 		/* Set up the default cards ONLY */
-		for (int i = 0; i < defaultCards.Length; i++){
+		for (int i = 0; i < defaultCards.Length; i++)
 			cards.Add(defaultCards[i]);
+
+		PlayerData.Instance.LoadPlayerCard();
+
+		for(int i =0;i<cards.Count;i++)
 			cards[i].SetupSlimeProperties();
-		}
 		
 		if(onCardChangedCallback != null){
 			onCardChangedCallback.Invoke();
@@ -44,6 +47,7 @@ public class Inventory : MonoBehaviour {
 			// 	return;
 			// }
 			cards.Add(card);
+			card.SetupSlimeProperties();
 
 			if(onCardChangedCallback != null)
 				onCardChangedCallback.Invoke();

@@ -4253,6 +4253,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1415036978}
   - component: {fileID: 1415036980}
+  - component: {fileID: 1415036979}
   m_Layer: 5
   m_Name: Lobby
   m_TagString: Untagged
@@ -4289,6 +4290,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1415036979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1415036977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d518341f75954e2eb420b624340e795, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCoinsText: {fileID: 1014413794}
 --- !u!114 &1415036980
 MonoBehaviour:
   m_ObjectHideFlags: 0

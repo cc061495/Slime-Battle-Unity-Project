@@ -48,7 +48,7 @@ public class RoomSetting : MonoBehaviour {
 	public string GetRoomName(){
 		//check the room name is empty, set default room name
 		if(string.IsNullOrEmpty(roomName))
-			roomName = PlayerNetwork.Instance.PlayerName + "'s room";
+			roomName = PlayerSetting.Instance.playerName + "'s room";
 
 		return roomName;
 	}

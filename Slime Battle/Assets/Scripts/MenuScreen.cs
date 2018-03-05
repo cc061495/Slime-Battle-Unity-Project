@@ -8,7 +8,8 @@ public class MenuScreen : MonoBehaviour {
     
     void Awake(){
         Instance = this; 
-		scrollRectSnap = Home.GetComponent<ScrollRectSnap>();
+		scrollRectSnap_HomeScreen = Home.GetComponent<ScrollRectSnap>();
+		scrollRectSnap_Shop = Shop.GetComponent<Shop>();
 		//fix the fps = 60 in the menu screen
 		Application.targetFrameRate = 60;
     }
@@ -23,13 +24,13 @@ public class MenuScreen : MonoBehaviour {
 
 	public RectTransform Home, Inventory, Deck, Shop;
 	public GameObject BackButton;
-	public Text PlayerNameText, PlayerBalanceText;
-	ScrollRectSnap scrollRectSnap;
+	public Text PlayerNameText, PlayerCoinsText;
+	ScrollRectSnap scrollRectSnap_HomeScreen;
+	Shop scrollRectSnap_Shop;
 
 	public void SetPlayerStatus(){
 		PlayerNameText.text = PlayerData.Instance.playerName;
-		PlayerBalanceText.text = PlayerData.Instance.playerMoney.ToString();
-
+		setCoinsText(PlayerData.Instance.playerCoins);
 		LayoutSetting(Layout.home, Home, true);
 	}
 
@@ -52,17 +53,23 @@ public class MenuScreen : MonoBehaviour {
 	private void LayoutSetting(Layout nextLayout, RectTransform layout, bool defaultSetting){
 		if(nextLayout == Layout.home){
 			BackButton.SetActive(false);
-			scrollRectSnap.EnableAllAnimator(true);
+			scrollRectSnap_HomeScreen.EnableAllAnimator(true);
 		}
 		else{
 			BackButton.SetActive(true);
 		}
 
+		if(nextLayout == Layout.shop)
+			Shop.GetComponent<Shop>().Shop_DefaultSetting();
+
 		if(currentLayout == Layout.home && nextLayout != Layout.home)
-			scrollRectSnap.EnableAllAnimator(false);
+			scrollRectSnap_HomeScreen.EnableAllAnimator(false);
 
 		if(currentLayout == Layout.inventory && nextLayout != Layout.inventory)
 			InventoryStats.Instance.CloseCardStats();
+
+		if(currentLayout == Layout.shop && nextLayout != Layout.shop)
+			scrollRectSnap_Shop.EnableAllAnimator(false);
 			
 		if(currentLayout != nextLayout || defaultSetting){
 			currentLayout = nextLayout;
@@ -72,5 +79,9 @@ public class MenuScreen : MonoBehaviour {
 
 	public void BackButtonDisplay(bool display){
 		BackButton.SetActive(display);
+	}
+
+	public void setCoinsText(int coins){
+		PlayerCoinsText.text = coins.ToString();
 	}
 }

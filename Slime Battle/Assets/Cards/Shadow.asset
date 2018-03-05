@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Shadow
   icon: {fileID: 21300000, guid: 7b8d5ecc0c1374fdb8e11f6c92a7c0bb, type: 3}
-  isDefaultCard: 1
+  isDefaultCard: 0
   teamRedPrefab: {fileID: 1290348899900732, guid: e3d55333494ae46ee8c7b32dec97a39b,
     type: 2}
   teamBluePrefab: {fileID: 1735578506977176, guid: 9256e850065a34883a65cb26ebac6e0f,
@@ -22,3 +22,4 @@ MonoBehaviour:
   size: 2
   spawnPosOffset: {x: 0, y: 2, z: 0}
   type: Melee Attack
+  coins: 100

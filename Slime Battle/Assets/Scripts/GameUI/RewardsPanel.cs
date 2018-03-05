@@ -7,8 +7,8 @@ using System.Collections.Generic;
 public class RewardsPanel : MonoBehaviour {
 
 	public GameObject pauseMenu, confirmPanel;
-	public Text playerMoneyText, roundBonusText, winBonusText, totalMoneyText;
-	private int money, roundBonus, winBonus;
+	public Text playerCoinsText, roundBonusText, winBonusText, totalCoinsText, resultText;
+	private int coins, roundBonus, winBonus, total;
 
 	public void TextSetting(){
 		StartCoroutine(StartAnimateText());
@@ -16,22 +16,22 @@ public class RewardsPanel : MonoBehaviour {
 	}
 
 	IEnumerator StartAnimateText(){
-		money = PlayerData.Instance.playerMoney;
-		roundBonus = (10 * GameManager.Instance.currentRound);
-
-		playerMoneyText.text = "$" + money;
-		yield return new WaitForSeconds(2f);
-		int total = money + roundBonus + winBonus;
-		yield return StartCoroutine(AnimateText(roundBonusText, roundBonus, "+ "));
+		playerCoinsText.text = "$" + GetPlayerCoins();
+		yield return new WaitForSeconds(4.5f);
+		yield return StartCoroutine(AnimateText(roundBonusText, GetRoundBouns(), "+ "));
 		yield return StartCoroutine(AnimateText(winBonusText, winBonus, "+ "));
-		yield return StartCoroutine(AnimateText(totalMoneyText, total, "$"));
+		yield return StartCoroutine(AnimateText(totalCoinsText, total, "$"));
 	}
 
 	IEnumerator AnimateText(Text textToAnimate, int end, string symbol){
 		int startValue = 0, endValue = end;
 
 		while(startValue < endValue){
-			if((endValue - startValue) > 100)
+			if((endValue - startValue) > 10000)
+				startValue += 10000;
+			else if((endValue - startValue) > 1000)
+				startValue += 1000;
+			else if((endValue - startValue) > 100)
 				startValue += 100;
 			else if((endValue - startValue) > 10)
 				startValue += 10;
@@ -45,18 +45,35 @@ public class RewardsPanel : MonoBehaviour {
 
 	public void SetUpWinBouns(string winner){
 		if(winner.Equals("red"))
-			SetUpTwoPlayersWinBouns(50, 10);
+			SetUpTwoPlayersWinBouns(50, 10, "Victory", "Defeat");
 		else if(winner.Equals("blue"))
-			SetUpTwoPlayersWinBouns(10, 50);
+			SetUpTwoPlayersWinBouns(10, 50, "Defeat", "Victory");
 		else if(winner.Equals("draw"))
-			SetUpTwoPlayersWinBouns(30, 30);
+			SetUpTwoPlayersWinBouns(50, 50, "Draw", "Draw");
 	}
 
-	private void SetUpTwoPlayersWinBouns(int redWinBouns, int blueWinBouns){
-		if(PhotonNetwork.isMasterClient)
+	private void SetUpTwoPlayersWinBouns(int redWinBouns, int blueWinBouns, string redResult, string blueResult){
+		if(PhotonNetwork.isMasterClient){
 			winBonus = redWinBouns;
-		else
+			resultText.color = GetResultTextColor(redResult);
+			resultText.text = redResult;
+		}
+		else{
 			winBonus = blueWinBouns;
+			resultText.color = GetResultTextColor(blueResult);
+			resultText.text = blueResult;
+		}
+
+		SetTotalCoins(winBonus);
+	}
+
+	private Color GetResultTextColor(string result){
+		if(result.Equals("Victory"))
+			return Color.green;
+		else if(result.Equals("Defeat"))
+			return Color.red;
+		else
+			return Color.white;
 	}
 
 	private void ClosePauseMenuIfOpened(){
@@ -64,5 +81,18 @@ public class RewardsPanel : MonoBehaviour {
 			pauseMenu.SetActive(false);
 		if(confirmPanel.activeSelf)
 			confirmPanel.SetActive(false);
+	}
+
+	private void SetTotalCoins(int _winBouns){
+		total = GetPlayerCoins() + GetRoundBouns() + _winBouns;
+		PlayerData.Instance.SavePlayerCoins(total);
+	}
+
+	private int GetPlayerCoins(){
+		return PlayerData.Instance.playerCoins;
+	}
+
+	private int GetRoundBouns(){
+		return (10 * GameManager.Instance.currentRound);
 	}
 }

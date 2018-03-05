@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Summoner
   icon: {fileID: 21300000, guid: b20db44c244c44bcf8faa95477ede10d, type: 3}
-  isDefaultCard: 1
+  isDefaultCard: 0
   teamRedPrefab: {fileID: 1539508114879990, guid: f6401a7d9f6634ab59dfd6d6a313b1b3,
     type: 2}
   teamBluePrefab: {fileID: 1724523793743550, guid: 8e37d0432f18d4fefaf394dcacfa9800,
@@ -22,3 +22,4 @@ MonoBehaviour:
   size: 2
   spawnPosOffset: {x: 0, y: 2, z: 0}
   type: Summon
+  coins: 100

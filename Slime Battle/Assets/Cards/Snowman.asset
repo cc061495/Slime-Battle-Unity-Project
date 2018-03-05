@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Snowman
   icon: {fileID: 21300000, guid: b20db44c244c44bcf8faa95477ede10d, type: 3}
-  isDefaultCard: 1
+  isDefaultCard: 0
   teamRedPrefab: {fileID: 1138167171531574, guid: d5f71a031c4f84492a14a1bfa0b20943,
     type: 2}
   teamBluePrefab: {fileID: 1138167171531574, guid: b26d5200c317a46a5838d52822749f4e,
@@ -22,3 +22,4 @@ MonoBehaviour:
   size: 4
   spawnPosOffset: {x: 0, y: 1.5, z: 0}
   type: Building
+  coins: 100

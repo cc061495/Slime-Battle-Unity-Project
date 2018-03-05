@@ -36,7 +36,7 @@ public class LobbyNetwork : MonoBehaviour
         Debug.Log("Connected to master");
         PhotonNetwork.automaticallySyncScene = false;
         //get the Player name in PlayerNetwork script
-        PhotonNetwork.playerName = PlayerNetwork.Instance.PlayerName;
+        PhotonNetwork.playerName = PlayerSetting.Instance.playerName;
         //join the default Lobby
         PhotonNetwork.JoinLobby(TypedLobby.Default);
     }

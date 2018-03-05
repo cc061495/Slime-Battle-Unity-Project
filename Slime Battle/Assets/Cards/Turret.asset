@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Turret
   icon: {fileID: 21300000, guid: b20db44c244c44bcf8faa95477ede10d, type: 3}
-  isDefaultCard: 1
+  isDefaultCard: 0
   teamRedPrefab: {fileID: 1256400564637068, guid: 9f62e4c0362474f7f95f549b4294fcab,
     type: 2}
   teamBluePrefab: {fileID: 1793370921486854, guid: bf7ec854268724148b4d0d60797d447f,
@@ -22,3 +22,4 @@ MonoBehaviour:
   size: 1
   spawnPosOffset: {x: 0, y: 1.5, z: 0}
   type: Building
+  coins: 100

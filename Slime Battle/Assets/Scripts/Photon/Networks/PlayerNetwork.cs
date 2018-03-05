@@ -4,9 +4,6 @@ using System.Collections;
 
 public class PlayerNetwork : MonoBehaviour {
 
-	public static PlayerNetwork Instance;
-	//PlayerName can get from other scripts, but cant set from others
-	public string PlayerName { get ; private set;}
 	public SceneFader sceneFader;
 	private int numOfPlayersInGame = 0;
 	private ExitGames.Client.Photon.Hashtable m_playerCustomProperties = new ExitGames.Client.Photon.Hashtable();
@@ -15,16 +12,13 @@ public class PlayerNetwork : MonoBehaviour {
 
 	// Use this for initialization
 	private void Awake () {
-		Instance = this;
 		photonView = GetComponent<PhotonView>();
 		//fix the fps = 60 in game
 		//Application.targetFrameRate = 60;
 		PhotonNetwork.sendRate = 20;	//default(20) //(60)
 		PhotonNetwork.sendRateOnSerialize = 5;		//default(10) //(30)
 		PhotonNetwork.UseRpcMonoBehaviourCache = true;
-		//setting the default player name(Player#12)
-		//it will set the player name in LobbyNetwork.cs, CreateRoom.cs
-		PlayerName = PlayerData.Instance.playerName;
+
 		SceneManager.sceneLoaded += OnSceneLoaded;
 	}
 

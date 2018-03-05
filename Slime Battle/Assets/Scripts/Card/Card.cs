@@ -23,6 +23,9 @@ public class Card : ScriptableObject {
 	[Header("Action Type")]
 	public string type;
 
+	[Header("Coins needed to buy in the Shop")]
+	public int coins;
+
 	SlimeClass slime;
 
 	public void SetupSlimeProperties(){

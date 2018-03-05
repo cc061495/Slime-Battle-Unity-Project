@@ -15,7 +15,7 @@ public class CreateRoom : Photon.MonoBehaviour {
 		/* Defines the custom room properties that get listed in the lobby */
 		roomOptions.CustomRoomPropertiesForLobby = new string[] {"Name", "Round"};
 
-		string roomID = PlayerNetwork.Instance.PlayerName + "," + Random.Range (1, 10000);
+		string roomID = PlayerSetting.Instance.playerName + "," + Random.Range (1, 10000);
 		//Creates a room but fails if this room is existing already
 		if (PhotonNetwork.CreateRoom (roomID, roomOptions, TypedLobby.Default)) {
 			Debug.Log ("create room successful sent.");
