@@ -23,7 +23,8 @@ public class Card : ScriptableObject {
 	[Header("Action Type")]
 	public string type;
 
-	[Header("Coins needed to buy in the Shop")]
+	[Header("Shop Setting")]
+	public Mesh mesh;
 	public int coins;
 
 	SlimeClass slime;

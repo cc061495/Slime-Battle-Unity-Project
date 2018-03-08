@@ -9,7 +9,7 @@ public class MenuScreen : MonoBehaviour {
     void Awake(){
         Instance = this; 
 		scrollRectSnap_HomeScreen = Home.GetComponent<ScrollRectSnap>();
-		scrollRectSnap_Shop = Shop.GetComponent<Shop>();
+		shop = Shop.GetComponent<Shop>();
 		//fix the fps = 60 in the menu screen
 		Application.targetFrameRate = 60;
     }
@@ -26,7 +26,7 @@ public class MenuScreen : MonoBehaviour {
 	public GameObject BackButton;
 	public Text PlayerNameText, PlayerCoinsText;
 	ScrollRectSnap scrollRectSnap_HomeScreen;
-	Shop scrollRectSnap_Shop;
+	Shop shop;
 
 	public void SetPlayerStatus(){
 		PlayerNameText.text = PlayerData.Instance.playerName;
@@ -68,8 +68,10 @@ public class MenuScreen : MonoBehaviour {
 		if(currentLayout == Layout.inventory && nextLayout != Layout.inventory)
 			InventoryStats.Instance.CloseCardStats();
 
-		if(currentLayout == Layout.shop && nextLayout != Layout.shop)
-			scrollRectSnap_Shop.EnableAllAnimator(false);
+		if(currentLayout == Layout.shop && nextLayout != Layout.shop){
+			shop.SlimeModelDisplay(false);
+			shop.EnableAllAnimator(false);
+		}
 			
 		if(currentLayout != nextLayout || defaultSetting){
 			currentLayout = nextLayout;

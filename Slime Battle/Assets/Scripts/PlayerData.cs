@@ -64,9 +64,9 @@ public class PlayerData : MonoBehaviour {
 	}
 
 	public bool CheckPlayerCard(int itemIndex){
-		Debug.Log(itemIndex);
 		if(PlayerPrefs.HasKey(shopItems[itemIndex]))
 			return false;
+			
 		return true;
 	}
 
