@@ -12,6 +12,7 @@ public class Shop : MonoBehaviour {
 	}
 	// Public Variables
 	public RectTransform panel;	//To hold the ScrollPanel
+	public ShopStats stats;
 	public GameObject[] slime;
 	public Card[] cards;
 	public RectTransform center;	//Center to compare the distance for each button
@@ -31,6 +32,11 @@ public class Shop : MonoBehaviour {
 				LerpToBttn(minButtonNum * -bttnDistance);
 			}
 		}
+	}
+
+	void Start(){
+		for (int i = 0; i < cards.Length; i++)
+			cards[i].SetupSlimeProperties();
 	}
 
 	public void Shop_DefaultSetting(){
@@ -59,6 +65,7 @@ public class Shop : MonoBehaviour {
 	public void StartDrag(){
 		dragging = true;
 		ButtonAndTitleAnimator(minButtonNum, false);
+		stats.CloseCardStats();
 	}
 
 	public void EndDrag(){
@@ -94,9 +101,9 @@ public class Shop : MonoBehaviour {
 
 	private void SelectWhichButton(int num, bool toggle){
 		GameObject childObject = slime[num].transform.GetChild(0).gameObject;
-		purchaseButton.interactable = PlayerData.Instance.CheckPlayerCard(minButtonNum);
+		purchaseButton.interactable = PlayerData.Instance.CheckPlayerCard(num);
 		//text = Button name
-		selectedName.text = childObject.name + "\n$ " + cards[num].coins;		
+		selectedName.text = cards[num].name + "\n$ " + cards[num].coins;		
 		// Setting the button interactable, selected button -> true
 		if(num != prevButtonNum){
 			childObject.SetActive(true);
@@ -108,6 +115,7 @@ public class Shop : MonoBehaviour {
 			prevButtonNum = num;
 		}
 		ButtonAndTitleAnimator(num, toggle);
+		stats.ShowCardStats(cards[num]);
 	}
 
 	private void ButtonAndTitleAnimator(int num, bool toggle){

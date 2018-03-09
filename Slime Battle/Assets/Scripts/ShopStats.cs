@@ -2,18 +2,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryStats : MonoBehaviour {
-
-	public static InventoryStats Instance;
-    
-    void Awake(){
-        Instance = this; 
-    }
+public class ShopStats : MonoBehaviour {
 
 	public Image icon, healthBar, damageBar, speedBar, rangeBar, rateBar;
-	public GameObject statsPanel, leftArrowButton, rightArrowButton;
-	public Text nameText, typeText, costText, sizeText;
-
+	public Text typeText, costText, sizeText;
 	private float lerpSpeed = 2f;
 	bool showCardStatsBar = false;
 	int slotNumSelected;
@@ -34,32 +26,11 @@ public class InventoryStats : MonoBehaviour {
 
 	public void ShowCardStats(Card cardSelected){
 		ShowCardInfo(cardSelected);
-
-		statsPanel.SetActive(true);
-		MenuScreen.Instance.BackButtonDisplay(false);
 		showCardStatsBar = true;
 	}
 
-	public void CloseButtonPressed(){
-		CloseCardStats();
-		MenuScreen.Instance.BackButtonDisplay(true);
-	}
-
 	public void CloseCardStats(){
-		statsPanel.SetActive(false);
 		showCardStatsBar = false;
-
-		ResetAllStatsBar();
-	}
-
-	public void ArrowButtonPressed(int nextNum){
-		int currentCardNum = (Inventory.Instance.cards.IndexOf(card));
-		Card nextCard = Inventory.Instance.cards[currentCardNum + nextNum];
-		ShowAnotherCardStats(nextCard);
-	}
-
-	private void ShowAnotherCardStats(Card cardSelected){
-		ShowCardInfo(cardSelected);
 		ResetAllStatsBar();
 	}
 
@@ -68,12 +39,10 @@ public class InventoryStats : MonoBehaviour {
 			card = cardSelected;
 			icon.sprite = card.icon;
 
-			nameText.text = card.name;
 			typeText.text = card.type;
 			costText.text = "$ " + card.cost;
 			sizeText.text = "Size: " + SizeConvert(card.size);
 		}
-		ShowArrowButton();
 	}
 
 	private void ResetAllStatsBar(){
@@ -82,18 +51,6 @@ public class InventoryStats : MonoBehaviour {
 		speedBar.fillAmount = 0;
 		rangeBar.fillAmount = 0;
 		rateBar.fillAmount = 0;
-	}
-
-	private void ShowArrowButton(){
-		if(Inventory.Instance.cards.IndexOf(card) == 0)
-			leftArrowButton.SetActive(false);
-		else
-			leftArrowButton.SetActive(true);
-
-		if(Inventory.Instance.cards.IndexOf(card) == Inventory.Instance.cards.Count - 1)
-			rightArrowButton.SetActive(false);
-		else
-			rightArrowButton.SetActive(true);
 	}
 
 	private string SizeConvert(int size){

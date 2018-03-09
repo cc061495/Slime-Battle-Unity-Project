@@ -47,7 +47,7 @@ public class Inventory : MonoBehaviour {
 			// 	return;
 			// }
 			cards.Add(card);
-			card.SetupSlimeProperties();
+			//card.SetupSlimeProperties();
 
 			if(onCardChangedCallback != null)
 				onCardChangedCallback.Invoke();

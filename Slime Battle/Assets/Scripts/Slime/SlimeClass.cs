@@ -133,7 +133,7 @@ public class SlimeClass{
 				isExplosion	 		= true ;
 				attackDamage 		= 6.5f ;
 				areaEffectRadius 	= 8 ;
-				actionCoolDown 		= 10 ;
+				actionCoolDown 		= -1 ;
 				/* Network */
 				isNetworkTransfer = true;
 				break;
@@ -185,7 +185,7 @@ public class SlimeClass{
 				detectRadius	  = 0.6f ;
 				attackDamage 	  = 8 ;
 				areaEffectRadius  = 6 ;
-				actionCoolDown 	  = 10 ;
+				actionCoolDown 	  = -1 ;
 				/* Network */
 				isNetworkTransfer = true;
 				break;
@@ -262,7 +262,7 @@ public class SlimeClass{
 				isMagicalAreaEffectDamage = true ;
 				attackDamage 			  = 4f ;
 				areaEffectRadius 		  = 3 ;
-				actionCoolDown 			  = 0 ;
+				//actionCoolDown 			  = 0 ;
 				castTime				  = 2f ;
 				/* Network */
 				isNetworkTransfer = true;

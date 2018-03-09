@@ -20,6 +20,7 @@ public class Card : ScriptableObject {
 	public float actionCoolDown{get;private set;}	//Slime's action cool down time
 	public float movemonetSpeed{get;private set;}	//Slime's movement speed
 	public float actionRange{get;private set;}		//Slime's action range
+	public float castTime{get; private set;}
 	[Header("Action Type")]
 	public string type;
 
@@ -38,6 +39,7 @@ public class Card : ScriptableObject {
 		actionCoolDown = slime.actionCoolDown;
 		movemonetSpeed = slime.movemonetSpeed;
 		actionRange = slime.actionRange;
+		castTime = slime.castTime;
 	}
 	
 	public virtual void Select(int inventorySlotNum){

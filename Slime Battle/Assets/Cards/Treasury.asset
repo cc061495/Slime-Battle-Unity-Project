@@ -21,6 +21,6 @@ MonoBehaviour:
   cost: 20
   size: 1
   spawnPosOffset: {x: 0, y: 1.5, z: 0}
-  type: Building
+  type: Money Spawning Building
   mesh: {fileID: 4300000, guid: 5847491945e3744ffb9eec9e45a3c7b9, type: 3}
   coins: 100
