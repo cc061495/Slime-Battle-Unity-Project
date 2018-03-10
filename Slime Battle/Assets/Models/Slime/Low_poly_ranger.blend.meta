@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 5847491945e3744ffb9eec9e45a3c7b9
-timeCreated: 1501329024
+guid: e81ac96201baa4dc0b3745fb8b47f387
+timeCreated: 1520705681
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Slime
+    4300000: Ranger
     7400000: Default Take
     9500000: //RootNode
   materials:
@@ -57,7 +57,7 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
-  importAnimation: 1
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2
@@ -76,7 +76,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

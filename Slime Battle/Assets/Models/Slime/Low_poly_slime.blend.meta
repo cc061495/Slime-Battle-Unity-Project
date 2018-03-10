@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: d1840729d73934f57bb383b941d6b20d
-timeCreated: 1520705422
+guid: 5847491945e3744ffb9eec9e45a3c7b9
+timeCreated: 1501329024
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Plane
+    4300000: Slime
     7400000: Default Take
     9500000: //RootNode
   materials:
@@ -28,7 +28,7 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5

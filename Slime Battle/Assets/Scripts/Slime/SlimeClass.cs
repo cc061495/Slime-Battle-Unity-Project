@@ -69,7 +69,7 @@ public class SlimeClass{
 				startHealth 	= 100 ;
 				movemonetSpeed 	= 3f ;
 				actionRange 	= 1 ;
-				scaleRadius 	= 1f ;
+				scaleRadius 	= 1.5f ;
 				/* Slime Priority */
 				healingPriority = 1 ;
 				killingPriority = 1 ;
