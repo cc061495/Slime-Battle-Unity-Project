@@ -16,11 +16,11 @@ MonoBehaviour:
   isDefaultCard: 0
   teamRedPrefab: {fileID: 1539508114879990, guid: f6401a7d9f6634ab59dfd6d6a313b1b3,
     type: 2}
-  teamBluePrefab: {fileID: 1724523793743550, guid: 8e37d0432f18d4fefaf394dcacfa9800,
+  teamBluePrefab: {fileID: 1320572784246848, guid: 8e37d0432f18d4fefaf394dcacfa9800,
     type: 2}
   cost: 35
   size: 2
-  spawnPosOffset: {x: 0, y: 2, z: 0}
+  spawnPosOffset: {x: 0, y: 1.5, z: 0}
   type: Summon
-  mesh: {fileID: 4300000, guid: 5847491945e3744ffb9eec9e45a3c7b9, type: 3}
+  mesh: {fileID: 4300000, guid: 840efc729b9074e6c99f2dbd7c2ab2ef, type: 3}
   coins: 100

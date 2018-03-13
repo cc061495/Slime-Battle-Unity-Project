@@ -16,11 +16,11 @@ MonoBehaviour:
   isDefaultCard: 0
   teamRedPrefab: {fileID: 1210319353446000, guid: e1664cca3c41f40f68cf151bab8c79a7,
     type: 2}
-  teamBluePrefab: {fileID: 1704925722425976, guid: 4dc9eb80e23584f4baa97c7a693e16bb,
+  teamBluePrefab: {fileID: 1059783891762506, guid: 4dc9eb80e23584f4baa97c7a693e16bb,
     type: 2}
   cost: 5
   size: 1
   spawnPosOffset: {x: 0, y: 0.5, z: 0}
   type: Invisible Trap
-  mesh: {fileID: 4300000, guid: 5847491945e3744ffb9eec9e45a3c7b9, type: 3}
+  mesh: {fileID: 4300000, guid: 73b347f28ee8c41f89a77e9e9ce464b8, type: 3}
   coins: 100

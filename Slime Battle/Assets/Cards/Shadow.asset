@@ -16,11 +16,11 @@ MonoBehaviour:
   isDefaultCard: 0
   teamRedPrefab: {fileID: 1290348899900732, guid: e3d55333494ae46ee8c7b32dec97a39b,
     type: 2}
-  teamBluePrefab: {fileID: 1735578506977176, guid: 9256e850065a34883a65cb26ebac6e0f,
+  teamBluePrefab: {fileID: 1829957649665164, guid: 9256e850065a34883a65cb26ebac6e0f,
     type: 2}
   cost: 45
   size: 2
-  spawnPosOffset: {x: 0, y: 2, z: 0}
+  spawnPosOffset: {x: 0, y: 1.5, z: 0}
   type: Invisible Melee Attack
-  mesh: {fileID: 4300000, guid: 5847491945e3744ffb9eec9e45a3c7b9, type: 3}
+  mesh: {fileID: 4300000, guid: 1cf24741cde5b402d91a37c8a8d74232, type: 3}
   coins: 100

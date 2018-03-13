@@ -146,7 +146,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1454118127268186}
-  m_Mesh: {fileID: 4300000, guid: 5847491945e3744ffb9eec9e45a3c7b9, type: 3}
+  m_Mesh: {fileID: 4300000, guid: fc1f166c653114770b08b3754edc7772, type: 3}
 --- !u!114 &114197764619149574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -158,8 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 246b2a59e23ac4285984af4d6187e6e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firePoint: {fileID: 0}
-  rangedWeaponPrefab: {fileID: 0}
+  castTime: 0
 --- !u!114 &114264567358023856
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -187,6 +186,7 @@ MonoBehaviour:
   slimeName: Slime
   model: {fileID: 4849826201979082}
   agent: {fileID: 4220746767681392}
+  obstacle: {fileID: 0}
 --- !u!114 &114882725667070700
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -16,11 +16,11 @@ MonoBehaviour:
   isDefaultCard: 1
   teamRedPrefab: {fileID: 1107804881901608, guid: 5a1c1a91522fe495888a6335ce4acc50,
     type: 2}
-  teamBluePrefab: {fileID: 1792214528253688, guid: c14fe4f8a511c423cb96f572b73d9cbe,
+  teamBluePrefab: {fileID: 1768197692947290, guid: c14fe4f8a511c423cb96f572b73d9cbe,
     type: 2}
   cost: 15
   size: 1
   spawnPosOffset: {x: 0, y: 1.5, z: 0}
   type: Single Healing
-  mesh: {fileID: 4300000, guid: 5847491945e3744ffb9eec9e45a3c7b9, type: 3}
+  mesh: {fileID: 4300000, guid: f43c2d97edea142acb286a39e36e93cc, type: 3}
   coins: 100

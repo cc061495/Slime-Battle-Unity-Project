@@ -16,11 +16,11 @@ MonoBehaviour:
   isDefaultCard: 0
   teamRedPrefab: {fileID: 1423795966262536, guid: acfcacfda48f9477eb28d2222435c591,
     type: 2}
-  teamBluePrefab: {fileID: 1690357907550298, guid: 9770f749823494ade9b42d0c8b1c9503,
+  teamBluePrefab: {fileID: 1864329007927030, guid: 9770f749823494ade9b42d0c8b1c9503,
     type: 2}
   cost: 25
   size: 1
   spawnPosOffset: {x: 0, y: 1.5, z: 0}
   type: Area Effect Healing
-  mesh: {fileID: 4300000, guid: 5847491945e3744ffb9eec9e45a3c7b9, type: 3}
+  mesh: {fileID: 4300000, guid: 04b85d82a1a4c428c968a1ca5d311090, type: 3}
   coins: 100

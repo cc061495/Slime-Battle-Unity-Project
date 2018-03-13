@@ -16,11 +16,11 @@ MonoBehaviour:
   isDefaultCard: 1
   teamRedPrefab: {fileID: 1010709725255560, guid: fb5d5f9d5f6b140c2ad49a1fe3b02686,
     type: 2}
-  teamBluePrefab: {fileID: 1894797012088712, guid: 514fb316009364f6f88457298573e0aa,
+  teamBluePrefab: {fileID: 1440645217937704, guid: 514fb316009364f6f88457298573e0aa,
     type: 2}
   cost: 15
   size: 1
   spawnPosOffset: {x: 0, y: 1.5, z: 0}
   type: Explosion
-  mesh: {fileID: 4300000, guid: 5847491945e3744ffb9eec9e45a3c7b9, type: 3}
+  mesh: {fileID: 4300000, guid: 908ee49aa5fce44848670a91f160cf0a, type: 3}
   coins: 100

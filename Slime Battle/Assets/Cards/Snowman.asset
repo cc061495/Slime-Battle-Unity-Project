@@ -16,11 +16,11 @@ MonoBehaviour:
   isDefaultCard: 0
   teamRedPrefab: {fileID: 1138167171531574, guid: d5f71a031c4f84492a14a1bfa0b20943,
     type: 2}
-  teamBluePrefab: {fileID: 1138167171531574, guid: b26d5200c317a46a5838d52822749f4e,
+  teamBluePrefab: {fileID: 1017646303844040, guid: b26d5200c317a46a5838d52822749f4e,
     type: 2}
   cost: 20
   size: 4
   spawnPosOffset: {x: 0, y: 1.5, z: 0}
   type: Ranged Attack Building
-  mesh: {fileID: 4300000, guid: 5847491945e3744ffb9eec9e45a3c7b9, type: 3}
+  mesh: {fileID: 4300000, guid: 42e42e2a3d4fa42ca9c12af9baf4026c, type: 3}
   coins: 100

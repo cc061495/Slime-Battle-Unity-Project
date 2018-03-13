@@ -9,18 +9,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c013c98488284e3686ac40507c98abb, type: 3}
-  m_Name: Treasury
+  m_Name: Ore
   m_EditorClassIdentifier: 
-  name: Treasury
+  name: Ore
   icon: {fileID: 21300000, guid: b20db44c244c44bcf8faa95477ede10d, type: 3}
   isDefaultCard: 0
-  teamRedPrefab: {fileID: 1823493335722954, guid: 98e8ae6ecb1334890b8f835a4b7e89f3,
+  teamRedPrefab: {fileID: 1859899244415148, guid: 022d85e0981734aad9f0e7afa08961c2,
     type: 2}
-  teamBluePrefab: {fileID: 1964338854890568, guid: f94f32cb6279f4570884b3ea178dfafb,
+  teamBluePrefab: {fileID: 1766951465541276, guid: e64a5dfcb855c4995987e79018a209eb,
     type: 2}
   cost: 20
   size: 1
   spawnPosOffset: {x: 0, y: 1.5, z: 0}
   type: Money Spawning Building
-  mesh: {fileID: 4300000, guid: 5847491945e3744ffb9eec9e45a3c7b9, type: 3}
+  mesh: {fileID: 4300000, guid: a16a6ddcfdcd44a61a6d4d16b01ff5d1, type: 3}
   coins: 100

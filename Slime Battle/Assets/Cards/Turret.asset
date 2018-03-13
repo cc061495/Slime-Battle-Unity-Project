@@ -14,13 +14,13 @@ MonoBehaviour:
   name: Turret
   icon: {fileID: 21300000, guid: b20db44c244c44bcf8faa95477ede10d, type: 3}
   isDefaultCard: 0
-  teamRedPrefab: {fileID: 1256400564637068, guid: 9f62e4c0362474f7f95f549b4294fcab,
+  teamRedPrefab: {fileID: 1210463035350370, guid: 9f62e4c0362474f7f95f549b4294fcab,
     type: 2}
-  teamBluePrefab: {fileID: 1793370921486854, guid: bf7ec854268724148b4d0d60797d447f,
+  teamBluePrefab: {fileID: 1539899998731652, guid: bf7ec854268724148b4d0d60797d447f,
     type: 2}
   cost: 15
   size: 1
   spawnPosOffset: {x: 0, y: 1.5, z: 0}
   type: Ranged Attack Building
-  mesh: {fileID: 4300000, guid: 5847491945e3744ffb9eec9e45a3c7b9, type: 3}
+  mesh: {fileID: 4300000, guid: 35f13f402ab034120826331bc9e4698c, type: 3}
   coins: 100

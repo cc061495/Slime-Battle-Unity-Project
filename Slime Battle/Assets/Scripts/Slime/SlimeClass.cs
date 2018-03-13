@@ -153,7 +153,7 @@ public class SlimeClass{
 				isNetworkTransfer = false;
 				break;
 
-			case "Treasury":
+			case "Ore":
 				/* Building Properties */
 				startHealth 	= 10 ;
 				scaleRadius 	= 1.3f ;
@@ -182,7 +182,7 @@ public class SlimeClass{
 				/* Ability */
 				isBuilding 		  = true ;
 				isInvisible		  = true ;
-				detectRadius	  = 0.6f ;
+				detectRadius	  = 2f ;
 				attackDamage 	  = 8 ;
 				areaEffectRadius  = 6 ;
 				actionCoolDown 	  = -1 ;

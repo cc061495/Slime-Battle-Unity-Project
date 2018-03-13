@@ -22,5 +22,5 @@ MonoBehaviour:
   size: 1
   spawnPosOffset: {x: 0, y: 1.5, z: 0}
   type: Melee Attack
-  mesh: {fileID: 4300000, guid: 5847491945e3744ffb9eec9e45a3c7b9, type: 3}
+  mesh: {fileID: 4300000, guid: fc1f166c653114770b08b3754edc7772, type: 3}
   coins: 100

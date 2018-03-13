@@ -16,11 +16,11 @@ MonoBehaviour:
   isDefaultCard: 0
   teamRedPrefab: {fileID: 1660328779637464, guid: 63ccfc4cc6fd9460ab17e69277af49b9,
     type: 2}
-  teamBluePrefab: {fileID: 1401266071717066, guid: 843721896e487449bb1221d0314fc947,
+  teamBluePrefab: {fileID: 1621390647285976, guid: 843721896e487449bb1221d0314fc947,
     type: 2}
   cost: 30
   size: 2
-  spawnPosOffset: {x: 0, y: 2, z: 0}
+  spawnPosOffset: {x: 0, y: 1.5, z: 0}
   type: Melee Attack with Defensive Buff
-  mesh: {fileID: 4300000, guid: 5847491945e3744ffb9eec9e45a3c7b9, type: 3}
+  mesh: {fileID: 4300000, guid: 64f22e4457ae440219ed3190074b26b5, type: 3}
   coins: 100
