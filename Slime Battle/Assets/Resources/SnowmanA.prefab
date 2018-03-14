@@ -31,6 +31,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1283799884313930
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4122349675823412}
+  m_Layer: 0
+  m_Name: Firepoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1791723702634164
 GameObject:
   m_ObjectHideFlags: 0
@@ -66,6 +81,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4122349675823412
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1283799884313930}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.223, y: -0.48, z: 1.39}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4936237955590460}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4386207730548366
 Transform:
   m_ObjectHideFlags: 1
@@ -102,8 +130,9 @@ Transform:
   m_GameObject: {fileID: 1960335377350960}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -1, z: 0}
-  m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
-  m_Children: []
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_Children:
+  - {fileID: 4122349675823412}
   m_Father: {fileID: 4742182573174552}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
@@ -146,7 +175,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1960335377350960}
-  m_Mesh: {fileID: 4300000, guid: 42e42e2a3d4fa42ca9c12af9baf4026c, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 8321cdf962bfd4e86a8dcfe98376e63e, type: 3}
 --- !u!65 &65035953503595790
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -170,7 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6923d2115325431fb6cd26549757f78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firePoint: {fileID: 0}
+  firePoint: {fileID: 4122349675823412}
   rangedWeaponPrefab: {fileID: 1812150721723050, guid: 92925f474f445425884c0ba5e6e21e45,
     type: 2}
 --- !u!114 &114156158957951960

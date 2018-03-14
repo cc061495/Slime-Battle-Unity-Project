@@ -22,5 +22,5 @@ MonoBehaviour:
   size: 4
   spawnPosOffset: {x: 0, y: 1.5, z: 0}
   type: Area Effect Damage
-  mesh: {fileID: 4300000, guid: 33b1dde72687c483589cd7e2c1d981ee, type: 3}
+  mesh: {fileID: 4300000, guid: 93a1b08aa7a1447afb47faad70c61429, type: 3}
   coins: 100

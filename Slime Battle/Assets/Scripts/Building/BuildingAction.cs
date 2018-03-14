@@ -144,7 +144,7 @@ public class BuildingAction : MonoBehaviour {
 		if(dir != Vector3.zero){
 			Quaternion lookRotation = Quaternion.LookRotation (dir);
 			Vector3 rotation = Quaternion.Lerp (model.rotation, lookRotation, Time.deltaTime * slime.turnSpeed).eulerAngles;
-			model.SetPositionAndRotation(model.position, Quaternion.Euler (0f, rotation.y, 0f));
+			model.SetPositionAndRotation(model.position, Quaternion.Euler (-90f, rotation.y, 0f));
 		}
 	}
 }

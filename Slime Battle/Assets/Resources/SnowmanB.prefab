@@ -9,39 +9,34 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1017646303844040}
+  m_RootGameObject: {fileID: 1977973256172544}
   m_IsPrefabParent: 1
---- !u!1 &1017646303844040
+--- !u!1 &1068295729701038
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4205709772896408}
-  - component: {fileID: 114776343991963156}
-  - component: {fileID: 114021687391093406}
-  - component: {fileID: 114656669421736852}
-  - component: {fileID: 114920978903626190}
-  - component: {fileID: 114359077722697016}
+  - component: {fileID: 4451602516889064}
   m_Layer: 0
-  m_Name: SnowmanB
-  m_TagString: Team_BLUE
+  m_Name: Firepoint
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1251760204501866
+--- !u!1 &1417348612097384
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4440554406358670}
-  - component: {fileID: 208474881649283362}
-  - component: {fileID: 65554566347126828}
-  - component: {fileID: 114282577453225486}
+  - component: {fileID: 4859640479247406}
+  - component: {fileID: 208457052694290094}
+  - component: {fileID: 65771246208875442}
+  - component: {fileID: 114155621618526930}
   m_Layer: 2
   m_Name: BuildingObject
   m_TagString: Untagged
@@ -49,16 +44,16 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1913500644965670
+--- !u!1 &1550027608798850
 GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4746448917970464}
-  - component: {fileID: 33067332061261744}
-  - component: {fileID: 23050676718101468}
+  - component: {fileID: 4272586992459998}
+  - component: {fileID: 33849937552956330}
+  - component: {fileID: 23536017565298904}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -66,53 +61,87 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4205709772896408
+--- !u!1 &1977973256172544
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4090748888215012}
+  - component: {fileID: 114977873884328164}
+  - component: {fileID: 114814098694731200}
+  - component: {fileID: 114244964236221986}
+  - component: {fileID: 114228256077478738}
+  - component: {fileID: 114561003925544008}
+  m_Layer: 0
+  m_Name: SnowmanB
+  m_TagString: Team_BLUE
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4090748888215012
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1017646303844040}
+  m_GameObject: {fileID: 1977973256172544}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.5, z: -21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4440554406358670}
+  - {fileID: 4859640479247406}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4440554406358670
+--- !u!4 &4272586992459998
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1251760204501866}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_GameObject: {fileID: 1550027608798850}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_Children:
+  - {fileID: 4451602516889064}
+  m_Father: {fileID: 4859640479247406}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!4 &4451602516889064
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1068295729701038}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.223, y: -0.48, z: 1.39}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4272586992459998}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4859640479247406
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1417348612097384}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4746448917970464}
-  m_Father: {fileID: 4205709772896408}
+  - {fileID: 4272586992459998}
+  m_Father: {fileID: 4090748888215012}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!4 &4746448917970464
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1913500644965670}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
-  m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
-  m_Children: []
-  m_Father: {fileID: 4440554406358670}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!23 &23050676718101468
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+--- !u!23 &23536017565298904
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1913500644965670}
+  m_GameObject: {fileID: 1550027608798850}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 0
@@ -140,68 +169,56 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33067332061261744
+--- !u!33 &33849937552956330
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1913500644965670}
-  m_Mesh: {fileID: 4300000, guid: 42e42e2a3d4fa42ca9c12af9baf4026c, type: 3}
---- !u!65 &65554566347126828
+  m_GameObject: {fileID: 1550027608798850}
+  m_Mesh: {fileID: 4300000, guid: 8321cdf962bfd4e86a8dcfe98376e63e, type: 3}
+--- !u!65 &65771246208875442
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1251760204501866}
+  m_GameObject: {fileID: 1417348612097384}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 6, y: 6, z: 6}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114021687391093406
+--- !u!114 &114155621618526930
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1017646303844040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b865a0e9c98e74cdeaeb7e6ebf4884c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slimeName: Snowman
-  model: {fileID: 4746448917970464}
-  agent: {fileID: 4440554406358670}
-  obstacle: {fileID: 208474881649283362}
---- !u!114 &114282577453225486
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1251760204501866}
+  m_GameObject: {fileID: 1417348612097384}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57563271889c942bfb9337d20ae0e9db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114359077722697016
+--- !u!114 &114228256077478738
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1017646303844040}
-  m_Enabled: 0
+  m_GameObject: {fileID: 1977973256172544}
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65401940dd4ed43019c2f740dc65926f, type: 3}
+  m_Script: {fileID: 11500000, guid: d6923d2115325431fb6cd26549757f78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114656669421736852
+  firePoint: {fileID: 4451602516889064}
+  rangedWeaponPrefab: {fileID: 1812150721723050, guid: 92925f474f445425884c0ba5e6e21e45,
+    type: 2}
+--- !u!114 &114244964236221986
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1017646303844040}
+  m_GameObject: {fileID: 1977973256172544}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ca2df12009bc444f9ed82080765ad46, type: 3}
@@ -211,12 +228,38 @@ MonoBehaviour:
   healthBarPrefab: {fileID: 1151739180578524, guid: 37590ddfa1ca44cf9a1f60f4952c1ed4,
     type: 2}
   healthBar: {fileID: 0}
---- !u!114 &114776343991963156
+--- !u!114 &114561003925544008
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1017646303844040}
+  m_GameObject: {fileID: 1977973256172544}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65401940dd4ed43019c2f740dc65926f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114814098694731200
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1977973256172544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b865a0e9c98e74cdeaeb7e6ebf4884c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slimeName: Snowman
+  model: {fileID: 4272586992459998}
+  agent: {fileID: 4859640479247406}
+  obstacle: {fileID: 208457052694290094}
+--- !u!114 &114977873884328164
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1977973256172544}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
@@ -231,32 +274,18 @@ MonoBehaviour:
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 114359077722697016}
+  - {fileID: 114561003925544008}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
---- !u!114 &114920978903626190
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1017646303844040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6923d2115325431fb6cd26549757f78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firePoint: {fileID: 0}
-  rangedWeaponPrefab: {fileID: 1812150721723050, guid: 92925f474f445425884c0ba5e6e21e45,
-    type: 2}
---- !u!208 &208474881649283362
+--- !u!208 &208457052694290094
 NavMeshObstacle:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1251760204501866}
+  m_GameObject: {fileID: 1417348612097384}
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
