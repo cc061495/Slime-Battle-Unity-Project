@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f7769b00660448e4a2022fcacf23706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextPrefabToSplite: SplitterA_Small
+  nextPrefabToSplite: SplitterB_Small
 --- !u!114 &114942401740963202
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -262,7 +262,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.9
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &195982689895948138
 NavMeshAgent:
@@ -272,7 +272,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1932768382070474}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.9
+  m_Radius: 0.8
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50

@@ -32,8 +32,8 @@ public class MineExplosion : MonoBehaviour {
 			if(!model.gameObject.activeSelf)
 				model.gameObject.SetActive(true);		
 			// explosion!!!
-			if(photonView.isMine)
-				Invoke("Explosion", 0.4f);
+			if(photonView.isMine && health.currentHealth > 0)
+				Invoke("Explosion", 0.5f);
 
 			slime.isInvisible = false;
 		}

@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 4451602516889064}
-  rangedWeaponPrefab: {fileID: 1812150721723050, guid: 92925f474f445425884c0ba5e6e21e45,
+  rangedWeaponPrefab: {fileID: 1812150721723050, guid: 3d8e4a25518f84140b4a6c03391884b9,
     type: 2}
 --- !u!114 &114244964236221986
 MonoBehaviour:

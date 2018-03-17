@@ -51,10 +51,8 @@ public class BuildingAction : MonoBehaviour {
 		if(target == null)
 			action = false;
 
-		if(!action){
-			Debug.Log("FIND TARGET");
+		if(!action)
 			FindTheNearestEnemy();
-		}
 
 		if(gameManager.currentState == GameManager.State.battle_end)
 			CancelInvoke("FindTheTarget");

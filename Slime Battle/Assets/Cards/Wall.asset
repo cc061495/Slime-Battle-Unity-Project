@@ -22,5 +22,5 @@ MonoBehaviour:
   size: 1
   spawnPosOffset: {x: 0, y: 1.5, z: 0}
   type: Building
-  mesh: {fileID: 4300000, guid: f945824906fb74133b5fa3cd0c82c4c3, type: 3}
+  mesh: {fileID: 4300000, guid: 836454267b4c848338a847e10258bde0, type: 3}
   coins: 100

@@ -50,8 +50,8 @@ public class SlimeClass{
 				/* Slime Properties */
 				startHealth 	= 25 ;
 				movemonetSpeed 	= 5 ;
-				actionRange 	= 1 ;
-				scaleRadius 	= 0.5f ;
+				actionRange 	= 0.6f ;
+				scaleRadius 	= 0.7f ;
 				/* Slime Priority */
 				healingPriority = 1 ;
 				killingPriority = 1 ;
@@ -68,8 +68,8 @@ public class SlimeClass{
 				/* Slime Properties */
 				startHealth 	= 100 ;
 				movemonetSpeed 	= 3f ;
-				actionRange 	= 1 ;
-				scaleRadius 	= 1.5f ;
+				actionRange 	= 0.9f ;
+				scaleRadius 	= 1f ;
 				/* Slime Priority */
 				healingPriority = 1 ;
 				killingPriority = 1 ;
@@ -88,7 +88,7 @@ public class SlimeClass{
 				startHealth 	= 12 ;
 				movemonetSpeed	= 5 ;
 				actionRange 	= 8 ;
-				scaleRadius 	= 0.55f ;
+				scaleRadius 	= 0.6f ;
 				/* Slime Priority */
 				healingPriority = 2 ;
 				killingPriority = 1 ;
@@ -106,7 +106,7 @@ public class SlimeClass{
 				startHealth 	= 10 ;
 				movemonetSpeed 	= 5 ;
 				actionRange 	= 7f ;
-				scaleRadius 	= 0.5f ;
+				scaleRadius 	= 0.6f ;
 				/* Slime Priority */
 				healingPriority = 3 ;
 				killingPriority = 1 ;
@@ -123,7 +123,7 @@ public class SlimeClass{
 				/* Slime Properties */
 				startHealth 	= 5 ;
 				movemonetSpeed 	= 7 ;
-				actionRange 	= 0.7f ;
+				actionRange 	= 0.4f ;
 				scaleRadius 	= 0.5f ;
 				/* Slime Priority */
 				healingPriority = 2 ;
@@ -156,7 +156,7 @@ public class SlimeClass{
 			case "Ore":
 				/* Building Properties */
 				startHealth 	= 10 ;
-				scaleRadius 	= 1.3f ;
+				scaleRadius 	= 1.5f ;
 				/* Slime Priority */
 				healingPriority = 0 ;
 				killingPriority = 2 ;
@@ -174,7 +174,7 @@ public class SlimeClass{
 			case "Mine":
 				/* Building Properties */
 				startHealth 	= 20 ;
-				scaleRadius 	= 1f ;
+				scaleRadius 	= 0.8f ;
 				/* Slime Priority */
 				healingPriority = 0 ;
 				killingPriority = 2 ;
@@ -182,7 +182,7 @@ public class SlimeClass{
 				/* Ability */
 				isBuilding 		  = true ;
 				isInvisible		  = true ;
-				detectRadius	  = 2f ;
+				detectRadius	  = 1.5f ;
 				attackDamage 	  = 8 ;
 				areaEffectRadius  = 6 ;
 				actionCoolDown 	  = -1 ;
@@ -194,7 +194,7 @@ public class SlimeClass{
 				/* Slime Properties */
 				startHealth 	= 35 ;
 				movemonetSpeed 	= 3f ;
-				actionRange 	= 1 ;
+				actionRange 	= 0.9f ;
 				scaleRadius 	= 1f ;
 				/* Slime Priority */
 				healingPriority = 1 ;
@@ -213,8 +213,8 @@ public class SlimeClass{
 				/* Slime Properties */
 				startHealth 	= 18 ;
 				movemonetSpeed 	= 5f ;
-				actionRange 	= 1 ;
-				scaleRadius 	= 0.75f ;
+				actionRange 	= 0.6f ;
+				scaleRadius 	= 0.7f ;
 				/* Slime Priority */
 				healingPriority = 1 ;
 				killingPriority = 1 ;
@@ -233,7 +233,7 @@ public class SlimeClass{
 				/* Slime Properties */
 				startHealth 	= 12 ;
 				movemonetSpeed 	= 7f ;
-				actionRange 	= 1 ;
+				actionRange 	= 0.4f ;
 				scaleRadius 	= 0.5f ;
 				/* Slime Priority */
 				healingPriority = 1 ;
@@ -253,7 +253,7 @@ public class SlimeClass{
 				startHealth 	= 13 ;
 				movemonetSpeed 	= 4 ;
 				actionRange 	= 8.5f ;
-				scaleRadius 	= 0.55f ;
+				scaleRadius 	= 0.6f ;
 				/* Slime Priority */
 				healingPriority = 2 ;
 				killingPriority = 1 ;
@@ -271,7 +271,7 @@ public class SlimeClass{
 			case "Summoner":
 				/* Slime Properties */
 				startHealth 	= 15 ;
-				scaleRadius 	= 0.7f ;
+				scaleRadius 	= 0.8f ;
 				/* Slime Priority */
 				healingPriority = 3 ;
 				killingPriority = 1 ;
@@ -287,8 +287,8 @@ public class SlimeClass{
 				/* Slime Properties */
 				startHealth 	= 10 ;
 				movemonetSpeed 	= 5f ;
-				actionRange 	= 0.8f ;
-				scaleRadius 	= 0.45f ;
+				actionRange 	= 0.4f ;
+				scaleRadius 	= 0.5f ;
 				/* Slime Priority */
 				healingPriority = 1 ;
 				killingPriority = 1 ;
@@ -307,7 +307,7 @@ public class SlimeClass{
 				startHealth 	= 10 ;
 				movemonetSpeed 	= 5 ;
 				actionRange 	= 7f ;
-				scaleRadius 	= 0.5f ;
+				scaleRadius 	= 0.6f ;
 				/* Slime Priority */
 				healingPriority = 3 ;
 				killingPriority = 1 ;
@@ -325,8 +325,8 @@ public class SlimeClass{
 				/* Slime Properties */
 				startHealth 	= 30 ;
 				movemonetSpeed 	= 3 ;
-				actionRange 	= 1f ;
-				scaleRadius 	= 0.7f ;
+				actionRange 	= 0.7f ;
+				scaleRadius 	= 0.8f ;
 				/* Slime Priority */
 				healingPriority = 1 ;
 				killingPriority = 1 ;
@@ -337,7 +337,7 @@ public class SlimeClass{
 				actionCoolDown  		= 1f ;
 				isGuardianBuff			= true ;
 				areaEffectRadius 		= 8 ;
-				damageReducedPercentage = 0.6f ;
+				damageReducedPercentage = 0.4f ;
 				/* Network */
 				isNetworkTransfer = true;
 				break;
@@ -346,8 +346,8 @@ public class SlimeClass{
 				/* Building Properties */
 				startHealth 	= 25 ;
 				movemonetSpeed 	= 8f ;
-				actionRange 	= 1f ;
-				scaleRadius 	= 0.7f ;
+				actionRange 	= 0.7f ;
+				scaleRadius 	= 0.8f ;
 				/* Slime Priority */
 				healingPriority = 4 ;
 				killingPriority = 1 ;
@@ -364,8 +364,8 @@ public class SlimeClass{
 			case "Turret":
 				/* Building Properties */
 				startHealth 	= 15 ;
-				scaleRadius 	= 1f ;
 				actionRange 	= 9f ;
+				scaleRadius 	= 1.5f ;
 				/* Slime Priority */
 				healingPriority = 0 ;
 				killingPriority = 2 ;

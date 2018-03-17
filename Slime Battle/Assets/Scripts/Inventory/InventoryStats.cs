@@ -11,8 +11,9 @@ public class InventoryStats : MonoBehaviour {
     }
 
 	public Image icon, healthBar, damageBar, speedBar, rangeBar, rateBar;
-	public GameObject statsPanel, leftArrowButton, rightArrowButton;
+	public GameObject statsPanel, leftArrowButton, rightArrowButton, statusPage, modelPage;
 	public Text nameText, typeText, costText, sizeText;
+	public MeshFilter slimeModel;
 
 	private float lerpSpeed = 2f;
 	bool showCardStatsBar = false;
@@ -72,6 +73,8 @@ public class InventoryStats : MonoBehaviour {
 			typeText.text = card.type;
 			costText.text = "$ " + card.cost;
 			sizeText.text = "Size: " + SizeConvert(card.size);
+
+			slimeModel.mesh = card.mesh;
 		}
 		ShowArrowButton();
 	}
@@ -105,5 +108,28 @@ public class InventoryStats : MonoBehaviour {
 			return "2x2";
 		else
 			return "ERROR";
+	}
+
+	public void PageChanges(){
+		if(statusPage.activeSelf)
+			SettingPageActive(false);
+		else{
+			SettingPageActive(true);
+		}
+	}
+
+	private void SettingPageActive(bool display){
+		statusPage.SetActive(display);
+		modelPage.SetActive(!display);
+	}
+
+	public void ModelRotateLeft(){
+		Debug.Log("HI");
+		//Quaternion r = slimeModel.transform.rotation;
+		//slimeModel.transform.rotation = Quaternion.Euler (0f, 0f, 0f);
+	}
+
+	public void ModelRotateRight(){
+		slimeModel.transform.Rotate(0, -Time.deltaTime, 0, Space.Self);
 	}
 }

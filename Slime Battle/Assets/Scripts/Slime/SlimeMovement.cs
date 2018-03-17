@@ -59,7 +59,7 @@ public class SlimeMovement : MonoBehaviour {
 	}
 	/* Start this function in the Slime.cs */
 	public void StartUpdatePathLoop(){
-		InvokeRepeating("UpdatePath", Random.Range(0.1f, 0.5f), 0.5f);
+		InvokeRepeating("UpdatePath", Random.Range(0.1f, 0.5f), 0.25f);
 	}
 
 	private void UpdatePath(){
@@ -182,6 +182,7 @@ public class SlimeMovement : MonoBehaviour {
 	}
 
 	private void SetupMovementSetting(bool _move, float _angularSpeed, int _priority){
+		Debug.Log("Move: " + _move);
 		move = _move;
 
 		navMeshAgent.angularSpeed = _angularSpeed;

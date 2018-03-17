@@ -24,7 +24,7 @@ public class SlimeAction : MonoBehaviour {
 	}
 
 	public void Action(){
-		if (coolDown <= 0f) {
+		if (coolDown <= 0f && health.currentHealth > 0) {
 			if (slime.isMeleeAttack){
 				MeleeAttack (slime.attackDamage);
 				if(slime.isInvisible)

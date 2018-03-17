@@ -71,7 +71,7 @@ Transform:
   m_GameObject: {fileID: 1078073339326498}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -1, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children: []
   m_Father: {fileID: 4849219339983604}
   m_RootOrder: 0
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5276f1cc4a53e4763aef71adae2ffbeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToSummon: SummonerA_s
+  prefabToSummon: SummonerB_s
 --- !u!114 &114213699681244896
 MonoBehaviour:
   m_ObjectHideFlags: 1

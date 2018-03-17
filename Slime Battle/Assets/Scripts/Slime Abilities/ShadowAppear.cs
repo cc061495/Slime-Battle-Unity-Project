@@ -38,6 +38,6 @@ public class ShadowAppear : MonoBehaviour {
 	  	else
             gameManager.team_blue.Add(agent);
 		
-		Debug.Log("Shadow is added to the team list");
+		//Debug.Log("Shadow is added to the team list");
 	}
 }

@@ -146,7 +146,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1411587752627194}
-  m_Mesh: {fileID: 4300000, guid: 93a1b08aa7a1447afb47faad70c61429, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 9dae7e4cec8b247be8145739bcca89ec, type: 3}
 --- !u!114 &114181132957927664
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -249,7 +249,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.3
+  m_Radius: 1.1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &195801925857201510
 NavMeshAgent:
@@ -259,7 +259,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1799117871734696}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1.3
+  m_Radius: 1.1
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50

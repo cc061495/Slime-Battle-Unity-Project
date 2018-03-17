@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class PlayerData : MonoBehaviour {
 
@@ -9,15 +10,14 @@ public class PlayerData : MonoBehaviour {
 	
 	public string playerName {get; private set;}
 	public int playerCoins {get; private set;}
-	//public int[] playerDeckSlot = new int[6];
 	private string[] slotKeys = new string[6]{"Slot1", "Slot2", "Slot3", "Slot4", "Slot5", "Slot6"};
-	private string[] shopItems = new string[10]{"Item1","Item2","Item3","Item4","Item5","Item6","Item7","Item8","Item9","Item10"};
-
+	private string[] inventoryItems = new string[10]{"Item1","Item2","Item3","Item4","Item5","Item6","Item7","Item8","Item9","Item10"};
 	public InventoryUI inventoryUI;
 
 	private void Awake () {
 		Instance = this;
 		LoadPlayerSetting();
+		//PlayerPrefs.DeleteAll();
 	}
 
 	private void LoadPlayerSetting(){
@@ -31,7 +31,7 @@ public class PlayerData : MonoBehaviour {
 		if(PlayerPrefs.HasKey("PlayerName"))
 			playerName = PlayerPrefs.GetString("PlayerName");
 		else{
-			playerName = "Player#" + Random.Range (100, 1000);
+			playerName = "Player#" + UnityEngine.Random.Range (100, 1000);
 			PlayerPrefs.SetString("PlayerName", playerName);
 		}
 	}
@@ -45,26 +45,31 @@ public class PlayerData : MonoBehaviour {
 		if(PlayerPrefs.HasKey("PlayerCoins"))
 			playerCoins = PlayerPrefs.GetInt("PlayerCoins");
 		else{
-			playerCoins = 200;
+			playerCoins = 500;
 			PlayerPrefs.SetInt("PlayerCoins", playerCoins);
 		}
 	}
 
-	public void SavePlayerCard(int itemIndex, int count){
-		PlayerPrefs.SetInt(shopItems[itemIndex], count);
+	public void SavePlayerCard(int itemIndex){
+		PlayerPrefs.SetInt(inventoryItems[itemIndex], Inventory.Instance.cards.Count+1);
 		Inventory.Instance.Add(Shop.Instance.cards[itemIndex]);
 	}
 
 	public void LoadPlayerCard(){
-		for (int i = 0;i <shopItems.Length;i++){
-			if(PlayerPrefs.HasKey(shopItems[i])){
-				Inventory.Instance.cards.Add(Shop.Instance.cards[i]);
+		List<Card> cards = new List<Card>();
+		for (int i = 0;i <inventoryItems.Length;i++){
+			if(PlayerPrefs.HasKey(inventoryItems[i])){
+				Card _card = new Card(i, PlayerPrefs.GetInt(inventoryItems[i]));
+				cards.Add(_card);
 			}
 		}
+		cards = cards.OrderBy(c => c.itemPos).ToList();
+		for(int i = 0;i<cards.Count;i++)
+			Inventory.Instance.cards.Add(Shop.Instance.cards[cards[i].itemId]);
 	}
 
 	public bool CheckPlayerCard(int itemIndex){
-		if(PlayerPrefs.HasKey(shopItems[itemIndex]))
+		if(PlayerPrefs.HasKey(inventoryItems[itemIndex]))
 			return false;
 			
 		return true;
@@ -86,6 +91,16 @@ public class PlayerData : MonoBehaviour {
 				//playerDeckSlot[i] = PlayerPrefs.GetInt(slotKeys[i]);
 				inventoryUI.UpdatePlayerCardDeck(i, PlayerPrefs.GetInt(slotKeys[i]));
 			}
+		}
+	}
+
+	private class Card{
+		public int itemId;
+		public int itemPos;
+
+		public Card(int id, int pos){
+			this.itemId = id;
+			this.itemPos = pos;
 		}
 	}
 }
