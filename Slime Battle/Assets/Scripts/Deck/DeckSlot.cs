@@ -30,8 +30,12 @@ public class DeckSlot : MonoBehaviour {
 	}
 
 	public void CardRemove(int slot){
-		if(card != null){
+		if(card != null)
 			card.Remove(slot);
-		}
+	}
+
+	public void OpenCardStatus(){
+		if(card != null)
+			InventoryStats.Instance.ShowCardStats(card);
 	}
 }

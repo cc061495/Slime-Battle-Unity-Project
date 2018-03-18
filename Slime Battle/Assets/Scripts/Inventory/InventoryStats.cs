@@ -5,15 +5,17 @@ using UnityEngine.UI;
 public class InventoryStats : MonoBehaviour {
 
 	public static InventoryStats Instance;
+	private StatsModel statsModel;
     
     void Awake(){
         Instance = this; 
+		statsModel = GetComponent<StatsModel>();
     }
 
-	public Image icon, healthBar, damageBar, speedBar, rangeBar, rateBar;
+	public Image icon, healthBar, damageBar, speedBar, rangeBar, rateBar, PageImage;
 	public GameObject statsPanel, leftArrowButton, rightArrowButton, statusPage, modelPage;
 	public Text nameText, typeText, costText, sizeText;
-	public MeshFilter slimeModel;
+	public Sprite modelIcon, statusIcon;
 
 	private float lerpSpeed = 2f;
 	bool showCardStatsBar = false;
@@ -51,6 +53,9 @@ public class InventoryStats : MonoBehaviour {
 		showCardStatsBar = false;
 
 		ResetAllStatsBar();
+
+		if(!statusPage.activeSelf)
+			BackToStatusPage();
 	}
 
 	public void ArrowButtonPressed(int nextNum){
@@ -62,6 +67,7 @@ public class InventoryStats : MonoBehaviour {
 	private void ShowAnotherCardStats(Card cardSelected){
 		ShowCardInfo(cardSelected);
 		ResetAllStatsBar();
+		statsModel.ResetModelRotation();
 	}
 
 	private void ShowCardInfo(Card cardSelected){
@@ -74,7 +80,7 @@ public class InventoryStats : MonoBehaviour {
 			costText.text = "$ " + card.cost;
 			sizeText.text = "Size: " + SizeConvert(card.size);
 
-			slimeModel.mesh = card.mesh;
+			statsModel.SetupTheModelMesh(card.mesh);
 		}
 		ShowArrowButton();
 	}
@@ -111,10 +117,13 @@ public class InventoryStats : MonoBehaviour {
 	}
 
 	public void PageChanges(){
-		if(statusPage.activeSelf)
+		if(statusPage.activeSelf){
 			SettingPageActive(false);
+			PageImage.sprite = statusIcon;
+		}
 		else{
 			SettingPageActive(true);
+			PageImage.sprite = modelIcon;
 		}
 	}
 
@@ -123,13 +132,8 @@ public class InventoryStats : MonoBehaviour {
 		modelPage.SetActive(!display);
 	}
 
-	public void ModelRotateLeft(){
-		Debug.Log("HI");
-		//Quaternion r = slimeModel.transform.rotation;
-		//slimeModel.transform.rotation = Quaternion.Euler (0f, 0f, 0f);
-	}
-
-	public void ModelRotateRight(){
-		slimeModel.transform.Rotate(0, -Time.deltaTime, 0, Space.Self);
+	private void BackToStatusPage(){
+		statusPage.SetActive(true);
+		modelPage.SetActive(false);
 	}
 }

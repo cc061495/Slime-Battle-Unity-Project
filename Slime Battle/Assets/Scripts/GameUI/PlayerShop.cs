@@ -7,6 +7,7 @@ public class PlayerShop:MonoBehaviour {
 	private SlimeBlueprint[] blueprint = new SlimeBlueprint[6];
 	public RectTransform[] shopButton = new RectTransform[6];
 	public Color defaultColor, yellowColor;
+	private Color[] shopButtonColors = new Color[6];
 	private int prevNum;
 
 	PlayerCardDeck pDeck;
@@ -24,7 +25,9 @@ public class PlayerShop:MonoBehaviour {
 		for (int i = 0; i < blueprint.Length; i++){
 			if(pDeck.deck[i] != null){
 				blueprint[i] = new SlimeBlueprint(pDeck.deck[i], GetShopPrefab(i));
-				shopButton[i].GetChild(0).GetComponent<Text>().text = blueprint[i].name;
+				shopButton[i].GetChild(1).GetComponent<Image>().sprite = blueprint[i].icon;
+				shopButtonColors[i] = shopButton[i].GetChild(1).GetComponent<Image>().color;
+				shopButton[i].GetChild(1).GetComponent<Image>().enabled = true;
 			}
 			else{
 				blueprint[i] = null;
@@ -37,13 +40,18 @@ public class PlayerShop:MonoBehaviour {
 
 	public void ButtonsUpdate(){
 		/* Check six monster card price */
-		for(int i=0;i<blueprint.Length && blueprint[i] != null;i++){
-			if(PlayerStats.playerCost >= blueprint[i].cost){
-				shopButton[i].GetComponent<Button>().interactable = true;
-			}
-			else{
-				shopButton[i].GetComponent<Button>().interactable = false;
-				ShopButtonReset(i);
+		for(int i=0;i<blueprint.Length;i++){
+			if(blueprint[i] != null){
+				if(PlayerStats.playerCost >= blueprint[i].cost){
+					shopButton[i].GetComponent<Button>().interactable = true;
+					shopButtonColors[i].a = 1f;
+				}
+				else{
+					shopButton[i].GetComponent<Button>().interactable = false;
+					shopButtonColors[i].a = 0.5f;
+					ShopButtonReset(i);
+				}
+				shopButton[i].GetChild(1).GetComponent<Image>().color = shopButtonColors[i];
 			}
 		}
 	}
@@ -61,6 +69,8 @@ public class PlayerShop:MonoBehaviour {
 		prevNum = num;
 		shopButton[num].GetComponent<Image>().color = yellowColor;
 		shopButton[num].GetChild(0).GetComponent<Text>().text = "$" + slime.cost;
+		shopButton[num].GetChild(0).GetComponent<Text>().enabled = true;
+		shopButton[num].GetChild(1).GetComponent<Image>().enabled = false;
 	}
 
 	public void ResetShopText(){
@@ -70,8 +80,10 @@ public class PlayerShop:MonoBehaviour {
 	private void ShopButtonReset(int index){
 		if(shopButton[index].GetComponent<Image>().color != defaultColor){
 			shopButton[index].GetComponent<Image>().color = defaultColor;
-			if(blueprint[index] != null)
-				shopButton[index].GetChild(0).GetComponent<Text>().text = blueprint[index].name;
+			if(blueprint[index] != null){
+				shopButton[index].GetChild(0).GetComponent<Text>().enabled = false;
+				shopButton[index].GetChild(1).GetComponent<Image>().enabled = true;
+			}
 		}
 	}
 

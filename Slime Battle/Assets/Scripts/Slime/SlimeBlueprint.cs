@@ -9,6 +9,7 @@ public class SlimeBlueprint{
     public int cost{get; private set;}
 	public int size{get; private set;}
 	public Vector3 spawnPosOffset{get; private set;}
+	public Sprite icon{get; private set;}
 
 	public SlimeBlueprint(Card card, GameObject prefab){
 		slimePrefab = prefab;
@@ -16,6 +17,7 @@ public class SlimeBlueprint{
 		cost = card.cost;
 		size = card.size;
 		spawnPosOffset = card.spawnPosOffset;
+		icon = card.icon;
 
 		// switch (_name){
 		// 	case "Slime":

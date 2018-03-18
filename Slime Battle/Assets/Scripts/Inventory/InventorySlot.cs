@@ -32,14 +32,18 @@ public class InventorySlot : MonoBehaviour {
 	}
 
 	public void CardSelect(){
-		if(card != null){
+		if(card != null && selectButton.interactable){
 			card.Select(inventorySlotNum);			
 		}
 	}
 
 	public void SavedCardSelect(int deckSlotNum){
-		if(card != null){
+		if(card != null)
 			card.Load(deckSlotNum, inventorySlotNum);
-		}
+	}
+
+	public void OpenCardStatus(){
+		if(card != null)
+			InventoryStats.Instance.ShowCardStats(card);
 	}
 }

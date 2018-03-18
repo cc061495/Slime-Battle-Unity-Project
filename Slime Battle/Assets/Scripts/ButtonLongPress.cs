@@ -8,14 +8,14 @@ public class ButtonLongPress : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     private float holdTime = 1f;
  
     // Remove all comment tags (except this one) to handle the onClick event!
-    //private bool held = false;
-    //public UnityEvent onClick = new UnityEvent();
+    private bool held = false;
+    public UnityEvent onClick = new UnityEvent();
  
     public UnityEvent onLongPress = new UnityEvent();
  
     public void OnPointerDown(PointerEventData eventData)
     {
-        //held = false;
+        held = false;
         Invoke("OnLongPress", holdTime);
     }
  
@@ -23,8 +23,8 @@ public class ButtonLongPress : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     {
         CancelInvoke("OnLongPress");
  
-        //if (!held)
-        //    onClick.Invoke();
+        if (!held)
+           onClick.Invoke();
     }
  
     public void OnPointerExit(PointerEventData eventData)
@@ -34,7 +34,7 @@ public class ButtonLongPress : MonoBehaviour, IPointerDownHandler, IPointerUpHan
  
     private void OnLongPress()
     {
-        //held = true;
+        held = true;
         onLongPress.Invoke();
     }
 }

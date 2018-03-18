@@ -47,9 +47,9 @@ public class Card : ScriptableObject {
 		//Something might happen
 		Debug.Log("Selected card: " + name);
 
-		if(MenuScreen.Instance.currentLayout == MenuScreen.Layout.inventory){
-			InventoryStats.Instance.ShowCardStats(this);
-		}
+		// if(MenuScreen.Instance.currentLayout == MenuScreen.Layout.inventory){
+		// 	InventoryStats.Instance.ShowCardStats(this);
+		// }
 
 		if(MenuScreen.Instance.currentLayout == MenuScreen.Layout.deck){
 			Deck.Instance.Add(this, inventorySlotNum);
