@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Name: Shadow
   m_EditorClassIdentifier: 
   name: Shadow
-  icon: {fileID: 21300000, guid: 7b8d5ecc0c1374fdb8e11f6c92a7c0bb, type: 3}
+  icon_red: {fileID: 21300000, guid: d2120f3cdd4014292bbbbfc374ff7a9c, type: 3}
+  icon_blue: {fileID: 21300000, guid: 48a67900357e6490db3d2f78bfa6d8a7, type: 3}
   isDefaultCard: 0
   teamRedPrefab: {fileID: 1290348899900732, guid: e3d55333494ae46ee8c7b32dec97a39b,
     type: 2}

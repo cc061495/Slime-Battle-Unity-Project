@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Name: Slime
   m_EditorClassIdentifier: 
   name: Slime
-  icon: {fileID: 21300000, guid: b20db44c244c44bcf8faa95477ede10d, type: 3}
+  icon_red: {fileID: 21300000, guid: dce7a3da6dea74f0b9629793a7f0f504, type: 3}
+  icon_blue: {fileID: 21300000, guid: 04433ed63e0c9488981fe7ac51db5ae6, type: 3}
   isDefaultCard: 1
   teamRedPrefab: {fileID: 1261243783283676, guid: 903ebea1718054ab2b4cb00051aa86fe,
     type: 2}

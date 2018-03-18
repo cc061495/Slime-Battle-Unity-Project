@@ -19,8 +19,6 @@ public class ShadowAppear : MonoBehaviour {
 	}
 
 	public void Appear(){
-		// appear and join the team list
-		JoinTeamList();
 		// display the mine to another player
 		photonView.RPC("RPC_DisplayShadow", PhotonTargets.All);
 		slime.isInvisible = false;
@@ -28,6 +26,8 @@ public class ShadowAppear : MonoBehaviour {
 
 	[PunRPC]
 	private void RPC_DisplayShadow(){
+		// appear and join the team list
+		JoinTeamList();
 		if(!model.gameObject.activeSelf)
 			model.gameObject.SetActive(true);
 	}

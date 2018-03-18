@@ -138,7 +138,6 @@ public class SlimeMovement : MonoBehaviour {
 
 			//Client set the target
 			if(slime.isRangedAttack){
-				//Debug.Log("RPC CALLS!!!");
 				photonView.RPC("RPC_ClientSetTarget", PhotonTargets.Others, target.root.gameObject.GetPhotonView().viewID);
 			}
 
@@ -149,8 +148,10 @@ public class SlimeMovement : MonoBehaviour {
 
 	[PunRPC]
 	private void RPC_ClientSetTarget(int targetView){
+		
 		int index = enemies.FindIndex(x => x.root.gameObject.GetPhotonView().viewID == targetView);
 		/* if index >= 0, target is found and not equal to null */
+		Debug.Log(index);
 		if(index != -1){
 			target = enemies[index];
 			slimeAction.SetTarget(target);	//setting target in client side

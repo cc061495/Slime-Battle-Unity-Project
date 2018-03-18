@@ -73,7 +73,7 @@ public class InventoryStats : MonoBehaviour {
 	private void ShowCardInfo(Card cardSelected){
 		if(card != cardSelected){
 			card = cardSelected;
-			icon.sprite = card.icon;
+			icon.sprite = card.icon_red;
 
 			nameText.text = card.name;
 			typeText.text = card.type;
@@ -135,5 +135,6 @@ public class InventoryStats : MonoBehaviour {
 	private void BackToStatusPage(){
 		statusPage.SetActive(true);
 		modelPage.SetActive(false);
+		PageImage.sprite = modelIcon;
 	}
 }

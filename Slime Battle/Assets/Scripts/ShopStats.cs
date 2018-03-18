@@ -37,7 +37,7 @@ public class ShopStats : MonoBehaviour {
 	private void ShowCardInfo(Card cardSelected){
 		if(card != cardSelected){
 			card = cardSelected;
-			icon.sprite = card.icon;
+			icon.sprite = card.icon_red;
 
 			typeText.text = card.type;
 			costText.text = "$ " + card.cost;

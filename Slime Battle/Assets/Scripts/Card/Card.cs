@@ -6,7 +6,7 @@ public class Card : ScriptableObject {
 
 	[Header("Slime Card")]
 	new public string name = "New Card";
-	public Sprite icon = null;
+	public Sprite icon_red = null, icon_blue = null;
 	public bool isDefaultCard = false;
 	[Header("Slime Blueprint")]
 	public GameObject teamRedPrefab;

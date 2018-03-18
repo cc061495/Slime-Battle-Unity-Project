@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Name: Wall
   m_EditorClassIdentifier: 
   name: Wall
-  icon: {fileID: 21300000, guid: b20db44c244c44bcf8faa95477ede10d, type: 3}
+  icon_red: {fileID: 21300000, guid: e9f2af09062164ee0b5fdebf58061519, type: 3}
+  icon_blue: {fileID: 21300000, guid: d56edfd7b32c94213a3ac928f6e95004, type: 3}
   isDefaultCard: 1
   teamRedPrefab: {fileID: 1024320169951516, guid: 6874f7bd33657453f8e08d578bb68bfb,
     type: 2}

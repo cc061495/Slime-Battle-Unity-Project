@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public State currentState;
     public int currentRound, team_red_score, team_blue_score;
     public Text gameDisplayText, DebugText;
-    public GameObject teamRedSlimeShop, teamBlueSlimeShop;
+    public GameObject shopPanel;
     public SceneFader sceneFader;
     public RewardsPanel rewardsPanel;
     public NextRoundCost nextRoundCostPanel;
@@ -338,17 +338,11 @@ public class GameManager : MonoBehaviour
     }
 
     public void ShopDisplay(bool shopDisplay){
-        if(PhotonNetwork.isMasterClient)
-            teamRedSlimeShop.SetActive(shopDisplay);
-        else
-            teamBlueSlimeShop.SetActive(shopDisplay);
+        shopPanel.SetActive(shopDisplay);
     }
 
     private void ResetShopTextDisplay(){
-        if(PhotonNetwork.isMasterClient)
-            teamRedSlimeShop.GetComponent<PlayerShop>().ResetShopText();
-        else
-            teamBlueSlimeShop.GetComponent<PlayerShop>().ResetShopText();
+        shopPanel.GetComponent<PlayerShop>().ResetShopText();
     }
 
     private void DisplayTeam(List<Transform> team){

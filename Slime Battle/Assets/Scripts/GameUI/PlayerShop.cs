@@ -25,7 +25,7 @@ public class PlayerShop:MonoBehaviour {
 		for (int i = 0; i < blueprint.Length; i++){
 			if(pDeck.deck[i] != null){
 				blueprint[i] = new SlimeBlueprint(pDeck.deck[i], GetShopPrefab(i));
-				shopButton[i].GetChild(1).GetComponent<Image>().sprite = blueprint[i].icon;
+				shopButton[i].GetChild(1).GetComponent<Image>().sprite = PhotonNetwork.isMasterClient ? blueprint[i].icon_red : blueprint[i].icon_blue;
 				shopButtonColors[i] = shopButton[i].GetChild(1).GetComponent<Image>().color;
 				shopButton[i].GetChild(1).GetComponent<Image>().enabled = true;
 			}

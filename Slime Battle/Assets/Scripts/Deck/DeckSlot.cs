@@ -12,7 +12,7 @@ public class DeckSlot : MonoBehaviour {
 		selectedSlotNum = slotNum;
 		card = newCard;
 
-		icon.sprite = card.icon;
+		icon.sprite = card.icon_red;
 		icon.enabled = true;
 
 		selectButton.interactable = true;

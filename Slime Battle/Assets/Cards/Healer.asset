@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Name: Healer
   m_EditorClassIdentifier: 
   name: Healer
-  icon: {fileID: 21300000, guid: 7b8d5ecc0c1374fdb8e11f6c92a7c0bb, type: 3}
+  icon_red: {fileID: 21300000, guid: 7627fc2bd17114535b4719ddcffc66a1, type: 3}
+  icon_blue: {fileID: 21300000, guid: 516192ad0c0e043dcaaac9b32bc2ae89, type: 3}
   isDefaultCard: 1
   teamRedPrefab: {fileID: 1107804881901608, guid: 5a1c1a91522fe495888a6335ce4acc50,
     type: 2}

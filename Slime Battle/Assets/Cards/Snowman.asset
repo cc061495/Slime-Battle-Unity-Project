@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Name: Snowman
   m_EditorClassIdentifier: 
   name: Snowman
-  icon: {fileID: 21300000, guid: b20db44c244c44bcf8faa95477ede10d, type: 3}
+  icon_red: {fileID: 21300000, guid: f4395f378a5134e16b7b40ae5618425a, type: 3}
+  icon_blue: {fileID: 21300000, guid: 33281e2ad8de949c2b40cfbca5f8f4d2, type: 3}
   isDefaultCard: 0
   teamRedPrefab: {fileID: 1138167171531574, guid: d5f71a031c4f84492a14a1bfa0b20943,
     type: 2}

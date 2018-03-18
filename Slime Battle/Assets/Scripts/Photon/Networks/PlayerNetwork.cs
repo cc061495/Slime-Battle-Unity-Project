@@ -16,7 +16,7 @@ public class PlayerNetwork : MonoBehaviour {
 		//fix the fps = 60 in game
 		//Application.targetFrameRate = 60;
 		PhotonNetwork.sendRate = 20;	//default(20) //(60)
-		PhotonNetwork.sendRateOnSerialize = 5;		//default(10) //(30)
+		PhotonNetwork.sendRateOnSerialize = 10;		//default(10) //(30)
 		PhotonNetwork.UseRpcMonoBehaviourCache = true;
 
 		SceneManager.sceneLoaded += OnSceneLoaded;
