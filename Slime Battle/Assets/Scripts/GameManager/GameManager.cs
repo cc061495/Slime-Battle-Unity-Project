@@ -43,14 +43,14 @@ public class GameManager : MonoBehaviour
     ChattingPanel chattingPanel;
 
     void Update(){
-        DebugText.text = "Round: " + currentRound + " / " + totalRoundGame + "\n";
-        DebugText.text += "Score: " + team_red_score + " - " + team_blue_score + "\n"; 
-        DebugText.text += "Slime: " + team_red2.Count + " - " + team_blue2.Count + "\n";
+        // DebugText.text = "Round: " + currentRound + " / " + totalRoundGame + "\n";
+        // DebugText.text += "Score: " + team_red_score + " - " + team_blue_score + "\n"; 
+        // DebugText.text += "Slime: " + team_red2.Count + " - " + team_blue2.Count + "\n";
 
-        mDeltaTime += (Time.deltaTime - mDeltaTime) * 0.1f;
-        float msec = mDeltaTime * 1000.0f;
-        mFPS = 1.0f / mDeltaTime;
-        DebugText.text += string.Format("{0:0.0} ms ({1:0.} fps)", msec, mFPS);
+        // mDeltaTime += (Time.deltaTime - mDeltaTime) * 0.1f;
+        // float msec = mDeltaTime * 1000.0f;
+        // mFPS = 1.0f / mDeltaTime;
+        // DebugText.text += string.Format("{0:0.0} ms ({1:0.} fps)", msec, mFPS);
     }
     
     void Start(){
