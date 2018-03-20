@@ -34,8 +34,8 @@ public class GameManager : MonoBehaviour
     public PhotonPlayer masterPlayer;
 
     private int totalRoundGame, matchPoint, winPoint;
-    private float mDeltaTime = 0.0f;
-    private float mFPS = 0.0f;
+    //private float mDeltaTime = 0.0f;
+    //private float mFPS = 0.0f;
     PhotonView photonView;
     CameraManager camManager;
     PlayerStats playerStats;

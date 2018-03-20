@@ -1,13 +1,13 @@
-﻿using UnityEngine; 
+﻿/* Copyright (c) cc061495 */
+using UnityEngine; 
 using UnityEngine.UI;
 
 public class PlayerShop:MonoBehaviour {
 
 	public static PlayerShop Instance;
 	private SlimeBlueprint[] blueprint = new SlimeBlueprint[6];
-	public RectTransform[] shopButton = new RectTransform[6];
+	public ShopButton[] shopButtons = new ShopButton[6];
 	public Color defaultColor, yellowColor;
-	private Color[] shopButtonColors = new Color[6];
 	private int prevNum;
 
 	PlayerCardDeck pDeck;
@@ -25,13 +25,15 @@ public class PlayerShop:MonoBehaviour {
 		for (int i = 0; i < blueprint.Length; i++){
 			if(pDeck.deck[i] != null){
 				blueprint[i] = new SlimeBlueprint(pDeck.deck[i], GetShopPrefab(i));
-				shopButton[i].GetChild(1).GetComponent<Image>().sprite = PhotonNetwork.isMasterClient ? blueprint[i].icon_red : blueprint[i].icon_blue;
-				shopButtonColors[i] = shopButton[i].GetChild(1).GetComponent<Image>().color;
-				shopButton[i].GetChild(1).GetComponent<Image>().enabled = true;
+				int cost = blueprint[i].cost;
+				Sprite sprite = PhotonNetwork.isMasterClient ? blueprint[i].icon_red : blueprint[i].icon_blue;
+				int size = blueprint[i].size;
+				
+				shopButtons[i].SetupShopButton(cost, sprite, size);
 			}
 			else{
 				blueprint[i] = null;
-				shopButton[i].GetComponent<Button>().interactable = false;
+				shopButtons[i].SetShopButtonInteractable(false);
 			}
 		}
 		/* Update Shop buttons by cheching player's money */
@@ -43,15 +45,15 @@ public class PlayerShop:MonoBehaviour {
 		for(int i=0;i<blueprint.Length;i++){
 			if(blueprint[i] != null){
 				if(PlayerStats.playerCost >= blueprint[i].cost){
-					shopButton[i].GetComponent<Button>().interactable = true;
-					shopButtonColors[i].a = 1f;
+					shopButtons[i].SetShopButtonInteractable(true);
+					shopButtons[i].ChangeModelImageAlpha(1f);
 				}
 				else{
-					shopButton[i].GetComponent<Button>().interactable = false;
-					shopButtonColors[i].a = 0.5f;
+					shopButtons[i].SetShopButtonInteractable(false);
+					shopButtons[i].ChangeModelImageAlpha(0.5f);
 					ShopButtonReset(i);
 				}
-				shopButton[i].GetChild(1).GetComponent<Image>().color = shopButtonColors[i];
+				shopButtons[i].SetModelImageColor();
 			}
 		}
 	}
@@ -67,10 +69,8 @@ public class PlayerShop:MonoBehaviour {
 		}
 
 		prevNum = num;
-		shopButton[num].GetComponent<Image>().color = yellowColor;
-		shopButton[num].GetChild(0).GetComponent<Text>().text = "$" + slime.cost;
-		shopButton[num].GetChild(0).GetComponent<Text>().enabled = true;
-		shopButton[num].GetChild(1).GetComponent<Image>().enabled = false;
+		shopButtons[num].SetShopButtonColor(yellowColor);
+		shopButtons[num].ShopButtonPressed();
 	}
 
 	public void ResetShopText(){
@@ -78,11 +78,10 @@ public class PlayerShop:MonoBehaviour {
 	}
 
 	private void ShopButtonReset(int index){
-		if(shopButton[index].GetComponent<Image>().color != defaultColor){
-			shopButton[index].GetComponent<Image>().color = defaultColor;
+		if(shopButtons[index].GetShopButtonColor() != defaultColor){
+			shopButtons[index].SetShopButtonColor(defaultColor);
 			if(blueprint[index] != null){
-				shopButton[index].GetChild(0).GetComponent<Text>().enabled = false;
-				shopButton[index].GetChild(1).GetComponent<Image>().enabled = true;
+				shopButtons[index].ResetShopButton();
 			}
 		}
 	}

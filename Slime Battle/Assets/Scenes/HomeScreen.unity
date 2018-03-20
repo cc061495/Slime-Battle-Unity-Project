@@ -1889,13 +1889,13 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 265546415}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.11764706}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.19607843}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2758,8 +2758,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 428775293}
-  m_LocalRotation: {x: -0.16428633, y: 0.004166665, z: -0.000692886, w: -0.9864037}
-  m_LocalPosition: {x: 2.5330262, y: 7.9606686, z: -36.860058}
+  m_LocalRotation: {x: 0.0758886, y: -0.12205758, z: 0.009359461, w: 0.9895733}
+  m_LocalPosition: {x: 2.9042678, y: 3.163968, z: -24.689747}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
