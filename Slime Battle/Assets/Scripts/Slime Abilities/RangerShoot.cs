@@ -6,10 +6,14 @@ public class RangerShoot : MonoBehaviour {
 
 	[SerializeField]
 	private Transform firePoint;
-	[SerializeField]
-	private GameObject rangedWeaponPrefab;
+
+	ObjectPooler objectPooler;
+
+	void Start(){
+		objectPooler = ObjectPooler.Instance;
+	}
 
 	public GameObject ShootingBullet(){
-		return((GameObject)Instantiate (rangedWeaponPrefab, firePoint.position, firePoint.rotation));
+		return(objectPooler.SpawnFromPool("Bullet", firePoint.position, firePoint.rotation));
 	}
 }

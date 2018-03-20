@@ -114,7 +114,7 @@ public class Slime : MonoBehaviour{
 		if(runSetActive)
 			model.gameObject.SetActive(display);
 
-		if(GameManager.Instance.currentState == GameManager.State.build_end){
+		if(gm.currentState == GameManager.State.build_end){
 			if(!PhotonNetwork.isMasterClient && photonView.isMine && slimeClass.isNetworkTransfer){
 				Invoke("NetworkTransfer", Random.Range(0f,2f));
 			}
@@ -124,7 +124,7 @@ public class Slime : MonoBehaviour{
 	}
 
 	private void NetworkTransfer(){
-		photonView.TransferOwnership(GameManager.Instance.masterPlayer);
+		photonView.TransferOwnership(gm.masterPlayer);
 	}
 
 	private void SlimeComponentEnable(){

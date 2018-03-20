@@ -18,9 +18,4 @@ public class PlayerSetting : MonoBehaviour {
 		//it will set the player name in LobbyNetwork.cs, CreateRoom.cs, RoomSetting.cs
 		playerName = PlayerData.Instance.playerName;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

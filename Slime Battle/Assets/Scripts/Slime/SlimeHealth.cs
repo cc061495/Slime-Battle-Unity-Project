@@ -19,15 +19,19 @@ public class SlimeHealth : MonoBehaviour {
 
 	SlimeClass slime;
 	HealthBar playerHealth;
+	GameManager gameManager;
+	BuildingUI buildingUI;
 
 	void Awake(){
 		photonView = GetComponent<PhotonView>();
 		agent = GetComponent<Slime>().GetAgent();
+		gameManager = GameManager.Instance;
+		buildingUI = BuildingUI.Instance;
 	}
 
 	public void SetUpSlimeHealth(SlimeClass _slime){
 		slime = _slime;
-		healthBarGroup = GameManager.Instance.healthBarParent;
+		healthBarGroup = gameManager.healthBarParent;
 		GeneratePlayerHealthBar(agent);
 
 		startHealth = slime.startHealth;
@@ -95,7 +99,7 @@ public class SlimeHealth : MonoBehaviour {
 		GetComponent<Slime>().RemoveFromTeamList();
 
 		if(slime.isBuilding)
-			BuildingUI.Instance.HideTheBuildingPanel(this);
+			buildingUI.HideTheBuildingPanel(this);
 
 		if(photonView != null && photonView.isMine)
 			PhotonNetwork.Destroy(gameObject);

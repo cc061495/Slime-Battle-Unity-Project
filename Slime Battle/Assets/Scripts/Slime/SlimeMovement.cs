@@ -235,7 +235,7 @@ public class SlimeMovement : MonoBehaviour {
 	IEnumerator RemoveSlowEffect(float originalSpeed){
 		yield return new WaitForSeconds(3f);
 		navMeshAgent.speed = originalSpeed;
-		Debug.Log(navMeshAgent.speed);
+		//Debug.Log(navMeshAgent.speed);
 		isSlowedDown = false;
 	}
 }

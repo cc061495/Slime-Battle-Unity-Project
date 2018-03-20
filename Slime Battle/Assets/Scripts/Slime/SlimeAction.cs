@@ -14,6 +14,7 @@ public class SlimeAction : MonoBehaviour {
 	private SlimeHealth health;
 	private SlimeHealth tarHealth;
 	PhotonView photonView;
+	GameManager gameManager;
 
 	void Start(){
 		photonView = GetComponent<PhotonView>();
@@ -21,6 +22,7 @@ public class SlimeAction : MonoBehaviour {
 		agent = GetComponent<Slime>().GetAgent();
 		movement = GetComponent<SlimeMovement>();
 		health = GetComponent<SlimeHealth>();
+		gameManager = GameManager.Instance;
 	}
 
 	public void Action(){
@@ -80,7 +82,7 @@ public class SlimeAction : MonoBehaviour {
 	}
 
 	private void AreaEffectDamage(float attackDamage, float effectAreaRadius, Vector3 center, bool damageReduceWithDistance){
-		List<Transform> enemyTeam = GameManager.Instance.GetEnemies(transform)
+		List<Transform> enemyTeam = gameManager.GetEnemies(transform)
 										.Where(x => DistanceCalculate(center, x.position) <= effectAreaRadius*effectAreaRadius).ToList();
 
 		for(int i=0;i<enemyTeam.Count;i++){
@@ -98,7 +100,7 @@ public class SlimeAction : MonoBehaviour {
 	}
 
 	private void AreaEffectHealing(float healingPoint, float effectAreaRadius, Vector3 center){
-		List<Transform> myTeam = GameManager.Instance.GetMyTeamWithoutBuilding(transform)
+		List<Transform> myTeam = gameManager.GetMyTeamWithoutBuilding(transform)
 									.Where(x => x.root != transform)
 									.Where(x => DistanceCalculate(x.position, center) <= effectAreaRadius*effectAreaRadius).ToList();
 
@@ -110,7 +112,7 @@ public class SlimeAction : MonoBehaviour {
 	private void RangedAttack(float attackDamage){
 		Bullet bullet = GetComponent<RangerShoot>().ShootingBullet().GetComponent<Bullet>();
 		if (bullet != null){
-			bullet.Seek (target, attackDamage, tarHealth);
+			bullet.Seek (target, attackDamage, tarHealth, "Bullet");
 		}
 	}
 

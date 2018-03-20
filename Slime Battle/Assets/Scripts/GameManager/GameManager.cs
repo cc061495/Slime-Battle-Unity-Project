@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
     PlayerStats playerStats;
     TeamController teamController;
     ChattingPanel chattingPanel;
+    ObjectPooler objectPooler;
 
     void Update(){
         // DebugText.text = "Round: " + currentRound + " / " + totalRoundGame + "\n";
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour
         playerStats = PlayerStats.Instance;
         teamController = TeamController.Instance;
         chattingPanel = ChattingPanel.Instance;
+        objectPooler = ObjectPooler.Instance;
 
         totalRoundGame = (int) PhotonNetwork.room.CustomProperties["Round"];
         matchPoint = totalRoundGame / 2;
@@ -114,6 +116,8 @@ public class GameManager : MonoBehaviour
             nodeList[i].NodeResetting(nodeList[i]);
         }
         nodeList.Clear();
+
+        objectPooler.PoolAnalysis(team_red, team_blue);
     }
 
     /* Battle Starts State */
@@ -177,6 +181,9 @@ public class GameManager : MonoBehaviour
             team_blue.Clear();
         if(team_invisible.Count > 0)
             team_invisible.Clear();
+
+        
+        objectPooler.DestoryObjectPool();
     }
 
     IEnumerator DisplayGamePanel(){
@@ -393,6 +400,13 @@ public class GameManager : MonoBehaviour
             return team_blue;
         else
             return team_red;
+    }
+
+    public List<Transform> GetEnemies2(string _tag){
+        if(_tag == "Team_RED")
+            return team_red;
+        else
+            return team_blue;
     }
 
     public List<Transform> GetMyTeam(Transform slime){

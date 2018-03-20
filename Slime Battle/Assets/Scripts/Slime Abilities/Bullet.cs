@@ -10,30 +10,41 @@ public class Bullet : MonoBehaviour{
     private SlimeHealth tarHealth;
     private Transform target, _transform;
     private float attackDamage, effectAreaRadius, slowDownPrecentage;
+    private string btag;
 
     private float bulletSpeed = 20f;
     private bool slowEffect;
     public GameObject impactEffect;
+    ObjectPooler objectPooler;
+    GameManager gameManager;
 
-    public void Seek(Transform _target, float _attackDamage, SlimeHealth health){
-        target = _target;
+    public void Seek(Transform _target, float _attackDamage, SlimeHealth health, string _tag){
+        bulletSetUp(_tag, _target, _attackDamage);
         tarHealth = health;
-        attackDamage = _attackDamage;
-        _transform = transform;
     }
 
-    public void Seek(Transform _target, float _attackDamage, float _effectAreaRadius, float _slowDownPrecentage){
-        target = _target;
-        _transform = transform;
-        attackDamage = _attackDamage;
+    public void Seek(Transform _target, float _attackDamage, float _effectAreaRadius, float _slowDownPrecentage, string _tag){
+        bulletSetUp(_tag, _target, _attackDamage);
         effectAreaRadius = _effectAreaRadius;
         slowDownPrecentage = _slowDownPrecentage;
         slowEffect = true;
     }
+
+    private void bulletSetUp(string _tag, Transform _target, float _attackDamage){
+        target = _target;
+        attackDamage = _attackDamage;
+        _transform = transform;
+        btag = _tag;
+
+        objectPooler = ObjectPooler.Instance;
+        gameManager = GameManager.Instance;
+        gameObject.SetActive(true);
+    }
     // Update is called once per frame
     void Update(){
         if (target == null){
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            objectPooler.BackToPool(btag, this.gameObject);
             return;
         }
 
@@ -64,7 +75,8 @@ public class Bullet : MonoBehaviour{
     private void HitTarget(){
         GameObject effectIns = (GameObject)Instantiate(impactEffect, _transform.position, _transform.rotation);
         Destroy(effectIns, 0.5f);
-        Destroy(gameObject);
+
+       objectPooler.BackToPool(btag, this.gameObject);
 
         if(PhotonNetwork.isMasterClient){
             /* Slow Effect */
@@ -76,7 +88,7 @@ public class Bullet : MonoBehaviour{
     }
 
     private void SlowDownEffect(){
-		List<Transform> enemyTeam = GameManager.Instance.GetEnemies(transform)
+		List<Transform> enemyTeam = gameManager.GetEnemies2(target.root.tag)
 										.Where(x => DistanceCalculate(target.position, x.position) <= effectAreaRadius*effectAreaRadius).ToList();
 
 		for(int i=0;i<enemyTeam.Count;i++){
@@ -99,4 +111,6 @@ public class Bullet : MonoBehaviour{
 						  distance.z * distance.z;
 		return magnitude;
 	}
+
+
 }

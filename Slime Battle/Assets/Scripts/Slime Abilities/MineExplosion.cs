@@ -44,7 +44,7 @@ public class MineExplosion : MonoBehaviour {
 		float effectAreaRadius = slime.areaEffectRadius;
 		float attackDamage = slime.attackDamage;
 
-		List<Transform> enemyTeam = GameManager.Instance.GetEnemies(transform.root)
+		List<Transform> enemyTeam = gameManager.GetEnemies(transform.root)
 										.Where(x => DistanceCalculate(center, x.position) <= effectAreaRadius*effectAreaRadius).ToList();
 
 		for(int i=0;i<enemyTeam.Count;i++){

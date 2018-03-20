@@ -7,8 +7,6 @@ public class BuildingAction : MonoBehaviour {
 
 	[SerializeField]
 	private Transform firePoint;
-	[SerializeField]
-	private GameObject rangedWeaponPrefab;
 
 	List<Transform> enemyList = new List<Transform>();
 	PhotonView photonView;
@@ -17,11 +15,15 @@ public class BuildingAction : MonoBehaviour {
 	private SlimeClass slime;
 	private bool action;
 	GameManager gameManager;
+	ObjectPooler objectPooler;
+	TeamController teamController;
 	Transform target, prevTarget, model, agent;
 
 	void Start(){
 		photonView = transform.GetComponent<PhotonView>();
 		gameManager = GameManager.Instance;
+		objectPooler = ObjectPooler.Instance;
+		teamController = TeamController.Instance;
 		model = GetComponent<Slime>().GetModel();
 		agent = GetComponent<Slime>().GetAgent();
 
@@ -74,22 +76,22 @@ public class BuildingAction : MonoBehaviour {
 	[PunRPC]
 	private void RPC_RangedAttack(float attackDamage){
 		SlimeHealth tarHealth = target.root.GetComponent<SlimeHealth>();
-		GameObject b = (GameObject)Instantiate (rangedWeaponPrefab, firePoint.position, firePoint.rotation);
+		GameObject b = objectPooler.SpawnFromPool("Bullet", firePoint.position, firePoint.rotation);
 		Bullet bullet = b.GetComponent<Bullet>();
-		bullet.Seek (target, attackDamage, tarHealth);
+		bullet.Seek (target, attackDamage, tarHealth, "Bullet");
 	}
 
 	[PunRPC]
 	private void RPC_RangedAttack(float attackDamage, float effectAreaRadius, float slowDownPrecentage){
-		GameObject b = (GameObject)Instantiate (rangedWeaponPrefab, firePoint.position, firePoint.rotation);
+		GameObject b = objectPooler.SpawnFromPool("IceCube", firePoint.position, firePoint.rotation);
 		Bullet bullet = b.GetComponent<Bullet>();
-		bullet.Seek (target, attackDamage, effectAreaRadius, slowDownPrecentage);
+		bullet.Seek (target, attackDamage, effectAreaRadius, slowDownPrecentage, "IceCube");
 	}
 
 	private TeamController.SearchMode mode; 
 
 	private void FindTheNearestEnemy(){
-		mode = TeamController.Instance.GetTeamSearchMode(transform);
+		mode = teamController.GetTeamSearchMode(transform);
 		/* Kill the shortest distance enemy */
 		if(mode == TeamController.SearchMode.distance || mode == TeamController.SearchMode.defense){
 			target = enemyList.OrderBy(o => DistanceCalculate(o.position, agent.position)).FirstOrDefault();
