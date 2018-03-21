@@ -183,7 +183,6 @@ public class SlimeMovement : MonoBehaviour {
 	}
 
 	private void SetupMovementSetting(bool _move, float _angularSpeed, int _priority){
-		Debug.Log("Move: " + _move);
 		move = _move;
 
 		navMeshAgent.angularSpeed = _angularSpeed;

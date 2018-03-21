@@ -285,7 +285,7 @@ public class SlimeClass{
 
 			case "Summoner_s":
 				/* Slime Properties */
-				startHealth 	= 10 ;
+				startHealth 	= 8 ;
 				movemonetSpeed 	= 5f ;
 				actionRange 	= 0.4f ;
 				scaleRadius 	= 0.5f ;

@@ -56,6 +56,8 @@ public class InventoryStats : MonoBehaviour {
 
 		if(!statusPage.activeSelf)
 			BackToStatusPage();
+
+		statsModel.ResetModelRotation();
 	}
 
 	public void ArrowButtonPressed(int nextNum){

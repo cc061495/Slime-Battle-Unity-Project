@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class ShopButton : MonoBehaviour {
 
-	private Button shopButton;
-	private Image shopButtonImage;
+	public Button shopButton;
+	public Image shopButtonImage;
 
 	public Text costText;
 	public Image modelImage;
@@ -15,9 +15,6 @@ public class ShopButton : MonoBehaviour {
 	private Color modelImageColor;
 
 	public void SetupShopButton(int cost, Sprite image, int size){
-		shopButton = GetComponent<Button>();
-		shopButtonImage = GetComponent<Image>();
-
 		costText.text = "$" + cost;
 		modelImage.sprite = image;
 		modelSizeText.text = SizeConvert(size);

@@ -133,7 +133,7 @@ public class Shop : MonoBehaviour {
 		if(curr_coins >= 0 && PlayerData.Instance.CheckPlayerCard(minButtonNum)){
 			PlayerData.Instance.SavePlayerCard(minButtonNum);
 			PlayerData.Instance.SavePlayerCoins(curr_coins);
-			MenuScreen.Instance.setCoinsText(curr_coins);
+			MenuScreen.Instance.PlayerCoinsText.text = curr_coins.ToString();
 			purchaseButton.interactable = PlayerData.Instance.CheckPlayerCard(minButtonNum);
 		}
 		else{

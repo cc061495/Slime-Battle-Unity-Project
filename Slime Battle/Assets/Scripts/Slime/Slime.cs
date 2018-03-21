@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿/* Copyright (c) cc061495 */
+using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.AI;
 using UnityEngine;
@@ -60,8 +61,8 @@ public class Slime : MonoBehaviour{
 		else
 			team3.Add(agent);
 
-		if(!slimeClass.isBuilding)
-			team2.Add(agent);	//team without building
+		if(!slimeClass.isBuilding && !slimeClass.isHealing && !slimeClass.isAreaEffectHealing)
+			team2.Add(agent);	//team without building and healer
 	}
 
 	public void RemoveFromTeamList(){

@@ -10,6 +10,9 @@ public class PlayerData : MonoBehaviour {
 	
 	public string playerName {get; private set;}
 	public int playerCoins {get; private set;}
+	public int winRound {get; private set;}
+	public int loseRound {get; private set;}
+	public int drawRound {get; private set;}
 	private string[] slotKeys = new string[6]{"Slot1", "Slot2", "Slot3", "Slot4", "Slot5", "Slot6"};
 	private string[] inventoryItems = new string[10]{"Item1","Item2","Item3","Item4","Item5","Item6","Item7","Item8","Item9","Item10"};
 	public InventoryUI inventoryUI;
@@ -23,8 +26,9 @@ public class PlayerData : MonoBehaviour {
 	private void LoadPlayerSetting(){
 		LoadPlayerNameSetting();
 		LoadPlayerCoins();
-
-		MenuScreen.Instance.SetPlayerStatus();
+		LoadPlayerRecord();
+		Debug.Log(" Win: " + winRound + " Lose: " + loseRound + " Draw: " + drawRound);
+		MenuScreen.Instance.SetPlayerStatus(playerName, playerCoins);
 	}
 
 	private void LoadPlayerNameSetting(){
@@ -91,6 +95,47 @@ public class PlayerData : MonoBehaviour {
 				//playerDeckSlot[i] = PlayerPrefs.GetInt(slotKeys[i]);
 				inventoryUI.UpdatePlayerCardDeck(i, PlayerPrefs.GetInt(slotKeys[i]));
 			}
+		}
+	}
+
+	public void LoadPlayerRecord(){
+		if(PlayerPrefs.HasKey("Win")){
+			winRound = PlayerPrefs.GetInt("Win");
+		}
+		else{
+			winRound = 0;
+			PlayerPrefs.SetInt("Win", winRound);
+		}
+
+		if(PlayerPrefs.HasKey("Lose")){
+			loseRound = PlayerPrefs.GetInt("Lose");
+		}
+		else{
+			loseRound = 0;
+			PlayerPrefs.SetInt("Lose", loseRound);
+		}
+
+		if(PlayerPrefs.HasKey("Draw")){
+			drawRound = PlayerPrefs.GetInt("Draw");
+		}
+		else{
+			drawRound = 0;
+			PlayerPrefs.SetInt("Draw", drawRound);
+		}
+	}
+
+	public void SavePlayerRecord(string record){
+		if(record == "Win"){
+			winRound++;
+			PlayerPrefs.SetInt(record, winRound);
+		}
+		else if(record == "Lose"){
+			loseRound++;
+			PlayerPrefs.SetInt(record, loseRound);
+		}
+		else if(record == "Draw"){
+			drawRound++;
+			PlayerPrefs.SetInt(record, drawRound);
 		}
 	}
 

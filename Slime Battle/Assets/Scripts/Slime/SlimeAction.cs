@@ -111,9 +111,7 @@ public class SlimeAction : MonoBehaviour {
 	[PunRPC]
 	private void RangedAttack(float attackDamage){
 		Bullet bullet = GetComponent<RangerShoot>().ShootingBullet().GetComponent<Bullet>();
-		if (bullet != null){
-			bullet.Seek (target, attackDamage, tarHealth, "Bullet");
-		}
+		bullet.Seek (target, attackDamage, tarHealth, "Bullet");
 	}
 
 	private void Healing(float healingPoint){

@@ -8,6 +8,7 @@ public class Card : ScriptableObject {
 	new public string name = "New Card";
 	public Sprite icon_red = null, icon_blue = null;
 	public bool isDefaultCard = false;
+	public bool combatCard = false;
 	[Header("Slime Blueprint")]
 	public GameObject teamRedPrefab;
 	public GameObject teamBluePrefab;

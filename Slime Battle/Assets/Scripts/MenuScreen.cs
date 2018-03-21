@@ -28,9 +28,9 @@ public class MenuScreen : MonoBehaviour {
 	ScrollRectSnap scrollRectSnap_HomeScreen;
 	Shop shop;
 
-	public void SetPlayerStatus(){
-		PlayerNameText.text = PlayerData.Instance.playerName;
-		setCoinsText(PlayerData.Instance.playerCoins);
+	public void SetPlayerStatus(string name, int coins){
+		PlayerNameText.text = name;
+		PlayerCoinsText.text = coins.ToString();
 		LayoutSetting(Layout.home, Home, true);
 	}
 
@@ -81,9 +81,5 @@ public class MenuScreen : MonoBehaviour {
 
 	public void BackButtonDisplay(bool display){
 		BackButton.SetActive(display);
-	}
-
-	public void setCoinsText(int coins){
-		PlayerCoinsText.text = coins.ToString();
 	}
 }

@@ -18,6 +18,7 @@ public class BuildingAction : MonoBehaviour {
 	ObjectPooler objectPooler;
 	TeamController teamController;
 	Transform target, prevTarget, model, agent;
+	SlimeHealth tarHealth;
 
 	void Start(){
 		photonView = transform.GetComponent<PhotonView>();
@@ -75,7 +76,6 @@ public class BuildingAction : MonoBehaviour {
 
 	[PunRPC]
 	private void RPC_RangedAttack(float attackDamage){
-		SlimeHealth tarHealth = target.root.GetComponent<SlimeHealth>();
 		GameObject b = objectPooler.SpawnFromPool("Bullet", firePoint.position, firePoint.rotation);
 		Bullet bullet = b.GetComponent<Bullet>();
 		bullet.Seek (target, attackDamage, tarHealth, "Bullet");
@@ -109,6 +109,7 @@ public class BuildingAction : MonoBehaviour {
 
 		if(target != null && target != prevTarget){
 			prevTarget = target;
+			tarHealth = target.root.GetComponent<SlimeHealth>();
 			range = slime.scaleRadius + slime.actionRange + target.root.GetComponent<Slime>().GetSlimeClass().scaleRadius;
 			//Client set the target
 			photonView.RPC("RPC_ClientSetTarget", PhotonTargets.Others, target.root.gameObject.GetPhotonView().viewID);
@@ -119,8 +120,10 @@ public class BuildingAction : MonoBehaviour {
 	private void RPC_ClientSetTarget(int targetView){
 		int index = enemyList.FindIndex(x => x.root.gameObject.GetPhotonView().viewID == targetView);
 		/* if index >= 0, target is found and not equal to null */
-		if(index != -1)
+		if(index != -1){
 			target = enemyList[index];
+			tarHealth = target.root.GetComponent<SlimeHealth>();
+		}
 	}
 
 	private float DistanceCalculate(Vector3 pos1, Vector3 pos2){

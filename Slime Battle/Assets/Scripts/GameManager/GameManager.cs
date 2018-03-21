@@ -44,9 +44,9 @@ public class GameManager : MonoBehaviour
     ObjectPooler objectPooler;
 
     void Update(){
-        // DebugText.text = "Round: " + currentRound + " / " + totalRoundGame + "\n";
-        // DebugText.text += "Score: " + team_red_score + " - " + team_blue_score + "\n"; 
-        // DebugText.text += "Slime: " + team_red2.Count + " - " + team_blue2.Count + "\n";
+        DebugText.text = "Round: " + currentRound + " / " + totalRoundGame + "\n";
+        DebugText.text += "Score: " + team_red_score + " - " + team_blue_score + "\n"; 
+        DebugText.text += "Slime: " + team_red2.Count + " - " + team_blue2.Count + "\n";
 
         // mDeltaTime += (Time.deltaTime - mDeltaTime) * 0.1f;
         // float msec = mDeltaTime * 1000.0f;
@@ -306,14 +306,17 @@ public class GameManager : MonoBehaviour
             if(team_red_score > team_blue_score){
                 gameDisplayText.text = "Winner\n<size=70><color=#ff0000ff>Team Red</color></size>";
                 gameWinner = "red";
+                PlayerRecord("Win","Lose");
             }
             else if(team_red_score < team_blue_score){
                 gameDisplayText.text = "Winner\n<size=70><color=#00ffffff>Team Blue</color></size>";
                 gameWinner = "blue";
+                PlayerRecord("Lose","Win");
             }
             else{
                 gameDisplayText.text = "<size=75><color=#ffff00ff>Draw Game</color></size>";
                 gameWinner = "draw";
+                PlayerRecord("Draw","Draw");
             }
             yield return new WaitForSeconds(3f);
             gameDisplayText.enabled = false;
@@ -321,6 +324,13 @@ public class GameManager : MonoBehaviour
             rewardsPanel.TextSetting();
             rewardsPanel.SetUpWinBouns(gameWinner);
         }
+    }
+
+    private void PlayerRecord(string r, string b){
+        if(PhotonNetwork.isMasterClient)
+            PlayerData.Instance.SavePlayerRecord(r);
+        else
+            PlayerData.Instance.SavePlayerRecord(b);
     }
 
     //if one of the player left, the game will be ended

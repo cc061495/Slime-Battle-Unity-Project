@@ -15,6 +15,7 @@ MonoBehaviour:
   icon_red: {fileID: 21300000, guid: 9b355f3df5ad048378801de532550677, type: 3}
   icon_blue: {fileID: 21300000, guid: 9049b3a625ae545d4986a52b085d72a3, type: 3}
   isDefaultCard: 0
+  combatCard: 0
   teamRedPrefab: {fileID: 1210319353446000, guid: e1664cca3c41f40f68cf151bab8c79a7,
     type: 2}
   teamBluePrefab: {fileID: 1059783891762506, guid: 4dc9eb80e23584f4baa97c7a693e16bb,
