@@ -84,5 +84,16 @@ public class PlayerNetwork : MonoBehaviour {
 			StopCoroutine(m_pingCoroutine);
 		
 		m_pingCoroutine = StartCoroutine(C_SetPing());
+		SetUpPlayerRecord();
+	}
+
+	private void SetUpPlayerRecord(){
+		ExitGames.Client.Photon.Hashtable m_CustomProperties = new ExitGames.Client.Photon.Hashtable();
+		PlayerData p_data = PlayerData.Instance;
+
+		m_CustomProperties["Win"] = p_data.winRound;
+		m_CustomProperties["Lose"] = p_data.loseRound;
+		m_CustomProperties["Draw"] = p_data.drawRound;
+		PhotonNetwork.player.SetCustomProperties(m_CustomProperties);
 	}
 }

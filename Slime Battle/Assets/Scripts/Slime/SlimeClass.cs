@@ -355,8 +355,8 @@ public class SlimeClass{
 				/* Ability */
 				isInvisible		  = true ;
 				isMeleeAttack	  = true ;
-				attackDamage 	  = 5f ;
-				actionCoolDown 	  = 0.2f ;
+				attackDamage 	  = 4f ;
+				actionCoolDown 	  = 0.25f ;
 				/* Network */
 				isNetworkTransfer = true;
 				break;

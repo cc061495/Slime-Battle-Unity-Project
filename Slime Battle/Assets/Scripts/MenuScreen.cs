@@ -1,4 +1,5 @@
 ﻿/* Copyright (c) cc061495 */
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,10 +20,10 @@ public class MenuScreen : MonoBehaviour {
 			LayoutSetting(Layout.home, Home, false);
 	}
 
-    public enum Layout{home, inventory, deck, shop};
+    public enum Layout{home, inventory, deck, shop, setting};
     public Layout currentLayout;
 
-	public RectTransform Home, Inventory, Deck, Shop;
+	public RectTransform Home, Inventory, Deck, Shop, Setting;
 	public GameObject BackButton;
 	public Text PlayerNameText, PlayerCoinsText;
 	ScrollRectSnap scrollRectSnap_HomeScreen;
@@ -46,31 +47,46 @@ public class MenuScreen : MonoBehaviour {
 		LayoutSetting(Layout.shop, Shop, false);
 	}
 
+	public void OpenSettingLayout(){
+		LayoutSetting(Layout.setting, Setting, false);
+	}
+
 	public void BackToHomeLayout(){
 		LayoutSetting(Layout.home, Home, false);
 	}
 
 	private void LayoutSetting(Layout nextLayout, RectTransform layout, bool defaultSetting){
-		if(nextLayout == Layout.home){
+		if(currentLayout == Layout.home && nextLayout != Layout.home){
+			scrollRectSnap_HomeScreen.EnableAllAnimator(false);
+			BackButton.SetActive(true);
+			layout.gameObject.SetActive(true);
+
+			if(nextLayout == Layout.shop)
+				Shop.GetComponent<Shop>().Shop_DefaultSetting();
+		}
+		else if(currentLayout != Layout.home && nextLayout == Layout.home){
+			Home.gameObject.SetActive(true);
 			BackButton.SetActive(false);
 			scrollRectSnap_HomeScreen.EnableAllAnimator(true);
 		}
-		else{
-			BackButton.SetActive(true);
+
+		if(currentLayout == Layout.inventory && nextLayout != Layout.inventory){
+			Inventory.gameObject.SetActive(false);
+			InventoryStats.Instance.CloseCardStats();
 		}
 
-		if(nextLayout == Layout.shop)
-			Shop.GetComponent<Shop>().Shop_DefaultSetting();
-
-		if(currentLayout == Layout.home && nextLayout != Layout.home)
-			scrollRectSnap_HomeScreen.EnableAllAnimator(false);
-
-		if(currentLayout == Layout.inventory && nextLayout != Layout.inventory)
-			InventoryStats.Instance.CloseCardStats();
-
 		if(currentLayout == Layout.shop && nextLayout != Layout.shop){
+			Shop.gameObject.SetActive(false);
 			shop.SlimeModelDisplay(false);
 			shop.EnableAllAnimator(false);
+		}
+
+		if(currentLayout == Layout.deck && nextLayout != Layout.deck){
+			Deck.gameObject.SetActive(false);
+		}
+
+		if(currentLayout == Layout.setting && nextLayout != Layout.setting){
+			Setting.gameObject.SetActive(false);
 		}
 			
 		if(currentLayout != nextLayout || defaultSetting){
@@ -81,5 +97,14 @@ public class MenuScreen : MonoBehaviour {
 
 	public void BackButtonDisplay(bool display){
 		BackButton.SetActive(display);
+	}
+
+	public void DisableAllPanel(){
+		if(Inventory.gameObject.activeSelf){
+			Inventory.gameObject.SetActive(false);
+			Deck.gameObject.SetActive(false);
+			Shop.gameObject.SetActive(false);
+			Setting.gameObject.SetActive(false);
+		}
 	}
 }

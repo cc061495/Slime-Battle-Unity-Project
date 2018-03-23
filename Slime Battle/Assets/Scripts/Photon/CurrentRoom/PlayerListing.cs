@@ -24,11 +24,18 @@ public class PlayerListing : Photon.MonoBehaviour {
 		get{ return _roomHost;}
 	}
 
+	[SerializeField]
+	private Text _playerRecord;
+	private Text PlayerRecord{
+		get{ return _playerRecord;}
+	}
+
 	public void ApplyPhotonPlayer(PhotonPlayer photonPlayer){
 		PhotonPlayer = photonPlayer;
 		PlayerName.text = photonPlayer.NickName;
 		HostSetting();
 		StartCoroutine(C_ShowPing());
+		SetPlayerRecord();
 	}
 
 	public void HostSetting(){
@@ -54,9 +61,12 @@ public class PlayerListing : Photon.MonoBehaviour {
 		}
 		yield break;	
 	}
-	/*
-	public void SetPlayerHost(){
-		PlayerName.text = PlayerName.text + " (Host)";
+
+	private void SetPlayerRecord(){
+		int win = (int) PhotonPlayer.CustomProperties["Win"];
+		int lose = (int) PhotonPlayer.CustomProperties["Lose"];
+		int draw = (int) PhotonPlayer.CustomProperties["Draw"];
+
+		PlayerRecord.text = win + "W / "+ lose + "L / "+ draw + "D";
 	}
-	*/
 }

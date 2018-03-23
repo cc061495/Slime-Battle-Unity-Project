@@ -151,7 +151,6 @@ public class SlimeMovement : MonoBehaviour {
 		
 		int index = enemies.FindIndex(x => x.root.gameObject.GetPhotonView().viewID == targetView);
 		/* if index >= 0, target is found and not equal to null */
-		Debug.Log(index);
 		if(index != -1){
 			target = enemies[index];
 			slimeAction.SetTarget(target);	//setting target in client side

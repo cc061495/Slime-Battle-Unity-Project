@@ -36,9 +36,9 @@ public class InventoryStats : MonoBehaviour {
 	}
 
 	public void ShowCardStats(Card cardSelected){
+		statsPanel.SetActive(true);
 		ShowCardInfo(cardSelected);
 
-		statsPanel.SetActive(true);
 		MenuScreen.Instance.BackButtonDisplay(false);
 		showCardStatsBar = true;
 	}

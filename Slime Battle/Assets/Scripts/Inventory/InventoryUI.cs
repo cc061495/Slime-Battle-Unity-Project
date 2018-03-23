@@ -29,6 +29,8 @@ public class InventoryUI : MonoBehaviour {
 				slots[i].ClearSlot();
 			}
 		}
+
+		MenuScreen.Instance.DisableAllPanel();
 	}
 
 	public void UpdatePlayerCardDeck(int deckSlotNum, int inventorySlotNum){

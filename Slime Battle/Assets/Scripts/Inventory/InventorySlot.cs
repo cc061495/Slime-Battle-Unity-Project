@@ -43,7 +43,8 @@ public class InventorySlot : MonoBehaviour {
 	}
 
 	public void OpenCardStatus(){
-		if(card != null)
+		if(card != null){
 			InventoryStats.Instance.ShowCardStats(card);
+		}
 	}
 }

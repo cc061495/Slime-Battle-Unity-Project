@@ -20,15 +20,19 @@ public class PlayerData : MonoBehaviour {
 	private void Awake () {
 		Instance = this;
 		LoadPlayerSetting();
-		//PlayerPrefs.DeleteAll();
 	}
 
 	private void LoadPlayerSetting(){
 		LoadPlayerNameSetting();
 		LoadPlayerCoins();
 		LoadPlayerRecord();
-		Debug.Log(" Win: " + winRound + " Lose: " + loseRound + " Draw: " + drawRound);
+		
 		MenuScreen.Instance.SetPlayerStatus(playerName, playerCoins);
+	}
+
+	public void SavePlayerName(string name){
+		playerName = name;
+		PlayerPrefs.SetString("PlayerName", name);
 	}
 
 	private void LoadPlayerNameSetting(){
@@ -137,6 +141,11 @@ public class PlayerData : MonoBehaviour {
 			drawRound++;
 			PlayerPrefs.SetInt(record, drawRound);
 		}
+	}
+
+	public void ResetPlayerData(){
+		PlayerPrefs.DeleteAll();
+		LoadPlayerSetting();
 	}
 
 	private class Card{
