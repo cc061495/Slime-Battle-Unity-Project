@@ -14,8 +14,11 @@ public class Home : MonoBehaviour {
 		if(MenuScreen.Instance.currentLayout == MenuScreen.Layout.home){
 			if(IsDeckValid()){
 				Debug.Log("Game Lobby!");
+				AudioManager.instance.Play("Tap");
 				sceneFader.FadeTo("GameLobby");
 			}
+			else
+				AudioManager.instance.Play("Error");
 		}
 	}
 

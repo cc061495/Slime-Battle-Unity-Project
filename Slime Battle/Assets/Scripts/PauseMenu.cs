@@ -7,6 +7,7 @@ public class PauseMenu : MonoBehaviour {
 
 	public void PauseButtonPressed(){
 		TogglePausePanel();
+		AudioManager.instance.Play("Tap");
 	}
 
 	private void TogglePausePanel(){
@@ -15,18 +16,22 @@ public class PauseMenu : MonoBehaviour {
 
 	public void Resume(){
 		TogglePausePanel();
+		AudioManager.instance.Play("TapBack");
 	}
 
 	public void QuitButtonPressed(){
 		TogglePausePanel();
 		confirmMenuPanel.SetActive(true);
+		AudioManager.instance.Play("Tap");
 	}
 
 	public void CancelButtonPressed(){
 		confirmMenuPanel.SetActive(false);
+		AudioManager.instance.Play("TapBack");
 	}
 
 	public void Quit(){
+		AudioManager.instance.Play("Tap");
 		GetComponent<GameManager>().LeaveTheRoom();
 	}
 }

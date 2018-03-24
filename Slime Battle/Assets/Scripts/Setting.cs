@@ -8,10 +8,14 @@ public class Setting : MonoBehaviour {
 
 	public GameObject confirmPanel, renamePanel, resetPanel, creditsPanel;
 	public InputField renameText;
+	public SceneFader sceneFader;
 
 	public void DisplayRenamePanel(bool display){
 		OpenPanel(display);
 		renamePanel.SetActive(display);
+
+		if(!display)
+			renameText.text = "";
 	}
 
 	public void DisplayResetSavePanel(bool display){
@@ -27,6 +31,11 @@ public class Setting : MonoBehaviour {
 	private void OpenPanel(bool display){
 		confirmPanel.SetActive(display);
 		MenuScreen.Instance.BackButtonDisplay(!display);
+
+		if(display)
+			AudioManager.instance.Play("Tap");
+		else
+			AudioManager.instance.Play("TapBack");
 	}
 
 	public void PlayerRename(){
@@ -34,11 +43,21 @@ public class Setting : MonoBehaviour {
 		if(!string.IsNullOrEmpty(playerName)){
 			PlayerData.Instance.SavePlayerName(playerName);
 			MenuScreen.Instance.PlayerNameText.text = playerName;
+
+			renamePanel.SetActive(false);
+			confirmPanel.SetActive(false);
+			MenuScreen.Instance.BackButtonDisplay(true);
+			AudioManager.instance.Play("Tap");
 		}
+		else
+			AudioManager.instance.Play("Error");
 	}
 
 	public void ResetPlayerData(){
+		AudioManager.instance.Play("Tap");
 		PlayerData.Instance.ResetPlayerData();
-		DisplayResetSavePanel(false);
+		Destroy(GameObject.Find("PlayerCardDeck"));
+		AudioManager.instance.ChangeTheme("Home");
+		sceneFader.FadeTo("HomeScreen");
 	}
 }

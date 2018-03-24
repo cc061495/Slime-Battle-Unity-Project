@@ -23,6 +23,7 @@ public class Deck : MonoBehaviour {
 	public void Add(Card card, int inventorySlotNum){
 		if(numOfCardDeck >= spaceOfCardDeck){
 			Debug.Log("Not enough room.");
+			AudioManager.instance.Play("Error");
 			return;
 		}
 		//find the current empty card slot in the deck
@@ -30,6 +31,7 @@ public class Deck : MonoBehaviour {
 		Load(card, currentEmptyCardSlot, inventorySlotNum);
 
 		PlayerData.Instance.SavePlayerCardDeck(currentEmptyCardSlot, inventorySlotNum);
+		AudioManager.instance.Play("Tap");
 	}
 
 	public void Load(Card card, int deckSlotNum, int inventorySlotNum){
@@ -52,6 +54,7 @@ public class Deck : MonoBehaviour {
 				Remove(i);
 			}
 		}
+		AudioManager.instance.Play("Tap");
 	}
 
 	private int findEmptyCardSlot(){

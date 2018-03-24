@@ -15,10 +15,11 @@ public class LobbyCanvas : MonoBehaviour {
 	public void OnClickJoinRoom(string roomName){
 		if (PhotonNetwork.JoinRoom (roomName)) {
 			Debug.Log ("Join room: " + roomName);
-			//MainCanvasManager.Instance.CurrentRoomCanvas.setPlayerRoomNameText (roomName);
+			AudioManager.instance.Play("Tap");
 		} 
 		else {
 			Debug.Log ("Join room failed");
+			AudioManager.instance.Play("Error");
 		}
 	}
 
@@ -27,10 +28,12 @@ public class LobbyCanvas : MonoBehaviour {
 		Destroy(GameObject.Find("PlayerCardDeck"));
 		lobbyNetwork.isPressedBackButton = true;
         PhotonNetwork.Disconnect();
+		AudioManager.instance.Play("TapBack");
         sceneFader.FadeTo("GameMenu");
     }
 
 	public void OnClick_RoomSettingButton(){
 		roomSettingPanel.SetActive(true);
+		AudioManager.instance.Play("Tap");
 	}
 }

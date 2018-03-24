@@ -28,6 +28,8 @@ public class PlayerEmotion : MonoBehaviour {
 		
 		onClick = true;
 		Invoke("ResetOnClick", 0.5f);
+		
+		AudioManager.instance.Play("Tap");
 	}
 
 	private void ResetOnClick(){

@@ -65,7 +65,7 @@ public class PlayerData : MonoBehaviour {
 
 	public void LoadPlayerCard(){
 		List<Card> cards = new List<Card>();
-		for (int i = 0;i <inventoryItems.Length;i++){
+		for (int i = 0;i < inventoryItems.Length;i++){
 			if(PlayerPrefs.HasKey(inventoryItems[i])){
 				Card _card = new Card(i, PlayerPrefs.GetInt(inventoryItems[i]));
 				cards.Add(_card);
@@ -145,7 +145,6 @@ public class PlayerData : MonoBehaviour {
 
 	public void ResetPlayerData(){
 		PlayerPrefs.DeleteAll();
-		LoadPlayerSetting();
 	}
 
 	private class Card{

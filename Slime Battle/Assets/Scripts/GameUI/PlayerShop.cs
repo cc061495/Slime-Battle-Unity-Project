@@ -61,6 +61,8 @@ public class PlayerShop:MonoBehaviour {
 	public void ShopSelect(int selectedNum){
 		spawnManager.SelectSlimeToSpawn (blueprint[selectedNum]);
 		TextSetting(blueprint[selectedNum], selectedNum);
+
+		AudioManager.instance.Play("Tap");
 	}
 
 	private void TextSetting(SlimeBlueprint slime, int num){

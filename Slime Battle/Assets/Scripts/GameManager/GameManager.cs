@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
     public void GameStart(){
         currentState = State.idle;  //set game state = idle
         StartCoroutine(DisplayGamePanel());
+		AudioManager.instance.ChangeTheme("Battle");
     }
     /* Game Ready State */
     [PunRPC]
@@ -323,6 +324,7 @@ public class GameManager : MonoBehaviour
             rewardsPanel.gameObject.SetActive(true);
             rewardsPanel.TextSetting();
             rewardsPanel.SetUpWinBouns(gameWinner);
+		    AudioManager.instance.ChangeTheme("Victory");
         }
     }
 
@@ -350,6 +352,8 @@ public class GameManager : MonoBehaviour
         if(!isPlayerLeft){
             isPlayerLeft = true;
             Destroy(GameObject.Find("DDOL"));
+		    AudioManager.instance.ChangeTheme("Lobby");
+            AudioManager.instance.Play("TapBack");
             sceneFader.FadeToWithPhotonNetwork("GameLobby");
         }
     }

@@ -112,6 +112,7 @@ public class PlayerLayoutGroup : Photon.MonoBehaviour{
             photonView.RPC("toggleIsRoomReady", PhotonTargets.All);
         }
         PhotonNetwork.LeaveRoom();
+        AudioManager.instance.Play("TapBack");
     }
     //Start the match
     public void OnClickStartSync(){
@@ -140,6 +141,7 @@ public class PlayerLayoutGroup : Photon.MonoBehaviour{
             }
 
             Invoke("ResetReadyBtnCoolDown", 0.1f);
+            AudioManager.instance.Play("Tap");
         }
     }
 

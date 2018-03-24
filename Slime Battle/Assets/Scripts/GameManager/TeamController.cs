@@ -49,6 +49,8 @@ public class TeamController : MonoBehaviour {
 		//Display the attack mode chat box.	
 		RPC_ChatBoxCreate(index, 0);
 		photonView.RPC("RPC_ChatBoxCreate", PhotonTargets.Others, index, 1);
+
+		AudioManager.instance.Play("Tap");
 	}
 
 	private void ModeTextSetting(int index){
@@ -96,6 +98,8 @@ public class TeamController : MonoBehaviour {
 		SetControlPanelDisplay(true);
 		SetControlButtonDisplay(false);
 		chattingPanel.SetChatButtonDisplay(false);
+
+		AudioManager.instance.Play("Tap");
 	}
 
 	public SearchMode GetTeamSearchMode(Transform slime){

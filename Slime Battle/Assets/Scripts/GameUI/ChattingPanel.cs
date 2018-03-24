@@ -33,6 +33,8 @@ public class ChattingPanel : MonoBehaviour {
 		SetChatPanelDisplay(true);
 		SetChatButtonDisplay(false);
 		teamController.SetControlButtonDisplay(false);
+
+		AudioManager.instance.Play("Tap");
 	}
 
 	/* Action for Attack Mode Button */
@@ -41,6 +43,7 @@ public class ChattingPanel : MonoBehaviour {
 		photonView.RPC("RPC_EmojiCreate", PhotonTargets.Others, index, 1);
 		/* Display the emotion */
 		StartCoroutine(FadeOutChatPanel());
+		AudioManager.instance.Play("Tap");
 	}
 
 	[PunRPC]

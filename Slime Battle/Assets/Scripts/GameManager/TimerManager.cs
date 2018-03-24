@@ -93,6 +93,7 @@ public class TimerManager : MonoBehaviour {
 				photonView.RPC("RPC_setBlueReady", PhotonTargets.All);
 
 			Invoke("ResetReadyCoolDown", 0.5f);
+			AudioManager.instance.Play("Tap");
 		}
 	}
 

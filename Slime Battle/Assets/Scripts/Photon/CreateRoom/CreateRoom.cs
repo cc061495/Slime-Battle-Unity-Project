@@ -19,8 +19,10 @@ public class CreateRoom : Photon.MonoBehaviour {
 		//Creates a room but fails if this room is existing already
 		if (PhotonNetwork.CreateRoom (roomID, roomOptions, TypedLobby.Default)) {
 			Debug.Log ("create room successful sent.");
+			AudioManager.instance.Play("Tap");
 		} else {
 			Debug.Log ("create room failed to send");
+			AudioManager.instance.Play("Error");
 		}
 	}
 	//called when a CreateRoom() call failed

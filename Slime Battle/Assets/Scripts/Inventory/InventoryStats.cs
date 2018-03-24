@@ -46,6 +46,7 @@ public class InventoryStats : MonoBehaviour {
 	public void CloseButtonPressed(){
 		CloseCardStats();
 		MenuScreen.Instance.BackButtonDisplay(true);
+		AudioManager.instance.Play("TapBack");
 	}
 
 	public void CloseCardStats(){
@@ -64,6 +65,8 @@ public class InventoryStats : MonoBehaviour {
 		int currentCardNum = (Inventory.Instance.cards.IndexOf(card));
 		Card nextCard = Inventory.Instance.cards[currentCardNum + nextNum];
 		ShowAnotherCardStats(nextCard);
+		
+		AudioManager.instance.Play("Tap");
 	}
 
 	private void ShowAnotherCardStats(Card cardSelected){
@@ -127,6 +130,8 @@ public class InventoryStats : MonoBehaviour {
 			SettingPageActive(true);
 			PageImage.sprite = modelIcon;
 		}
+
+		AudioManager.instance.Play("Tap");
 	}
 
 	private void SettingPageActive(bool display){

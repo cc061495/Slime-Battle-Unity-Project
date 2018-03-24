@@ -34,6 +34,8 @@ public class StatsModel : MonoBehaviour {
 			isTurnLeftButtonPressed = true;
 		else if(dir == "Right")
 			isRightLeftButtonPressed = true;
+
+		AudioManager.instance.Play("Tap");
 	}
 
 	public void onPointerUpButton(string dir){

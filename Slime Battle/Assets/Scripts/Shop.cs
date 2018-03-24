@@ -135,6 +135,8 @@ public class Shop : MonoBehaviour {
 			PlayerData.Instance.SavePlayerCoins(curr_coins);
 			MenuScreen.Instance.PlayerCoinsText.text = curr_coins.ToString();
 			purchaseButton.interactable = PlayerData.Instance.CheckPlayerCard(minButtonNum);
+
+			AudioManager.instance.Play("Purchase");
 		}
 		else{
 			// Not enough coins :(

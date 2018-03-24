@@ -13,6 +13,8 @@ public class MenuScreen : MonoBehaviour {
 		shop = Shop.GetComponent<Shop>();
 		//fix the fps = 60 in the menu screen
 		Application.targetFrameRate = 60;
+
+		AudioManager.instance.ChangeTheme("Lobby");
     }
 
 	void Update(){
@@ -63,11 +65,15 @@ public class MenuScreen : MonoBehaviour {
 
 			if(nextLayout == Layout.shop)
 				Shop.GetComponent<Shop>().Shop_DefaultSetting();
+			
+			AudioManager.instance.Play("Tap");
 		}
 		else if(currentLayout != Layout.home && nextLayout == Layout.home){
 			Home.gameObject.SetActive(true);
 			BackButton.SetActive(false);
 			scrollRectSnap_HomeScreen.EnableAllAnimator(true);
+
+			AudioManager.instance.Play("TapBack");
 		}
 
 		if(currentLayout == Layout.inventory && nextLayout != Layout.inventory){
@@ -106,5 +112,10 @@ public class MenuScreen : MonoBehaviour {
 			Shop.gameObject.SetActive(false);
 			Setting.gameObject.SetActive(false);
 		}
+	}
+
+	public void SetStatus(string name, int coins){
+		PlayerNameText.text = name;
+		PlayerCoinsText.text = coins.ToString();
 	}
 }

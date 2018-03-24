@@ -32,9 +32,8 @@ public class InventorySlot : MonoBehaviour {
 	}
 
 	public void CardSelect(){
-		if(card != null && selectButton.interactable){
-			card.Select(inventorySlotNum);			
-		}
+		if(card != null && selectButton.interactable)
+			card.Select(inventorySlotNum);	
 	}
 
 	public void SavedCardSelect(int deckSlotNum){
@@ -45,6 +44,8 @@ public class InventorySlot : MonoBehaviour {
 	public void OpenCardStatus(){
 		if(card != null){
 			InventoryStats.Instance.ShowCardStats(card);
+
+			AudioManager.instance.Play("Tap");
 		}
 	}
 }

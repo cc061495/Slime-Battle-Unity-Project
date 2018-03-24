@@ -19,12 +19,14 @@ public class RoomSetting : MonoBehaviour {
 		}
 
 		this.gameObject.SetActive(false);
+		AudioManager.instance.Play("Tap");
 	}
 
 	public void OnClick_CancelButton(){
 		roomNameText.text = roomName;
 		matchFormat[ConvertToToggleIndex(roundOfGames)].isOn = true;
 		this.gameObject.SetActive(false);
+		AudioManager.instance.Play("TapBack");
 	}
 
 	private int ConvertToMatchRounds(int input){
