@@ -53,7 +53,7 @@ public class PlayerData : MonoBehaviour {
 		if(PlayerPrefs.HasKey("PlayerCoins"))
 			playerCoins = PlayerPrefs.GetInt("PlayerCoins");
 		else{
-			playerCoins = 500;
+			playerCoins = 200;
 			PlayerPrefs.SetInt("PlayerCoins", playerCoins);
 		}
 	}

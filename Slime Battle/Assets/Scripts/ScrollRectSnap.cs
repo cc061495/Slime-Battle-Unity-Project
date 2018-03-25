@@ -61,7 +61,7 @@ public class ScrollRectSnap : MonoBehaviour {
 			distance[i] = Mathf.Abs(center.transform.position.x - bttn[i].transform.position.x);
 		}
 		// if the button's distance is larger than 10 with the center => user is scrolling(left or right)
-		if(distance[minButtonNum] > 10){
+		if(distance[minButtonNum] > 5){
 			// if the user is not scrolling the first button to the left and last button to the right
 			if(!(minButtonNum == 0 && center.transform.position.x - bttn[minButtonNum].transform.position.x < 0) &&
 			   !(minButtonNum == bttn.Length - 1 && center.transform.position.x - bttn[minButtonNum].transform.position.x > 0))

@@ -140,6 +140,7 @@ public class Shop : MonoBehaviour {
 		}
 		else{
 			// Not enough coins :(
+			AudioManager.instance.Play("Error");
 		}
 	}
 }

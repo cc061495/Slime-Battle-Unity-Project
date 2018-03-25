@@ -76,8 +76,8 @@ public class SlimeClass{
 				classPriority 	= 3 ;
 				/* Ability */
 				isAreaEffectDamage	= true ;
-				attackDamage 		= 4 ;
-				areaEffectRadius 	= 3.5f ;
+				attackDamage 		= 3 ;
+				areaEffectRadius 	= 3f ;
 				actionCoolDown 		= 1f ;
 				/* Network */
 				isNetworkTransfer = true;
@@ -261,7 +261,7 @@ public class SlimeClass{
 				/* Ability */
 				isMagicalAreaEffectDamage = true ;
 				attackDamage 			  = 4f ;
-				areaEffectRadius 		  = 3 ;
+				areaEffectRadius 		  = 4 ;
 				//actionCoolDown 			  = 0 ;
 				castTime				  = 2f ;
 				/* Network */

@@ -34,8 +34,8 @@ public class GameManager : MonoBehaviour
     public PhotonPlayer masterPlayer;
 
     private int totalRoundGame, matchPoint, winPoint;
-    //private float mDeltaTime = 0.0f;
-    //private float mFPS = 0.0f;
+    private float mDeltaTime = 0.0f;
+    private float mFPS = 0.0f;
     PhotonView photonView;
     CameraManager camManager;
     PlayerStats playerStats;
@@ -48,10 +48,10 @@ public class GameManager : MonoBehaviour
         DebugText.text += "Score: " + team_red_score + " - " + team_blue_score + "\n"; 
         DebugText.text += "Slime: " + team_red2.Count + " - " + team_blue2.Count + "\n";
 
-        // mDeltaTime += (Time.deltaTime - mDeltaTime) * 0.1f;
-        // float msec = mDeltaTime * 1000.0f;
-        // mFPS = 1.0f / mDeltaTime;
-        // DebugText.text += string.Format("{0:0.0} ms ({1:0.} fps)", msec, mFPS);
+        mDeltaTime += (Time.deltaTime - mDeltaTime) * 0.1f;
+        float msec = mDeltaTime * 1000.0f;
+        mFPS = 1.0f / mDeltaTime;
+        DebugText.text += string.Format("{0:0.0} ms ({1:0.} fps)", msec, mFPS);
     }
     
     void Start(){

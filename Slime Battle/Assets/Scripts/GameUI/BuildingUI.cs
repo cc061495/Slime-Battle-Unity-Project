@@ -34,8 +34,11 @@ public class BuildingUI : MonoBehaviour {
 	}
 
 	public void Destroy(){
-		if(buildHealth != null)
+		if(buildHealth != null){
 			buildHealth.SuddenDeath();
+		}
+		else
+			AudioManager.instance.Play("Error");
 			
 		Cancel();
 	}
@@ -44,6 +47,7 @@ public class BuildingUI : MonoBehaviour {
 		teamController.SetControlButtonDisplay(true);
 		chattingPanel.SetChatButtonDisplay(true);
 		BuildingPanelDisplay(false);
+		AudioManager.instance.Play("TapBack");
 	}
 
 	public void HideTheBuildingPanel(SlimeHealth h){

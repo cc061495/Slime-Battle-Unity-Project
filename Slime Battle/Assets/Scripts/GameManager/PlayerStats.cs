@@ -31,7 +31,7 @@ public class PlayerStats : MonoBehaviour {
 	}
 
 	public void NewRoundCostUpdate(){
-		/* PlayerCost = Cost + RoundBouns*/
+		/* PlayerCost = Cost + RoundBouns + spawnedCost */
 		playerCost += roundBounsCost * gm.currentRound + spawnedCost;
 		spawnedCost = 0;
 		UpdatePlayerCostText();

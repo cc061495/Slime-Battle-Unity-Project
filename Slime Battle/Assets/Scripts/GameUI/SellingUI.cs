@@ -32,16 +32,19 @@ public class SellingUI : MonoBehaviour {
 
 		gameManager.ShopDisplay(false);
 		SellingPanelDisplay(true);
+		AudioManager.instance.Play("Tap");
 	}
 
 	public void Hide(){
 		gameManager.ShopDisplay(true);
 		SellingPanelDisplay(false);
+		AudioManager.instance.Play("TapBack");
 	}
 
 	public void Sell(){
 		target.SellSlime();
 		SpawnManager.Instance.DeselectNode();
+		AudioManager.instance.Play("Tap");
 	}
 
 	public void SellingPanelDisplay(bool display){
