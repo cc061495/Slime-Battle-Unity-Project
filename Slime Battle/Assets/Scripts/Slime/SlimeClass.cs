@@ -140,7 +140,7 @@ public class SlimeClass{
 
 			case "Wall":
 				/* Building Properties */
-				startHealth 	= 30 ;
+				startHealth 	= 15 ;
 				scaleRadius 	= 1.5f ;
 				/* Slime Priority */
 				healingPriority = 0 ;
@@ -363,7 +363,7 @@ public class SlimeClass{
 
 			case "Turret":
 				/* Building Properties */
-				startHealth 	= 15 ;
+				startHealth 	= 20 ;
 				actionRange 	= 9f ;
 				scaleRadius 	= 1.5f ;
 				/* Slime Priority */
@@ -382,7 +382,7 @@ public class SlimeClass{
 
 			case "Snowman":
 				/* Building Properties */
-				startHealth 	= 15 ;
+				startHealth 	= 30 ;
 				scaleRadius 	= 2.5f ;
 				actionRange 	= 5.5f ;
 				/* Slime Priority */

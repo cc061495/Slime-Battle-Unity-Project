@@ -7,6 +7,7 @@ public class InventoryUI : MonoBehaviour {
 
 	public Transform cardsParent;
 	public Text inventoryStorageText;
+	bool firstLoad = false;
 	Inventory inventory;
 
 	public InventorySlot[] slots;
@@ -22,15 +23,18 @@ public class InventoryUI : MonoBehaviour {
 		inventoryStorageText.text = inventory.cards.Count + " / " + slots.Length;
 		
 		for (int i = 0; i < slots.Length; i++){
-			if(i < inventory.cards.Count){
+			if(i < inventory.cards.Count && slots[i].card == null){
 				slots[i].AddCard(inventory.cards[i], i);
 			}
-			else{
+			else if(!firstLoad){
 				slots[i].ClearSlot();
 			}
 		}
 
-		MenuScreen.Instance.DisableAllPanel();
+		if(!firstLoad){
+			firstLoad = true;
+			MenuScreen.Instance.DisableAllPanel();
+		}
 	}
 
 	public void UpdatePlayerCardDeck(int deckSlotNum, int inventorySlotNum){

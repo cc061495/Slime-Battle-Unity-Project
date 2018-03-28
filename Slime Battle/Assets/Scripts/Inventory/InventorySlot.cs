@@ -6,7 +6,7 @@ public class InventorySlot : MonoBehaviour {
 	public Image icon;
 	public Button selectButton;
 	private int inventorySlotNum;
-	Card card;
+	public Card card;
 
 	public void AddCard(Card newCard, int num){
 		inventorySlotNum = num;

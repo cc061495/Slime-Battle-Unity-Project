@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Setting : MonoBehaviour {
 
-	public GameObject confirmPanel, renamePanel, resetPanel, creditsPanel;
+	public GameObject confirmPanel, renamePanel, resetPanel, creditsPanel, playerDeck;
 	public InputField renameText;
 	public SceneFader sceneFader;
 
@@ -56,7 +56,7 @@ public class Setting : MonoBehaviour {
 	public void ResetPlayerData(){
 		AudioManager.instance.Play("Tap");
 		PlayerData.Instance.ResetPlayerData();
-		Destroy(GameObject.Find("PlayerCardDeck"));
+		Destroy(playerDeck);
 		AudioManager.instance.ChangeTheme("Home");
 		sceneFader.FadeTo("HomeScreen");
 	}
